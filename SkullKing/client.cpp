@@ -152,8 +152,8 @@ void Client::showCards(QList<cards> cCards){
            pushButtons[i].cards_button->setGeometry(X,Y,width,height);
           pushButtons[i]. cards_button->show();
        }
-       connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons0_clicked()));
-       connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons1_clicked()));
+       connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons0_clicked()));
+       connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons1_clicked()));
    }
              break;
    case 4:{
@@ -176,10 +176,10 @@ void Client::showCards(QList<cards> cCards){
            pushButtons[i].cards_button->setGeometry(X,Y,width,height);
            pushButtons[i].cards_button->show();
        }
-       connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons0_clicked()));
-       connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons1_clicked()));
-       connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons2_clicked()));
-       connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons3_clicked()));
+       connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons0_clicked()));
+       connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons1_clicked()));
+       connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons2_clicked()));
+       connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons3_clicked()));
    }
               break;
    case 6:{
@@ -202,12 +202,12 @@ void Client::showCards(QList<cards> cCards){
            pushButtons[i].cards_button->setGeometry(X,Y,width,height);
            pushButtons[i].cards_button->show();
        }
-       connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons0_clicked()));
-       connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons1_clicked()));
-       connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons2_clicked()));
-       connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons3_clicked()));
-       connect(pushButtons[4].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons4_clicked()));
-       connect(pushButtons[5].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons5_clicked()));
+       connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons0_clicked()));
+       connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons1_clicked()));
+       connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons2_clicked()));
+       connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons3_clicked()));
+       connect(pushButtons[4].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons4_clicked()));
+       connect(pushButtons[5].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons5_clicked()));
    }
               break;
    case 8:{
@@ -230,14 +230,14 @@ void Client::showCards(QList<cards> cCards){
            pushButtons[i].cards_button->setGeometry(X,Y,width,height);
            pushButtons[i].cards_button->show();
        }
-       connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons0_clicked()));
-       connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons1_clicked()));
-       connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons2_clicked()));
-       connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons3_clicked()));
-       connect(pushButtons[4].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons4_clicked()));
-       connect(pushButtons[5].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons5_clicked()));
-       connect(pushButtons[6].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons6_clicked()));
-       connect(pushButtons[7].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons7_clicked()));
+       connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons0_clicked()));
+       connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons1_clicked()));
+       connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons2_clicked()));
+       connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons3_clicked()));
+       connect(pushButtons[4].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons4_clicked()));
+       connect(pushButtons[5].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons5_clicked()));
+       connect(pushButtons[6].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons6_clicked()));
+       connect(pushButtons[7].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons7_clicked()));
    }
               break;
    case 10:{
@@ -261,16 +261,16 @@ void Client::showCards(QList<cards> cCards){
            pushButtons[i].cards_button->show();
        }
 
-       connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons0_clicked()));
-       connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons1_clicked()));
-       connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons2_clicked()));
-       connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons3_clicked()));
-       connect(pushButtons[4].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons4_clicked()));
-       connect(pushButtons[5].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons5_clicked()));
-       connect(pushButtons[6].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons6_clicked()));
-       connect(pushButtons[7].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons7_clicked()));
-       connect(pushButtons[8].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons8_clicked()));
-       connect(pushButtons[9].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons9_clicked()));
+       connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons0_clicked()));
+       connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons1_clicked()));
+       connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons2_clicked()));
+       connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons3_clicked()));
+       connect(pushButtons[4].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons4_clicked()));
+       connect(pushButtons[5].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons5_clicked()));
+       connect(pushButtons[6].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons6_clicked()));
+       connect(pushButtons[7].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons7_clicked()));
+       connect(pushButtons[8].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons8_clicked()));
+       connect(pushButtons[9].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons9_clicked()));
    }
               break;
    case 12:{
@@ -294,18 +294,18 @@ void Client::showCards(QList<cards> cCards){
            pushButtons[i].cards_button->show();
        }
 
-       connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons0_clicked()));
-       connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons1_clicked()));
-       connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons2_clicked()));
-       connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons3_clicked()));
-       connect(pushButtons[4].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons4_clicked()));
-       connect(pushButtons[5].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons5_clicked()));
-       connect(pushButtons[6].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons6_clicked()));
-       connect(pushButtons[7].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons7_clicked()));
-       connect(pushButtons[8].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons8_clicked()));
-       connect(pushButtons[9].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons9_clicked()));
-       connect(pushButtons[10].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons10_clicked()));
-       connect(pushButtons[11].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons11_clicked()));
+       connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons0_clicked()));
+       connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons1_clicked()));
+       connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons2_clicked()));
+       connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons3_clicked()));
+       connect(pushButtons[4].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons4_clicked()));
+       connect(pushButtons[5].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons5_clicked()));
+       connect(pushButtons[6].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons6_clicked()));
+       connect(pushButtons[7].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons7_clicked()));
+       connect(pushButtons[8].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons8_clicked()));
+       connect(pushButtons[9].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons9_clicked()));
+       connect(pushButtons[10].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons10_clicked()));
+       connect(pushButtons[11].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons11_clicked()));
    }
               break;
    case 14: {
@@ -328,20 +328,20 @@ void Client::showCards(QList<cards> cCards){
            pushButtons[i].cards_button->setGeometry(X,Y,width,height);
            pushButtons[i].cards_button->show();
        }
-       connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons0_clicked()));
-       connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons1_clicked()));
-       connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons2_clicked()));
-       connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons3_clicked()));
-       connect(pushButtons[4].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons4_clicked()));
-       connect(pushButtons[5].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons5_clicked()));
-       connect(pushButtons[6].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons6_clicked()));
-       connect(pushButtons[7].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons7_clicked()));
-       connect(pushButtons[8].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons8_clicked()));
-       connect(pushButtons[9].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons9_clicked()));
-       connect(pushButtons[10].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons10_clicked()));
-       connect(pushButtons[11].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons11_clicked()));
-       connect(pushButtons[12].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons12_clicked()));
-       connect(pushButtons[13].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons13_clicked()));
+       connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons0_clicked()));
+       connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons1_clicked()));
+       connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons2_clicked()));
+       connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons3_clicked()));
+       connect(pushButtons[4].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons4_clicked()));
+       connect(pushButtons[5].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons5_clicked()));
+       connect(pushButtons[6].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons6_clicked()));
+       connect(pushButtons[7].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons7_clicked()));
+       connect(pushButtons[8].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons8_clicked()));
+       connect(pushButtons[9].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons9_clicked()));
+       connect(pushButtons[10].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons10_clicked()));
+       connect(pushButtons[11].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons11_clicked()));
+       connect(pushButtons[12].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons12_clicked()));
+       connect(pushButtons[13].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons13_clicked()));
 
     }
               break;
@@ -428,6 +428,8 @@ void Client::on_Buttons0_clicked(){
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
+    move_oneCards(pushButtons[0]);
+
 
 
 }
@@ -452,6 +454,7 @@ void Client::on_Buttons1_clicked(){
      socket->flush();
      file.close();
      currentPlayer.set_turn(false);
+     move_oneCards(pushButtons[1]);
 
 
 }
@@ -476,6 +479,7 @@ void Client::on_Buttons2_clicked(){
       socket->flush();
       file.close();
       currentPlayer.set_turn(false);
+      move_oneCards(pushButtons[2]);
 
 
 
@@ -501,6 +505,7 @@ void Client::on_Buttons3_clicked(){
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
+    move_oneCards(pushButtons[3]);
 
 
 
@@ -526,6 +531,7 @@ void Client::on_Buttons4_clicked(){
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
+    move_oneCards(pushButtons[4]);
 
 
 
@@ -551,6 +557,7 @@ void Client::on_Buttons5_clicked(){
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
+    move_oneCards(pushButtons[5]);
 
 
 
@@ -576,6 +583,7 @@ void Client::on_Buttons6_clicked(){
       socket->flush();
       file.close();
       currentPlayer.set_turn(false);
+      move_oneCards(pushButtons[6]);
 
 
 
@@ -601,6 +609,7 @@ void Client::on_Buttons7_clicked(){
       socket->flush();
       file.close();
       currentPlayer.set_turn(false);
+      move_oneCards(pushButtons[7]);
 
 
 
@@ -626,6 +635,7 @@ void Client::on_Buttons8_clicked(){
       socket->flush();
       file.close();
       currentPlayer.set_turn(false);
+      move_oneCards(pushButtons[8]);
 
 
 
@@ -652,6 +662,7 @@ void Client::on_Buttons9_clicked(){
       socket->flush();
       file.close();
       currentPlayer.set_turn(false);
+      move_oneCards(pushButtons[9]);
 
 
 }
@@ -676,6 +687,7 @@ void Client::on_Buttons10_clicked(){
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
+    move_oneCards(pushButtons[10]);
 
 
 
@@ -701,6 +713,7 @@ void Client::on_Buttons11_clicked(){
       socket->flush();
       file.close();
       currentPlayer.set_turn(false);
+      move_oneCards(pushButtons[11]);
 
 
 }
@@ -724,6 +737,7 @@ void Client::on_Buttons12_clicked(){
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
+    move_oneCards(pushButtons[12]);
 
 
 
@@ -749,6 +763,7 @@ void Client::on_Buttons13_clicked(){
       socket->flush();
       file.close();
       currentPlayer.set_turn(false);
+      move_oneCards(pushButtons[13]);
 }
 //**************************************************************************************************
 void Client :: set_client_card(struct buttons cCard){
@@ -968,3 +983,14 @@ QVector<buttons> Client:: get_PushPuttons(){
     return pushButtons;
 }
 //**********************************************************************************************************************
+void Client::move_oneCards(buttons& cCards){
+    QPropertyAnimation *anim = new QPropertyAnimation(cCards.cards_button, "pos", this);
+       anim->setDuration(500);
+       anim->setEndValue(QPoint(290, 290));
+       anim->start();
+       cCards.cards_button->disconnect();
+       cCards.cards_button->hide();
+       set_picture(client_card);
+
+     // anim->DeleteWhenStopped;
+}

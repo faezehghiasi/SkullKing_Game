@@ -55,7 +55,7 @@ void Server :: readyRead(){
           if(recivedCard.size()==1){
               currentPlayer.set_turn(true);
               client_card = recivedCard[0];
-              set_picture(server_card);
+              set_picture(client_card);
 
 
          }
@@ -97,7 +97,7 @@ QTcpSocket* Server::get_socket()
     return socket;
 }
 //*************************************************************************
-QVector<buttons> Server::get_buttons(){return pushButtons;}
+QVector<buttons>& Server::get_buttons(){return pushButtons;}
 //***************************************************************************
 void Server::showCards(QList<cards> cCards){
     switch(cCards.size()){
@@ -326,7 +326,7 @@ void Server::whoShouldStartTheGameFirst(){
     tab:if(server_number>client_number){
         currentPlayer.set_turn(true);
     }
-    else if(server_number>client_number){
+    else if(client_number>server_number){
        currentPlayer.set_turn(false);
     }
     else{
@@ -613,11 +613,11 @@ void Server :: set_server_card(struct buttons sCard){
     server_card =sCard;
 }
 //********************************************************************************************
-buttons Server::get_client_card(){
+buttons& Server::get_client_card(){
     return client_card;
 }
 //**********************************************************************************************
-buttons Server::get_server_card(){
+buttons& Server::get_server_card(){
     return server_card;
 }
 //*************************************************************************************************
@@ -641,6 +641,10 @@ void Server::on_Buttons0_clicked(){
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
+    move_oneCards(pushButtons[0]);
+    pushButtons[0].cards_button->disconnect();
+    pushButtons[0].cards_button->hide();
+    set_picture(server_card);
 
 }
 //**************************************************************************************************
@@ -664,6 +668,10 @@ void Server::on_Buttons1_clicked(){
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
+    move_oneCards(pushButtons[1]);
+    pushButtons[1].cards_button->disconnect();
+    pushButtons[1].cards_button->hide();
+    set_picture(server_card);
 
 }
 //**************************************************************************************************
@@ -687,6 +695,7 @@ void Server::on_Buttons2_clicked(){
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
+    move_oneCards(pushButtons[2]);
 
 }
 //**************************************************************************************************
@@ -710,6 +719,7 @@ void Server::on_Buttons3_clicked(){
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
+    move_oneCards(pushButtons[3]);
 
 }
 //**************************************************************************************************
@@ -733,6 +743,7 @@ void Server::on_Buttons4_clicked(){
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
+    move_oneCards(pushButtons[4]);
 
 }
 //**************************************************************************************************
@@ -756,6 +767,7 @@ void Server::on_Buttons5_clicked(){
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
+    move_oneCards(pushButtons[5]);
 
 }
 //**************************************************************************************************
@@ -779,6 +791,7 @@ void Server::on_Buttons6_clicked(){
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
+    move_oneCards(pushButtons[6]);
 
 }
 //**************************************************************************************************
@@ -802,6 +815,7 @@ void Server::on_Buttons7_clicked(){
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
+    move_oneCards(pushButtons[7]);
 
 }
 //**************************************************************************************************
@@ -825,6 +839,7 @@ void Server::on_Buttons8_clicked(){
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
+    move_oneCards(pushButtons[8]);
 
 }
 //**************************************************************************************************
@@ -848,6 +863,7 @@ void Server::on_Buttons9_clicked(){
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
+    move_oneCards(pushButtons[9]);
 
 }
 //**************************************************************************************************
@@ -871,6 +887,7 @@ void Server::on_Buttons10_clicked(){
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
+    move_oneCards(pushButtons[10]);
 
 }
 //**************************************************************************************************
@@ -894,6 +911,7 @@ void Server::on_Buttons11_clicked(){
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
+    move_oneCards(pushButtons[11]);
 
 }
 //**************************************************************************************************
@@ -917,6 +935,7 @@ void Server::on_Buttons12_clicked(){
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
+    move_oneCards(pushButtons[12]);
 
 }
 //**************************************************************************************************
@@ -938,20 +957,17 @@ void Server::on_Buttons13_clicked(){
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
+    move_oneCards(pushButtons[13]);
 
 }
 //**************************************************************************************************
-void Server::move_oneCards(buttons cCards){
+void Server::move_oneCards(buttons& cCards){
     QPropertyAnimation *anim = new QPropertyAnimation(cCards.cards_button, "pos", this);
-       anim->setDuration(1000);
+       anim->setDuration(500);
        anim->setEndValue(QPoint(290, 290));
        anim->start();
-      if(cCards.cards_button->geometry().x()==290 && cCards.cards_button->geometry().y()==290){
-          cCards.cards_button->disconnect();
-          cCards.cards_button->hide();
-          set_picture(server_card);
-      }
-      anim->DeleteWhenStopped;
+      return;
+      //anim->DeleteWhenStopped;
 }
 
 
