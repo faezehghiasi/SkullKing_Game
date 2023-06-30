@@ -991,6 +991,5 @@ void Client::move_oneCards(buttons& cCards){
        cCards.cards_button->disconnect();
        cCards.cards_button->hide();
        set_picture(client_card);
-
-     // anim->DeleteWhenStopped;
+       anim->DeleteWhenStopped;
 }

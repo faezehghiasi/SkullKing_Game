@@ -23,7 +23,7 @@ public:
     friend class Server;
     friend class Client;
     explicit ClientOrServer(QWidget *parent = nullptr);
-    void delay();
+    static void delay(int);
     ~ClientOrServer();
 public slots:
     void connect_button_clicked();

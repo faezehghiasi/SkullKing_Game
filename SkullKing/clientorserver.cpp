@@ -69,7 +69,7 @@ void ClientOrServer::connect_button_clicked(){
     client_label->setStyleSheet("color: rgb(2, 2, 2);font: 20pt Snap ITC;");
     client_label->setText("waiting...");
     client_label->show();
-    delay();
+    delay(3000);
     if(changePage){
         MenuSelection* menu;
         menu = new MenuSelection;
@@ -80,7 +80,7 @@ void ClientOrServer::connect_button_clicked(){
 
 //*******************************************************************************
 void ClientOrServer::chanePage(){
-    delay();
+    delay(3000);
     MenuSelection* mn;
     mn = new MenuSelection;
     this->hide();
@@ -88,8 +88,8 @@ void ClientOrServer::chanePage(){
     mn->show();
 }
 //*******************************************************************************
-void ClientOrServer::delay(){
-    QTime dietime=QTime::currentTime().addMSecs(3000);
+void ClientOrServer::delay(int ms){
+    QTime dietime=QTime::currentTime().addMSecs(ms);
     while(QTime::currentTime()<dietime)
     QCoreApplication::processEvents(QEventLoop::AllEvents,100);
 }
