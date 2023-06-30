@@ -21,7 +21,7 @@ public:
     void setNumber(int);
     void setValue(int);
     void setOrder(QString order_val);
-    void operator=(cards c);
+    cards& operator=(cards c);
 };
 
 #endif // CARDS_H

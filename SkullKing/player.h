@@ -14,8 +14,9 @@ struct buttons{
     QPushButton* cards_button;
     cards thisCard;
     //overload =
-    void operator =(cards c){
-        this->thisCard=c;
+    buttons& operator =(cards c){
+        this->thisCard = c;
+        return *this;
     }
 
 };

@@ -32,9 +32,9 @@ void MenuSelection::on_start_clicked()
             cards server_order;
             server_order.setOrder("Start The Game");
             sendCard.push_back(server_order);
-            for(int i=0 ; i<sendCard.size();i++){
-                qDebug()<<sendCard[i].getId()<<"\t"<<sendCard[i].getNumber()<<"\t"<<sendCard[i].getValue()<<"\n";
-            }
+//            for(int i=0 ; i<sendCard.size();i++){
+//                qDebug()<<sendCard[i].getId()<<"\t"<<sendCard[i].getNumber()<<"\t"<<sendCard[i].getValue()<<"\n";
+//            }
             writeToFileCards("sendCard.bin",sendCard);
             QFile file("sendCard.bin");
             file.open(QFile::ReadOnly | QFile::Text);
@@ -42,10 +42,12 @@ void MenuSelection::on_start_clicked()
             srv->get_socket()->write(file_content);
             srv->get_socket()->flush();
             file.close();
+
             currentPlayer.set_coin(currentPlayer.get_coin()-50);
             auto foundPlayer=find_if(listOfPlayer.begin(),listOfPlayer.end(),[](auto x){return(x.get_username()==currentPlayer.get_username());});
             foundPlayer->set_coin(currentPlayer.get_coin());
              writeToFile("myfile.bin");
+
               // server pick cards first
              int turncount = currentPlayer.get_countOfTurn();
              sendCard = currentPlayer.creat_cards();

@@ -14,9 +14,10 @@ void cards::setNumber(int number_val) { number=number_val; }
 void cards::setValue(int value_val) { value=value_val; }
 void cards::setOrder(QString order_val){order = order_val;}
 QString cards::getOrder(){return order;}
-void cards::operator=(cards c){
+cards& cards::operator=(cards c){
     id=c.getId();
     number=c.getNumber();
-    value=c.getValue();
-    order=c.getOrder();
+    value = c.getValue();
+    order = c.getOrder();
+    return *this;
 }

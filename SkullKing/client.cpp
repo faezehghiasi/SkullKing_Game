@@ -5,6 +5,7 @@
 #include"menuselection.h"
 #include <QDataStream>
 #include<QFile>
+#include<QDebug>
 QString Ip;
 Client* cln;
 Client::Client(QWidget *parent) :
@@ -12,6 +13,11 @@ Client::Client(QWidget *parent) :
     ui(new Ui::Client)
 {
     ui->setupUi(this);
+    server_card.cards_button = new QPushButton(this);
+    server_card.cards_button->setGeometry(210,240,101,141);
+    client_card.cards_button = new QPushButton(this);
+    client_card.cards_button->setGeometry(290,290,101,141);
+
 
 }
 //*****************************************************************************
@@ -88,14 +94,14 @@ void Client::readyRead() {
            }
       }
       else if(recivedCard.size()==2){
+           qDebug()<<recivedCard[0].getId()<<" "<<recivedCard[0].getNumber();
+           qDebug()<<recivedCard[1].getId()<<" "<<recivedCard[1].getNumber();
            if(recivedCard[0].getNumber()<recivedCard[1].getNumber()) currentPlayer.set_turn(true);
            else currentPlayer.set_turn(false);
-           struct buttons parrotServer;
-           struct buttons parrotClient;
-           parrotServer=recivedCard[0];
-           parrotClient=recivedCard[1];
-           set_picture(parrotServer);
-           set_picture(parrotClient);
+           server_card = recivedCard[0];
+           client_card = recivedCard[1];
+           set_picture(server_card);
+           set_picture(client_card);
        }
       else{
            currentPlayer.set_randomCards(recivedCard,currentPlayer.get_countOfTurn());
@@ -365,7 +371,7 @@ void Client::on_Buttons0_clicked(){
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
 
-    /// nimaition
+    /// animaition
 
     socket->write(file_content);
     socket->flush();

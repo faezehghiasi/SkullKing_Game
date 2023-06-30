@@ -58,10 +58,6 @@ private:
     QString message;
     struct buttons server_card;
     struct buttons client_card;
-
-
-
-
 };
 extern Client* cln;
 

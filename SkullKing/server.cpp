@@ -16,6 +16,10 @@ Server::Server(QWidget *parent) :
     ui->setupUi(this);
     ui->setupUi(this);
     server = new QTcpServer;
+    server_card.cards_button = new QPushButton(this);
+    server_card.cards_button->setGeometry(290,290,101,141);
+    client_card.cards_button = new QPushButton(this);
+    client_card.cards_button->setGeometry(210,240,101,141);
 
 }
 //************************************************************
@@ -285,16 +289,14 @@ void Server::whoShouldStartTheGameFirst(){
         client_number =( QRandomGenerator::global()->generate()%8)+1;
         goto tab;
     }
-    cards server_card ;
-    server_card.setId(3);
-    server_card.setNumber(server_number);
-    server_card.setValue(server_number);
-    cards client_card ;
-    client_card.setId(3);
-    client_card.setNumber(server_number);
-    client_card.setValue(server_number);
-    sendCard.push_back(server_card);
-    sendCard.push_back(client_card);
+    server_card.thisCard.setId(3);
+    server_card.thisCard.setNumber(server_number);
+    server_card.thisCard.setValue(server_number);
+    client_card.thisCard.setId(3);
+    client_card.thisCard.setNumber(client_number);
+    client_card.thisCard.setValue(client_number);
+    sendCard.push_back(server_card.thisCard);
+    sendCard.push_back(client_card.thisCard);
     QFile file("sendCard.bin");
     writeToFileCards("sendCard.bin",sendCard);
     file.open(QIODevice::ReadOnly);
@@ -578,7 +580,19 @@ void Server::on_Buttons0_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    client_card = pushButtons[0];
+    sendCard.push_back(pushButtons[0].thisCard);
+    writeToFileCards("sendCard.bin",sendCard);
+    QFile file("sendCard.bin");
+    file.open(QFile::ReadOnly | QFile::Text);
+    QByteArray file_content = file.readAll();
 
+    /// animaition
+
+    socket->write(file_content);
+    socket->flush();
+    file.close();
+    currentPlayer.set_turn(false);
 
 }
 //**************************************************************************************************
@@ -588,7 +602,19 @@ void Server::on_Buttons1_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    client_card = pushButtons[1];
+    sendCard.push_back(pushButtons[1].thisCard);
+    writeToFileCards("sendCard.bin",sendCard);
+    QFile file("sendCard.bin");
+    file.open(QFile::ReadOnly | QFile::Text);
+    QByteArray file_content = file.readAll();
 
+    /// animaition
+
+    socket->write(file_content);
+    socket->flush();
+    file.close();
+    currentPlayer.set_turn(false);
 
 }
 //**************************************************************************************************
@@ -598,7 +624,19 @@ void Server::on_Buttons2_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    client_card = pushButtons[2];
+    sendCard.push_back(pushButtons[2].thisCard);
+    writeToFileCards("sendCard.bin",sendCard);
+    QFile file("sendCard.bin");
+    file.open(QFile::ReadOnly | QFile::Text);
+    QByteArray file_content = file.readAll();
 
+    /// animaition
+
+    socket->write(file_content);
+    socket->flush();
+    file.close();
+    currentPlayer.set_turn(false);
 
 }
 //**************************************************************************************************
@@ -608,7 +646,19 @@ void Server::on_Buttons3_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    client_card = pushButtons[3];
+    sendCard.push_back(pushButtons[3].thisCard);
+    writeToFileCards("sendCard.bin",sendCard);
+    QFile file("sendCard.bin");
+    file.open(QFile::ReadOnly | QFile::Text);
+    QByteArray file_content = file.readAll();
 
+    /// animaition
+
+    socket->write(file_content);
+    socket->flush();
+    file.close();
+    currentPlayer.set_turn(false);
 
 }
 //**************************************************************************************************
@@ -618,7 +668,19 @@ void Server::on_Buttons4_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    client_card = pushButtons[4];
+    sendCard.push_back(pushButtons[4].thisCard);
+    writeToFileCards("sendCard.bin",sendCard);
+    QFile file("sendCard.bin");
+    file.open(QFile::ReadOnly | QFile::Text);
+    QByteArray file_content = file.readAll();
 
+    /// animaition
+
+    socket->write(file_content);
+    socket->flush();
+    file.close();
+    currentPlayer.set_turn(false);
 
 }
 //**************************************************************************************************
@@ -628,7 +690,19 @@ void Server::on_Buttons5_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    client_card = pushButtons[5];
+    sendCard.push_back(pushButtons[5].thisCard);
+    writeToFileCards("sendCard.bin",sendCard);
+    QFile file("sendCard.bin");
+    file.open(QFile::ReadOnly | QFile::Text);
+    QByteArray file_content = file.readAll();
 
+    /// animaition
+
+    socket->write(file_content);
+    socket->flush();
+    file.close();
+    currentPlayer.set_turn(false);
 
 }
 //**************************************************************************************************
@@ -638,7 +712,19 @@ void Server::on_Buttons6_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    client_card = pushButtons[6];
+    sendCard.push_back(pushButtons[6].thisCard);
+    writeToFileCards("sendCard.bin",sendCard);
+    QFile file("sendCard.bin");
+    file.open(QFile::ReadOnly | QFile::Text);
+    QByteArray file_content = file.readAll();
 
+    /// animaition
+
+    socket->write(file_content);
+    socket->flush();
+    file.close();
+    currentPlayer.set_turn(false);
 
 }
 //**************************************************************************************************
@@ -648,7 +734,19 @@ void Server::on_Buttons7_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    client_card = pushButtons[7];
+    sendCard.push_back(pushButtons[7].thisCard);
+    writeToFileCards("sendCard.bin",sendCard);
+    QFile file("sendCard.bin");
+    file.open(QFile::ReadOnly | QFile::Text);
+    QByteArray file_content = file.readAll();
 
+    /// animaition
+
+    socket->write(file_content);
+    socket->flush();
+    file.close();
+    currentPlayer.set_turn(false);
 
 }
 //**************************************************************************************************
@@ -658,7 +756,19 @@ void Server::on_Buttons8_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    client_card = pushButtons[8];
+    sendCard.push_back(pushButtons[8].thisCard);
+    writeToFileCards("sendCard.bin",sendCard);
+    QFile file("sendCard.bin");
+    file.open(QFile::ReadOnly | QFile::Text);
+    QByteArray file_content = file.readAll();
 
+    /// animaition
+
+    socket->write(file_content);
+    socket->flush();
+    file.close();
+    currentPlayer.set_turn(false);
 
 }
 //**************************************************************************************************
@@ -668,7 +778,19 @@ void Server::on_Buttons9_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    client_card = pushButtons[9];
+    sendCard.push_back(pushButtons[9].thisCard);
+    writeToFileCards("sendCard.bin",sendCard);
+    QFile file("sendCard.bin");
+    file.open(QFile::ReadOnly | QFile::Text);
+    QByteArray file_content = file.readAll();
 
+    /// animaition
+
+    socket->write(file_content);
+    socket->flush();
+    file.close();
+    currentPlayer.set_turn(false);
 
 }
 //**************************************************************************************************
@@ -678,7 +800,19 @@ void Server::on_Buttons10_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    client_card = pushButtons[10];
+    sendCard.push_back(pushButtons[10].thisCard);
+    writeToFileCards("sendCard.bin",sendCard);
+    QFile file("sendCard.bin");
+    file.open(QFile::ReadOnly | QFile::Text);
+    QByteArray file_content = file.readAll();
 
+    /// animaition
+
+    socket->write(file_content);
+    socket->flush();
+    file.close();
+    currentPlayer.set_turn(false);
 
 }
 //**************************************************************************************************
@@ -688,7 +822,19 @@ void Server::on_Buttons11_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    client_card = pushButtons[11];
+    sendCard.push_back(pushButtons[11].thisCard);
+    writeToFileCards("sendCard.bin",sendCard);
+    QFile file("sendCard.bin");
+    file.open(QFile::ReadOnly | QFile::Text);
+    QByteArray file_content = file.readAll();
 
+    /// animaition
+
+    socket->write(file_content);
+    socket->flush();
+    file.close();
+    currentPlayer.set_turn(false);
 
 }
 //**************************************************************************************************
@@ -698,7 +844,19 @@ void Server::on_Buttons12_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    client_card = pushButtons[12];
+    sendCard.push_back(pushButtons[12].thisCard);
+    writeToFileCards("sendCard.bin",sendCard);
+    QFile file("sendCard.bin");
+    file.open(QFile::ReadOnly | QFile::Text);
+    QByteArray file_content = file.readAll();
 
+    /// animaition
+
+    socket->write(file_content);
+    socket->flush();
+    file.close();
+    currentPlayer.set_turn(false);
 
 }
 //**************************************************************************************************
@@ -708,7 +866,19 @@ void Server::on_Buttons13_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    client_card = pushButtons[13];
+    sendCard.push_back(pushButtons[13].thisCard);
+    writeToFileCards("sendCard.bin",sendCard);
+    QFile file("sendCard.bin");
+    file.open(QFile::ReadOnly | QFile::Text);
+    QByteArray file_content = file.readAll();
 
+    /// animaition
+
+    socket->write(file_content);
+    socket->flush();
+    file.close();
+    currentPlayer.set_turn(false);
 
 }
 //**************************************************************************************************
