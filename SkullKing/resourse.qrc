@@ -50,5 +50,6 @@
         <file>../resource/parrot6.png</file>
         <file>../resource/parrot7.png</file>
         <file>../resource/parrot8.png</file>
+        <file>../../RealProjectTerm2/resource/background3.jpeg</file>
     </qresource>
 </RCC>

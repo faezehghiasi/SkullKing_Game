@@ -17,6 +17,8 @@ Client::Client(QWidget *parent) :
     server_card.cards_button->setGeometry(210,240,101,141);
     client_card.cards_button = new QPushButton(this);
     client_card.cards_button->setGeometry(290,290,101,141);
+    server_card.cards_button->hide();
+    client_card.cards_button->hide();
 
 
 }
@@ -55,7 +57,7 @@ void Client::readyRead() {
     /// reading file content
        QByteArray file_content = socket->readAll();
        QFile file("recivedCard.bin");
-       if(!file.open(QIODevice::WriteOnly)){
+       if(!file.open(QFile::WriteOnly | QFile::Text)){
            qDebug()<<"file can not open";
            return;
        }
@@ -75,9 +77,10 @@ void Client::readyRead() {
               sendCard = currentPlayer.creat_cards();
               currentPlayer.set_randomCards(sendCard,turncount);
               writeToFileCards("sendCard.bin",sendCard);
-              file.open(QIODevice::ReadOnly);
+              file.open(QFile::ReadOnly | QFile::Text);
               QByteArray file_content = file.readAll();
               socket->write(file_content);
+              //socket->waitForBytesWritten(3000);
               socket->flush();
                /// darkhast jabejaii cards
               // qDebug()<<currentPlayer.playeCard.size();

@@ -52,8 +52,6 @@ void writeToFileCards(QString filename,QVector<cards>& card_val)
    for(int i=0 ; i<card_val.size();i++)
    {
        out<<card_val[i];
-
-
   }
    myfile.flush();
    myfile.close();
@@ -166,6 +164,7 @@ QVector<cards> Player::set_randomCards(QVector<cards>& exitCards, int countOfTur
         playeCard.push_back(exitCards[index]);
         exitCards.erase(it);
     }
+     sort(playeCard.begin(),playeCard.end(),[](auto a ,auto b){return a.getId()<b.getId();});
 
 //    qDebug()<<"list size : "<<playeCard.size();
 //    qDebug()<<"vector size : "<<exitCards.size();

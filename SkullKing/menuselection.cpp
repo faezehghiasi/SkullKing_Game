@@ -6,6 +6,7 @@
 #include<QMessageBox>
 #include"signup.h"
 #include"algorithm"
+#include<QTime>
 MenuSelection::MenuSelection(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MenuSelection)
@@ -51,19 +52,32 @@ void MenuSelection::on_start_clicked()
               // server pick cards first
              int turncount = currentPlayer.get_countOfTurn();
              sendCard = currentPlayer.creat_cards();
-             currentPlayer.set_randomCards(sendCard,turncount);
+             currentPlayer.set_randomCards(sendCard,7);
+             srv->showCards(currentPlayer.playeCard);
+             for(int i=0 ; i<srv->get_buttons().size();i++){
+                 srv->set_picture(srv->get_buttons()[i]);
+             }
+             for(int i=0 ; i<currentPlayer.playeCard.size();i++){
+                 qDebug()<<currentPlayer.playeCard[i].getId()<<"    "<<currentPlayer.playeCard[i].getNumber();
+             }
              writeToFileCards("sendCard.bin",sendCard);
-             file.open(QFile::ReadOnly | QFile::Text);
-             QByteArray file_content2 = file.readAll();
+             QFile file2("sendCard.bin");
+             file2.open(QFile::ReadOnly | QFile::Text);
+             QByteArray file_content2 = file2.readAll();
              srv->get_socket()->write(file_content2);
+            // srv->get_socket()->waitForBytesWritten(3000);
              srv->get_socket()->flush();
+             file2.close();
              // end
+
+
+
 
              /// making parrote cards
              srv->whoShouldStartTheGameFirst();
              srv->set_picture(srv->get_server_card());
              srv->set_picture(srv->get_client_card());
-             //end
+             ///end
 
      }
     }

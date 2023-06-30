@@ -31,6 +31,7 @@ public:
      void set_server_card(struct buttons sCard);
      struct buttons get_client_card();
      struct buttons get_server_card();
+     QVector<buttons> get_buttons();
     ~Server();
 signals:
     void sendIp(QString ip);

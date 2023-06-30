@@ -36,8 +36,8 @@
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-image: url(:/resource/Decoupage Tissue Paper for sale _ eBay.jfif);
-border:3px solid;
+      <string notr="true">border:3px solid;
+border-image: url(:/RealProjectTerm2/resource/background3.jpeg);
 border-color :#000000</string>
      </property>
      <property name="text">
