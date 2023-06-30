@@ -55,6 +55,8 @@ void Client::disconnected() {
 }
 //****************************************************************************
 void Client::readyRead() {
+
+       // reading file
        QByteArray file_content = socket->readAll();
        QFile file("recivedCard.bin");
        if(!file.open(QFile::WriteOnly | QFile::Text)){
@@ -63,14 +65,7 @@ void Client::readyRead() {
        }
        file.write(file_content);
        file .close();
-       for(int i=0 ; i<recivedCard.size() ;i++){
-           qDebug()<<i<<recivedCard[i].getId()<<recivedCard[i].getOrder();
-       }
-       qDebug()<<"------------------------------------------------------------------------------";
        readFromFileCards("recivedCard.bin",recivedCard);
-       for(int i=0 ; i<recivedCard.size() ;i++){
-           qDebug()<<recivedCard[i].getId()<<recivedCard[i].getOrder();
-       }
       /// end
 
        if(recivedCard.size()==1){
@@ -118,7 +113,7 @@ void Client::readyRead() {
            set_picture(client_card);
        }
       else{
-           currentPlayer.set_randomCards(recivedCard,7);
+           currentPlayer.set_randomCards(recivedCard,currentPlayer.get_countOfTurn());
            showCards(currentPlayer.playeCard);
            for(int i =0 ; i<pushButtons.size();i++){
               set_picture( pushButtons[i]);
@@ -141,7 +136,6 @@ void Client::play(int countOfturn){
 }
 //***************************************************************************
 void Client::showCards(QList<cards> cCards){
-    qDebug()<<cCards.size();
    switch(cCards.size()){
    case 2:{
        for(int i = 0;i<2;i++){
@@ -158,6 +152,8 @@ void Client::showCards(QList<cards> cCards){
            pushButtons[i].cards_button->setGeometry(X,Y,width,height);
           pushButtons[i]. cards_button->show();
        }
+       connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons0_clicked()));
+       connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons1_clicked()));
    }
              break;
    case 4:{
@@ -180,6 +176,10 @@ void Client::showCards(QList<cards> cCards){
            pushButtons[i].cards_button->setGeometry(X,Y,width,height);
            pushButtons[i].cards_button->show();
        }
+       connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons0_clicked()));
+       connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons1_clicked()));
+       connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons2_clicked()));
+       connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons3_clicked()));
    }
               break;
    case 6:{
@@ -202,6 +202,12 @@ void Client::showCards(QList<cards> cCards){
            pushButtons[i].cards_button->setGeometry(X,Y,width,height);
            pushButtons[i].cards_button->show();
        }
+       connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons0_clicked()));
+       connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons1_clicked()));
+       connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons2_clicked()));
+       connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons3_clicked()));
+       connect(pushButtons[4].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons4_clicked()));
+       connect(pushButtons[5].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons5_clicked()));
    }
               break;
    case 8:{
@@ -224,6 +230,14 @@ void Client::showCards(QList<cards> cCards){
            pushButtons[i].cards_button->setGeometry(X,Y,width,height);
            pushButtons[i].cards_button->show();
        }
+       connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons0_clicked()));
+       connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons1_clicked()));
+       connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons2_clicked()));
+       connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons3_clicked()));
+       connect(pushButtons[4].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons4_clicked()));
+       connect(pushButtons[5].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons5_clicked()));
+       connect(pushButtons[6].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons6_clicked()));
+       connect(pushButtons[7].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons7_clicked()));
    }
               break;
    case 10:{
@@ -246,6 +260,17 @@ void Client::showCards(QList<cards> cCards){
            pushButtons[i].cards_button->setGeometry(X,Y,width,height);
            pushButtons[i].cards_button->show();
        }
+
+       connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons0_clicked()));
+       connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons1_clicked()));
+       connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons2_clicked()));
+       connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons3_clicked()));
+       connect(pushButtons[4].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons4_clicked()));
+       connect(pushButtons[5].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons5_clicked()));
+       connect(pushButtons[6].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons6_clicked()));
+       connect(pushButtons[7].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons7_clicked()));
+       connect(pushButtons[8].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons8_clicked()));
+       connect(pushButtons[9].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons9_clicked()));
    }
               break;
    case 12:{
@@ -268,6 +293,19 @@ void Client::showCards(QList<cards> cCards){
            pushButtons[i].cards_button->setGeometry(X,Y,width,height);
            pushButtons[i].cards_button->show();
        }
+
+       connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons0_clicked()));
+       connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons1_clicked()));
+       connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons2_clicked()));
+       connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons3_clicked()));
+       connect(pushButtons[4].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons4_clicked()));
+       connect(pushButtons[5].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons5_clicked()));
+       connect(pushButtons[6].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons6_clicked()));
+       connect(pushButtons[7].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons7_clicked()));
+       connect(pushButtons[8].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons8_clicked()));
+       connect(pushButtons[9].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons9_clicked()));
+       connect(pushButtons[10].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons10_clicked()));
+       connect(pushButtons[11].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons11_clicked()));
    }
               break;
    case 14: {
@@ -290,25 +328,26 @@ void Client::showCards(QList<cards> cCards){
            pushButtons[i].cards_button->setGeometry(X,Y,width,height);
            pushButtons[i].cards_button->show();
        }
-   }
+       connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons0_clicked()));
+       connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons1_clicked()));
+       connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons2_clicked()));
+       connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons3_clicked()));
+       connect(pushButtons[4].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons4_clicked()));
+       connect(pushButtons[5].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons5_clicked()));
+       connect(pushButtons[6].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons6_clicked()));
+       connect(pushButtons[7].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons7_clicked()));
+       connect(pushButtons[8].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons8_clicked()));
+       connect(pushButtons[9].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons9_clicked()));
+       connect(pushButtons[10].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons10_clicked()));
+       connect(pushButtons[11].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons11_clicked()));
+       connect(pushButtons[12].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons12_clicked()));
+       connect(pushButtons[13].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons13_clicked()));
+
+    }
               break;
 
   }
 
-//      connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons0_clicked()));
-//      connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons1_clicked()));
-//      connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons2_clicked()));
-//      connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons3_clicked()));
-//      connect(pushButtons[4].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons4_clicked()));
-//      connect(pushButtons[5].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons5_clicked()));
-//      connect(pushButtons[6].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons6_clicked()));
-//      connect(pushButtons[7].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons7_clicked()));
-//      connect(pushButtons[8].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons8_clicked()));
-//      connect(pushButtons[9].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons9_clicked()));
-//      connect(pushButtons[10].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons10_clicked()));
-//      connect(pushButtons[11].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons11_clicked()));
-//      connect(pushButtons[12].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons12_clicked()));
-//      connect(pushButtons[13].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons13_clicked()));
 
 
 
@@ -376,6 +415,7 @@ void Client::on_Buttons0_clicked(){
         return;
     }
     client_card = pushButtons[0];
+    currentPlayer.set_selectedCard(client_card.thisCard);
     sendCard.push_back(pushButtons[0].thisCard);
     writeToFileCards("sendCard.bin",sendCard);
     QFile file("sendCard.bin");
@@ -399,6 +439,7 @@ void Client::on_Buttons1_clicked(){
         return;
     }
      client_card = pushButtons[1];
+    currentPlayer.set_selectedCard(client_card.thisCard);
     sendCard.push_back(pushButtons[1].thisCard);
      writeToFileCards("sendCard.bin",sendCard);
      QFile file("sendCard.bin");
@@ -422,6 +463,7 @@ void Client::on_Buttons2_clicked(){
         return;
     }
      client_card = pushButtons[2];
+    currentPlayer.set_selectedCard(client_card.thisCard);
     sendCard.push_back(pushButtons[2].thisCard);
       writeToFileCards("sendCard.bin",sendCard);
       QFile file("sendCard.bin");
@@ -446,6 +488,7 @@ void Client::on_Buttons3_clicked(){
         return;
     }
     client_card = pushButtons[3];
+    currentPlayer.set_selectedCard(client_card.thisCard);
     sendCard.push_back(pushButtons[3].thisCard);
     writeToFileCards("sendCard.bin",sendCard);
     QFile file("sendCard.bin");
@@ -470,6 +513,7 @@ void Client::on_Buttons4_clicked(){
         return;
     }
     client_card = pushButtons[4];
+    currentPlayer.set_selectedCard(client_card.thisCard);
     sendCard.push_back(pushButtons[4].thisCard);
     writeToFileCards("sendCard.bin",sendCard);
     QFile file("sendCard.bin");
@@ -494,6 +538,7 @@ void Client::on_Buttons5_clicked(){
         return;
     }
     client_card = pushButtons[5];
+    currentPlayer.set_selectedCard(client_card.thisCard);
     sendCard.push_back(pushButtons[5].thisCard);
     writeToFileCards("sendCard.bin",sendCard);
     QFile file("sendCard.bin");
@@ -518,6 +563,7 @@ void Client::on_Buttons6_clicked(){
         return;
     }
     client_card = pushButtons[6];
+    currentPlayer.set_selectedCard(client_card.thisCard);
     sendCard.push_back(pushButtons[6].thisCard);
       writeToFileCards("sendCard.bin",sendCard);
       QFile file("sendCard.bin");
@@ -542,6 +588,7 @@ void Client::on_Buttons7_clicked(){
         return;
     }
      client_card = pushButtons[7];
+     currentPlayer.set_selectedCard(client_card.thisCard);
      sendCard.push_back(pushButtons[7].thisCard);
       writeToFileCards("sendCard.bin",sendCard);
       QFile file("sendCard.bin");
@@ -565,8 +612,9 @@ void Client::on_Buttons8_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
-     client_card = pushButtons[8];
-    sendCard.push_back(pushButtons[8].thisCard);
+      client_card = pushButtons[8];
+      currentPlayer.set_selectedCard(client_card.thisCard);
+      sendCard.push_back(pushButtons[8].thisCard);
       writeToFileCards("sendCard.bin",sendCard);
       QFile file("sendCard.bin");
       file.open(QFile::ReadOnly | QFile::Text);
@@ -589,7 +637,10 @@ void Client::on_Buttons9_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
-    sendCard.push_back(pushButtons[9].thisCard);
+
+      client_card = pushButtons[9];
+      currentPlayer.set_selectedCard(client_card.thisCard);
+      sendCard.push_back(pushButtons[9].thisCard);
       writeToFileCards("sendCard.bin",sendCard);
       QFile file("sendCard.bin");
       file.open(QFile::ReadOnly | QFile::Text);
@@ -612,8 +663,20 @@ void Client::on_Buttons10_clicked(){
         return;
     }
     client_card = pushButtons[10];
+    currentPlayer.set_selectedCard(client_card.thisCard);
     sendCard.push_back(pushButtons[10].thisCard);
     writeToFileCards("sendCard.bin",sendCard);
+    QFile file("sendCard.bin");
+    file.open(QFile::ReadOnly | QFile::Text);
+    QByteArray file_content = file.readAll();
+
+    /// nimaition
+    client_card = pushButtons[9];
+    socket->write(file_content);
+    socket->flush();
+    file.close();
+    currentPlayer.set_turn(false);
+
 
 
 }
@@ -624,6 +687,8 @@ void Client::on_Buttons11_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    client_card = pushButtons[11];
+    currentPlayer.set_selectedCard(client_card.thisCard);
     sendCard.push_back(pushButtons[11].thisCard);
       writeToFileCards("sendCard.bin",sendCard);
       QFile file("sendCard.bin");
@@ -646,6 +711,8 @@ void Client::on_Buttons12_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    client_card = pushButtons[12];
+    currentPlayer.set_selectedCard(client_card.thisCard);
     sendCard.push_back(pushButtons[12].thisCard);
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
@@ -669,7 +736,8 @@ void Client::on_Buttons13_clicked(){
         return;
     }
      client_card = pushButtons[13];
-    sendCard.push_back(pushButtons[13].thisCard);
+     currentPlayer.set_selectedCard(client_card.thisCard);
+     sendCard.push_back(pushButtons[13].thisCard);
       writeToFileCards("sendCard.bin",sendCard);
       QFile file("sendCard.bin");
       file.open(QFile::ReadOnly | QFile::Text);
