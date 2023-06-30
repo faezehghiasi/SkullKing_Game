@@ -20,6 +20,8 @@ Server::Server(QWidget *parent) :
     server_card.cards_button->setGeometry(290,290,101,141);
     client_card.cards_button = new QPushButton(this);
     client_card.cards_button->setGeometry(210,240,101,141);
+    server_card.cards_button->hide();
+    client_card.cards_button->hide();
 
 }
 //************************************************************
@@ -297,12 +299,13 @@ void Server::whoShouldStartTheGameFirst(){
     client_card.thisCard.setValue(client_number);
     sendCard.push_back(server_card.thisCard);
     sendCard.push_back(client_card.thisCard);
-    QFile file("sendCard.bin");
     writeToFileCards("sendCard.bin",sendCard);
-    file.open(QIODevice::ReadOnly);
+    QFile file("sendCard.bin");
+    file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
     socket->write(file_content);
     socket->flush();
+    file.close();
 }
 //*************************************************************************************
 void Server::set_picture(struct buttons crd){

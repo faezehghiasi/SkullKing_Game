@@ -50,5 +50,7 @@
         <file>../resource/parrot6.png</file>
         <file>../resource/parrot7.png</file>
         <file>../resource/parrot8.png</file>
+        <file>../resource/poshtCard.jpg</file>
+        <file>../resource/posht.jpg</file>
     </qresource>
 </RCC>

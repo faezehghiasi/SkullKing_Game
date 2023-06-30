@@ -25,7 +25,8 @@ QTextStream& operator>>(QTextStream& in , cards& p){
 }
 //**********************************************************
 void readFromFileCards(QString filename,QVector<cards>& card_val)
-{   card_val.clear();
+{
+    card_val.clear();
     QFile myfile(filename);
     if(!myfile.open(QFile::ReadOnly | QFile::Text)){
         QMessageBox Mb;

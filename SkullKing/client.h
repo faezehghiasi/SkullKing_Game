@@ -28,6 +28,7 @@ public:
     void set_picture(struct buttons crd);
     void set_client_card(struct buttons cCard);
     void set_server_card(struct buttons sCard);
+    QVector<buttons> get_PushPuttons();
     struct buttons get_client_card();
     struct buttons get_server_card();
 signals:

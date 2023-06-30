@@ -58,8 +58,7 @@ border: 3px solid ;
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">image: url(:/resource/jomjome.png);
-background-color: rgb(0, 0, 0);</string>
+      <string notr="true">border-image: url(:/resource/poshtCard.jpg);</string>
      </property>
      <property name="text">
       <string/>
@@ -75,8 +74,7 @@ background-color: rgb(0, 0, 0);</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">image: url(:/resource/jomjome.png);
-background-color: rgb(0, 0, 0);</string>
+      <string notr="true">border-image: url(:/resource/poshtCard.jpg);</string>
      </property>
      <property name="text">
       <string/>
@@ -92,8 +90,8 @@ background-color: rgb(0, 0, 0);</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">image: url(:/resource/jomjome.png);
-background-color: rgb(0, 0, 0);</string>
+      <string notr="true">border-image: url(:/resource/poshtCard.jpg);
+</string>
      </property>
      <property name="text">
       <string/>
@@ -109,8 +107,7 @@ background-color: rgb(0, 0, 0);</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">image: url(:/resource/jomjome.png);
-background-color: rgb(0, 0, 0);</string>
+      <string notr="true">border-image: url(:/resource/poshtCard.jpg);</string>
      </property>
      <property name="text">
       <string/>
@@ -126,8 +123,7 @@ background-color: rgb(0, 0, 0);</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">image: url(:/resource/jomjome.png);
-background-color: rgb(0, 0, 0);</string>
+      <string notr="true">border-image: url(:/resource/poshtCard.jpg);</string>
      </property>
      <property name="text">
       <string/>
@@ -143,8 +139,7 @@ background-color: rgb(0, 0, 0);</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">image: url(:/resource/jomjome.png);
-background-color: rgb(0, 0, 0);</string>
+      <string notr="true">border-image: url(:/resource/poshtCard.jpg);</string>
      </property>
      <property name="text">
       <string/>

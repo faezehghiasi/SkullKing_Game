@@ -29,12 +29,10 @@ void MenuSelection::on_start_clicked()
         else{
             this->hide();
             srv->show();
+            //order client  to start the game
             cards server_order;
             server_order.setOrder("Start The Game");
             sendCard.push_back(server_order);
-//            for(int i=0 ; i<sendCard.size();i++){
-//                qDebug()<<sendCard[i].getId()<<"\t"<<sendCard[i].getNumber()<<"\t"<<sendCard[i].getValue()<<"\n";
-//            }
             writeToFileCards("sendCard.bin",sendCard);
             QFile file("sendCard.bin");
             file.open(QFile::ReadOnly | QFile::Text);
@@ -42,21 +40,28 @@ void MenuSelection::on_start_clicked()
             srv->get_socket()->write(file_content);
             srv->get_socket()->flush();
             file.close();
+            //end
 
+
+
+            // server pick card
             currentPlayer.set_coin(currentPlayer.get_coin()-50);
             auto foundPlayer=find_if(listOfPlayer.begin(),listOfPlayer.end(),[](auto x){return(x.get_username()==currentPlayer.get_username());});
             foundPlayer->set_coin(currentPlayer.get_coin());
              writeToFile("myfile.bin");
+             //end
 
-              // server pick cards first
+             // server pick cards first
              int turncount = currentPlayer.get_countOfTurn();
              sendCard = currentPlayer.creat_cards();
              currentPlayer.set_randomCards(sendCard,turncount);
+             QFile file2("sendCard.bin");
              writeToFileCards("sendCard.bin",sendCard);
-             file.open(QFile::ReadOnly | QFile::Text);
-             QByteArray file_content2 = file.readAll();
+             file2.open(QFile::ReadOnly | QFile::Text);
+             QByteArray file_content2 = file2.readAll();
              srv->get_socket()->write(file_content2);
              srv->get_socket()->flush();
+             file2.close();
              // end
 
              /// making parrote cards
