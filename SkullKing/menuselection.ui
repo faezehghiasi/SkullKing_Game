@@ -1,0 +1,294 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MenuSelection</class>
+ <widget class="QMainWindow" name="MenuSelection">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>580</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>580</width>
+      <height>600</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#exit{ 
+background-color: rgba(0,0,0,0);
+	color: rgb(255, 255, 255);
+}
+QPushButton#exit:hover{ 
+color:rgba(177,168,182,220)
+}
+QPushButton#exit:pressed{ 
+padding-left:5px;
+padding-top:5px;
+color:rgba(115 ,128,142,255);
+}QPushButton#start{ 
+background-color: rgba(0,0,0,0);
+	color: rgb(255, 255, 255);
+}
+QPushButton#start:hover{ 
+color:rgba(177,168,182,220)
+}
+QPushButton#start:pressed{ 
+padding-left:5px;
+padding-top:5px;
+color:rgba(115 ,128,142,255);
+}
+QPushButton#change_info{ 
+background-color: rgba(0,0,0,0);
+	color: rgb(255, 255, 255);
+}
+QPushButton#change_info:hover{ 
+color:rgba(177,168,182,220)
+}
+QPushButton#change_info:pressed{ 
+padding-left:5px;
+padding-top:5px;
+color:rgba(115 ,128,142,255);
+}
+QPushButton#histoty{ 
+background-color: rgba(0,0,0,0);
+color: rgb(255, 255, 255);
+}
+QPushButton#histoty:hover{ 
+color:rgba(177,168,182,220)
+}
+QPushButton#histoty:pressed{ 
+padding-left:5px;
+padding-top:5px;
+color:rgba(115 ,128,142,255);
+}
+</string>
+    </property>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>580</width>
+       <height>600</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-image: url(:/resource/Pirate Flag IPhone Wallpaper - IPhone Wallpapers.png);
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>20</y>
+       <width>411</width>
+       <height>111</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 26pt &quot;Showcard Gothic&quot;;
+color: rgb(85, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;menu selection&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="change_info">
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>260</y>
+       <width>411</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Snap ITC</family>
+       <pointsize>20</pointsize>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 20pt &quot;Snap ITC&quot;;
+QPushButton#change_info{ 
+background-color: rgba(0,0,0,0);
+	color: rgb(255, 255, 255);
+}
+QPushButton#change_info:hover{ 
+color:rgba(177,168,182,220)
+}
+QPushButton#change_info:pressed{ 
+padding-left:5px;
+padding-top:5px;
+color:rgba(115 ,128,142,255);
+}</string>
+     </property>
+     <property name="text">
+      <string>Change information</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="histoty">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>350</y>
+       <width>371</width>
+       <height>91</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Snap ITC</family>
+       <pointsize>18</pointsize>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 18pt &quot;Snap ITC&quot;;
+QPushButton#histoty{ 
+background-color: rgba(0,0,0,0);
+color: rgb(255, 255, 255);
+}
+QPushButton#histoty:hover{ 
+color:rgba(177,168,182,220)
+}
+QPushButton#histoty:pressed{ 
+padding-left:5px;
+padding-top:5px;
+color:rgba(115 ,128,142,255);
+}
+</string>
+     </property>
+     <property name="text">
+      <string>History of the game</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="exit">
+     <property name="geometry">
+      <rect>
+       <x>220</x>
+       <y>440</y>
+       <width>317</width>
+       <height>81</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Snap ITC</family>
+       <pointsize>20</pointsize>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 20pt &quot;Snap ITC&quot;;
+QPushButton#exit{ 
+background-color: rgba(0,0,0,0);
+	color: rgb(255, 255, 255);
+}
+QPushButton#exit:hover{ 
+color:rgba(177,168,182,220)
+}
+QPushButton#exit:pressed{ 
+padding-left:5px;
+padding-top:5px;
+color:rgba(115 ,128,142,255);
+}</string>
+     </property>
+     <property name="text">
+      <string>Exit</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="start">
+     <property name="geometry">
+      <rect>
+       <x>20</x>
+       <y>160</y>
+       <width>317</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Snap ITC</family>
+       <pointsize>20</pointsize>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 20pt &quot;Snap ITC&quot;;
+QPushButton#start{ 
+background-color: rgba(0,0,0,0);
+	color: rgb(255, 255, 255);
+}
+QPushButton#start:hover{ 
+color:rgba(177,168,182,220)
+}
+QPushButton#start:pressed{ 
+padding-left:5px;
+padding-top:5px;
+color:rgba(115 ,128,142,255);
+}</string>
+     </property>
+     <property name="text">
+      <string>Start the game</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_3">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>50</y>
+       <width>50</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 26pt &quot;Social Media Circled&quot;;
+color: rgb(85, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;p&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>455</x>
+       <y>50</y>
+       <width>50</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 26pt &quot;Social Media Circled&quot;;
+color: rgb(85, 255, 255);</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;p&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

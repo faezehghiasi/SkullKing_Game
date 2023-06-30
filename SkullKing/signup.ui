@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>SignUp</class>
+ <widget class="QMainWindow" name="SignUp">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>450</width>
+    <height>550</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>450</width>
+      <height>550</height>
+     </rect>
+    </property>
+    <property name="sizeIncrement">
+     <size>
+      <width>30</width>
+      <height>30</height>
+     </size>
+    </property>
+    <property name="baseSize">
+     <size>
+      <width>370</width>
+      <height>480</height>
+     </size>
+    </property>
+    <widget class="QLabel" name="base_picture">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>450</width>
+       <height>550</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <bold>true</bold>
+       <underline>false</underline>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-image: url(:/resource/pirate_ship.jpg);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="sign_up">
+     <property name="geometry">
+      <rect>
+       <x>60</x>
+       <y>10</y>
+       <width>301</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Snap ITC</family>
+       <pointsize>20</pointsize>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">font: 20pt &quot;Snap ITC&quot;;
+color: rgb(255, 255, 255);
+background-color:rgba(0,0,0,0)</string>
+     </property>
+     <property name="text">
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:36pt;&quot;&gt;Sign UP&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="layoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>100</y>
+       <width>271</width>
+       <height>321</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLineEdit" name="Name">
+        <property name="styleSheet">
+         <string notr="true">background-color:rgba(0,0,0,0);
+background-color: qlineargradient(spread:reflect, x1:0.034, y1:0.063, x2:0.846, y2:0.840545, stop:0.264423 rgba(125, 193, 200, 255), stop:0.697115 rgba(0, 0, 0, 255));
+
+
+
+color: rgb(255, 255, 255);
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>Enter your Name</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="username">
+        <property name="styleSheet">
+         <string notr="true">background-color:rgba(0,0,0,0);
+background-color: qlineargradient(spread:reflect, x1:0.034, y1:0.063, x2:0.846, y2:0.840545, stop:0.264423 rgba(125, 193, 200, 255), stop:0.697115 rgba(0, 0, 0, 255));
+
+
+
+color: rgb(255, 255, 255);
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>Enter your Username</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="password">
+        <property name="styleSheet">
+         <string notr="true">background-color:rgba(0,0,0,0);
+background-color: qlineargradient(spread:reflect, x1:0.034, y1:0.063, x2:0.846, y2:0.840545, stop:0.264423 rgba(125, 193, 200, 255), stop:0.697115 rgba(0, 0, 0, 255));
+
+
+
+color: rgb(255, 255, 255);
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="echoMode">
+         <enum>QLineEdit::Password</enum>
+        </property>
+        <property name="placeholderText">
+         <string>Enter your Password</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="phone_num">
+        <property name="styleSheet">
+         <string notr="true">background-color:rgba(0,0,0,0);
+background-color: qlineargradient(spread:reflect, x1:0.034, y1:0.063, x2:0.846, y2:0.840545, stop:0.264423 rgba(125, 193, 200, 255), stop:0.697115 rgba(0, 0, 0, 255));
+
+
+
+color: rgb(255, 255, 255);
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>Enter your Phone Number</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="address">
+        <property name="styleSheet">
+         <string notr="true">background-color:rgba(0,0,0,0);
+background-color: qlineargradient(spread:reflect, x1:0.034, y1:0.063, x2:0.846, y2:0.840545, stop:0.264423 rgba(125, 193, 200, 255), stop:0.697115 rgba(0, 0, 0, 255));
+
+
+
+color: rgb(255, 255, 255);
+</string>
+        </property>
+        <property name="text">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>Enter your Address</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QPushButton" name="singup_push">
+     <property name="geometry">
+      <rect>
+       <x>130</x>
+       <y>450</y>
+       <width>171</width>
+       <height>29</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Segoe UI Black</family>
+       <pointsize>9</pointsize>
+       <italic>false</italic>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: qconicalgradient(cx:0.452231, cy:0.466, angle:297, stop:0.293269 rgba(49, 144, 136, 255), stop:0.514423 rgba(35, 100, 92, 255), stop:0.552885 rgba(187, 156, 51, 255), stop:0.591346 rgba(235, 219, 102, 255), stop:0.635 rgba(168, 142, 42, 255), stop:0.668269 rgba(136, 106, 22, 255), stop:0.695 rgba(202, 174, 68, 255), stop:0.730769 rgba(218, 202, 86, 255), stop:0.764423 rgba(209, 190, 76, 255), stop:0.793269 rgba(166, 140, 41, 255), stop:0.815 rgba(208, 187, 73, 255), stop:0.865385 rgba(245, 236, 112, 255), stop:0.88 rgba(187, 156, 51, 255));
+color: rgb(255, 255, 255);
+font: 900 9pt &quot;Segoe UI Black&quot;;</string>
+     </property>
+     <property name="text">
+      <string>Sign Up</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
