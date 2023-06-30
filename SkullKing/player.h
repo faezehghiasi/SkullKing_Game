@@ -18,6 +18,15 @@ struct buttons{
         this->thisCard = c;
         return *this;
     }
+    void clear(){
+        thisCard.setNumber(0);
+        thisCard.setId(0);
+        thisCard.setValue(0);
+        thisCard.setOrder("");
+    }
+    bool empty(){
+        return(thisCard.getId()==0&&thisCard.getNumber()==0&&thisCard.getValue()==0&&thisCard.getOrder()=="");
+    }
 
 };
 QTextStream &operator<<(QTextStream& out , cards p);
