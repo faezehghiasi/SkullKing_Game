@@ -8,6 +8,7 @@
 #include<QDataStream>
 #include<QFile>
 #include<QRandomGenerator>
+#include<QTime>
 Server * srv;
 Server::Server(QWidget *parent) :
     QMainWindow(parent),
@@ -96,6 +97,8 @@ QTcpSocket* Server::get_socket()
 {
     return socket;
 }
+//*************************************************************************
+QVector<buttons> Server::get_buttons(){return pushButtons;}
 //***************************************************************************
 void Server::showCards(QList<cards> cCards){
     qDebug()<<cCards.size();
@@ -103,9 +106,8 @@ void Server::showCards(QList<cards> cCards){
    case 2:{
        for(int i = 0;i<2;i++){
            buttons QP;
-           cards temp;
            QP.cards_button = new QPushButton(this);
-           QP.thisCard=temp;
+           QP.thisCard=cCards[i];
             pushButtons.append(QP);
        }
        int X =190;
@@ -121,9 +123,8 @@ void Server::showCards(QList<cards> cCards){
    case 4:{
        for(int i = 0;i<4;i++){
            buttons QP;
-           cards temp;
            QP.cards_button = new QPushButton(this);
-           QP.thisCard=temp;
+           QP.thisCard=cCards[i];
             pushButtons.append(QP);
        }
        int X =100;
@@ -144,9 +145,8 @@ void Server::showCards(QList<cards> cCards){
    case 6:{
        for(int i = 0;i<6;i++){
            buttons QP;
-           cards temp;
            QP.cards_button = new QPushButton(this);
-           QP.thisCard=temp;
+           QP.thisCard=cCards[i];
             pushButtons.append(QP);
        }
        int X = 90;
@@ -167,9 +167,8 @@ void Server::showCards(QList<cards> cCards){
    case 8:{
        for(int i = 0;i<8;i++){
            buttons QP;
-           cards temp;
            QP.cards_button = new QPushButton(this);
-           QP.thisCard=temp;
+           QP.thisCard=cCards[i];
             pushButtons.append(QP);
        }
        int X = 60;
@@ -190,9 +189,8 @@ void Server::showCards(QList<cards> cCards){
    case 10:{
        for(int i = 0;i<10;i++){
            buttons QP;
-           cards temp;
            QP.cards_button = new QPushButton(this);
-           QP.thisCard=temp;
+           QP.thisCard=cCards[i];
             pushButtons.append(QP);
        }
        int X = 40;
@@ -213,9 +211,8 @@ void Server::showCards(QList<cards> cCards){
    case 12:{
        for(int i = 0;i<12;i++){
            buttons QP;
-           cards temp;
            QP.cards_button = new QPushButton(this);
-           QP.thisCard=temp;
+           QP.thisCard=cCards[i];
             pushButtons.append(QP);
        }
        int X = 5;
@@ -236,9 +233,8 @@ void Server::showCards(QList<cards> cCards){
    case 14: {
        for(int i = 0;i<14;i++){
            buttons QP;
-           cards temp;
            QP.cards_button = new QPushButton(this);
-           QP.thisCard=temp;
+           QP.thisCard=cCards[i];
             pushButtons.append(QP);
        }
        int X =10;
@@ -259,25 +255,30 @@ void Server::showCards(QList<cards> cCards){
 
   }
 
-   connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons0_clicked()));
-      connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons1_clicked()));
-      connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons2_clicked()));
-      connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons3_clicked()));
-      connect(pushButtons[4].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons4_clicked()));
-      connect(pushButtons[5].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons5_clicked()));
-      connect(pushButtons[6].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons6_clicked()));
-      connect(pushButtons[7].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons7_clicked()));
-      connect(pushButtons[8].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons8_clicked()));
-      connect(pushButtons[9].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons9_clicked()));
-      connect(pushButtons[10].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons10_clicked()));
-      connect(pushButtons[11].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons11_clicked()));
-      connect(pushButtons[12].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons12_clicked()));
-      connect(pushButtons[13].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons13_clicked()));
+//   connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons0_clicked()));
+//      connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons1_clicked()));
+//      connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons2_clicked()));
+//      connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons3_clicked()));
+//      connect(pushButtons[4].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons4_clicked()));
+//      connect(pushButtons[5].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons5_clicked()));
+//      connect(pushButtons[6].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons6_clicked()));
+//      connect(pushButtons[7].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons7_clicked()));
+//      connect(pushButtons[8].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons8_clicked()));
+//      connect(pushButtons[9].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons9_clicked()));
+//      connect(pushButtons[10].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons10_clicked()));
+//      connect(pushButtons[11].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons11_clicked()));
+//      connect(pushButtons[12].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons12_clicked()));
+//      connect(pushButtons[13].cards_button,SIGNAL(clicked()),this,SLOT( void on_Buttons13_clicked()));
 
 
 }
 //***************************************************************************
 void Server::whoShouldStartTheGameFirst(){
+    //delay function......
+    QTime dietime=QTime::currentTime().addMSecs(3000);
+    while(QTime::currentTime()<dietime)
+    QCoreApplication::processEvents(QEventLoop::AllEvents,100);
+
     int server_number =( QRandomGenerator::global()->generate()%8)+1;
     int client_number =( QRandomGenerator::global()->generate()%8)+1;
     tab:if(server_number>client_number){
@@ -304,6 +305,7 @@ void Server::whoShouldStartTheGameFirst(){
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
     socket->write(file_content);
+   // socket->waitForBytesWritten(3000);
     socket->flush();
     file.close();
 }
@@ -875,9 +877,7 @@ void Server::on_Buttons13_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-
     /// animaition
-
     socket->write(file_content);
     socket->flush();
     file.close();

@@ -90,6 +90,7 @@ void Client::readyRead() {
               file.open(QFile::ReadOnly|QFile::Text);
               QByteArray file_content = file.readAll();
               socket->write(file_content);
+              //socket->waitForBytesWritten(3000);
               socket->flush();
                /// darkhast jabejaii cards
               // qDebug()<<currentPlayer.playeCard.size();
