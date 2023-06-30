@@ -55,7 +55,7 @@ void MenuSelection::on_start_clicked()
              // server pick cards first
              int turncount = currentPlayer.get_countOfTurn();
              sendCard = currentPlayer.creat_cards();
-             currentPlayer.set_randomCards(sendCard,7);
+             currentPlayer.set_randomCards(sendCard,turncount);
              srv->showCards(currentPlayer.playeCard);
              for(int i=0 ; i<srv->get_buttons().size();i++){
                  srv->set_picture(srv->get_buttons()[i]);

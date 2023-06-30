@@ -885,6 +885,18 @@ void Server::on_Buttons13_clicked(){
 
 }
 //**************************************************************************************************
+void Server::move_oneCards(buttons cCards){
+    QPropertyAnimation *anim = new QPropertyAnimation(cCards.cards_button, "pos", this);
+       anim->setDuration(1000);
+       anim->setEndValue(QPoint(290, 290));
+       anim->start();
+      if(cCards.cards_button->geometry().x()==290 && cCards.cards_button->geometry().y()==290){
+          cCards.cards_button->disconnect();
+          cCards.cards_button->hide();
+          set_picture(server_card);
+      }
+      anim->DeleteWhenStopped;
+}
 
 
 

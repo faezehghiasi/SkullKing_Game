@@ -8,6 +8,7 @@
 #include"cards.h"
 #include<QPushButton>
 #include"player.h"
+#include <QPropertyAnimation>
 namespace Ui {
 class Server;
 }
@@ -32,6 +33,7 @@ public:
      struct buttons get_client_card();
      struct buttons get_server_card();
      QVector<buttons> get_buttons();
+     void move_oneCards(buttons c);
     ~Server();
 signals:
     void sendIp(QString ip);
