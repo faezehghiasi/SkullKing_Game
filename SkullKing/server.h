@@ -30,10 +30,10 @@ public:
      void availbleCards(buttons rivalCard);
      void set_client_card(struct buttons cCard);
      void set_server_card(struct buttons sCard);
-     struct buttons get_client_card();
-     struct buttons get_server_card();
-     QVector<buttons> get_buttons();
-     void move_oneCards(buttons c);
+     struct buttons& get_client_card();
+     struct buttons& get_server_card();
+     QVector<buttons>& get_buttons();
+     void move_oneCards(buttons& c);
     ~Server();
 signals:
     void sendIp(QString ip);

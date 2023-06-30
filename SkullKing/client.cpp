@@ -968,3 +968,15 @@ QVector<buttons> Client:: get_PushPuttons(){
     return pushButtons;
 }
 //**********************************************************************************************************************
+void Client::move_oneCards(buttons& cCards){
+    QPropertyAnimation *anim = new QPropertyAnimation(cCards.cards_button, "pos", this);
+       anim->setDuration(3000);
+       anim->setEndValue(QPoint(290, 290));
+       anim->start();
+      if(cCards.cards_button->geometry().x()==290 && cCards.cards_button->geometry().y()==290){
+          cCards.cards_button->disconnect();
+          cCards.cards_button->hide();
+          set_picture(client_card);
+      }
+      anim->DeleteWhenStopped;
+}

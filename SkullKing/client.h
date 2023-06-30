@@ -31,6 +31,7 @@ public:
     QVector<buttons> get_PushPuttons();
     struct buttons get_client_card();
     struct buttons get_server_card();
+    void move_oneCards(buttons& c);
 signals:
     void existClient();
     void startTheGame();
