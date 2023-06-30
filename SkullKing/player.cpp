@@ -165,6 +165,7 @@ QVector<cards> Player::set_randomCards(QVector<cards>& exitCards, int countOfTur
         exitCards.erase(it);
     }
      sort(playeCard.begin(),playeCard.end(),[](auto a ,auto b){return a.getId()<b.getId();});
+     //\\\\\\
 
 //    qDebug()<<"list size : "<<playeCard.size();
 //    qDebug()<<"vector size : "<<exitCards.size();
