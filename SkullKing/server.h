@@ -34,6 +34,7 @@ public:
      struct buttons& get_server_card();
      QVector<buttons>& get_buttons();
      void move_oneCards(buttons& c);
+     void move_twoCards();
     ~Server();
 signals:
     void sendIp(QString ip);

@@ -990,6 +990,20 @@ void Server::move_oneCards(buttons& cCards){
        connect(anim,&QAbstractAnimation::finished,this,[&](){cCards.cards_button->disconnect();cCards.cards_button->hide();set_picture(server_card);});
 }
 //****************************************************************************************
+void Server::move_twoCards(){
+    QPropertyAnimation *animServer = new QPropertyAnimation(server_card.cards_button, "pos", this);
+    QPropertyAnimation *animClient = new QPropertyAnimation(client_card.cards_button, "pos", this);
+       animServer->setDuration(500);
+       animServer->setEndValue(QPoint(0, 260));
+       animServer->start();
+       animClient->setDuration(500);
+       animClient->setEndValue(QPoint(0, 260));
+       animClient->start();
+       connect(animServer,&QAbstractAnimation::finished,this,[&](){server_card.cards_button->hide();});
+       connect(animClient,&QAbstractAnimation::finished,this,[&](){server_card.cards_button->hide();});
+       server_card.empty();
+       client_card.empty();
+}
 
 
 

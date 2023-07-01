@@ -32,6 +32,7 @@ public:
     struct buttons get_client_card();
     struct buttons get_server_card();
     void move_oneCards(buttons& c);
+    void move_twoCards();
 signals:
     void existClient();
     void startTheGame();
