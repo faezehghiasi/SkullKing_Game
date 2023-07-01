@@ -49,7 +49,6 @@ private:
     int win;
     int lose;
     int coin;
-
     bool server;
     int score;
     bool turn;
@@ -57,10 +56,11 @@ private:
     int guess;
     int setWin;
     cards selectedCard;
+    bool starterOfEachRound;
 public:
      QList<cards> playeCard;
     Player(QString name_val = "", QString username_val = "", QString password_val = "", QString address_val = "",
-        QString phoneNumber_val = "", int win_val = 0, int lose_val = 0,int coin_val = 0,bool score_val = false, bool turn_val = false,bool server_val=false,int countturn=1,int geuss_val=0,int setWin_val=0);
+        QString phoneNumber_val = "", int win_val = 0, int lose_val = 0,int coin_val = 0,bool score_val = false, bool turn_val = false,bool server_val=false,int countturn=1,int geuss_val=0,int setWin_val=0,bool starter_val = false);
     int get_win();
     //geter seter vase selectedcard
     cards get_selectedCard();
@@ -95,6 +95,8 @@ public:
     QVector<cards> set_randomCards(QVector<cards>& exitCards,int coutOfTurn);
     QVector<cards> creat_cards();
     void calculate(cards);
+    void set_starterOfEachRound(bool starter_val);
+    bool get_starterOfEachRound();
 };
 
 #endif // PLAYER_H

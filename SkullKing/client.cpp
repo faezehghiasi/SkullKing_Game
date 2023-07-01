@@ -95,9 +95,8 @@ void Client::readyRead() {
            else{
 
             //server send card
-
-             currentPlayer.set_turn(true);
              server_card = recivedCard[0];
+             currentPlayer.set_turn(true);
              availbleCards(server_card);
              set_picture(server_card);
 
@@ -110,8 +109,14 @@ void Client::readyRead() {
            }
       }
       else if(recivedCard.size()==2){
-           if(recivedCard[0].getNumber()<recivedCard[1].getNumber()) currentPlayer.set_turn(true);
-           else currentPlayer.set_turn(false);
+           if(recivedCard[0].getNumber()<recivedCard[1].getNumber()) {
+               currentPlayer.set_turn(true);
+               currentPlayer.set_starterOfEachRound(true);
+           }
+           else{
+               currentPlayer.set_turn(false);
+               currentPlayer.set_starterOfEachRound(false);
+           }
            server_card = recivedCard[0];
            client_card = recivedCard[1];
            set_picture(server_card);
@@ -460,7 +465,7 @@ void Client::on_Buttons1_clicked(){
      socket->write(file_content);
      socket->flush();
      file.close();
-     currentPlayer.set_turn(false);
+    currentPlayer.set_turn(false);
      move_oneCards(pushButtons[1]);
      if(!client_card.empty()&& !server_card.empty()){
        currentPlayer.calculate(server_card.thisCard);
@@ -655,7 +660,7 @@ void Client::on_Buttons8_clicked(){
       socket->write(file_content);
       socket->flush();
       file.close();
-      currentPlayer.set_turn(false);
+     currentPlayer.set_turn(false);
       move_oneCards(pushButtons[8]);
       if(!client_card.empty()&& !server_card.empty()){
         currentPlayer.calculate(server_card.thisCard);
@@ -684,7 +689,7 @@ void Client::on_Buttons9_clicked(){
       socket->write(file_content);
       socket->flush();
       file.close();
-      currentPlayer.set_turn(false);
+     currentPlayer.set_turn(false);
       move_oneCards(pushButtons[9]);
       if(!client_card.empty()&& !server_card.empty()){
         currentPlayer.calculate(server_card.thisCard);
@@ -711,7 +716,7 @@ void Client::on_Buttons10_clicked(){
     socket->write(file_content);
     socket->flush();
     file.close();
-    currentPlayer.set_turn(false);
+     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[10]);
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(server_card.thisCard);
@@ -739,7 +744,7 @@ void Client::on_Buttons11_clicked(){
       socket->write(file_content);
       socket->flush();
       file.close();
-      currentPlayer.set_turn(false);
+       currentPlayer.set_turn(false);
       move_oneCards(pushButtons[11]);
       if(!client_card.empty()&& !server_card.empty()){
         currentPlayer.calculate(server_card.thisCard);
@@ -765,7 +770,7 @@ void Client::on_Buttons12_clicked(){
     socket->write(file_content);
     socket->flush();
     file.close();
-    currentPlayer.set_turn(false);
+      currentPlayer.set_turn(false);
     move_oneCards(pushButtons[12]);
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(server_card.thisCard);
@@ -793,7 +798,7 @@ void Client::on_Buttons13_clicked(){
       socket->write(file_content);
       socket->flush();
       file.close();
-      currentPlayer.set_turn(false);
+        currentPlayer.set_turn(false);
       move_oneCards(pushButtons[13]);
       if(!client_card.empty()&& !server_card.empty()){
         currentPlayer.calculate(server_card.thisCard);
