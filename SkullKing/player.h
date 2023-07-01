@@ -18,10 +18,6 @@ struct buttons{
         this->thisCard = c;
         return *this;
     }
-    buttons& operator =(buttons b){
-        this->thisCard=b.thisCard;
-        return *this;
-    }
     void clear(){
         thisCard.setNumber(0);
         thisCard.setId(0);
@@ -30,6 +26,10 @@ struct buttons{
     }
     bool empty(){
         return(thisCard.getId()==0&&thisCard.getNumber()==0&&thisCard.getValue()==0&&thisCard.getOrder()=="");
+    }
+    buttons& operator = (buttons b){
+       this->thisCard=b.thisCard;
+        return *this;
     }
 
 };

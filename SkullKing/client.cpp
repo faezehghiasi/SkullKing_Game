@@ -95,16 +95,21 @@ void Client::readyRead() {
            else{
 
             //server send card
+
              currentPlayer.set_turn(true);
              server_card = recivedCard[0];
+             availbleCards(server_card);
              set_picture(server_card);
 
+            ///calculateing the score
+             if(!client_card.empty()&& !server_card.empty()){
+               currentPlayer.calculate(server_card.thisCard);
+             }
+            /// end
 
            }
       }
       else if(recivedCard.size()==2){
-           qDebug()<<recivedCard[0].getId()<<" "<<recivedCard[0].getNumber();
-           qDebug()<<recivedCard[1].getId()<<" "<<recivedCard[1].getNumber();
            if(recivedCard[0].getNumber()<recivedCard[1].getNumber()) currentPlayer.set_turn(true);
            else currentPlayer.set_turn(false);
            server_card = recivedCard[0];
@@ -429,7 +434,9 @@ void Client::on_Buttons0_clicked(){
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[0]);
-
+    if(!client_card.empty()&& !server_card.empty()){
+      currentPlayer.calculate(server_card.thisCard);
+    }
 
 
 }
@@ -455,7 +462,9 @@ void Client::on_Buttons1_clicked(){
      file.close();
      currentPlayer.set_turn(false);
      move_oneCards(pushButtons[1]);
-
+     if(!client_card.empty()&& !server_card.empty()){
+       currentPlayer.calculate(server_card.thisCard);
+     }
 
 }
 //**************************************************************************************************
@@ -480,7 +489,9 @@ void Client::on_Buttons2_clicked(){
       file.close();
       currentPlayer.set_turn(false);
       move_oneCards(pushButtons[2]);
-
+      if(!client_card.empty()&& !server_card.empty()){
+        currentPlayer.calculate(server_card.thisCard);
+      }
 
 
 }
@@ -506,7 +517,9 @@ void Client::on_Buttons3_clicked(){
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[3]);
-
+    if(!client_card.empty()&& !server_card.empty()){
+      currentPlayer.calculate(server_card.thisCard);
+    }
 
 
 }
@@ -532,7 +545,9 @@ void Client::on_Buttons4_clicked(){
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[4]);
-
+    if(!client_card.empty()&& !server_card.empty()){
+      currentPlayer.calculate(server_card.thisCard);
+    }
 
 
 }
@@ -558,7 +573,9 @@ void Client::on_Buttons5_clicked(){
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[5]);
-
+    if(!client_card.empty()&& !server_card.empty()){
+      currentPlayer.calculate(server_card.thisCard);
+    }
 
 
 }
@@ -584,7 +601,9 @@ void Client::on_Buttons6_clicked(){
       file.close();
       currentPlayer.set_turn(false);
       move_oneCards(pushButtons[6]);
-
+      if(!client_card.empty()&& !server_card.empty()){
+        currentPlayer.calculate(server_card.thisCard);
+      }
 
 
 }
@@ -610,7 +629,9 @@ void Client::on_Buttons7_clicked(){
       file.close();
       currentPlayer.set_turn(false);
       move_oneCards(pushButtons[7]);
-
+      if(!client_card.empty()&& !server_card.empty()){
+        currentPlayer.calculate(server_card.thisCard);
+      }
 
 
 }
@@ -636,7 +657,9 @@ void Client::on_Buttons8_clicked(){
       file.close();
       currentPlayer.set_turn(false);
       move_oneCards(pushButtons[8]);
-
+      if(!client_card.empty()&& !server_card.empty()){
+        currentPlayer.calculate(server_card.thisCard);
+      }
 
 
 }
@@ -663,7 +686,9 @@ void Client::on_Buttons9_clicked(){
       file.close();
       currentPlayer.set_turn(false);
       move_oneCards(pushButtons[9]);
-
+      if(!client_card.empty()&& !server_card.empty()){
+        currentPlayer.calculate(server_card.thisCard);
+      }
 
 }
 //**************************************************************************************************
@@ -688,7 +713,9 @@ void Client::on_Buttons10_clicked(){
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[10]);
-
+    if(!client_card.empty()&& !server_card.empty()){
+      currentPlayer.calculate(server_card.thisCard);
+    }
 
 
 }
@@ -714,7 +741,9 @@ void Client::on_Buttons11_clicked(){
       file.close();
       currentPlayer.set_turn(false);
       move_oneCards(pushButtons[11]);
-
+      if(!client_card.empty()&& !server_card.empty()){
+        currentPlayer.calculate(server_card.thisCard);
+      }
 
 }
 //**************************************************************************************************
@@ -738,7 +767,9 @@ void Client::on_Buttons12_clicked(){
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[12]);
-
+    if(!client_card.empty()&& !server_card.empty()){
+      currentPlayer.calculate(server_card.thisCard);
+    }
 
 
 }
@@ -764,6 +795,9 @@ void Client::on_Buttons13_clicked(){
       file.close();
       currentPlayer.set_turn(false);
       move_oneCards(pushButtons[13]);
+      if(!client_card.empty()&& !server_card.empty()){
+        currentPlayer.calculate(server_card.thisCard);
+      }
 }
 //**************************************************************************************************
 void Client :: set_client_card(struct buttons cCard){
