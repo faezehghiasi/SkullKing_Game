@@ -54,13 +54,21 @@ void Server :: readyRead(){
           readFromFileCards("recivedCard.bin",recivedCard);
           if(recivedCard.size()==1){
               //client send card
+              qDebug()<<"cos khar";
               currentPlayer.set_turn(true);
               client_card = recivedCard[0];
-              availbleCards(client_card);
+                qDebug()<<client_card.thisCard.getId()<<client_card.thisCard.getNumber();
+                if(!currentPlayer.get_starterOfEachRound()){
+                availbleCards(client_card);
+                }
+                else {
+                    buttons temp;
+                    availbleCards(temp);
+                }
               set_picture(client_card);
-
               if(!client_card.empty()&& !server_card.empty()){
                 currentPlayer.calculate(client_card.thisCard);
+                move_twoCards();
               }
          }
          else{
@@ -617,6 +625,7 @@ void Server::on_Buttons0_clicked(){
     move_oneCards(pushButtons[0]);
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(server_card.thisCard);
+      move_twoCards();
     }
 
 }
@@ -645,6 +654,7 @@ void Server::on_Buttons1_clicked(){
     move_oneCards(pushButtons[1]);
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(server_card.thisCard);
+       move_twoCards();
     }
 }
 //**************************************************************************************************
@@ -672,6 +682,7 @@ void Server::on_Buttons2_clicked(){
     move_oneCards(pushButtons[2]);
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(server_card.thisCard);
+      move_twoCards();
     }
 
 }
@@ -700,6 +711,7 @@ void Server::on_Buttons3_clicked(){
     move_oneCards(pushButtons[3]);
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(server_card.thisCard);
+      move_twoCards();
     }
 
 }
@@ -728,6 +740,7 @@ void Server::on_Buttons4_clicked(){
     move_oneCards(pushButtons[4]);
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(server_card.thisCard);
+      move_twoCards();
     }
 
 }
@@ -756,6 +769,7 @@ void Server::on_Buttons5_clicked(){
     move_oneCards(pushButtons[5]);
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(server_card.thisCard);
+       move_twoCards();
     }
 
 }
@@ -784,6 +798,7 @@ void Server::on_Buttons6_clicked(){
     move_oneCards(pushButtons[6]);
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(server_card.thisCard);
+      move_twoCards();
     }
 
 }
@@ -812,6 +827,7 @@ void Server::on_Buttons7_clicked(){
     move_oneCards(pushButtons[7]);
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(server_card.thisCard);
+      move_twoCards();
     }
 
 }
@@ -840,6 +856,7 @@ void Server::on_Buttons8_clicked(){
     move_oneCards(pushButtons[8]);
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(server_card.thisCard);
+      move_twoCards();
     }
 
 }
@@ -868,6 +885,7 @@ void Server::on_Buttons9_clicked(){
     move_oneCards(pushButtons[9]);
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(server_card.thisCard);
+      move_twoCards();
     }
 
 }
@@ -896,6 +914,7 @@ void Server::on_Buttons10_clicked(){
     move_oneCards(pushButtons[10]);
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(server_card.thisCard);
+       move_twoCards();
     }
 
 }
@@ -924,6 +943,7 @@ void Server::on_Buttons11_clicked(){
     move_oneCards(pushButtons[11]);
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(server_card.thisCard);
+       move_twoCards();
     }
 
 }
@@ -952,6 +972,7 @@ void Server::on_Buttons12_clicked(){
     move_oneCards(pushButtons[12]);
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(server_card.thisCard);
+      move_twoCards();
     }
 
 }
@@ -978,6 +999,7 @@ void Server::on_Buttons13_clicked(){
     move_oneCards(pushButtons[13]);
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(server_card.thisCard);
+       move_twoCards();
     }
 
 }
@@ -987,22 +1009,27 @@ void Server::move_oneCards(buttons& cCards){
        anim->setDuration(500);
        anim->setEndValue(QPoint(290, 290));
        anim->start();
-       connect(anim,&QAbstractAnimation::finished,this,[&](){cCards.cards_button->disconnect();cCards.cards_button->hide();set_picture(server_card);});
+       connect(anim,&QAbstractAnimation::finished,this,[&](){cCards.cards_button->disconnect();cCards.cards_button->hide();set_picture(server_card);
+           server_card.cards_button->setGeometry(290,290,101,141);
+           client_card.cards_button->setGeometry(210,240,101,141);});
 }
 //****************************************************************************************
 void Server::move_twoCards(){
     QPropertyAnimation *animServer = new QPropertyAnimation(server_card.cards_button, "pos", this);
     QPropertyAnimation *animClient = new QPropertyAnimation(client_card.cards_button, "pos", this);
        animServer->setDuration(500);
-       animServer->setEndValue(QPoint(0, 260));
+       animServer->setEndValue(QPoint(-50, 260));
        animServer->start();
        animClient->setDuration(500);
-       animClient->setEndValue(QPoint(0, 260));
+       animClient->setEndValue(QPoint(-50, 260));
        animClient->start();
+       server_card.clear();
+       client_card.clear();
        connect(animServer,&QAbstractAnimation::finished,this,[&](){server_card.cards_button->hide();});
-       connect(animClient,&QAbstractAnimation::finished,this,[&](){server_card.cards_button->hide();});
-       server_card.empty();
-       client_card.empty();
+       connect(animClient,&QAbstractAnimation::finished,this,[&](){client_card.cards_button->hide();});
+       connect(animServer,SIGNAL(finished()),animServer,SLOT(deleteLater()));
+       connect(animClient,SIGNAL(finished()),animClient,SLOT(deleteLater()));
+
 }
 
 

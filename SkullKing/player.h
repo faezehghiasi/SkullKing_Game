@@ -13,6 +13,9 @@ extern QVector<cards> sendCard;
 struct buttons{
     QPushButton* cards_button;
     cards thisCard;
+    buttons(){
+        this->thisCard;
+    }
     //overload =
     buttons& operator =(cards c){
         this->thisCard = c;

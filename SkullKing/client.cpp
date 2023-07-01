@@ -97,7 +97,13 @@ void Client::readyRead() {
             //server send card
              server_card = recivedCard[0];
              currentPlayer.set_turn(true);
+             if(!currentPlayer.get_starterOfEachRound()){
              availbleCards(server_card);
+             }
+             else {
+                 buttons temp;
+                 availbleCards(temp);
+             }
              set_picture(server_card);
 
             ///calculateing the score
@@ -121,6 +127,9 @@ void Client::readyRead() {
            client_card = recivedCard[1];
            set_picture(server_card);
            set_picture(client_card);
+           ClientOrServer::delay(1000);
+           move_twoCards();
+
        }
       else{
            currentPlayer.set_randomCards(recivedCard,currentPlayer.get_countOfTurn());
@@ -992,21 +1001,25 @@ void Client::move_oneCards(buttons& cCards){
        anim->setDuration(500);
        anim->setEndValue(QPoint(290, 290));
        anim->start();
-      connect(anim,&QAbstractAnimation::finished,this,[&](){cCards.cards_button->disconnect();cCards.cards_button->hide();set_picture(client_card);});
+      connect(anim,&QAbstractAnimation::finished,this,[&](){cCards.cards_button->disconnect();cCards.cards_button->hide();set_picture(client_card);
+          client_card.cards_button->setGeometry(290,290,101,141);
+          server_card.cards_button->setGeometry(210,240,101,141);});
 }
 //**************************************************************************************************************************
 void Client::move_twoCards(){
     QPropertyAnimation *animServer = new QPropertyAnimation(server_card.cards_button, "pos", this);
     QPropertyAnimation *animClient = new QPropertyAnimation(client_card.cards_button, "pos", this);
        animServer->setDuration(500);
-       animServer->setEndValue(QPoint(0, 260));
+       animServer->setEndValue(QPoint(-50, 260));
        animServer->start();
        animClient->setDuration(500);
-       animClient->setEndValue(QPoint(0, 260));
+       animClient->setEndValue(QPoint(-50, 260));
        animClient->start();
+       server_card.clear();
+       client_card.clear();
        connect(animServer,&QAbstractAnimation::finished,this,[&](){server_card.cards_button->hide();});
-       connect(animClient,&QAbstractAnimation::finished,this,[&](){server_card.cards_button->hide();});
-       server_card.empty();
-       client_card.empty();
+       connect(animClient,&QAbstractAnimation::finished,this,[&](){client_card.cards_button->hide();});
+
+
 }
 

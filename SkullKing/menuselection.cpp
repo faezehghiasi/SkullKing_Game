@@ -7,6 +7,7 @@
 #include"signup.h"
 #include"algorithm"
 #include<QTime>
+#include"clientorserver.h"
 MenuSelection::MenuSelection(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MenuSelection)
@@ -55,7 +56,7 @@ void MenuSelection::on_start_clicked()
              // server pick cards first
              int turncount = currentPlayer.get_countOfTurn();
              sendCard = currentPlayer.creat_cards();
-             currentPlayer.set_randomCards(sendCard,turncount);
+             currentPlayer.set_randomCards(sendCard,5);
              srv->showCards(currentPlayer.playeCard);
              for(int i=0 ; i<srv->get_buttons().size();i++){
                  srv->set_picture(srv->get_buttons()[i]);
@@ -70,13 +71,12 @@ void MenuSelection::on_start_clicked()
              file2.close();
              // end
 
-
-
-
              /// making parrote cards
              srv->whoShouldStartTheGameFirst();
              srv->set_picture(srv->get_server_card());
              srv->set_picture(srv->get_client_card());
+             ClientOrServer::delay(1000);
+             srv->move_twoCards();
              ///end
 
      }
