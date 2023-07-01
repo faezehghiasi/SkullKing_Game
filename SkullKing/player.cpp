@@ -61,7 +61,7 @@ void writeToFileCards(QString filename,QVector<cards>& card_val)
 }
 //************************************************************
 Player::Player(QString name_val, QString username_val, QString password_val, QString address_val,
-    QString phoneNumber_val, int win_val, int lose_val,int coin_val, bool score_val, bool turn_val,bool server_val,int countturn,int geuss_val,int setWin_val) {
+    QString phoneNumber_val, int win_val, int lose_val,int coin_val, bool score_val, bool turn_val,bool server_val,int countturn,int geuss_val,int setWin_val,bool starter_val) {
     name = name_val;
     username = username_val;
     password = password_val;
@@ -76,7 +76,7 @@ Player::Player(QString name_val, QString username_val, QString password_val, QSt
     countOfTurn=countturn;
     guess=geuss_val;
     setWin=setWin_val;
-
+    starterOfEachRound = starter_val
 
 }
 //***********************************************
@@ -156,6 +156,14 @@ void Player::set_server(bool server_val){
     server =server_val;
 }
 //*********************************************************
+bool Player::get_starterOfEachRound(){
+    return starterOfEachRound;
+}
+//**********************************************************
+void Player::set_starterOfEachRound(bool starter_val){
+    starterOfEachRound = starter_val;
+}
+//***********************************************************
 QVector<cards> Player::set_randomCards(QVector<cards>& exitCards, int countOfTurn){
 //    qDebug()<<"list size : "<<playeCard.size();
 //    qDebug()<<"vecto size : "<<exitCards.size();
@@ -226,8 +234,22 @@ void Player::set_turn(bool b){turn=b;}
 void Player::calculate(cards rivalCard){
     if((selectedCard.getId()==1||selectedCard.getId()==2||selectedCard.getId()==3)&&(rivalCard.getId()==1||rivalCard.getId()==2||rivalCard.getId()==3))
     {
-        if(selectedCard.getId()==rivalCard.getId())if(selectedCard.getNumber()>rivalCard.getNumber()) currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
-        else {//harkas aval shoroo karde...
+        if(selectedCard.getId()==rivalCard.getId())
+            ////************************************************
+            if(selectedCard.getNumber()>rivalCard.getNumber()){
+            currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
+            currentPlayer.set_turn(true);
+            currentPlayer.set_starterOfEachRound(true);
+           }
+
+        else{
+            ////*************************************************
+            if(currentPlayer.get_starterOfEachRound()){
+                currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
+                currentPlayer.set_turn(true);
+                currentPlayer.set_starterOfEachRound(true);
+            }
+
         }
         if(get_server()){
             srv->get_server_card().clear();
@@ -239,12 +261,27 @@ void Player::calculate(cards rivalCard){
         }
         return;
     }
+    ////********************************************************************************************************
+
         if(selectedCard.getId()==4){
-            if(rivalCard.getId()==1||rivalCard.getId()==2||rivalCard.getId()==3)currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
+            ////*****************************************************
+            if(rivalCard.getId()==1||rivalCard.getId()==2||rivalCard.getId()==3){
+                currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
+                currentPlayer.set_turn(true);
+                currentPlayer.set_starterOfEachRound(true);
+            }
+            ////**********************************************************
             else if(rivalCard.getId()==4){
-                if(selectedCard.getNumber()>rivalCard.getNumber()) currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
+                if(selectedCard.getNumber()>rivalCard.getNumber()){
+                    currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
+                    currentPlayer.set_turn(true);
+                    currentPlayer.set_starterOfEachRound(true);
+                }
 
                  }
+
+
+             ////************************************************************
             if(get_server()){
                 srv->get_server_card().clear();
                 srv->get_client_card().clear();
@@ -255,6 +292,7 @@ void Player::calculate(cards rivalCard){
             }
             return;
     }
+  ////***************************************************************************************************
     if(selectedCard.getId()==5||selectedCard.getId()==6||selectedCard.getId()==7){
         if(rivalCard.getId()==1||rivalCard.getId()==2||rivalCard.getId()==3||rivalCard.getId()==4)currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
         else {
@@ -317,6 +355,19 @@ void Player::calculate(cards rivalCard){
             cln->get_client_card().clear();
         }
         return;
-    }       
+    }
+    ////************************************************
+    else{
+        currentPlayer.set_turn(false);
+        currentPlayer.set_starterOfEachRound(false);
+        if(get_server()){
+            srv->get_server_card().clear();
+            srv->get_client_card().clear();
+        }
+        else{
+           cln->get_server_card().clear();
+            cln->get_client_card().clear();
+        }
+    }
 }
 //************************************************************************************

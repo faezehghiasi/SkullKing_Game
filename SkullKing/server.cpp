@@ -56,8 +56,9 @@ void Server :: readyRead(){
               //client send card
               currentPlayer.set_turn(true);
               client_card = recivedCard[0];
-              availbleCards(client_card);
+             availbleCards(client_card);
               set_picture(client_card);
+
               if(!client_card.empty()&& !server_card.empty()){
                 currentPlayer.calculate(client_card.thisCard);
               }
@@ -328,9 +329,11 @@ void Server::whoShouldStartTheGameFirst(){
     int client_number =( QRandomGenerator::global()->generate()%8)+1;
     tab:if(server_number>client_number){
         currentPlayer.set_turn(true);
+        currentPlayer.set_starterOfEachRound(true);
     }
     else if(client_number>server_number){
        currentPlayer.set_turn(false);
+       currentPlayer.set_starterOfEachRound(false);
     }
     else{
         server_number =( QRandomGenerator::global()->generate()%8)+1;
