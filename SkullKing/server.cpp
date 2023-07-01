@@ -9,6 +9,7 @@
 #include<QFile>
 #include<QRandomGenerator>
 #include<QTime>
+//******
 Server * srv;
 Server::Server(QWidget *parent) :
     QMainWindow(parent),
