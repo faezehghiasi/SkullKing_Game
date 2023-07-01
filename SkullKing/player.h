@@ -27,6 +27,10 @@ struct buttons{
     bool empty(){
         return(thisCard.getId()==0&&thisCard.getNumber()==0&&thisCard.getValue()==0&&thisCard.getOrder()=="");
     }
+    buttons& operator = (buttons b){
+       this->thisCard=b.thisCard;
+        return *this;
+    }
 
 };
 QTextStream &operator<<(QTextStream& out , cards p);

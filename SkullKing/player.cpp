@@ -5,6 +5,7 @@
 #include<QFile>
 #include<QMessageBox>
 #include"signin.h"
+#include"clientorserver.h"
 using namespace std;
 QVector<cards> recivedCard;
 QVector<cards> sendCard;
@@ -225,9 +226,17 @@ void Player::set_turn(bool b){turn=b;}
 void Player::calculate(cards rivalCard){
     if((selectedCard.getId()==1||selectedCard.getId()==2||selectedCard.getId()==3)&&(rivalCard.getId()==1||rivalCard.getId()==2||rivalCard.getId()==3))
     {
-        if(selectedCard.getId()==rivalCard.getId()) if(selectedCard.getNumber()>rivalCard.getNumber()) currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
-        else //harkas aval shoroo karde...
-
+        if(selectedCard.getId()==rivalCard.getId())if(selectedCard.getNumber()>rivalCard.getNumber()) currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
+        else {//harkas aval shoroo karde...
+        }
+        if(get_server()){
+            srv->get_server_card().clear();
+            srv->get_client_card().clear();
+        }
+        else{
+           cln->get_server_card().clear();
+            cln->get_client_card().clear();
+        }
         return;
     }
         if(selectedCard.getId()==4){
@@ -236,7 +245,14 @@ void Player::calculate(cards rivalCard){
                 if(selectedCard.getNumber()>rivalCard.getNumber()) currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
 
                  }
-
+            if(get_server()){
+                srv->get_server_card().clear();
+                srv->get_client_card().clear();
+            }
+            else{
+               cln->get_server_card().clear();
+                cln->get_client_card().clear();
+            }
             return;
     }
     if(selectedCard.getId()==5||selectedCard.getId()==6||selectedCard.getId()==7){
@@ -291,6 +307,14 @@ void Player::calculate(cards rivalCard){
                    break;
                }
             }
+        }
+        if(get_server()){
+            srv->get_server_card().clear();
+            srv->get_client_card().clear();
+        }
+        else{
+           cln->get_server_card().clear();
+            cln->get_client_card().clear();
         }
         return;
     }       
