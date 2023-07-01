@@ -56,7 +56,7 @@ void Server :: readyRead(){
               //client send card
               currentPlayer.set_turn(true);
               client_card = recivedCard[0];
-             availbleCards(client_card);
+              availbleCards(client_card);
               set_picture(client_card);
 
               if(!client_card.empty()&& !server_card.empty()){
