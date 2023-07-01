@@ -18,6 +18,10 @@ struct buttons{
         this->thisCard = c;
         return *this;
     }
+    buttons& operator =(buttons b){
+        this->thisCard=b.thisCard;
+        return *this;
+    }
     void clear(){
         thisCard.setNumber(0);
         thisCard.setId(0);

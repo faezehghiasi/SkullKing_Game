@@ -642,10 +642,8 @@ void Server::on_Buttons0_clicked(){
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[0]);
-   // ClientOrServer::delay(1000);
-    pushButtons[0].cards_button->disconnect();
-    pushButtons[0].cards_button->hide();
-    set_picture(server_card);
+
+
 
 }
 //**************************************************************************************************
@@ -671,11 +669,6 @@ void Server::on_Buttons1_clicked(){
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[1]);
-    //ClientOrServer::delay(1000);
-    pushButtons[1].cards_button->disconnect();
-    pushButtons[1].cards_button->hide();
-    set_picture(server_card);
-
 }
 //**************************************************************************************************
 void Server::on_Buttons2_clicked(){
@@ -981,8 +974,9 @@ void Server::move_oneCards(buttons& cCards){
        anim->setDuration(500);
        anim->setEndValue(QPoint(290, 290));
        anim->start();
-       anim->DeleteWhenStopped;
+       connect(anim,&QAbstractAnimation::finished,this,[&](){cCards.cards_button->disconnect();cCards.cards_button->hide();set_picture(server_card);});
 }
+//****************************************************************************************
 
 
 

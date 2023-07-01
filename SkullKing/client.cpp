@@ -988,8 +988,5 @@ void Client::move_oneCards(buttons& cCards){
        anim->setDuration(500);
        anim->setEndValue(QPoint(290, 290));
        anim->start();
-       cCards.cards_button->disconnect();
-       cCards.cards_button->hide();
-       set_picture(client_card);
-       anim->DeleteWhenStopped;
+      connect(anim,&QAbstractAnimation::finished,this,[&](){cCards.cards_button->disconnect();cCards.cards_button->hide();set_picture(client_card);});
 }

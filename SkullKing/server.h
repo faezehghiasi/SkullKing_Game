@@ -58,6 +58,8 @@ public slots:
     void on_Buttons13_clicked();
 
 
+
+
 private:
     Ui::Server *ui;
     QTcpServer* server;
