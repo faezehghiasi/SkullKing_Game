@@ -76,7 +76,7 @@ Player::Player(QString name_val, QString username_val, QString password_val, QSt
     countOfTurn=countturn;
     guess=geuss_val;
     setWin=setWin_val;
-    starterOfEachRound = starter_val
+    starterOfEachRound = starter_val;
 
 }
 //***********************************************
