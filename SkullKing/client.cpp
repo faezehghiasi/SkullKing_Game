@@ -104,13 +104,16 @@ void Client::readyRead() {
                  buttons temp;
                  availbleCards(temp);
              }
+             client_card.cards_button->setGeometry(290,290,101,141);
+             server_card.cards_button->setGeometry(210,240,101,141);
              set_picture(server_card);
-            ///calculateing the score
-             if(!client_card.empty()&& !server_card.empty()){
-               currentPlayer.calculate(server_card.thisCard);
-             }
-            /// end
-
+             ///calculateing the score
+              if(!client_card.empty()&& !server_card.empty()){
+                currentPlayer.calculate(server_card.thisCard);
+                ClientOrServer::delay(1000);
+                move_twoCards();
+              }
+             /// end
            }
       }
       else if(recivedCard.size()==2){
@@ -411,6 +414,8 @@ void Client::on_Buttons0_clicked(){
     move_oneCards(pushButtons[0]);
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(server_card.thisCard);
+      ClientOrServer::delay(1000);
+       move_twoCards();
     }
 
 
@@ -436,6 +441,8 @@ void Client::on_Buttons1_clicked(){
      move_oneCards(pushButtons[1]);
      if(!client_card.empty()&& !server_card.empty()){
        currentPlayer.calculate(server_card.thisCard);
+       ClientOrServer::delay(1000);
+        move_twoCards();
      }
 
 }
@@ -463,6 +470,8 @@ void Client::on_Buttons2_clicked(){
       move_oneCards(pushButtons[2]);
       if(!client_card.empty()&& !server_card.empty()){
         currentPlayer.calculate(server_card.thisCard);
+        ClientOrServer::delay(1000);
+         move_twoCards();
       }
 
 
@@ -491,6 +500,8 @@ void Client::on_Buttons3_clicked(){
     move_oneCards(pushButtons[3]);
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(server_card.thisCard);
+      ClientOrServer::delay(1000);
+       move_twoCards();
     }
 
 
@@ -519,6 +530,8 @@ void Client::on_Buttons4_clicked(){
     move_oneCards(pushButtons[4]);
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(server_card.thisCard);
+      ClientOrServer::delay(1000);
+       move_twoCards();
     }
 
 
@@ -547,6 +560,8 @@ void Client::on_Buttons5_clicked(){
     move_oneCards(pushButtons[5]);
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(server_card.thisCard);
+      ClientOrServer::delay(1000);
+       move_twoCards();
     }
 
 
@@ -575,6 +590,8 @@ void Client::on_Buttons6_clicked(){
       move_oneCards(pushButtons[6]);
       if(!client_card.empty()&& !server_card.empty()){
         currentPlayer.calculate(server_card.thisCard);
+        ClientOrServer::delay(1000);
+         move_twoCards();
       }
 
 
@@ -603,6 +620,8 @@ void Client::on_Buttons7_clicked(){
       move_oneCards(pushButtons[7]);
       if(!client_card.empty()&& !server_card.empty()){
         currentPlayer.calculate(server_card.thisCard);
+        ClientOrServer::delay(1000);
+         move_twoCards();
       }
 
 
@@ -631,6 +650,8 @@ void Client::on_Buttons8_clicked(){
       move_oneCards(pushButtons[8]);
       if(!client_card.empty()&& !server_card.empty()){
         currentPlayer.calculate(server_card.thisCard);
+        ClientOrServer::delay(1000);
+         move_twoCards();
       }
 
 
@@ -660,6 +681,8 @@ void Client::on_Buttons9_clicked(){
       move_oneCards(pushButtons[9]);
       if(!client_card.empty()&& !server_card.empty()){
         currentPlayer.calculate(server_card.thisCard);
+        ClientOrServer::delay(1000);
+         move_twoCards();
       }
 
 }
@@ -687,6 +710,8 @@ void Client::on_Buttons10_clicked(){
     move_oneCards(pushButtons[10]);
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(server_card.thisCard);
+      ClientOrServer::delay(1000);
+       move_twoCards();
     }
 
 
@@ -715,6 +740,8 @@ void Client::on_Buttons11_clicked(){
       move_oneCards(pushButtons[11]);
       if(!client_card.empty()&& !server_card.empty()){
         currentPlayer.calculate(server_card.thisCard);
+        ClientOrServer::delay(1000);
+         move_twoCards();
       }
 
 }
@@ -741,6 +768,8 @@ void Client::on_Buttons12_clicked(){
     move_oneCards(pushButtons[12]);
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(server_card.thisCard);
+      ClientOrServer::delay(1000);
+       move_twoCards();
     }
 
 
@@ -769,6 +798,8 @@ void Client::on_Buttons13_clicked(){
       move_oneCards(pushButtons[13]);
       if(!client_card.empty()&& !server_card.empty()){
         currentPlayer.calculate(server_card.thisCard);
+        ClientOrServer::delay(1000);
+         move_twoCards();
       }
 }
 //**************************************************************************************************

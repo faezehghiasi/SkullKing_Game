@@ -55,12 +55,11 @@ void Server :: readyRead(){
           readFromFileCards("recivedCard.bin",recivedCard);
           if(recivedCard.size()==1){
               //client send card
-              qDebug()<<"cos khar";
-              currentPlayer.set_turn(true);
+
               client_card = recivedCard[0];
-                qDebug()<<client_card.thisCard.getId()<<client_card.thisCard.getNumber();
                 if(!currentPlayer.get_starterOfEachRound()){
-                availbleCards(client_card);
+                    currentPlayer.set_turn(true);
+                    availbleCards(client_card);
                 }
                 else {
                     buttons temp;
@@ -69,6 +68,7 @@ void Server :: readyRead(){
               set_picture(client_card);
               if(!client_card.empty()&& !server_card.empty()){
                 currentPlayer.calculate(client_card.thisCard);
+                ClientOrServer::delay(1000);
                 move_twoCards();
               }
          }
@@ -625,7 +625,8 @@ void Server::on_Buttons0_clicked(){
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[0]);
     if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(server_card.thisCard);
+      currentPlayer.calculate(client_card.thisCard);
+      ClientOrServer::delay(1000);
       move_twoCards();
     }
 
@@ -654,7 +655,8 @@ void Server::on_Buttons1_clicked(){
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[1]);
     if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(server_card.thisCard);
+      currentPlayer.calculate(client_card.thisCard);
+      ClientOrServer::delay(1000);
        move_twoCards();
     }
 }
@@ -682,7 +684,8 @@ void Server::on_Buttons2_clicked(){
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[2]);
     if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(server_card.thisCard);
+      currentPlayer.calculate(client_card.thisCard);
+      ClientOrServer::delay(1000);
       move_twoCards();
     }
 
@@ -711,7 +714,8 @@ void Server::on_Buttons3_clicked(){
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[3]);
     if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(server_card.thisCard);
+      currentPlayer.calculate(client_card.thisCard);
+      ClientOrServer::delay(1000);
       move_twoCards();
     }
 
@@ -740,7 +744,8 @@ void Server::on_Buttons4_clicked(){
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[4]);
     if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(server_card.thisCard);
+      currentPlayer.calculate(client_card.thisCard);
+      ClientOrServer::delay(1000);
       move_twoCards();
     }
 
@@ -769,7 +774,8 @@ void Server::on_Buttons5_clicked(){
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[5]);
     if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(server_card.thisCard);
+      currentPlayer.calculate(client_card.thisCard);
+      ClientOrServer::delay(1000);
        move_twoCards();
     }
 
@@ -798,7 +804,8 @@ void Server::on_Buttons6_clicked(){
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[6]);
     if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(server_card.thisCard);
+      currentPlayer.calculate(client_card.thisCard);
+      ClientOrServer::delay(1000);
       move_twoCards();
     }
 
@@ -827,7 +834,8 @@ void Server::on_Buttons7_clicked(){
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[7]);
     if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(server_card.thisCard);
+      currentPlayer.calculate(client_card.thisCard);
+      ClientOrServer::delay(1000);
       move_twoCards();
     }
 
@@ -856,7 +864,8 @@ void Server::on_Buttons8_clicked(){
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[8]);
     if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(server_card.thisCard);
+      currentPlayer.calculate(client_card.thisCard);
+      ClientOrServer::delay(1000);
       move_twoCards();
     }
 
@@ -885,7 +894,8 @@ void Server::on_Buttons9_clicked(){
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[9]);
     if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(server_card.thisCard);
+      currentPlayer.calculate(client_card.thisCard);
+      ClientOrServer::delay(1000);
       move_twoCards();
     }
 
@@ -914,7 +924,8 @@ void Server::on_Buttons10_clicked(){
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[10]);
     if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(server_card.thisCard);
+      currentPlayer.calculate(client_card.thisCard);
+      ClientOrServer::delay(1000);
        move_twoCards();
     }
 
@@ -943,7 +954,8 @@ void Server::on_Buttons11_clicked(){
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[11]);
     if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(server_card.thisCard);
+      currentPlayer.calculate(client_card.thisCard);
+      ClientOrServer::delay(1000);
        move_twoCards();
     }
 
@@ -972,7 +984,8 @@ void Server::on_Buttons12_clicked(){
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[12]);
     if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(server_card.thisCard);
+      currentPlayer.calculate(client_card.thisCard);
+      ClientOrServer::delay(1000);
       move_twoCards();
     }
 
@@ -986,7 +999,7 @@ void Server::on_Buttons13_clicked(){
     }
      //qDebug()<<"13"<< pushButtons[13].thisCard.getId()<<" "<< pushButtons[13].thisCard.getNumber()<<" "<<pushButtons[13].thisCard.getValue();
     server_card  = pushButtons[13];
-    currentPlayer.set_selectedCard(server_card.thisCard);
+    currentPlayer.set_selectedCard(client_card.thisCard);
     sendCard.push_back(pushButtons[13].thisCard);
     writeToFileCards("sendCard.bin",sendCard);
     QFile file("sendCard.bin");
@@ -1000,6 +1013,7 @@ void Server::on_Buttons13_clicked(){
     move_oneCards(pushButtons[13]);
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(server_card.thisCard);
+      ClientOrServer::delay(1000);
        move_twoCards();
     }
 

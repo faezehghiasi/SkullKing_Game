@@ -240,6 +240,7 @@ void Player::calculate(cards rivalCard){
             currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
             currentPlayer.set_turn(true);
             currentPlayer.set_starterOfEachRound(true);
+            return;
            }
 
         else{
@@ -248,6 +249,7 @@ void Player::calculate(cards rivalCard){
                 currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
                 currentPlayer.set_turn(true);
                 currentPlayer.set_starterOfEachRound(true);
+                return;
             }
 
         }
@@ -259,16 +261,17 @@ void Player::calculate(cards rivalCard){
            cln->get_server_card().clear();
             cln->get_client_card().clear();
         }
-        return;
+
     }
     ////********************************************************************************************************
 
-        if(selectedCard.getId()==4){
+       else if(selectedCard.getId()==4){
             ////*****************************************************
             if(rivalCard.getId()==1||rivalCard.getId()==2||rivalCard.getId()==3){
                 currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
                 currentPlayer.set_turn(true);
                 currentPlayer.set_starterOfEachRound(true);
+                return;
             }
             ////**********************************************************
             else if(rivalCard.getId()==4){
@@ -276,6 +279,7 @@ void Player::calculate(cards rivalCard){
                     currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
                     currentPlayer.set_turn(true);
                     currentPlayer.set_starterOfEachRound(true);
+                    return;
                 }
 
                  }
@@ -290,22 +294,33 @@ void Player::calculate(cards rivalCard){
                cln->get_server_card().clear();
                 cln->get_client_card().clear();
             }
-            return;
+
     }
   ////***************************************************************************************************
-    if(selectedCard.getId()==5||selectedCard.getId()==6||selectedCard.getId()==7){
-        if(rivalCard.getId()==1||rivalCard.getId()==2||rivalCard.getId()==3||rivalCard.getId()==4)currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
+   else if(selectedCard.getId()==5||selectedCard.getId()==6||selectedCard.getId()==7){
+        if(rivalCard.getId()==1||rivalCard.getId()==2||rivalCard.getId()==3||rivalCard.getId()==4){
+            currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
+            currentPlayer.set_turn(true);
+            currentPlayer.set_starterOfEachRound(true);
+            return;
+        }
         else {
             if(selectedCard.getId()==5){
                  switch(rivalCard.getId()){
-                case 5:if(!currentPlayer.get_turn()){
+                case 5:if(get_starterOfEachRound()){
                      currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
                      currentPlayer.set_score(currentPlayer.get_score()+30);
+                     currentPlayer.set_turn(true);
+                     currentPlayer.set_starterOfEachRound(true);
+                     return;
                      }
                     break;
                 case 7:{
                     currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
                     currentPlayer.set_score(currentPlayer.get_score()+25);
+                    currentPlayer.set_turn(true);
+                    currentPlayer.set_starterOfEachRound(true);
+                    return;
                  }
                     break;
                 }
@@ -315,12 +330,18 @@ void Player::calculate(cards rivalCard){
                case 5:{
                     currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
                     currentPlayer.set_score(currentPlayer.get_score()+35);
+                    currentPlayer.set_turn(true);
+                    currentPlayer.set_starterOfEachRound(true);
+                    return;
                 }
 
                    break;
-               case 6:if(!currentPlayer.get_turn()){
+               case 6:if(get_starterOfEachRound()){
                         currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
                         currentPlayer.set_score(currentPlayer.get_score()+40);
+                        currentPlayer.set_turn(true);
+                        currentPlayer.set_starterOfEachRound(true);
+                        return;
                     }
 
                    break;
@@ -334,12 +355,18 @@ void Player::calculate(cards rivalCard){
                case 6:{
                     currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
                     currentPlayer.set_score(currentPlayer.get_score()+30);
+                    currentPlayer.set_turn(true);
+                    currentPlayer.set_starterOfEachRound(true);
+                    return;
                 }
                    break;
                case 7:
-                    if(!currentPlayer.get_turn())
+                    if(get_starterOfEachRound())
                     {currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
                      currentPlayer.set_score(currentPlayer.get_score()+20);
+                     currentPlayer.set_turn(true);
+                     currentPlayer.set_starterOfEachRound(true);
+                     return;
                     }
 
                    break;
@@ -354,20 +381,19 @@ void Player::calculate(cards rivalCard){
            cln->get_server_card().clear();
             cln->get_client_card().clear();
         }
-        return;
+
     }
     ////************************************************
-    else{
         currentPlayer.set_turn(false);
         currentPlayer.set_starterOfEachRound(false);
-        if(get_server()){
-            srv->get_server_card().clear();
-            srv->get_client_card().clear();
-        }
-        else{
-           cln->get_server_card().clear();
-            cln->get_client_card().clear();
-        }
-    }
+//        if(get_server()){
+//            srv->get_server_card().clear();
+//            srv->get_client_card().clear();
+//        }
+//        else{
+//           cln->get_server_card().clear();
+//            cln->get_client_card().clear();
+//        }
+
 }
 //************************************************************************************
