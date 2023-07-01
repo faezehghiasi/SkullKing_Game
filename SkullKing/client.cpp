@@ -361,56 +361,21 @@ void Client::showCards(QList<cards> cCards){
 void Client::availbleCards(buttons rivalCard){
     //mitooni bhine tar koni
     int rivalCardId=rivalCard.thisCard.getId();
-    //simple cards......
-    if(rivalCardId==1 ||rivalCardId==2||rivalCardId==3)
-    {
-        auto findIt=find_if(pushButtons.begin(),pushButtons.end(),[rivalCardId](buttons currbut){return(currbut.thisCard.getId()==rivalCardId);});
-        //age dashte bashe.....
-        if(findIt!=pushButtons.end()){
-            for(auto it=pushButtons.begin();it!=pushButtons.end();it++){
-                if(it->thisCard.getId()!=rivalCardId && it->thisCard.getId()!=5 &&it->thisCard.getId()!=6 &&it->thisCard.getId()!=7){
-                    it->cards_button->disconnect();
-                }
-            }
-        }
-        //age nadashte bashe...........
-        else{
-            int counter=0;
-                counter=count_if(pushButtons.begin(),pushButtons.end(),[](buttons currbut){return (currbut.thisCard.getId()>=4);});
-            if(counter>0){
-                for(auto it=pushButtons.begin();it!=pushButtons.end();it++){
-                    if(it->thisCard.getId()!=rivalCardId &&it->thisCard.getId()!=5 &&it->thisCard.getId()!=6 &&it->thisCard.getId()!=7 && it->thisCard.getId()!=4)
-                       it->cards_button->disconnect();
-                 }
-           }
-        }
-        return;
-    }
-
-    //hokm.................
-    else if(rivalCardId==4){
-        //age hokm dashtebashe
-        auto it=find_if(pushButtons.begin(),pushButtons.end(),[](buttons b){return(b.thisCard.getId()==4);});
-        if(it!=pushButtons.end()){
-            for(auto it=pushButtons.begin();it!=pushButtons.end();it++){
-                if(it->thisCard.getId()!=4) it->cards_button->disconnect();
-            }
-        }
-        //age hokm nadashte bashe
-        else{
-            int counter=count_if(pushButtons.begin(),pushButtons.end(),[](buttons b){return (b.thisCard.getId()>=5);});
-            //age cart naghsh dashte bashe
-            if(counter>0){
-                for(auto it=pushButtons.begin();it!=pushButtons.end();it++){
-                    if(it->thisCard.getId()==1 ||it->thisCard.getId()==2||it->thisCard.getId()==3)it->cards_button->disconnect();
-                }
-            }
-        }
-        return;
-    }
-
-    //important cards......................
-   //fk konam hamaro mitoone bazi kone
+   if(rivalCardId==1||rivalCardId==2||rivalCardId==3||rivalCardId==4){
+       auto findIt=find_if(pushButtons.begin(),pushButtons.end(),[rivalCardId](buttons b){return (b.thisCard.getId()==rivalCardId);});
+       //age az ina dashte bashe...
+       if(findIt!=pushButtons.end()){
+          for(auto& x:pushButtons){
+              if(x.thisCard.getId()!=rivalCardId && x.thisCard.getId()!=5 &&x.thisCard.getId()!=6 &&x.thisCard.getId()!=7){
+                  x.cards_button->setEnabled(false);
+              }
+              else x.cards_button->setEnabled(true);
+          }
+       }
+       //age nadashte bashe....
+       else for(auto& x:pushButtons)x.cards_button->setEnabled(true);
+   }
+   else for(auto& x:pushButtons)x.cards_button->setEnabled(true);
 }
 //***********************************************************************************
 void Client::on_Buttons0_clicked(){
