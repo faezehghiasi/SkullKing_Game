@@ -43,10 +43,7 @@ void MenuSelection::on_start_clicked()
             srv->get_socket()->flush();
             file.close();
             //end
-
-
-
-            // server pick card
+            // decrese money
             currentPlayer.set_coin(currentPlayer.get_coin()-50);
             auto foundPlayer=find_if(listOfPlayer.begin(),listOfPlayer.end(),[](auto x){return(x.get_username()==currentPlayer.get_username());});
             foundPlayer->set_coin(currentPlayer.get_coin());
@@ -56,12 +53,13 @@ void MenuSelection::on_start_clicked()
              // server pick cards first
              int turncount = currentPlayer.get_countOfTurn();
              sendCard = currentPlayer.creat_cards();
-             currentPlayer.set_randomCards(sendCard,5);
+             currentPlayer.set_randomCards(sendCard,turncount);
              srv->showCards(currentPlayer.playeCard);
              for(int i=0 ; i<srv->get_buttons().size();i++){
                  srv->set_picture(srv->get_buttons()[i]);
              }
              writeToFileCards("sendCard.bin",sendCard);
+
              QFile file2("sendCard.bin");
              file2.open(QFile::ReadOnly | QFile::Text);
              QByteArray file_content2 = file2.readAll();
@@ -75,8 +73,12 @@ void MenuSelection::on_start_clicked()
              srv->whoShouldStartTheGameFirst();
              srv->set_picture(srv->get_server_card());
              srv->set_picture(srv->get_client_card());
+
+
              ClientOrServer::delay(1000);
              srv->move_twoCards();
+             srv->get_server_card().cards_button->setGeometry(290,290,101,141);
+             srv->get_client_card().cards_button->setGeometry(210,240,101,141);
              ///end
 
      }

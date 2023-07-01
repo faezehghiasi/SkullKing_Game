@@ -96,16 +96,15 @@ void Client::readyRead() {
 
             //server send card
              server_card = recivedCard[0];
-             currentPlayer.set_turn(true);
              if(!currentPlayer.get_starterOfEachRound()){
-             availbleCards(server_card);
+                 currentPlayer.set_turn(true);
+                 availbleCards(server_card);
              }
              else {
                  buttons temp;
                  availbleCards(temp);
              }
              set_picture(server_card);
-
             ///calculateing the score
              if(!client_card.empty()&& !server_card.empty()){
                currentPlayer.calculate(server_card.thisCard);
@@ -405,9 +404,6 @@ void Client::on_Buttons0_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-
-    /// animaition
-
     socket->write(file_content);
     socket->flush();
     file.close();
@@ -433,9 +429,6 @@ void Client::on_Buttons1_clicked(){
      QFile file("sendCard.bin");
      file.open(QFile::ReadOnly | QFile::Text);
      QByteArray file_content = file.readAll();
-
-     /// nimaition
-
      socket->write(file_content);
      socket->flush();
      file.close();
