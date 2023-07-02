@@ -35,6 +35,7 @@ Server::Server(QWidget *parent) :
     scoreNumber->setStyleSheet("font: 10pt Broadway;  color: rgb(13, 13, 13);");
     scoreLabel->setGeometry(10,50,81,31);
     scoreNumber->setGeometry(10,90,71,31);
+    scoreLabel->setText("score");
     scoreLabel->show();
     scoreNumber->show();
     scoreNumber->setText(QString::number(currentPlayer.get_score()));
@@ -1365,7 +1366,7 @@ void Server::caculateScore(int rivalScore){
         foundPlayer->set_score(currentPlayer.get_score());
          writeToFile("myfile.bin");
          scoreNumber->setText(QString::number(currentPlayer.get_score()));
-
+         currentPlayer.set_setWin(0);
     }
 
 }

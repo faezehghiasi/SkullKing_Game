@@ -428,3 +428,20 @@ void Player::calculate(cards rivalCard){
 
 }
 //************************************************************************************
+Player& Player::operator=(Player p){
+    username=p.get_username();
+    password=p.get_password();
+    name=p.get_name();
+    address=p.get_address();
+    phoneNumber=p.get_phoneNumber();
+    win=p.get_win();
+    lose=p.get_lose();
+    coin=p.get_coin();
+    server=p.get_server();
+    score=p.get_score();
+    turn=p.get_turn();
+    countOfTurn=p.get_countOfTurn();
+    guess=p.get_guess();
+    setWin=p.get_setWin();
+    return *this;
+}
