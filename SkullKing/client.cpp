@@ -40,6 +40,14 @@ Client::Client(QWidget *parent) :
     continueTheGameButton->hide();
 
 
+    endOfTheGame=new QPushButton("End the game",this);
+    endOfTheGame->setStyleSheet("background-color:rgb(200, 129, 49); color: rgb(0, 0, 0); font: 15pt Stencil;border-color: rgb(85, 0, 0); border-radius:10px;QPushButton#continueTheGameButton{background-color:rgb(200, 129, 49); color: rgb(0, 0, 0); font: 15pt Stencil;border-color: rgb(85, 0, 0); border-radius:10px;}QPushButton#continueTheGameButton:hover{ color:rgba(155,168,182,210) ;}QPushButton#continueTheGameButton:pressed{padding-left:5px; padding-top:5px;color:rgba(115 ,128,142,210);}");
+    endOfTheGame->setGeometry(150,300,301,141);
+    endOfTheGame->hide();
+    connect(endOfTheGame,&QPushButton::clicked,this,&Client::endOfGame);
+
+
+
 }
 //*****************************************************************************
 void Client::creation(){
@@ -102,7 +110,24 @@ void Client::readyRead() {
                writeToFile("myfile.bin");
                this->close();
                Skullking* newPage;
+               newPage=new Skullking;
                newPage->show();
+               Skullking::delay();
+               newPage->Show_TextBrows();
+           }
+           else if(recivedCard[0].getOrder()=="You Win"){
+                 currentPlayer.set_win(currentPlayer.get_win()+1);
+                 auto foundPlayer=find_if(listOfPlayer.begin(),listOfPlayer.end(),[](auto x){return(x.get_username()==currentPlayer.get_username());});
+                 foundPlayer->set_win(currentPlayer.get_win());
+                 writeToFile("myfile.bin");
+                 endOfTheGame->setText("You win");
+           }
+           else if(recivedCard[0].getOrder()=="You Lose"){
+               currentPlayer.set_lose(currentPlayer.get_lose()+1);
+               auto foundPlayer=find_if(listOfPlayer.begin(),listOfPlayer.end(),[](auto x){return(x.get_username()==currentPlayer.get_username());});
+               foundPlayer->set_lose(currentPlayer.get_lose());
+               writeToFile("myfile.bin");
+               endOfTheGame->setText("You lose");
            }
           else{
 
@@ -125,6 +150,7 @@ void Client::readyRead() {
                 ClientOrServer::delay(2000);
                 move_twoCards();
                 if(currentPlayer.playeCard.size()==0){
+
                     currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
                    continueTheGameButton->show();
 
@@ -149,6 +175,7 @@ void Client::readyRead() {
            server_card.cards_button->setGeometry(210,240,101,141);
            continueTheGameButton->hide();
            set_picture(client_card);
+           set_picture(server_card);
            ClientOrServer::delay(1000);
            move_twoCards();
            ClientOrServer::delay(1000);
@@ -454,8 +481,16 @@ void Client::on_Buttons0_clicked(){
       ClientOrServer::delay(1000);
        move_twoCards();
        if(currentPlayer.playeCard.size()==0){
-          continueTheGameButton->show();
-          currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
+           ///////////////////////////////////////
+           if(currentPlayer.get_countOfTurn()==7){
+               for(auto& x:pushButtons) delete x.cards_button;
+               pushButtons.clear();
+               endOfTheGame->show();
+           }
+           ////////////////////////////////////////////////////
+          else{
+               continueTheGameButton->show();
+          currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
        }
     }
 
@@ -494,9 +529,16 @@ void Client::on_Buttons1_clicked(){
        ClientOrServer::delay(1000);
         move_twoCards();
         if(currentPlayer.playeCard.size()==0){
-
+            ///////////////////////////////////////
+            if(currentPlayer.get_countOfTurn()==7){
+                for(auto& x:pushButtons) delete x.cards_button;
+                pushButtons.clear();
+                endOfTheGame->show();
+            }
+            ////////////////////////////////////////////////////
+           else{
              continueTheGameButton->show();
-             currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
+             currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
 
         }
      }
@@ -536,9 +578,17 @@ void Client::on_Buttons2_clicked(){
         ClientOrServer::delay(1000);
          move_twoCards();
          if(currentPlayer.playeCard.size()==0){
+             ///////////////////////////////////////
+             if(currentPlayer.get_countOfTurn()==7){
+                 for(auto& x:pushButtons) delete x.cards_button;
+                 pushButtons.clear();
+                 endOfTheGame->show();
+             }
+             ////////////////////////////////////////////////////
+            else{
 
               continueTheGameButton->show();
-               currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
+               currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
 
          }
       }
@@ -579,9 +629,16 @@ void Client::on_Buttons3_clicked(){
       ClientOrServer::delay(1000);
        move_twoCards();
        if(currentPlayer.playeCard.size()==0){
-
+           ///////////////////////////////////////
+           if(currentPlayer.get_countOfTurn()==7){
+               for(auto& x:pushButtons) delete x.cards_button;
+               pushButtons.clear();
+               endOfTheGame->show();
+           }
+           ////////////////////////////////////////////////////
+          else{
               continueTheGameButton->show();
-               currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
+               currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
 
        }
     }
@@ -622,9 +679,16 @@ void Client::on_Buttons4_clicked(){
       ClientOrServer::delay(1000);
        move_twoCards();
        if(currentPlayer.playeCard.size()==0){
-
+           ///////////////////////////////////////
+           if(currentPlayer.get_countOfTurn()==7){
+               for(auto& x:pushButtons) delete x.cards_button;
+               pushButtons.clear();
+               endOfTheGame->show();
+           }
+           ////////////////////////////////////////////////////
+          else{
            continueTheGameButton->show();
-            currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
+            currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
 
        }
     }
@@ -665,9 +729,16 @@ void Client::on_Buttons5_clicked(){
       ClientOrServer::delay(1000);
        move_twoCards();
        if(currentPlayer.playeCard.size()==0){
-
+           ///////////////////////////////////////
+           if(currentPlayer.get_countOfTurn()==7){
+               for(auto& x:pushButtons) delete x.cards_button;
+               pushButtons.clear();
+               endOfTheGame->show();
+           }
+           ////////////////////////////////////////////////////
+          else{
          continueTheGameButton->show();
-          currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
+          currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
 
        }
     }
@@ -708,9 +779,16 @@ void Client::on_Buttons6_clicked(){
         ClientOrServer::delay(1000);
          move_twoCards();
          if(currentPlayer.playeCard.size()==0){
-
+             ///////////////////////////////////////
+             if(currentPlayer.get_countOfTurn()==7){
+                 for(auto& x:pushButtons) delete x.cards_button;
+                 pushButtons.clear();
+                 endOfTheGame->show();
+             }
+             ////////////////////////////////////////////////////
+            else{
             continueTheGameButton->show();
-             currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
+             currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
 
          }
       }
@@ -751,9 +829,16 @@ void Client::on_Buttons7_clicked(){
         ClientOrServer::delay(1000);
          move_twoCards();
          if(currentPlayer.playeCard.size()==0){
-
+             ///////////////////////////////////////
+             if(currentPlayer.get_countOfTurn()==7){
+                 for(auto& x:pushButtons) delete x.cards_button;
+                 pushButtons.clear();
+                 endOfTheGame->show();
+             }
+             ////////////////////////////////////////////////////
+            else{
              continueTheGameButton->show();
-              currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
+              currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
 
          }
       }
@@ -794,9 +879,16 @@ void Client::on_Buttons8_clicked(){
         ClientOrServer::delay(1000);
          move_twoCards();
          if(currentPlayer.playeCard.size()==0){
-
+             ///////////////////////////////////////
+             if(currentPlayer.get_countOfTurn()==7){
+                 for(auto& x:pushButtons) delete x.cards_button;
+                 pushButtons.clear();
+                 endOfTheGame->show();
+             }
+             ////////////////////////////////////////////////////
+            else{
            continueTheGameButton->show();
-            currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
+            currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
 
          }
       }
@@ -837,9 +929,16 @@ void Client::on_Buttons9_clicked(){
         ClientOrServer::delay(1000);
          move_twoCards();
          if(currentPlayer.playeCard.size()==0){
-
+             ///////////////////////////////////////
+             if(currentPlayer.get_countOfTurn()==7){
+                 for(auto& x:pushButtons) delete x.cards_button;
+                 pushButtons.clear();
+                 endOfTheGame->show();
+             }
+             ////////////////////////////////////////////////////
+            else{
            continueTheGameButton->show();
-            currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
+            currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
 
          }
       }
@@ -880,9 +979,16 @@ void Client::on_Buttons10_clicked(){
       ClientOrServer::delay(1000);
        move_twoCards();
        if(currentPlayer.playeCard.size()==0){
-
+           ///////////////////////////////////////
+           if(currentPlayer.get_countOfTurn()==7){
+               for(auto& x:pushButtons) delete x.cards_button;
+               pushButtons.clear();
+               endOfTheGame->show();
+           }
+           ////////////////////////////////////////////////////
+          else{
           continueTheGameButton->show();
-           currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
+           currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
 
        }
     }
@@ -922,9 +1028,16 @@ void Client::on_Buttons11_clicked(){
         ClientOrServer::delay(1000);
          move_twoCards();
          if(currentPlayer.playeCard.size()==0){
-
+             ///////////////////////////////////////
+             if(currentPlayer.get_countOfTurn()==7){
+                 for(auto& x:pushButtons) delete x.cards_button;
+                 pushButtons.clear();
+                 endOfTheGame->show();
+             }
+             ////////////////////////////////////////////////////
+            else{
             continueTheGameButton->show();
-             currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
+             currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
 
          }
       }
@@ -963,9 +1076,16 @@ void Client::on_Buttons12_clicked(){
       ClientOrServer::delay(1000);
        move_twoCards();
        if(currentPlayer.playeCard.size()==0){
-
+           ///////////////////////////////////////
+           if(currentPlayer.get_countOfTurn()==7){
+               for(auto& x:pushButtons) delete x.cards_button;
+               pushButtons.clear();
+               endOfTheGame->show();
+           }
+           ////////////////////////////////////////////////////
+          else{
            continueTheGameButton->show();
-            currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
+            currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
 
        }
     }
@@ -1005,9 +1125,16 @@ void Client::on_Buttons13_clicked(){
         ClientOrServer::delay(1000);
          move_twoCards();
          if(currentPlayer.playeCard.size()==0){
-
+             ///////////////////////////////////////
+             if(currentPlayer.get_countOfTurn()==7){
+                 for(auto& x:pushButtons) delete x.cards_button;
+                 pushButtons.clear();
+                 endOfTheGame->show();
+             }
+             ////////////////////////////////////////////////////
+            else{
              continueTheGameButton->show();
-             currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
+             currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
 
          }
       }
@@ -1297,5 +1424,27 @@ void Client::on_pushButton_8_clicked()
     socket->write(file_content);
     socket->flush();
     file.close();
+    this->close();
+    Skullking* newPage;
+    newPage=new Skullking;
+    newPage->show();
+    Skullking::delay();
+    newPage->Show_TextBrows();
 }
 //********************************************************************************************************************
+void Client::endOfGame(){
+    calculateScore();
+    cards client_order;
+    client_order.setNumber(currentPlayer.get_score());
+    client_order.setOrder("SCORE");
+    sendCard.push_back(client_order);
+    writeToFileCards("sendCard.bin",sendCard);
+    QFile file("sendCard.bin");
+    file.open(QFile::ReadOnly | QFile::Text);
+    QByteArray file_content = file.readAll();
+    /////mutex....
+    socket->write(file_content);
+    socket->flush();
+    ////.......
+    file.close();
+}

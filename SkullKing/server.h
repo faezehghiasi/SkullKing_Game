@@ -67,9 +67,10 @@ public slots:
     void on_continueTheGameButton_clicked();
 
 private slots:
-    void on_pushButton_8_clicked();
 
     void on_pushButton_9_clicked();
+
+    void on_pushButton_7_clicked();
 
 private:
     Ui::Server *ui;
@@ -80,6 +81,7 @@ private:
     struct buttons client_card;
     QLineEdit* guessLabel;
     QPushButton * continueTheGameButton;
+    QPushButton*  endOfTheGame;
 };
 extern Server* srv;
 #endif // SERVER_H

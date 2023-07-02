@@ -140,24 +140,6 @@ border-color :#000000</string>
       <string/>
      </property>
     </widget>
-    <widget class="QPushButton" name="pushButton_8">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>190</y>
-       <width>61</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(200, 56, 12);
-color: rgb(0, 0, 0);
-font: 600 10pt &quot;Sitka Small Semibold&quot;;</string>
-     </property>
-     <property name="text">
-      <string>EXIT</string>
-     </property>
-    </widget>
     <widget class="QPushButton" name="pushButton_9">
      <property name="geometry">
       <rect>
@@ -174,6 +156,24 @@ font: 600 10pt &quot;Sitka Small Semibold&quot;;</string>
      </property>
      <property name="text">
       <string>STOP</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="pushButton_7">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>190</y>
+       <width>61</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(200, 56, 12);
+color: rgb(0, 0, 0);
+font: 600 10pt &quot;Sitka Small Semibold&quot;;</string>
+     </property>
+     <property name="text">
+      <string>Exit</string>
      </property>
     </widget>
    </widget>
