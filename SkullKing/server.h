@@ -35,6 +35,7 @@ public:
      QVector<buttons>& get_buttons();
      void move_oneCards(buttons& c);
      void move_twoCards();
+     void play();
     ~Server();
 signals:
     void sendIp(QString ip);
