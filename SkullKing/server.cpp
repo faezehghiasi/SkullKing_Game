@@ -119,7 +119,7 @@ void Server::showCards(QList<cards> cCards){
             buttons QP;
             QP.cards_button = new QPushButton(this);
             QP.thisCard= cCards[i];
-             pushButtons.append(QP);
+             pushButtons.push_back(QP);
         }
         int X =190;
         int Y = 490;
@@ -138,7 +138,7 @@ void Server::showCards(QList<cards> cCards){
             buttons QP;
             QP.cards_button = new QPushButton(this);
             QP.thisCard= cCards[i];
-             pushButtons.append(QP);
+             pushButtons.push_back(QP);
         }
         int X =100;
         int Y = 510;
@@ -164,7 +164,7 @@ void Server::showCards(QList<cards> cCards){
             buttons QP;
             QP.cards_button = new QPushButton(this);
             QP.thisCard= cCards[i];
-             pushButtons.append(QP);
+             pushButtons.push_back(QP);
         }
         int X = 90;
         int Y = 530;
@@ -192,7 +192,7 @@ void Server::showCards(QList<cards> cCards){
             buttons QP;
             QP.cards_button = new QPushButton(this);
             QP.thisCard= cCards[i];
-             pushButtons.append(QP);
+             pushButtons.push_back(QP);
         }
         int X = 60;
         int Y = 540;
@@ -222,7 +222,7 @@ void Server::showCards(QList<cards> cCards){
             buttons QP;
             QP.cards_button = new QPushButton(this);
             QP.thisCard= cCards[i];
-             pushButtons.append(QP);
+             pushButtons.push_back(QP);
         }
         int X = 40;
         int Y = 550;
@@ -255,7 +255,7 @@ void Server::showCards(QList<cards> cCards){
             buttons QP;
             QP.cards_button = new QPushButton(this);
             QP.thisCard= cCards[i];
-             pushButtons.append(QP);
+             pushButtons.push_back(QP);
         }
         int X = 5;
         int Y = 560;
@@ -290,7 +290,7 @@ void Server::showCards(QList<cards> cCards){
             buttons QP;
             QP.cards_button = new QPushButton(this);
             QP.thisCard= cCards[i];
-             pushButtons.append(QP);
+             pushButtons.push_back(QP);
         }
         int X =10;
         int Y = 540;
