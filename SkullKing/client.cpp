@@ -7,6 +7,7 @@
 #include <QDataStream>
 #include<QFile>
 #include<QDebug>
+#include"skullking.h"
 #include<QMutex>
 QMutex socketLock;
 QString Ip;
@@ -89,8 +90,21 @@ void Client::readyRead() {
              emit startTheGame();
              return;
           }
+          else if(recivedCard[0].getOrder()=="EXIT"){
 
-           else{
+               currentPlayer.set_win(currentPlayer.get_win()+1);
+               currentPlayer.set_coin(currentPlayer.get_coin()+100);
+               auto it = find_if(listOfPlayer.begin(),listOfPlayer.end(),[&](auto p){
+                   return(currentPlayer.get_username()==p.get_username());
+               });
+               it->set_win(currentPlayer.get_win());
+               it->set_coin(currentPlayer.get_coin());
+               writeToFile("myfile.bin");
+               this->close();
+               Skullking* newPage;
+               newPage->show();
+           }
+          else{
 
             //server send card
              server_card = recivedCard[0];
@@ -107,14 +121,12 @@ void Client::readyRead() {
              set_picture(server_card);
              ///calculateing the score
               if(!client_card.empty()&& !server_card.empty()){
-                currentPlayer.calculate(server_card.thisCard);
-
-                ClientOrServer::delay(2000);
-                move_twoCards();
-                if(currentPlayer.playeCard.size()==0){
-                   continueTheGameButton->show();
-
-                }
+                  currentPlayer.calculate(server_card.thisCard);
+                  ClientOrServer::delay(2000);
+                  move_twoCards();
+                  if(currentPlayer.playeCard.size()==0){
+                     continueTheGameButton->show();
+                 }
               }
              /// end
            }
@@ -1245,6 +1257,23 @@ void Client::calculateScore(){
     scoreNumber->setText(QString::number(currentPlayer.get_score()));
     currentPlayer.set_setWin(0);
 }
-//**************************************************************************************************
+//*******************************************************************************************************************
+void Client::on_pushButton_7_clicked()
+{
 
-
+}
+//********************************************************************************************************************
+void Client::on_pushButton_8_clicked()
+{
+    cards client_order;
+    client_order.setOrder("EXIT");
+    sendCard.push_back(client_order);
+    writeToFileCards("sendCard.bin",sendCard);
+    QFile file("sendCard.bin");
+    file.open(QFile::ReadOnly | QFile::Text);
+    QByteArray file_content = file.readAll();
+    socket->write(file_content);
+    socket->flush();
+    file.close();
+}
+//********************************************************************************************************************

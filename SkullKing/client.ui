@@ -154,6 +154,11 @@ border: 3px solid ;
        <height>51</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(200, 56, 12);
+color: rgb(0, 0, 0);
+font: 600 10pt &quot;Sitka Small Semibold&quot;;</string>
+     </property>
      <property name="text">
       <string>STOP</string>
      </property>
@@ -166,6 +171,11 @@ border: 3px solid ;
        <width>61</width>
        <height>51</height>
       </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(200, 56, 12);
+color: rgb(0, 0, 0);
+font: 600 10pt &quot;Sitka Small Semibold&quot;;</string>
      </property>
      <property name="text">
       <string>EXIT</string>

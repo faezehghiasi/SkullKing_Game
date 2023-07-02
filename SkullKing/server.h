@@ -66,6 +66,11 @@ public slots:
     void change_geometry();
     void on_continueTheGameButton_clicked();
 
+private slots:
+    void on_pushButton_8_clicked();
+
+    void on_pushButton_9_clicked();
+
 private:
     Ui::Server *ui;
     QTcpServer* server;

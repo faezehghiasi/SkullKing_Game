@@ -13,6 +13,7 @@
 #include"player.h"
 #include<math.h>
 #include<QMutex>
+#include"skullking.h"
 QMutex mx;
 //******
 Server * srv;
@@ -32,10 +33,10 @@ Server::Server(QWidget *parent) :
     scoreLabel= new QLabel(this);
     scoreNumber= new QLabel(this);
     scoreLabel->setStyleSheet("font: 14pt Broadway;  color: rgb(255, 255, 255);background-color: rgb(7, 7, 7);");
-    scoreNumber->setStyleSheet("font: 10pt Broadway;  color: rgb(13, 13, 13);");
+    scoreNumber->setStyleSheet("font: 20pt Broadway;  color: rgb(13, 13, 13);");
     scoreLabel->setGeometry(10,50,81,31);
     scoreNumber->setGeometry(10,90,71,31);
-    scoreLabel->setText("Score");
+    scoreLabel->setText("  Score");
     scoreNumber->setText(QString::number(currentPlayer.get_score()));
     scoreLabel->show();
     scoreNumber->show();
@@ -44,9 +45,8 @@ Server::Server(QWidget *parent) :
     continueTheGameButton->setGeometry(150,300,301,141);
     continueTheGameButton->hide();
     connect(continueTheGameButton,SIGNAL(clicked()),this , SLOT(on_continueTheGameButton_clicked()));
-    ui->widget_2->setStyleSheet("QPushButton#continueTheGameButton{background-color:rgb(200, 129, 49); color: rgb(0, 0, 0); font: 15pt Stencil;border-color: rgb(85, 0, 0); border-radius:10px;}QPushButton#continueTheGameButton:hover{ color:rgba(155,168,182,210) ;}QPushButton#continueTheGameButton:pressed{padding-left:5px; padding-top:5px;color:rgba(115 ,128,142,210);}");
-}
 
+}
 //************************************************************
 Server::~Server()
 {
@@ -75,8 +75,21 @@ void Server :: readyRead(){
           file .close();
           readFromFileCards("recivedCard.bin",recivedCard);
           if(recivedCard.size()==1){
-              //client send card
-
+              if(recivedCard[0].getOrder()=="EXIT"){
+                  currentPlayer.set_win(currentPlayer.get_win()+1);
+                  currentPlayer.set_coin(currentPlayer.get_coin()+100);
+                  auto it = find_if(listOfPlayer.begin(),listOfPlayer.end(),[&](auto p){
+                      return(currentPlayer.get_username()==p.get_username());
+                  });
+                  it->set_win(currentPlayer.get_win());
+                  it->set_coin(currentPlayer.get_coin());
+                  writeToFile("myfile.bin");
+                  this->close();
+                  Skullking* newPage;
+                  newPage->show();
+              }
+              else{
+                   //client send card
               client_card = recivedCard[0];
                 if(!currentPlayer.get_starterOfEachRound()){
                     currentPlayer.set_turn(true);
@@ -96,7 +109,8 @@ void Server :: readyRead(){
                    continueTheGameButton->setEnabled(true);
                    continueTheGameButton->show();
                 }
-              }
+             }
+            }
          }
          else{
             currentPlayer.set_randomCards(recivedCard,currentPlayer.get_countOfTurn());
@@ -1266,7 +1280,7 @@ void Server::move_twoCards(){
 }
 //*************************************************************************************************
 void Server ::play(){
-
+         if(currentPlayer.get_countOfTurn()>1)caculateScore(0);
         // server pick cards first
         int turncount = currentPlayer.get_countOfTurn();
         sendCard = currentPlayer.creat_cards();
@@ -1302,14 +1316,16 @@ void Server ::play(){
      QFont font_line("Algerian");
      guessLabel->setStyleSheet("font : 14pt;color: rgb(0,0,0);background:rgba(0,0,0,0);border:2px solid;border-color:#000;");
      guessLabel->setFont(font_line);
-     guessLabel->setPlaceholderText("Guess how many sets you will take?(press enter to continue)");
+     guessLabel->setPlaceholderText("Enter your guess");
      for(auto& x:pushButtons)x.cards_button->setEnabled(false);
      guessLabel->show();
+     connect(guessLabel,&QLineEdit::editingFinished,this,[&](){
      currentPlayer.set_guess(guessLabel->text().toInt());
-     connect(guessLabel,&QLineEdit::editingFinished,this,[&](){guessLabel->hide();
-     for(auto& x:pushButtons)x.cards_button->setEnabled(true);
+     guessLabel->hide();
+      for(auto& x:pushButtons)x.cards_button->setEnabled(true);
      //continue ro ham able kon
      });
+     qDebug()<<currentPlayer.get_guess();
 
 }
 //***********************************************************************************************
@@ -1317,13 +1333,13 @@ void Server::caculateScore(int rivalScore){
     //age dorost gofte bashe....
     if(currentPlayer.get_guess()==currentPlayer.get_setWin()){
         //age gofte bashe 0 dast
-        if(currentPlayer.get_guess()==0)currentPlayer.set_score(currentPlayer.get_score()+(currentPlayer.get_countOfTurn()*10));
+        if(currentPlayer.get_guess()==0)currentPlayer.set_score(currentPlayer.get_score()+((currentPlayer.get_countOfTurn()-1)*10));
        else currentPlayer.set_score(currentPlayer.get_score()+(currentPlayer.get_guess()*10));
     }
     //age ghalat gofte bashe.....
     else{
         //age gofte bashe 0 dast
-        if(currentPlayer.get_guess()==0)currentPlayer.set_score(currentPlayer.get_score()-(currentPlayer.get_countOfTurn()*10));
+        if(currentPlayer.get_guess()==0)currentPlayer.set_score(currentPlayer.get_score()-((currentPlayer.get_countOfTurn()-1)*10));
         else currentPlayer.set_score(currentPlayer.get_score()-(abs(currentPlayer.get_guess()-currentPlayer.get_setWin())*10));
     }
     if(currentPlayer.get_countOfTurn()==7){
@@ -1363,11 +1379,12 @@ void Server::caculateScore(int rivalScore){
         auto foundPlayer=find_if(listOfPlayer.begin(),listOfPlayer.end(),[](auto x){return(x.get_username()==currentPlayer.get_username());});
         foundPlayer->set_lose(currentPlayer.get_lose());
         foundPlayer->set_win(currentPlayer.get_win());
-        foundPlayer->set_score(currentPlayer.get_score());
+        //foundPlayer->set_score(currentPlayer.get_score());
          writeToFile("myfile.bin");
-         scoreNumber->setText(QString::number(currentPlayer.get_score()));
-         currentPlayer.set_setWin(0);
+
     }
+    scoreNumber->setText(QString::number(currentPlayer.get_score()));
+    currentPlayer.set_setWin(0);
 
 }
 //**************************************************************************************************
@@ -1377,7 +1394,27 @@ void Server::on_continueTheGameButton_clicked(){
    pushButtons.clear();
    continueTheGameButton->setEnabled(false);
    continueTheGameButton->hide();
+
    play();
 
 }
+//****************************************************************************************************
+void Server::on_pushButton_8_clicked()
+{
+    cards server_order;
+    server_order.setOrder("EXIT");
+    sendCard.push_back(server_order);
+    writeToFileCards("sendCard.bin",sendCard);
+    QFile file("sendCard.bin");
+    file.open(QFile::ReadOnly | QFile::Text);
+    QByteArray file_content = file.readAll();
+    socket->write(file_content);
+    socket->flush();
+    file.close();
+}
+//******************************************************************************************************
+void Server::on_pushButton_9_clicked()
+{
 
+}
+//****************************************************************************************************

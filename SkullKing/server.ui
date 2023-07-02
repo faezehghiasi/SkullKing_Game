@@ -149,6 +149,11 @@ border-color :#000000</string>
        <height>51</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(200, 56, 12);
+color: rgb(0, 0, 0);
+font: 600 10pt &quot;Sitka Small Semibold&quot;;</string>
+     </property>
      <property name="text">
       <string>EXIT</string>
      </property>
@@ -162,18 +167,13 @@ border-color :#000000</string>
        <height>51</height>
       </rect>
      </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(200, 56, 12);
+color: rgb(0, 0, 0);
+font: 600 10pt &quot;Sitka Small Semibold&quot;;</string>
+     </property>
      <property name="text">
       <string>STOP</string>
-     </property>
-    </widget>
-    <widget class="QWidget" name="widget_2" native="true">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>630</width>
-       <height>700</height>
-      </rect>
      </property>
     </widget>
    </widget>

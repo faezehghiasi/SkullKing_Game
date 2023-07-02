@@ -57,6 +57,11 @@ public slots:
     void on_Buttons11_clicked();
     void on_Buttons12_clicked();
     void on_Buttons13_clicked();
+private slots:
+    void on_pushButton_7_clicked();
+
+    void on_pushButton_8_clicked();
+
 private:
     Ui::Client *ui;
     QTcpSocket* socket;
