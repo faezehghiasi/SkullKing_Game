@@ -232,13 +232,17 @@ void Player::set_guess(int g){guess=g;}
 void Player::set_turn(bool b){turn=b;}
 //********************************************************************
 void Player::calculate(cards rivalCard){
-    if(get_server())for(auto x:srv->get_buttons())x.cards_button->setEnabled(true);
-    else for(auto x:cln->get_PushPuttons())x.cards_button->setEnabled(true);
-    if((selectedCard.getId()==1||selectedCard.getId()==2||selectedCard.getId()==3)&&(rivalCard.getId()==1||rivalCard.getId()==2||rivalCard.getId()==3))
+   if(get_server())for(auto& x:srv->get_buttons())x.cards_button->setEnabled(true);
+    else for(auto& x:cln->get_PushPuttons())x.cards_button->setEnabled(true);
+
+
+   if((selectedCard.getId()==1||selectedCard.getId()==2||selectedCard.getId()==3)&&(rivalCard.getId()==1||rivalCard.getId()==2||rivalCard.getId()==3))
     {
         if(selectedCard.getId()==rivalCard.getId()){
+
             ////************************************************
             if(selectedCard.getNumber()>rivalCard.getNumber()){
+
             currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
             currentPlayer.set_turn(true);
             currentPlayer.set_starterOfEachRound(true);
@@ -249,6 +253,7 @@ void Player::calculate(cards rivalCard){
         else{
             ////*************************************************
             if(currentPlayer.get_starterOfEachRound()){
+
                 currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
                 currentPlayer.set_turn(true);
                 currentPlayer.set_starterOfEachRound(true);

@@ -57,6 +57,7 @@ public slots:
     void on_Buttons11_clicked();
     void on_Buttons12_clicked();
     void on_Buttons13_clicked();
+    void change_geometry();
 
 
 
