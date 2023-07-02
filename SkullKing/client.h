@@ -65,6 +65,7 @@ private:
     struct buttons server_card;
     struct buttons client_card;
     QLineEdit* guessLabel;
+    QPushButton * continueTheGameButton;
 };
 extern Client* cln;
 

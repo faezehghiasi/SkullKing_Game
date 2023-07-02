@@ -12,6 +12,8 @@
 #include"signup.h"
 #include"player.h"
 #include<math.h>
+#include<QMutex>
+QMutex mx;
 //******
 Server * srv;
 Server::Server(QWidget *parent) :
@@ -36,6 +38,12 @@ Server::Server(QWidget *parent) :
     scoreLabel->show();
     scoreNumber->show();
     scoreNumber->setText(QString::number(currentPlayer.get_score()));
+    continueTheGameButton = new QPushButton("Continue the game",this);
+    continueTheGameButton->setStyleSheet("background-color:rgb(200, 129, 49); color: rgb(0, 0, 0); font: 15pt Stencil;border-color: rgb(85, 0, 0); border-radius:10px;QPushButton#continueTheGameButton{background-color:rgb(200, 129, 49); color: rgb(0, 0, 0); font: 15pt Stencil;border-color: rgb(85, 0, 0); border-radius:10px;}QPushButton#continueTheGameButton:hover{ color:rgba(155,168,182,210) ;}QPushButton#continueTheGameButton:pressed{padding-left:5px; padding-top:5px;color:rgba(115 ,128,142,210);}");
+    continueTheGameButton->setGeometry(150,300,301,141);
+    continueTheGameButton->hide();
+    connect(continueTheGameButton,SIGNAL(clicked()),this , SLOT(on_continueTheGameButton_clicked()));
+    ui->widget_2->setStyleSheet("QPushButton#continueTheGameButton{background-color:rgb(200, 129, 49); color: rgb(0, 0, 0); font: 15pt Stencil;border-color: rgb(85, 0, 0); border-radius:10px;}QPushButton#continueTheGameButton:hover{ color:rgba(155,168,182,210) ;}QPushButton#continueTheGameButton:pressed{padding-left:5px; padding-top:5px;color:rgba(115 ,128,142,210);}");
 }
 
 //************************************************************
@@ -56,7 +64,6 @@ void Server::newConnection(){
 }
 //*****************************************************************
 void Server :: readyRead(){
-    //socket->waitForReadyRead(3000);
     QByteArray file_content = socket->readAll();
           QFile file("recivedCard.bin");
           if(!file.open(QIODevice::WriteOnly)){
@@ -78,21 +85,24 @@ void Server :: readyRead(){
                     buttons temp;
                     availbleCards(temp);
                 }
-                qDebug()<<client_card.thisCard.getId();
-              set_picture(client_card);
-              if(!client_card.empty()&& !server_card.empty()){
+                set_picture(client_card);
+                if(!client_card.empty()&& !server_card.empty()){
                 currentPlayer.calculate(client_card.thisCard);
                 ClientOrServer::delay(2000);
                 move_twoCards();
                 if(currentPlayer.playeCard.size()==0){
-                    /// new page
-                    play();
+                 for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+                   continueTheGameButton->setEnabled(true);
+                   continueTheGameButton->show();
                 }
               }
          }
          else{
-
             currentPlayer.set_randomCards(recivedCard,currentPlayer.get_countOfTurn());
+            showCards(currentPlayer.playeCard);
+            for(int i =0 ; i<pushButtons.size();i++){
+               set_picture( pushButtons[i]);
+            }
           }
 
 }
@@ -348,7 +358,7 @@ void Server::showCards(QList<cards> cCards){
 //***************************************************************************
 void Server::whoShouldStartTheGameFirst(){
     //delay function......
-    QTime dietime=QTime::currentTime().addMSecs(3000);
+    QTime dietime=QTime::currentTime().addMSecs(2000);
     while(QTime::currentTime()<dietime)
     QCoreApplication::processEvents(QEventLoop::AllEvents,100);
 
@@ -379,9 +389,12 @@ void Server::whoShouldStartTheGameFirst(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
+    mx.lock();
     socket->write(file_content);
    // socket->waitForBytesWritten(3000);
     socket->flush();
+
+    mx.unlock();
     file.close();
 }
 //*************************************************************************************
@@ -635,7 +648,9 @@ void Server::on_Buttons0_clicked(){
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
       return (p==pushButtons[0].thisCard);
     });
+    if(it!=currentPlayer.playeCard.end()){
     currentPlayer.playeCard.erase(it);
+    }
     server_card = pushButtons[0];
     //qDebug()<<"0"<< pushButtons[0].thisCard.getId()<<" "<< pushButtons[0].thisCard.getNumber()<<" "<<pushButtons[0].thisCard.getValue();
     currentPlayer.set_selectedCard(server_card.thisCard);
@@ -644,9 +659,11 @@ void Server::on_Buttons0_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
+    mx.lock();
     socket->write(file_content);
    // socket->waitForBytesWritten(2000);
     socket->flush();
+    mx.unlock();
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[0]);
@@ -657,11 +674,12 @@ void Server::on_Buttons0_clicked(){
       ClientOrServer::delay(1000);
       move_twoCards();
       if(currentPlayer.playeCard.size()==0){
-          /// new page
-          play();
+          for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+            continueTheGameButton->setEnabled(true);
+            continueTheGameButton->show();
+
       }
     }
-
 }
 //**************************************************************************************************
 void Server::on_Buttons1_clicked(){
@@ -673,7 +691,9 @@ void Server::on_Buttons1_clicked(){
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
       return (p==pushButtons[1].thisCard);
     });
+    if(it!=currentPlayer.playeCard.end()){
     currentPlayer.playeCard.erase(it);
+    }
     server_card  = pushButtons[1];
      //qDebug()<<" 1"<< pushButtons[1].thisCard.getId()<<" "<< pushButtons[1].thisCard.getNumber()<<" "<<pushButtons[1].thisCard.getValue();
     currentPlayer.set_selectedCard(server_card.thisCard);
@@ -682,9 +702,11 @@ void Server::on_Buttons1_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
+    mx.lock();
     socket->write(file_content);
     //socket->waitForBytesWritten(2000);
     socket->flush();
+    mx.unlock();
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[1]);
@@ -695,8 +717,9 @@ void Server::on_Buttons1_clicked(){
       ClientOrServer::delay(1000);
        move_twoCards();
        if(currentPlayer.playeCard.size()==0){
-           /// new page
-           play();
+           for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+            continueTheGameButton->setEnabled(true);
+            continueTheGameButton->show();
        }
     }
 }
@@ -710,7 +733,9 @@ void Server::on_Buttons2_clicked(){
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
       return (p==pushButtons[2].thisCard);
     });
+    if(it!=currentPlayer.playeCard.end()){
     currentPlayer.playeCard.erase(it);
+    }
     // qDebug()<<"2"<< pushButtons[2].thisCard.getId()<<" "<< pushButtons[2].thisCard.getNumber()<<" "<<pushButtons[2].thisCard.getValue();
     server_card  = pushButtons[2];
     currentPlayer.set_selectedCard(server_card.thisCard);
@@ -719,9 +744,11 @@ void Server::on_Buttons2_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
+    mx.lock();
     socket->write(file_content);
    // socket->waitForBytesWritten(2000);
     socket->flush();
+    mx.unlock();
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[2]);
@@ -732,11 +759,11 @@ void Server::on_Buttons2_clicked(){
       ClientOrServer::delay(1000);
       move_twoCards();
       if(currentPlayer.playeCard.size()==0){
-          /// new page
-          play();
+          for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+           continueTheGameButton->setEnabled(true);
+           continueTheGameButton->show();
       }
     }
-
 }
 //**************************************************************************************************
 void Server::on_Buttons3_clicked(){
@@ -748,7 +775,9 @@ void Server::on_Buttons3_clicked(){
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
       return (p==pushButtons[3].thisCard);
     });
+    if(it!=currentPlayer.playeCard.end()){
     currentPlayer.playeCard.erase(it);
+    }
     // qDebug()<<"3"<< pushButtons[3].thisCard.getId()<<" "<< pushButtons[3].thisCard.getNumber()<<" "<<pushButtons[3].thisCard.getValue();
     server_card  = pushButtons[3];
     currentPlayer.set_selectedCard(server_card.thisCard);
@@ -757,9 +786,11 @@ void Server::on_Buttons3_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
+     mx.lock();
     socket->write(file_content);
     //socket->waitForBytesWritten(2000);
     socket->flush();
+     mx.unlock();
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[3]);
@@ -770,11 +801,11 @@ void Server::on_Buttons3_clicked(){
       ClientOrServer::delay(1000);
       move_twoCards();
       if(currentPlayer.playeCard.size()==0){
-          /// new page
-          play();
+          for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+          continueTheGameButton->setEnabled(true);
+          continueTheGameButton->show();
       }
     }
-
 }
 //**************************************************************************************************
 void Server::on_Buttons4_clicked(){
@@ -786,7 +817,9 @@ void Server::on_Buttons4_clicked(){
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
       return (p==pushButtons[4].thisCard);
     });
+    if(it!=currentPlayer.playeCard.end()){
     currentPlayer.playeCard.erase(it);
+    }
      //qDebug()<<"4"<< pushButtons[4].thisCard.getId()<<" "<< pushButtons[4].thisCard.getNumber()<<" "<<pushButtons[4].thisCard.getValue();
     server_card  = pushButtons[4];
     currentPlayer.set_selectedCard(server_card.thisCard);
@@ -795,9 +828,11 @@ void Server::on_Buttons4_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
+     mx.lock();
     socket->write(file_content);
    // socket->waitForBytesWritten(2000);
     socket->flush();
+    mx.unlock();
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[4]);
@@ -808,11 +843,11 @@ void Server::on_Buttons4_clicked(){
       ClientOrServer::delay(1000);
       move_twoCards();
       if(currentPlayer.playeCard.size()==0){
-          /// new page
-          play();
+          for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+          continueTheGameButton->setEnabled(true);
+          continueTheGameButton->show();
       }
     }
-
 }
 //**************************************************************************************************
 void Server::on_Buttons5_clicked(){
@@ -824,7 +859,9 @@ void Server::on_Buttons5_clicked(){
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
       return (p==pushButtons[5].thisCard);
     });
+    if(it!=currentPlayer.playeCard.end()){
     currentPlayer.playeCard.erase(it);
+    }
      //qDebug()<<"5"<< pushButtons[5].thisCard.getId()<<" "<< pushButtons[5].thisCard.getNumber()<<" "<<pushButtons[5].thisCard.getValue();
     server_card  = pushButtons[5];
     currentPlayer.set_selectedCard(server_card.thisCard);
@@ -833,9 +870,11 @@ void Server::on_Buttons5_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
+    mx.lock();
     socket->write(file_content);
    // socket->waitForBytesWritten(2000);
     socket->flush();
+    mx.unlock();
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[5]);
@@ -846,8 +885,9 @@ void Server::on_Buttons5_clicked(){
       ClientOrServer::delay(1000);
        move_twoCards();
        if(currentPlayer.playeCard.size()==0){
-           /// new page
-           play();
+           for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+           continueTheGameButton->setEnabled(true);
+           continueTheGameButton->show();
        }
     }
 
@@ -862,7 +902,9 @@ void Server::on_Buttons6_clicked(){
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
       return (p==pushButtons[6].thisCard);
     });
+    if(it!=currentPlayer.playeCard.end()){
     currentPlayer.playeCard.erase(it);
+    }
     //qDebug()<<"6"<< pushButtons[6].thisCard.getId()<<" "<< pushButtons[6].thisCard.getNumber()<<" "<<pushButtons[6].thisCard.getValue();
     server_card  = pushButtons[6];
     currentPlayer.set_selectedCard(server_card.thisCard);
@@ -871,9 +913,11 @@ void Server::on_Buttons6_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
+     mx.lock();
     socket->write(file_content);
    // socket->waitForBytesWritten(2000);
     socket->flush();
+     mx.unlock();
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[6]);
@@ -884,11 +928,11 @@ void Server::on_Buttons6_clicked(){
       ClientOrServer::delay(1000);
       move_twoCards();
       if(currentPlayer.playeCard.size()==0){
-          /// new page
-          play();
+          for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+          continueTheGameButton->setEnabled(true);
+          continueTheGameButton->show();
       }
     }
-
 }
 //**************************************************************************************************
 void Server::on_Buttons7_clicked(){
@@ -900,7 +944,9 @@ void Server::on_Buttons7_clicked(){
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
       return (p==pushButtons[7].thisCard);
     });
+    if(it!=currentPlayer.playeCard.end()){
     currentPlayer.playeCard.erase(it);
+    }
      //qDebug()<<"7"<< pushButtons[7].thisCard.getId()<<" "<< pushButtons[7].thisCard.getNumber()<<" "<<pushButtons[7].thisCard.getValue();
     server_card = pushButtons[7];
     currentPlayer.set_selectedCard(server_card.thisCard);
@@ -909,9 +955,11 @@ void Server::on_Buttons7_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
+     mx.lock();
     socket->write(file_content);
     //socket->waitForBytesWritten(2000);
     socket->flush();
+    mx.unlock();
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[7]);
@@ -922,11 +970,11 @@ void Server::on_Buttons7_clicked(){
       ClientOrServer::delay(1000);
       move_twoCards();
       if(currentPlayer.playeCard.size()==0){
-          /// new page
-          play();
+          for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+          continueTheGameButton->setEnabled(true);
+          continueTheGameButton->show();
       }
     }
-
 }
 //**************************************************************************************************
 void Server::on_Buttons8_clicked(){
@@ -938,7 +986,9 @@ void Server::on_Buttons8_clicked(){
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
       return (p==pushButtons[8].thisCard);
     });
+    if(it!=currentPlayer.playeCard.end()){
     currentPlayer.playeCard.erase(it);
+    }
      //qDebug()<<"8"<< pushButtons[8].thisCard.getId()<<" "<< pushButtons[8].thisCard.getNumber()<<" "<<pushButtons[8].thisCard.getValue();
     server_card  = pushButtons[8];
     currentPlayer.set_selectedCard(server_card.thisCard);
@@ -947,9 +997,11 @@ void Server::on_Buttons8_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
+    mx.lock();
     socket->write(file_content);
    // socket->waitForBytesWritten(2000);
     socket->flush();
+      mx.unlock();
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[8]);
@@ -960,8 +1012,9 @@ void Server::on_Buttons8_clicked(){
       ClientOrServer::delay(1000);
       move_twoCards();
       if(currentPlayer.playeCard.size()==0){
-          /// new page
-          play();
+          for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+           continueTheGameButton->setEnabled(true);
+          continueTheGameButton->show();
       }
     }
 
@@ -976,7 +1029,9 @@ void Server::on_Buttons9_clicked(){
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
       return (p==pushButtons[9].thisCard);
     });
+    if(it!=currentPlayer.playeCard.end()){
     currentPlayer.playeCard.erase(it);
+    }
      //qDebug()<<"9"<< pushButtons[9].thisCard.getId()<<" "<< pushButtons[9].thisCard.getNumber()<<" "<<pushButtons[9].thisCard.getValue();
     server_card  = pushButtons[9];
     currentPlayer.set_selectedCard(server_card.thisCard);
@@ -985,9 +1040,11 @@ void Server::on_Buttons9_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
+    mx.lock();
     socket->write(file_content);
     //socket->waitForBytesWritten(2000);
     socket->flush();
+    mx.unlock();
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[9]);
@@ -998,11 +1055,11 @@ void Server::on_Buttons9_clicked(){
       ClientOrServer::delay(1000);
       move_twoCards();
       if(currentPlayer.playeCard.size()==0){
-          /// new page
-          play();
+          for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+          continueTheGameButton->setEnabled(true);
+          continueTheGameButton->show();
       }
     }
-
 }
 //**************************************************************************************************
 void Server::on_Buttons10_clicked(){
@@ -1014,7 +1071,9 @@ void Server::on_Buttons10_clicked(){
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
       return (p==pushButtons[10].thisCard);
     });
+    if(it!=currentPlayer.playeCard.end()){
     currentPlayer.playeCard.erase(it);
+    }
     // qDebug()<<"10"<< pushButtons[10].thisCard.getId()<<" "<< pushButtons[10].thisCard.getNumber()<<" "<<pushButtons[10].thisCard.getValue();
     server_card  = pushButtons[10];
     currentPlayer.set_selectedCard(server_card.thisCard);
@@ -1023,9 +1082,11 @@ void Server::on_Buttons10_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
+     mx.lock();
     socket->write(file_content);
     //socket->waitForBytesWritten(2000);
     socket->flush();
+     mx.unlock();
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[10]);
@@ -1036,11 +1097,11 @@ void Server::on_Buttons10_clicked(){
       ClientOrServer::delay(1000);
        move_twoCards();
        if(currentPlayer.playeCard.size()==0){
-           /// new page
-           play();
+           for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+           continueTheGameButton->setEnabled(true);
+           continueTheGameButton->show();
        }
     }
-
 }
 //**************************************************************************************************
 void Server::on_Buttons11_clicked(){
@@ -1052,7 +1113,9 @@ void Server::on_Buttons11_clicked(){
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
       return (p==pushButtons[11].thisCard);
     });
+    if(it!=currentPlayer.playeCard.end()){
     currentPlayer.playeCard.erase(it);
+    }
      //qDebug()<<"11"<< pushButtons[11].thisCard.getId()<<" "<< pushButtons[11].thisCard.getNumber()<<" "<<pushButtons[11].thisCard.getValue();
     server_card  = pushButtons[11];
     currentPlayer.set_selectedCard(server_card.thisCard);
@@ -1061,9 +1124,11 @@ void Server::on_Buttons11_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
+    mx.lock();
     socket->write(file_content);
     //socket->waitForBytesWritten(2000);
     socket->flush();
+     mx.unlock();
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[11]);
@@ -1074,11 +1139,11 @@ void Server::on_Buttons11_clicked(){
       ClientOrServer::delay(1000);
        move_twoCards();
        if(currentPlayer.playeCard.size()==0){
-           /// new page
-           play();
+           for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+            continueTheGameButton->setEnabled(true);
+            continueTheGameButton->show();
        }
     }
-
 }
 //**************************************************************************************************
 void Server::on_Buttons12_clicked(){
@@ -1090,7 +1155,9 @@ void Server::on_Buttons12_clicked(){
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
       return (p==pushButtons[12].thisCard);
     });
+    if(it!=currentPlayer.playeCard.end()){
     currentPlayer.playeCard.erase(it);
+    }
      //qDebug()<<"12"<< pushButtons[12].thisCard.getId()<<" "<< pushButtons[12].thisCard.getNumber()<<" "<<pushButtons[12].thisCard.getValue();
     server_card  = pushButtons[12];
     currentPlayer.set_selectedCard(server_card.thisCard);
@@ -1099,9 +1166,11 @@ void Server::on_Buttons12_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
+    mx.lock();
     socket->write(file_content);
     //socket->waitForBytesWritten(2000);
     socket->flush();
+    mx.unlock();
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[12]);
@@ -1112,11 +1181,12 @@ void Server::on_Buttons12_clicked(){
       ClientOrServer::delay(1000);
       move_twoCards();
       if(currentPlayer.playeCard.size()==0){
-          /// new page
-          play();
+          for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+           continueTheGameButton->setEnabled(true);
+          continueTheGameButton->show();
+
       }
     }
-
 }
 //**************************************************************************************************
 void Server::on_Buttons13_clicked(){
@@ -1128,7 +1198,9 @@ void Server::on_Buttons13_clicked(){
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
       return (p==pushButtons[13].thisCard);
     });
+    if(it!=currentPlayer.playeCard.end()){
     currentPlayer.playeCard.erase(it);
+    }
      //qDebug()<<"13"<< pushButtons[13].thisCard.getId()<<" "<< pushButtons[13].thisCard.getNumber()<<" "<<pushButtons[13].thisCard.getValue();
     server_card  = pushButtons[13];
     currentPlayer.set_selectedCard(server_card.thisCard);
@@ -1137,9 +1209,11 @@ void Server::on_Buttons13_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
+     mx.lock();
     socket->write(file_content);
     //socket->waitForBytesWritten(2000);
     socket->flush();
+    mx.unlock();
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[13]);
@@ -1150,14 +1224,16 @@ void Server::on_Buttons13_clicked(){
       ClientOrServer::delay(1000);
        move_twoCards();
        if(currentPlayer.playeCard.size()==0){
-           /// new page
-           play();
+           for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+            continueTheGameButton->setEnabled(true);
+           continueTheGameButton->show();
+
        }
     }
-
 }
 //**************************************************************************************************
 void Server::move_oneCards(buttons& cCards){
+   // mx.lock();
     QPropertyAnimation *anim = new QPropertyAnimation(cCards.cards_button, "pos", this);
        anim->setDuration(500);
        anim->setEndValue(QPoint(290, 290));
@@ -1165,16 +1241,18 @@ void Server::move_oneCards(buttons& cCards){
        connect(anim,&QAbstractAnimation::finished,this,[&](){cCards.cards_button->disconnect();cCards.cards_button->hide();set_picture(server_card);
            server_card.cards_button->setGeometry(290,290,101,141);
            client_card.cards_button->setGeometry(210,240,101,141);});
+   // mx.unlock();
 }
 //****************************************************************************************
 void Server::move_twoCards(){
+   // mx.lock();
     QPropertyAnimation *animServer = new QPropertyAnimation(server_card.cards_button, "pos", this);
     QPropertyAnimation *animClient = new QPropertyAnimation(client_card.cards_button, "pos", this);
        animServer->setDuration(500);
-       animServer->setEndValue(QPoint(-50, 260));
+       animServer->setEndValue(QPoint(-10, 260));
        animServer->start();
        animClient->setDuration(500);
-       animClient->setEndValue(QPoint(-50, 260));
+       animClient->setEndValue(QPoint(-10, 260));
        animClient->start();
 
        connect(animServer,&QAbstractAnimation::finished,this,[&](){server_card.cards_button->hide();server_card.clear();client_card.clear();});
@@ -1183,30 +1261,11 @@ void Server::move_twoCards(){
        connect(animClient,SIGNAL(finished()),animClient,SLOT(deleteLater()));
        connect(animClient,SIGNAL(finished()),this,SLOT(change_geometry()));
 
+      // mx.unlock();
 }
 //*************************************************************************************************
 void Server ::play(){
 
-    //order client  to start the game
-    cards server_order;
-    server_order.setOrder("Start The Game");
-    sendCard.push_back(server_order);
-    writeToFileCards("sendCard.bin",sendCard);
-    QFile file("sendCard.bin");
-    file.open(QFile::ReadOnly | QFile::Text);
-    QByteArray file_content = file.readAll();
-    socket->write(file_content);
-    socket->flush();
-    file.close();
-    //end
-    // decrese money
-    currentPlayer.set_coin(currentPlayer.get_coin()-50);
-    auto foundPlayer=find_if(listOfPlayer.begin(),listOfPlayer.end(),[](auto x){return(x.get_username()==currentPlayer.get_username());});
-    foundPlayer->set_coin(currentPlayer.get_coin());
-     writeToFile("myfile.bin");
-     //end
-
-     if(currentPlayer.get_countOfTurn()%2){
         // server pick cards first
         int turncount = currentPlayer.get_countOfTurn();
         sendCard = currentPlayer.creat_cards();
@@ -1214,32 +1273,19 @@ void Server ::play(){
         showCards(currentPlayer.playeCard);
         for(int i=0 ; i<pushButtons.size();i++){
             set_picture(pushButtons[i]);
+
         }
         writeToFileCards("sendCard.bin",sendCard);
         QFile file2("sendCard.bin");
         file2.open(QFile::ReadOnly | QFile::Text);
         QByteArray file_content2 = file2.readAll();
+        mx.lock();
         socket->write(file_content2);
         socket->flush();
+        mx.unlock();
         file2.close();
-     // end
-     }
-     else{
-         //order client  to pick card first
-         cards server_order;
-         server_order.setOrder("Client Turn To Pick Cards");
-         sendCard.push_back(server_order);
-         writeToFileCards("sendCard.bin",sendCard);
-         QFile file("sendCard.bin");
-         file.open(QFile::ReadOnly | QFile::Text);
-         QByteArray file_content = file.readAll();
-         socket->write(file_content);
-         socket->flush();
-         file.close();
-         //end
-
-     }
      /// making parrote cards
+     ///
      whoShouldStartTheGameFirst();
      server_card.cards_button->setGeometry(290,290,101,141);
      client_card.cards_button->setGeometry(210,240,101,141);
@@ -1323,5 +1369,14 @@ void Server::caculateScore(int rivalScore){
     }
 
 }
+//**************************************************************************************************
+void Server::on_continueTheGameButton_clicked(){
+   currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
+   for(auto& x:pushButtons) delete x.cards_button;
+   pushButtons.clear();
+   continueTheGameButton->setEnabled(false);
+   continueTheGameButton->hide();
+   play();
 
+}
 

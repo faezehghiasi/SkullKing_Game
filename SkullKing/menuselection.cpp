@@ -50,43 +50,8 @@ void MenuSelection::on_start_clicked()
              writeToFile("myfile.bin");
              //end
 
-             // server pick cards first
-             int turncount = currentPlayer.get_countOfTurn();
-             sendCard = currentPlayer.creat_cards();
-             currentPlayer.set_randomCards(sendCard,7);
-             for(int i =0 ; i<currentPlayer.playeCard.size();i++){
-                 qDebug()<<currentPlayer.playeCard[i].getId()<<" "<<currentPlayer.playeCard[i].getNumber()<<" "<<currentPlayer.playeCard[i].getValue();
-             }
-             srv->showCards(currentPlayer.playeCard);
-              qDebug()<<"----------------------------------------------------------------------------";
-              for(int i =0;i<srv->get_buttons().size();i++){
-                  qDebug()<<srv->get_buttons()[i].thisCard.getId()<<" "<<srv->get_buttons()[i].thisCard.getNumber()<<" "<<srv->get_buttons()[i].thisCard.getValue();
-              }
+             srv->play();
 
-             for(int i=0 ; i<srv->get_buttons().size();i++){
-                 srv->set_picture(srv->get_buttons()[i]);
-             }
-             writeToFileCards("sendCard.bin",sendCard);
-
-             QFile file2("sendCard.bin");
-             file2.open(QFile::ReadOnly | QFile::Text);
-             QByteArray file_content2 = file2.readAll();
-             srv->get_socket()->write(file_content2);
-            // srv->get_socket()->waitForBytesWritten(3000);
-             srv->get_socket()->flush();
-             file2.close();
-             // end
-
-             /// making parrote cards
-             srv->whoShouldStartTheGameFirst();
-             srv->get_server_card().cards_button->setGeometry(290,290,101,141);
-             srv->get_client_card().cards_button->setGeometry(210,240,101,141);
-             srv->set_picture(srv->get_server_card());
-             srv->set_picture(srv->get_client_card());
-             ClientOrServer::delay(1000);
-             srv->move_twoCards();
-             ///end
-            srv->play();
        }
 
     }
