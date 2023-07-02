@@ -100,6 +100,7 @@ public:
     void calculate(cards);
     void set_starterOfEachRound(bool starter_val);
     bool get_starterOfEachRound();
+    Player& operator=(Player P);
 };
 
 #endif // PLAYER_H

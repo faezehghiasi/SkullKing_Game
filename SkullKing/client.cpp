@@ -134,10 +134,6 @@ void Client::readyRead() {
 
 
 
-           for(auto& x:pushButtons) delete x.cards_button;
-           pushButtons.clear();
-
-
            set_picture(server_card);
            set_picture(client_card);
            ClientOrServer::delay(1000);
@@ -158,6 +154,9 @@ void Client::readyRead() {
 
        }
       else{
+
+           for(auto& x:pushButtons) delete x.cards_button;
+           pushButtons.clear();
            currentPlayer.set_randomCards(recivedCard,currentPlayer.get_countOfTurn());
            showCards(currentPlayer.playeCard);
            for(int i =0 ; i<pushButtons.size();i++){
