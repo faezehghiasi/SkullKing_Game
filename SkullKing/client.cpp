@@ -28,9 +28,11 @@ Client::Client(QWidget *parent) :
     scoreNumber->setStyleSheet("font: 10pt Broadway;  color: rgb(13, 13, 13);");
     scoreLabel->setGeometry(10,50,81,31);
     scoreNumber->setGeometry(10,90,71,31);
+    scoreLabel->setText("score");
+    scoreNumber->setText(QString::number(currentPlayer.get_score()));
     scoreLabel->show();
     scoreNumber->show();
-    scoreNumber->setText(QString::number(currentPlayer.get_score()));
+
     continueTheGameButton = new QPushButton("Wait for continue",this);
     continueTheGameButton->setStyleSheet("background-color:rgb(200, 129, 49); color: rgb(0, 0, 0); font: 15pt Stencil;border-color: rgb(85, 0, 0); border-radius:10px;QPushButton#continueTheGameButton{background-color:rgb(200, 129, 49); color: rgb(0, 0, 0); font: 15pt Stencil;border-color: rgb(85, 0, 0); border-radius:10px;}QPushButton#continueTheGameButton:hover{ color:rgba(155,168,182,210) ;}QPushButton#continueTheGameButton:pressed{padding-left:5px; padding-top:5px;color:rgba(115 ,128,142,210);}");
     continueTheGameButton->setGeometry(150,300,301,141);
@@ -131,10 +133,6 @@ void Client::readyRead() {
            client_card.cards_button->setGeometry(290,290,101,141);
            server_card.cards_button->setGeometry(210,240,101,141);
            continueTheGameButton->hide();
-
-
-
-           set_picture(server_card);
            set_picture(client_card);
            ClientOrServer::delay(1000);
            move_twoCards();
@@ -154,7 +152,6 @@ void Client::readyRead() {
 
        }
       else{
-
            for(auto& x:pushButtons) delete x.cards_button;
            pushButtons.clear();
            currentPlayer.set_randomCards(recivedCard,currentPlayer.get_countOfTurn());
@@ -1246,7 +1243,7 @@ void Client::calculateScore(){
     foundPlayer->set_score(currentPlayer.get_score());
     writeToFile("myfile.bin");
     scoreNumber->setText(QString::number(currentPlayer.get_score()));
-
+    currentPlayer.set_setWin(0);
 }
 //**************************************************************************************************
 

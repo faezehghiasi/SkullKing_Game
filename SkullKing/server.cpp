@@ -1366,7 +1366,7 @@ void Server::caculateScore(int rivalScore){
         foundPlayer->set_score(currentPlayer.get_score());
          writeToFile("myfile.bin");
          scoreNumber->setText(QString::number(currentPlayer.get_score()));
-
+         currentPlayer.set_setWin(0);
     }
 
 }
