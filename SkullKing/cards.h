@@ -22,6 +22,7 @@ public:
     void setValue(int);
     void setOrder(QString order_val);
     cards& operator=(cards c);
+    bool operator == (cards c);
 };
 
 #endif // CARDS_H

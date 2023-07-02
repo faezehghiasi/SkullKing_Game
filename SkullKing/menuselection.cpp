@@ -86,8 +86,9 @@ void MenuSelection::on_start_clicked()
              ClientOrServer::delay(1000);
              srv->move_twoCards();
              ///end
+            srv->play();
+       }
 
-     }
     }
     else {
         QMessageBox MQ;

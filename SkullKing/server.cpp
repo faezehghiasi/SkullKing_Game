@@ -9,6 +9,8 @@
 #include<QFile>
 #include<QRandomGenerator>
 #include<QTime>
+#include"signup.h"
+#include"player.h"
 //******
 Server * srv;
 Server::Server(QWidget *parent) :
@@ -71,6 +73,10 @@ void Server :: readyRead(){
                 currentPlayer.calculate(client_card.thisCard);
                 ClientOrServer::delay(2000);
                 move_twoCards();
+                if(currentPlayer.playeCard.size()==0){
+                    /// new page
+                    play();
+                }
               }
          }
          else{
@@ -615,6 +621,10 @@ void Server::on_Buttons0_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
+      return (p==pushButtons[0].thisCard);
+    });
+    currentPlayer.playeCard.erase(it);
     server_card = pushButtons[0];
     //qDebug()<<"0"<< pushButtons[0].thisCard.getId()<<" "<< pushButtons[0].thisCard.getNumber()<<" "<<pushButtons[0].thisCard.getValue();
     currentPlayer.set_selectedCard(server_card.thisCard);
@@ -635,6 +645,10 @@ void Server::on_Buttons0_clicked(){
       currentPlayer.calculate(client_card.thisCard);
       ClientOrServer::delay(1000);
       move_twoCards();
+      if(currentPlayer.playeCard.size()==0){
+          /// new page
+          play();
+      }
     }
 
 }
@@ -645,6 +659,10 @@ void Server::on_Buttons1_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
+      return (p==pushButtons[1].thisCard);
+    });
+    currentPlayer.playeCard.erase(it);
     server_card  = pushButtons[1];
      //qDebug()<<" 1"<< pushButtons[1].thisCard.getId()<<" "<< pushButtons[1].thisCard.getNumber()<<" "<<pushButtons[1].thisCard.getValue();
     currentPlayer.set_selectedCard(server_card.thisCard);
@@ -665,6 +683,10 @@ void Server::on_Buttons1_clicked(){
       currentPlayer.calculate(client_card.thisCard);
       ClientOrServer::delay(1000);
        move_twoCards();
+       if(currentPlayer.playeCard.size()==0){
+           /// new page
+           play();
+       }
     }
 }
 //**************************************************************************************************
@@ -674,6 +696,10 @@ void Server::on_Buttons2_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
+      return (p==pushButtons[2].thisCard);
+    });
+    currentPlayer.playeCard.erase(it);
     // qDebug()<<"2"<< pushButtons[2].thisCard.getId()<<" "<< pushButtons[2].thisCard.getNumber()<<" "<<pushButtons[2].thisCard.getValue();
     server_card  = pushButtons[2];
     currentPlayer.set_selectedCard(server_card.thisCard);
@@ -694,6 +720,10 @@ void Server::on_Buttons2_clicked(){
       currentPlayer.calculate(client_card.thisCard);
       ClientOrServer::delay(1000);
       move_twoCards();
+      if(currentPlayer.playeCard.size()==0){
+          /// new page
+          play();
+      }
     }
 
 }
@@ -704,6 +734,10 @@ void Server::on_Buttons3_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
+      return (p==pushButtons[3].thisCard);
+    });
+    currentPlayer.playeCard.erase(it);
     // qDebug()<<"3"<< pushButtons[3].thisCard.getId()<<" "<< pushButtons[3].thisCard.getNumber()<<" "<<pushButtons[3].thisCard.getValue();
     server_card  = pushButtons[3];
     currentPlayer.set_selectedCard(server_card.thisCard);
@@ -724,6 +758,10 @@ void Server::on_Buttons3_clicked(){
       currentPlayer.calculate(client_card.thisCard);
       ClientOrServer::delay(1000);
       move_twoCards();
+      if(currentPlayer.playeCard.size()==0){
+          /// new page
+          play();
+      }
     }
 
 }
@@ -734,6 +772,10 @@ void Server::on_Buttons4_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
+      return (p==pushButtons[4].thisCard);
+    });
+    currentPlayer.playeCard.erase(it);
      //qDebug()<<"4"<< pushButtons[4].thisCard.getId()<<" "<< pushButtons[4].thisCard.getNumber()<<" "<<pushButtons[4].thisCard.getValue();
     server_card  = pushButtons[4];
     currentPlayer.set_selectedCard(server_card.thisCard);
@@ -754,6 +796,10 @@ void Server::on_Buttons4_clicked(){
       currentPlayer.calculate(client_card.thisCard);
       ClientOrServer::delay(1000);
       move_twoCards();
+      if(currentPlayer.playeCard.size()==0){
+          /// new page
+          play();
+      }
     }
 
 }
@@ -764,6 +810,10 @@ void Server::on_Buttons5_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
+      return (p==pushButtons[5].thisCard);
+    });
+    currentPlayer.playeCard.erase(it);
      //qDebug()<<"5"<< pushButtons[5].thisCard.getId()<<" "<< pushButtons[5].thisCard.getNumber()<<" "<<pushButtons[5].thisCard.getValue();
     server_card  = pushButtons[5];
     currentPlayer.set_selectedCard(server_card.thisCard);
@@ -784,6 +834,10 @@ void Server::on_Buttons5_clicked(){
       currentPlayer.calculate(client_card.thisCard);
       ClientOrServer::delay(1000);
        move_twoCards();
+       if(currentPlayer.playeCard.size()==0){
+           /// new page
+           play();
+       }
     }
 
 }
@@ -794,6 +848,10 @@ void Server::on_Buttons6_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
+      return (p==pushButtons[6].thisCard);
+    });
+    currentPlayer.playeCard.erase(it);
     //qDebug()<<"6"<< pushButtons[6].thisCard.getId()<<" "<< pushButtons[6].thisCard.getNumber()<<" "<<pushButtons[6].thisCard.getValue();
     server_card  = pushButtons[6];
     currentPlayer.set_selectedCard(server_card.thisCard);
@@ -814,6 +872,10 @@ void Server::on_Buttons6_clicked(){
       currentPlayer.calculate(client_card.thisCard);
       ClientOrServer::delay(1000);
       move_twoCards();
+      if(currentPlayer.playeCard.size()==0){
+          /// new page
+          play();
+      }
     }
 
 }
@@ -824,6 +886,10 @@ void Server::on_Buttons7_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
+      return (p==pushButtons[7].thisCard);
+    });
+    currentPlayer.playeCard.erase(it);
      //qDebug()<<"7"<< pushButtons[7].thisCard.getId()<<" "<< pushButtons[7].thisCard.getNumber()<<" "<<pushButtons[7].thisCard.getValue();
     server_card = pushButtons[7];
     currentPlayer.set_selectedCard(server_card.thisCard);
@@ -844,6 +910,10 @@ void Server::on_Buttons7_clicked(){
       currentPlayer.calculate(client_card.thisCard);
       ClientOrServer::delay(1000);
       move_twoCards();
+      if(currentPlayer.playeCard.size()==0){
+          /// new page
+          play();
+      }
     }
 
 }
@@ -854,6 +924,10 @@ void Server::on_Buttons8_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
+      return (p==pushButtons[8].thisCard);
+    });
+    currentPlayer.playeCard.erase(it);
      //qDebug()<<"8"<< pushButtons[8].thisCard.getId()<<" "<< pushButtons[8].thisCard.getNumber()<<" "<<pushButtons[8].thisCard.getValue();
     server_card  = pushButtons[8];
     currentPlayer.set_selectedCard(server_card.thisCard);
@@ -874,6 +948,10 @@ void Server::on_Buttons8_clicked(){
       currentPlayer.calculate(client_card.thisCard);
       ClientOrServer::delay(1000);
       move_twoCards();
+      if(currentPlayer.playeCard.size()==0){
+          /// new page
+          play();
+      }
     }
 
 }
@@ -884,6 +962,10 @@ void Server::on_Buttons9_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
+      return (p==pushButtons[9].thisCard);
+    });
+    currentPlayer.playeCard.erase(it);
      //qDebug()<<"9"<< pushButtons[9].thisCard.getId()<<" "<< pushButtons[9].thisCard.getNumber()<<" "<<pushButtons[9].thisCard.getValue();
     server_card  = pushButtons[9];
     currentPlayer.set_selectedCard(server_card.thisCard);
@@ -904,6 +986,10 @@ void Server::on_Buttons9_clicked(){
       currentPlayer.calculate(client_card.thisCard);
       ClientOrServer::delay(1000);
       move_twoCards();
+      if(currentPlayer.playeCard.size()==0){
+          /// new page
+          play();
+      }
     }
 
 }
@@ -914,6 +1000,10 @@ void Server::on_Buttons10_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
+      return (p==pushButtons[10].thisCard);
+    });
+    currentPlayer.playeCard.erase(it);
     // qDebug()<<"10"<< pushButtons[10].thisCard.getId()<<" "<< pushButtons[10].thisCard.getNumber()<<" "<<pushButtons[10].thisCard.getValue();
     server_card  = pushButtons[10];
     currentPlayer.set_selectedCard(server_card.thisCard);
@@ -934,6 +1024,10 @@ void Server::on_Buttons10_clicked(){
       currentPlayer.calculate(client_card.thisCard);
       ClientOrServer::delay(1000);
        move_twoCards();
+       if(currentPlayer.playeCard.size()==0){
+           /// new page
+           play();
+       }
     }
 
 }
@@ -944,6 +1038,10 @@ void Server::on_Buttons11_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
+      return (p==pushButtons[11].thisCard);
+    });
+    currentPlayer.playeCard.erase(it);
      //qDebug()<<"11"<< pushButtons[11].thisCard.getId()<<" "<< pushButtons[11].thisCard.getNumber()<<" "<<pushButtons[11].thisCard.getValue();
     server_card  = pushButtons[11];
     currentPlayer.set_selectedCard(server_card.thisCard);
@@ -964,6 +1062,10 @@ void Server::on_Buttons11_clicked(){
       currentPlayer.calculate(client_card.thisCard);
       ClientOrServer::delay(1000);
        move_twoCards();
+       if(currentPlayer.playeCard.size()==0){
+           /// new page
+           play();
+       }
     }
 
 }
@@ -974,6 +1076,10 @@ void Server::on_Buttons12_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
+      return (p==pushButtons[12].thisCard);
+    });
+    currentPlayer.playeCard.erase(it);
      //qDebug()<<"12"<< pushButtons[12].thisCard.getId()<<" "<< pushButtons[12].thisCard.getNumber()<<" "<<pushButtons[12].thisCard.getValue();
     server_card  = pushButtons[12];
     currentPlayer.set_selectedCard(server_card.thisCard);
@@ -994,6 +1100,10 @@ void Server::on_Buttons12_clicked(){
       currentPlayer.calculate(client_card.thisCard);
       ClientOrServer::delay(1000);
       move_twoCards();
+      if(currentPlayer.playeCard.size()==0){
+          /// new page
+          play();
+      }
     }
 
 }
@@ -1004,6 +1114,10 @@ void Server::on_Buttons13_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
+    auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
+      return (p==pushButtons[13].thisCard);
+    });
+    currentPlayer.playeCard.erase(it);
      //qDebug()<<"13"<< pushButtons[13].thisCard.getId()<<" "<< pushButtons[13].thisCard.getNumber()<<" "<<pushButtons[13].thisCard.getValue();
     server_card  = pushButtons[13];
     currentPlayer.set_selectedCard(server_card.thisCard);
@@ -1024,6 +1138,10 @@ void Server::on_Buttons13_clicked(){
       currentPlayer.calculate(client_card.thisCard);
       ClientOrServer::delay(1000);
        move_twoCards();
+       if(currentPlayer.playeCard.size()==0){
+           /// new page
+           play();
+       }
     }
 
 }
@@ -1055,6 +1173,70 @@ void Server::move_twoCards(){
        connect(animClient,SIGNAL(finished()),this,SLOT(change_geometry()));
 
 }
+//*************************************************************************************************
+void Server ::play(){
 
+    //order client  to start the game
+    cards server_order;
+    server_order.setOrder("Start The Game");
+    sendCard.push_back(server_order);
+    writeToFileCards("sendCard.bin",sendCard);
+    QFile file("sendCard.bin");
+    file.open(QFile::ReadOnly | QFile::Text);
+    QByteArray file_content = file.readAll();
+    socket->write(file_content);
+    socket->flush();
+    file.close();
+    //end
+    // decrese money
+    currentPlayer.set_coin(currentPlayer.get_coin()-50);
+    auto foundPlayer=find_if(listOfPlayer.begin(),listOfPlayer.end(),[](auto x){return(x.get_username()==currentPlayer.get_username());});
+    foundPlayer->set_coin(currentPlayer.get_coin());
+     writeToFile("myfile.bin");
+     //end
+
+     if(currentPlayer.get_countOfTurn()%2){
+        // server pick cards first
+        int turncount = currentPlayer.get_countOfTurn();
+        sendCard = currentPlayer.creat_cards();
+        currentPlayer.set_randomCards(sendCard,turncount);
+        showCards(currentPlayer.playeCard);
+        for(int i=0 ; i<pushButtons.size();i++){
+            set_picture(pushButtons[i]);
+        }
+        writeToFileCards("sendCard.bin",sendCard);
+        QFile file2("sendCard.bin");
+        file2.open(QFile::ReadOnly | QFile::Text);
+        QByteArray file_content2 = file2.readAll();
+        socket->write(file_content2);
+        socket->flush();
+        file2.close();
+     // end
+     }
+     else{
+         //order client  to pick card first
+         cards server_order;
+         server_order.setOrder("Client Turn To Pick Cards");
+         sendCard.push_back(server_order);
+         writeToFileCards("sendCard.bin",sendCard);
+         QFile file("sendCard.bin");
+         file.open(QFile::ReadOnly | QFile::Text);
+         QByteArray file_content = file.readAll();
+         socket->write(file_content);
+         socket->flush();
+         file.close();
+         //end
+
+     }
+     /// making parrote cards
+     whoShouldStartTheGameFirst();
+     server_card.cards_button->setGeometry(290,290,101,141);
+     client_card.cards_button->setGeometry(210,240,101,141);
+     set_picture(server_card);
+     set_picture(client_card);
+     ClientOrServer::delay(1000);
+     move_twoCards();
+     //end
+}
 
 

@@ -21,3 +21,6 @@ cards& cards::operator=(cards c){
     order = c.getOrder();
     return *this;
 }
+bool cards::operator==(cards c){
+    return(id==c.getId()&&number==c.getNumber()&&value==c.getValue()&&order==c.getOrder());
+}
