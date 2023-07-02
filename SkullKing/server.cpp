@@ -1244,7 +1244,7 @@ void Server::move_oneCards(buttons& cCards){
            client_card.cards_button->setGeometry(210,240,101,141);});
    // mx.unlock();
 }
-//****************************************************************************************
+//**************************************************************************************************
 void Server::move_twoCards(){
    // mx.lock();
     QPropertyAnimation *animServer = new QPropertyAnimation(server_card.cards_button, "pos", this);
@@ -1302,7 +1302,7 @@ void Server ::play(){
      QFont font_line("Algerian");
      guessLabel->setStyleSheet("font : 14pt;color: rgb(0,0,0);background:rgba(0,0,0,0);border:2px solid;border-color:#000;");
      guessLabel->setFont(font_line);
-     guessLabel->setPlaceholderText("Guess how many sets you will take?(press enter to continue)");
+     guessLabel->setPlaceholderText("Enter your guess");
      for(auto& x:pushButtons)x.cards_button->setEnabled(false);
      guessLabel->show();
      currentPlayer.set_guess(guessLabel->text().toInt());
@@ -1317,13 +1317,13 @@ void Server::caculateScore(int rivalScore){
     //age dorost gofte bashe....
     if(currentPlayer.get_guess()==currentPlayer.get_setWin()){
         //age gofte bashe 0 dast
-        if(currentPlayer.get_guess()==0)currentPlayer.set_score(currentPlayer.get_score()+(currentPlayer.get_countOfTurn()*10));
+        if(currentPlayer.get_guess()==0)currentPlayer.set_score(currentPlayer.get_score()+((currentPlayer.get_countOfTurn()-1)*10));
        else currentPlayer.set_score(currentPlayer.get_score()+(currentPlayer.get_guess()*10));
     }
     //age ghalat gofte bashe.....
     else{
         //age gofte bashe 0 dast
-        if(currentPlayer.get_guess()==0)currentPlayer.set_score(currentPlayer.get_score()-(currentPlayer.get_countOfTurn()*10));
+        if(currentPlayer.get_guess()==0)currentPlayer.set_score(currentPlayer.get_score()-((currentPlayer.get_countOfTurn()-1)*10));
         else currentPlayer.set_score(currentPlayer.get_score()-(abs(currentPlayer.get_guess()-currentPlayer.get_setWin())*10));
     }
     if(currentPlayer.get_countOfTurn()==7){

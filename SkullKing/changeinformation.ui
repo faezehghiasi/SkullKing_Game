@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>changeInformation</class>
+ <widget class="QMainWindow" name="changeInformation">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>450</width>
+    <height>550</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QWidget" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>450</width>
+      <height>550</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Showcard Gothic</family>
+     </font>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#change{ 
+	color: rgb(255, 85, 0);
+}
+QPushButton#change:hover{ 
+background-color:rgba(180,0,71,210)
+}
+QPushButton#change:pressed{ 
+padding-left:5px;
+padding-top:5px;
+background-color:rgba(180 ,0,71,210);
+}
+</string>
+    </property>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>450</width>
+       <height>550</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-image: url(:/resource/wallpaper house and son tribal.jfif);
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgba(0, 0, 0, 0), stop:1 rgba(255, 255, 255, 255));
+border-radius:20px</string>
+     </property>
+     <property name="text">
+      <string>TextLabel</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>20</y>
+       <width>391</width>
+       <height>521</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color:rgba(0,0,0,100);
+border-radius:20px;</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="change">
+     <property name="geometry">
+      <rect>
+       <x>150</x>
+       <y>410</y>
+       <width>131</width>
+       <height>41</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton#change{ 
+	font: 9pt &quot;Showcard Gothic&quot;;
+	
+	background-color: rgb(255, 153, 51);
+	
+	color: rgb(0, 0, 0);
+}
+QPushButton#change:hover{ 
+		background-color: rgb(200, 109, 19);
+}
+QPushButton#change:pressed{ 
+padding-left:5px;
+padding-top:5px;
+	background-color: rgb(200, 109, 19);
+}
+</string>
+     </property>
+     <property name="text">
+      <string>Change</string>
+     </property>
+    </widget>
+    <widget class="QWidget" name="">
+     <property name="geometry">
+      <rect>
+       <x>70</x>
+       <y>50</y>
+       <width>301</width>
+       <height>331</height>
+      </rect>
+     </property>
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <item>
+       <widget class="QLineEdit" name="nameLine">
+        <property name="font">
+         <font>
+          <family>Baskerville Old Face</family>
+          <pointsize>14</pointsize>
+          <italic>false</italic>
+          <bold>false</bold>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">background-color:rgba(0,0,0,0);
+font: 14pt &quot;Baskerville Old Face&quot;;
+border:none;
+border-bottom:2px solid rgba(105,118,132,255);
+color:rgba(255,255,255,230);
+padding-bottom:7px;</string>
+        </property>
+        <property name="inputMask">
+         <string/>
+        </property>
+        <property name="placeholderText">
+         <string>Enter your new name</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="usernamLine">
+        <property name="styleSheet">
+         <string notr="true">background-color:rgba(0,0,0,0);
+border:none;
+border-bottom:2px solid rgba(105,118,132,255);
+color:rgba(255,255,255,230);
+padding-bottom:7px;
+font: 14pt &quot;Baskerville Old Face&quot;;</string>
+        </property>
+        <property name="placeholderText">
+         <string>Enter your new username</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="passLine">
+        <property name="styleSheet">
+         <string notr="true">background-color:rgba(0,0,0,0);
+border:none;
+border-bottom:2px solid rgba(105,118,132,255);
+color:rgba(255,255,255,230);
+padding-bottom:7px;
+font: 14pt &quot;Baskerville Old Face&quot;;</string>
+        </property>
+        <property name="placeholderText">
+         <string>Enter your new password</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="phoneLine">
+        <property name="styleSheet">
+         <string notr="true">background-color:rgba(0,0,0,0);
+border:none;
+border-bottom:2px solid rgba(105,118,132,255);
+color:rgba(255,255,255,230);
+padding-bottom:7px;
+font: 14pt &quot;Baskerville Old Face&quot;;</string>
+        </property>
+        <property name="placeholderText">
+         <string>Enter your new phone number</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLineEdit" name="addressLine">
+        <property name="styleSheet">
+         <string notr="true">background-color:rgba(0,0,0,0);
+border:none;
+border-bottom:2px solid rgba(105,118,132,255);
+color:rgba(255,255,255,230);
+padding-bottom:7px;
+font: 14pt &quot;Baskerville Old Face&quot;;</string>
+        </property>
+        <property name="placeholderText">
+         <string>Enter your new address</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </widget>
+  </widget>
+  <widget class="QMenuBar" name="menubar">
+   <property name="geometry">
+    <rect>
+     <x>0</x>
+     <y>0</y>
+     <width>450</width>
+     <height>26</height>
+    </rect>
+   </property>
+  </widget>
+  <widget class="QStatusBar" name="statusbar"/>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

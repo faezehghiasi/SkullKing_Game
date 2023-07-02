@@ -319,6 +319,9 @@ void Player::calculate(cards rivalCard){
             currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
             currentPlayer.set_turn(true);
             currentPlayer.set_starterOfEachRound(true);
+            if(selectedCard.getId()==5) currentPlayer.set_score(currentPlayer.get_score()+15);
+            else if(selectedCard.getId()==6) currentPlayer.set_score(currentPlayer.get_score()+20);
+            else if(selectedCard.getId()==7)currentPlayer.set_score(currentPlayer.get_score()+10);
             if(get_server())srv->scoreNumber->setText(QString::number(get_score()));
             else cln->scoreNumber->setText(QString::number(get_score()));
             return;

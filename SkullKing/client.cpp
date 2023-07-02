@@ -25,10 +25,10 @@ Client::Client(QWidget *parent) :
     scoreLabel= new QLabel(this);
     scoreNumber= new QLabel(this);
     scoreLabel->setStyleSheet("font: 14pt Broadway;  color: rgb(255, 255, 255);background-color: rgb(7, 7, 7);");
-    scoreNumber->setStyleSheet("font: 10pt Broadway;  color: rgb(13, 13, 13);");
+    scoreNumber->setStyleSheet("font: 20pt Broadway;  color: rgb(13, 13, 13);");
     scoreLabel->setGeometry(10,50,81,31);
     scoreNumber->setGeometry(10,90,71,31);
-    scoreLabel->setText("score");
+    scoreLabel->setText("  score");
     scoreNumber->setText(QString::number(currentPlayer.get_score()));
     scoreLabel->show();
     scoreNumber->show();
@@ -112,6 +112,7 @@ void Client::readyRead() {
                 ClientOrServer::delay(2000);
                 move_twoCards();
                 if(currentPlayer.playeCard.size()==0){
+                    currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
                    continueTheGameButton->show();
 
                 }
@@ -151,13 +152,18 @@ void Client::readyRead() {
            guessLabel->setPlaceholderText("Enter your guess");
            for(auto& x:pushButtons)x.cards_button->setEnabled(false);
            guessLabel->show();
-           currentPlayer.set_guess(guessLabel->text().toInt());
-           connect(guessLabel,&QLineEdit::editingFinished,this,[&](){guessLabel->hide();
-           for(auto& x:pushButtons)x.cards_button->setEnabled(true);});
+           connect(guessLabel,&QLineEdit::editingFinished,this,[&](){
+               currentPlayer.set_guess(guessLabel->text().toInt());
+               guessLabel->hide();
+               for(auto& x:pushButtons)x.cards_button->setEnabled(true);
+           });
+           qDebug()<<currentPlayer.get_guess();
+
 
 
        }
       else{
+           if (currentPlayer.get_countOfTurn()>1)calculateScore();
            for(auto& x:pushButtons) delete x.cards_button;
            pushButtons.clear();
            currentPlayer.set_randomCards(recivedCard,currentPlayer.get_countOfTurn());
@@ -441,6 +447,7 @@ void Client::on_Buttons0_clicked(){
        move_twoCards();
        if(currentPlayer.playeCard.size()==0){
           continueTheGameButton->show();
+          currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
        }
     }
 
@@ -481,6 +488,7 @@ void Client::on_Buttons1_clicked(){
         if(currentPlayer.playeCard.size()==0){
 
              continueTheGameButton->show();
+             currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
 
         }
      }
@@ -522,6 +530,7 @@ void Client::on_Buttons2_clicked(){
          if(currentPlayer.playeCard.size()==0){
 
               continueTheGameButton->show();
+               currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
 
          }
       }
@@ -564,6 +573,7 @@ void Client::on_Buttons3_clicked(){
        if(currentPlayer.playeCard.size()==0){
 
               continueTheGameButton->show();
+               currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
 
        }
     }
@@ -606,6 +616,7 @@ void Client::on_Buttons4_clicked(){
        if(currentPlayer.playeCard.size()==0){
 
            continueTheGameButton->show();
+            currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
 
        }
     }
@@ -648,6 +659,7 @@ void Client::on_Buttons5_clicked(){
        if(currentPlayer.playeCard.size()==0){
 
          continueTheGameButton->show();
+          currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
 
        }
     }
@@ -690,6 +702,7 @@ void Client::on_Buttons6_clicked(){
          if(currentPlayer.playeCard.size()==0){
 
             continueTheGameButton->show();
+             currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
 
          }
       }
@@ -732,6 +745,7 @@ void Client::on_Buttons7_clicked(){
          if(currentPlayer.playeCard.size()==0){
 
              continueTheGameButton->show();
+              currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
 
          }
       }
@@ -774,6 +788,7 @@ void Client::on_Buttons8_clicked(){
          if(currentPlayer.playeCard.size()==0){
 
            continueTheGameButton->show();
+            currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
 
          }
       }
@@ -816,6 +831,7 @@ void Client::on_Buttons9_clicked(){
          if(currentPlayer.playeCard.size()==0){
 
            continueTheGameButton->show();
+            currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
 
          }
       }
@@ -858,6 +874,7 @@ void Client::on_Buttons10_clicked(){
        if(currentPlayer.playeCard.size()==0){
 
           continueTheGameButton->show();
+           currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
 
        }
     }
@@ -899,6 +916,7 @@ void Client::on_Buttons11_clicked(){
          if(currentPlayer.playeCard.size()==0){
 
             continueTheGameButton->show();
+             currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
 
          }
       }
@@ -939,6 +957,7 @@ void Client::on_Buttons12_clicked(){
        if(currentPlayer.playeCard.size()==0){
 
            continueTheGameButton->show();
+            currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
 
        }
     }
@@ -980,6 +999,7 @@ void Client::on_Buttons13_clicked(){
          if(currentPlayer.playeCard.size()==0){
 
              continueTheGameButton->show();
+             currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
 
          }
       }
@@ -1236,18 +1256,18 @@ void Client::calculateScore(){
     //age dorost gofte bashe....
     if(currentPlayer.get_guess()==currentPlayer.get_setWin()){
         //age gofte bashe 0 dast
-        if(currentPlayer.get_guess()==0)currentPlayer.set_score(currentPlayer.get_score()+(currentPlayer.get_countOfTurn()*10));
+        if(currentPlayer.get_guess()==0)currentPlayer.set_score(currentPlayer.get_score()+((currentPlayer.get_countOfTurn()-1)*10));
        else currentPlayer.set_score(currentPlayer.get_score()+(currentPlayer.get_guess()*10));
     }
     //age ghalat gofte bashe.....
     else{
         //age gofte bashe 0 dast
-        if(currentPlayer.get_guess()==0)currentPlayer.set_score(currentPlayer.get_score()-(currentPlayer.get_countOfTurn()*10));
+        if(currentPlayer.get_guess()==0)currentPlayer.set_score(currentPlayer.get_score()-((currentPlayer.get_countOfTurn()-1)*10));
         else currentPlayer.set_score(currentPlayer.get_score()-(abs(currentPlayer.get_guess()-currentPlayer.get_setWin())*10));
     }
-    auto foundPlayer=find_if(listOfPlayer.begin(),listOfPlayer.end(),[](auto x){return(x.get_username()==currentPlayer.get_username());});
-    foundPlayer->set_score(currentPlayer.get_score());
-    writeToFile("myfile.bin");
+    //auto foundPlayer=find_if(listOfPlayer.begin(),listOfPlayer.end(),[](auto x){return(x.get_username()==currentPlayer.get_username());});
+   // foundPlayer->set_score(currentPlayer.get_score());
+    //writeToFile("myfile.bin");
     scoreNumber->setText(QString::number(currentPlayer.get_score()));
     currentPlayer.set_setWin(0);
 }
