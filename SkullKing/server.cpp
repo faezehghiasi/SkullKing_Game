@@ -43,7 +43,7 @@ void Server::newConnection(){
 }
 //*****************************************************************
 void Server :: readyRead(){
-
+    //socket->waitForReadyRead(3000);
     QByteArray file_content = socket->readAll();
           QFile file("recivedCard.bin");
           if(!file.open(QIODevice::WriteOnly)){
@@ -65,10 +65,11 @@ void Server :: readyRead(){
                     buttons temp;
                     availbleCards(temp);
                 }
+                qDebug()<<client_card.thisCard.getId();
               set_picture(client_card);
               if(!client_card.empty()&& !server_card.empty()){
                 currentPlayer.calculate(client_card.thisCard);
-                ClientOrServer::delay(1000);
+                ClientOrServer::delay(2000);
                 move_twoCards();
               }
          }
@@ -119,7 +120,7 @@ void Server::showCards(QList<cards> cCards){
             buttons QP;
             QP.cards_button = new QPushButton(this);
             QP.thisCard= cCards[i];
-             pushButtons.append(QP);
+             pushButtons.push_back(QP);
         }
         int X =190;
         int Y = 490;
@@ -138,7 +139,7 @@ void Server::showCards(QList<cards> cCards){
             buttons QP;
             QP.cards_button = new QPushButton(this);
             QP.thisCard= cCards[i];
-             pushButtons.append(QP);
+             pushButtons.push_back(QP);
         }
         int X =100;
         int Y = 510;
@@ -164,7 +165,7 @@ void Server::showCards(QList<cards> cCards){
             buttons QP;
             QP.cards_button = new QPushButton(this);
             QP.thisCard= cCards[i];
-             pushButtons.append(QP);
+             pushButtons.push_back(QP);
         }
         int X = 90;
         int Y = 530;
@@ -192,7 +193,7 @@ void Server::showCards(QList<cards> cCards){
             buttons QP;
             QP.cards_button = new QPushButton(this);
             QP.thisCard= cCards[i];
-             pushButtons.append(QP);
+             pushButtons.push_back(QP);
         }
         int X = 60;
         int Y = 540;
@@ -222,7 +223,7 @@ void Server::showCards(QList<cards> cCards){
             buttons QP;
             QP.cards_button = new QPushButton(this);
             QP.thisCard= cCards[i];
-             pushButtons.append(QP);
+             pushButtons.push_back(QP);
         }
         int X = 40;
         int Y = 550;
@@ -255,7 +256,7 @@ void Server::showCards(QList<cards> cCards){
             buttons QP;
             QP.cards_button = new QPushButton(this);
             QP.thisCard= cCards[i];
-             pushButtons.append(QP);
+             pushButtons.push_back(QP);
         }
         int X = 5;
         int Y = 560;
@@ -290,7 +291,7 @@ void Server::showCards(QList<cards> cCards){
             buttons QP;
             QP.cards_button = new QPushButton(this);
             QP.thisCard= cCards[i];
-             pushButtons.append(QP);
+             pushButtons.push_back(QP);
         }
         int X =10;
         int Y = 540;
@@ -504,7 +505,8 @@ void Server::set_picture(struct buttons crd){
         }
         break;
     case 4:
-        switch(crd.thisCard.getNumber()){
+        switch(crd.thisCard.getNumber())
+        {
         case 1:
             crd.cards_button->setStyleSheet("border-image: url(:/resource/flagcard1.png);");
             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/flagcard1.png width=150 height=200/></p></body></html>");
@@ -602,6 +604,11 @@ buttons& Server::get_server_card(){
     return server_card;
 }
 //*************************************************************************************************
+void Server::change_geometry(){
+    server_card.cards_button->setGeometry(290,290,101,141);
+    client_card.cards_button->setGeometry(210,240,101,141);
+}
+//************************************************************************************************
 void Server::on_Buttons0_clicked(){
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
@@ -616,14 +623,14 @@ void Server::on_Buttons0_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-
-    /// animaition
-
     socket->write(file_content);
+   // socket->waitForBytesWritten(2000);
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[0]);
+    ClientOrServer::delay(1000);
+    pushButtons[0].clear();
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(client_card.thisCard);
       ClientOrServer::delay(1000);
@@ -646,14 +653,14 @@ void Server::on_Buttons1_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-
-    /// animaition
-
     socket->write(file_content);
+    //socket->waitForBytesWritten(2000);
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[1]);
+    ClientOrServer::delay(1000);
+      pushButtons[1].clear();
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(client_card.thisCard);
       ClientOrServer::delay(1000);
@@ -675,14 +682,14 @@ void Server::on_Buttons2_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-
-    /// animaition
-
     socket->write(file_content);
+   // socket->waitForBytesWritten(2000);
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[2]);
+        ClientOrServer::delay(1000);
+          pushButtons[2].clear();
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(client_card.thisCard);
       ClientOrServer::delay(1000);
@@ -705,14 +712,14 @@ void Server::on_Buttons3_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-
-    /// animaition
-
     socket->write(file_content);
+    //socket->waitForBytesWritten(2000);
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[3]);
+        ClientOrServer::delay(1000);
+          pushButtons[3].clear();
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(client_card.thisCard);
       ClientOrServer::delay(1000);
@@ -735,14 +742,14 @@ void Server::on_Buttons4_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-
-    /// animaition
-
     socket->write(file_content);
+   // socket->waitForBytesWritten(2000);
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[4]);
+        ClientOrServer::delay(1000);
+        pushButtons[4].clear();
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(client_card.thisCard);
       ClientOrServer::delay(1000);
@@ -765,14 +772,14 @@ void Server::on_Buttons5_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-
-    /// animaition
-
     socket->write(file_content);
+   // socket->waitForBytesWritten(2000);
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[5]);
+        ClientOrServer::delay(1000);
+          pushButtons[5].clear();
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(client_card.thisCard);
       ClientOrServer::delay(1000);
@@ -795,14 +802,14 @@ void Server::on_Buttons6_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-
-    /// animaition
-
     socket->write(file_content);
+   // socket->waitForBytesWritten(2000);
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[6]);
+        ClientOrServer::delay(1000);
+          pushButtons[6].clear();
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(client_card.thisCard);
       ClientOrServer::delay(1000);
@@ -825,14 +832,14 @@ void Server::on_Buttons7_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-
-    /// animaition
-
     socket->write(file_content);
+    //socket->waitForBytesWritten(2000);
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[7]);
+        ClientOrServer::delay(1000);
+          pushButtons[7].clear();
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(client_card.thisCard);
       ClientOrServer::delay(1000);
@@ -855,14 +862,14 @@ void Server::on_Buttons8_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-
-    /// animaition
-
     socket->write(file_content);
+   // socket->waitForBytesWritten(2000);
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[8]);
+        ClientOrServer::delay(1000);
+          pushButtons[8].clear();
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(client_card.thisCard);
       ClientOrServer::delay(1000);
@@ -885,14 +892,14 @@ void Server::on_Buttons9_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-
-    /// animaition
-
     socket->write(file_content);
+    //socket->waitForBytesWritten(2000);
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[9]);
+        ClientOrServer::delay(1000);
+          pushButtons[9].clear();
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(client_card.thisCard);
       ClientOrServer::delay(1000);
@@ -915,14 +922,14 @@ void Server::on_Buttons10_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-
-    /// animaition
-
     socket->write(file_content);
+    //socket->waitForBytesWritten(2000);
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[10]);
+        ClientOrServer::delay(1000);
+          pushButtons[10].clear();
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(client_card.thisCard);
       ClientOrServer::delay(1000);
@@ -945,14 +952,14 @@ void Server::on_Buttons11_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-
-    /// animaition
-
     socket->write(file_content);
+    //socket->waitForBytesWritten(2000);
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[11]);
+        ClientOrServer::delay(1000);
+          pushButtons[11].clear();
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(client_card.thisCard);
       ClientOrServer::delay(1000);
@@ -975,14 +982,14 @@ void Server::on_Buttons12_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-
-    /// animaition
-
     socket->write(file_content);
+    //socket->waitForBytesWritten(2000);
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[12]);
+        ClientOrServer::delay(1000);
+          pushButtons[12].clear();
     if(!client_card.empty()&& !server_card.empty()){
       currentPlayer.calculate(client_card.thisCard);
       ClientOrServer::delay(1000);
@@ -999,20 +1006,22 @@ void Server::on_Buttons13_clicked(){
     }
      //qDebug()<<"13"<< pushButtons[13].thisCard.getId()<<" "<< pushButtons[13].thisCard.getNumber()<<" "<<pushButtons[13].thisCard.getValue();
     server_card  = pushButtons[13];
-    currentPlayer.set_selectedCard(client_card.thisCard);
+    currentPlayer.set_selectedCard(server_card.thisCard);
     sendCard.push_back(pushButtons[13].thisCard);
     writeToFileCards("sendCard.bin",sendCard);
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-    /// animaition
     socket->write(file_content);
+    //socket->waitForBytesWritten(2000);
     socket->flush();
     file.close();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[13]);
+        ClientOrServer::delay(1000);
+          pushButtons[13].clear();
     if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(server_card.thisCard);
+      currentPlayer.calculate(client_card.thisCard);
       ClientOrServer::delay(1000);
        move_twoCards();
     }
@@ -1038,12 +1047,12 @@ void Server::move_twoCards(){
        animClient->setDuration(500);
        animClient->setEndValue(QPoint(-50, 260));
        animClient->start();
-       server_card.clear();
-       client_card.clear();
-       connect(animServer,&QAbstractAnimation::finished,this,[&](){server_card.cards_button->hide();});
-       connect(animClient,&QAbstractAnimation::finished,this,[&](){client_card.cards_button->hide();});
+
+       connect(animServer,&QAbstractAnimation::finished,this,[&](){server_card.cards_button->hide();server_card.clear();client_card.clear();});
+       connect(animClient,&QAbstractAnimation::finished,this,[&](){client_card.cards_button->hide();server_card.clear();client_card.clear();});
        connect(animServer,SIGNAL(finished()),animServer,SLOT(deleteLater()));
        connect(animClient,SIGNAL(finished()),animClient,SLOT(deleteLater()));
+       connect(animClient,SIGNAL(finished()),this,SLOT(change_geometry()));
 
 }
 

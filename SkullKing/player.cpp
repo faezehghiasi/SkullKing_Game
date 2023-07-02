@@ -232,27 +232,34 @@ void Player::set_guess(int g){guess=g;}
 void Player::set_turn(bool b){turn=b;}
 //********************************************************************
 void Player::calculate(cards rivalCard){
+    if(get_server())for(auto& x:srv->get_buttons())x.cards_button->setEnabled(true);
+    else for(auto& x:cln->get_PushPuttons())x.cards_button->setEnabled(true);
     if((selectedCard.getId()==1||selectedCard.getId()==2||selectedCard.getId()==3)&&(rivalCard.getId()==1||rivalCard.getId()==2||rivalCard.getId()==3))
-    {
-        if(selectedCard.getId()==rivalCard.getId())
+    {        qDebug()<<"else0";
+        if(selectedCard.getId()==rivalCard.getId()){
+                qDebug()<<"else1";
             ////************************************************
             if(selectedCard.getNumber()>rivalCard.getNumber()){
+                   qDebug()<<"else2";
             currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
             currentPlayer.set_turn(true);
             currentPlayer.set_starterOfEachRound(true);
             return;
            }
+        }
 
         else{
             ////*************************************************
             if(currentPlayer.get_starterOfEachRound()){
+                qDebug()<<"else3";
                 currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
                 currentPlayer.set_turn(true);
                 currentPlayer.set_starterOfEachRound(true);
                 return;
             }
+            }
 
-        }
+
         if(get_server()){
             srv->get_server_card().clear();
             srv->get_client_card().clear();
