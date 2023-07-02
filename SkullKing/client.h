@@ -5,6 +5,7 @@
 #include <QObject>
 #include<QTcpSocket>
 #include <QAbstractSocket>
+#include<QLineEdit>
 #include<QMessageBox>
 #include"player.h"
 #include<QPushButton>
@@ -21,7 +22,6 @@ public:
     explicit Client(QWidget *parent = nullptr);
     void creation();
     ~Client();
-    void play(int countOfTurn);
     void showCards(QList<cards>Ccards);
      void availbleCards(buttons rivalCard);
     void calculate(cards server_card,cards client_card);
@@ -61,6 +61,7 @@ private:
     QString message;
     struct buttons server_card;
     struct buttons client_card;
+    QLineEdit* guessLabel;
 };
 extern Client* cln;
 

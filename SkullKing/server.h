@@ -9,6 +9,7 @@
 #include<QPushButton>
 #include"player.h"
 #include <QPropertyAnimation>
+#include<QLineEdit>
 namespace Ui {
 class Server;
 }
@@ -36,6 +37,7 @@ public:
      void move_oneCards(buttons& c);
      void move_twoCards();
      void play();
+     void caculateScore(int rivalScore);
     ~Server();
 signals:
     void sendIp(QString ip);
@@ -70,6 +72,7 @@ private:
     QVector<struct buttons> pushButtons;
     struct buttons server_card;
     struct buttons client_card;
+    QLineEdit* guessLabel;
 
 };
 extern Server* srv;

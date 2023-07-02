@@ -11,6 +11,7 @@
 #include<QTime>
 #include"signup.h"
 #include"player.h"
+#include<math.h>
 //******
 Server * srv;
 Server::Server(QWidget *parent) :
@@ -1237,6 +1238,93 @@ void Server ::play(){
      ClientOrServer::delay(1000);
      move_twoCards();
      //end
+     ////guess label....
+     ClientOrServer::delay(1000);
+     guessLabel=new QLineEdit(this);
+       guessLabel->setGeometry(120,310,391,51);
+     QFont font_line("Algerian");
+     guessLabel->setStyleSheet("font : 14pt;color: rgb(0,0,0);background:rgba(0,0,0,0);border:2px solid;border-color:#000;");
+     guessLabel->setFont(font_line);
+     guessLabel->setPlaceholderText("Guess how many sets you will take?(press enter to continue)");
+     for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+     guessLabel->show();
+     currentPlayer.set_guess(guessLabel->text().toInt());
+     connect(guessLabel,&QLineEdit::editingFinished,this,[&](){guessLabel->hide();
+     for(auto& x:pushButtons)x.cards_button->setEnabled(true);
+     //continue ro ham able kon
+     });
+
+}
+//***********************************************************************************************
+void Server::caculateScore(int rivalScore){
+    //age dorost gofte bashe....
+    if(currentPlayer.get_guess()==currentPlayer.get_setWin()){
+        //age gofte bashe 0 dast
+        if(currentPlayer.get_guess()==0)currentPlayer.set_score(currentPlayer.get_score()+(currentPlayer.get_countOfTurn()*10));
+       else currentPlayer.set_score(currentPlayer.get_score()+(currentPlayer.get_guess()*10));
+    }
+    //age ghalat gofte bashe.....
+    else{
+        //age gofte bashe 0 dast
+        if(currentPlayer.get_guess()==0)currentPlayer.set_score(currentPlayer.get_score()-(currentPlayer.get_countOfTurn()*10));
+        else currentPlayer.set_score(currentPlayer.get_score()-(abs(currentPlayer.get_guess()-currentPlayer.get_setWin())*10));
+    }
+    if(currentPlayer.get_countOfTurn()==7){
+        if(rivalScore>currentPlayer.get_score()){
+            cards server_order;
+            server_order.setOrder("You Win");
+            sendCard.push_back(server_order);
+            writeToFileCards("sendCard.bin",sendCard);
+            QFile file("sendCard.bin");
+            file.open(QFile::ReadOnly | QFile::Text);
+            QByteArray file_content = file.readAll();
+            ////mutex bzar....
+            socket->write(file_content);
+            socket->flush();
+            ////.........
+            file.close();
+            currentPlayer.set_lose(currentPlayer.get_lose()+1);
+
+        }
+
+    else if(rivalScore==currentPlayer.get_score()){
+        cards server_order;
+        server_order.setOrder("Equal");
+        sendCard.push_back(server_order);
+        writeToFileCards("sendCard.bin",sendCard);
+        QFile file("sendCard.bin");
+        file.open(QFile::ReadOnly | QFile::Text);
+        QByteArray file_content = file.readAll();
+        ////mutex bzar....
+        socket->write(file_content);
+        socket->flush();
+        ////.........
+        file.close();
+
+    }
+    else{
+        cards server_order;
+        server_order.setOrder("You Lose");
+        sendCard.push_back(server_order);
+        writeToFileCards("sendCard.bin",sendCard);
+        QFile file("sendCard.bin");
+        file.open(QFile::ReadOnly | QFile::Text);
+        QByteArray file_content = file.readAll();
+        ////mutex bzar....
+        socket->write(file_content);
+        socket->flush();
+        ////.........
+        file.close();
+        currentPlayer.set_win(currentPlayer.get_win()+1);
+
+    }
+        auto foundPlayer=find_if(listOfPlayer.begin(),listOfPlayer.end(),[](auto x){return(x.get_username()==currentPlayer.get_username());});
+        foundPlayer->set_lose(currentPlayer.get_lose());
+        foundPlayer->set_win(currentPlayer.get_win());
+        foundPlayer->set_score(currentPlayer.get_score());
+         writeToFile("myfile.bin");
+    }
+
 }
 
 
