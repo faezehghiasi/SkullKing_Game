@@ -10,6 +10,7 @@
 #include"player.h"
 #include <QPropertyAnimation>
 #include<QLineEdit>
+#include<QLabel>
 namespace Ui {
 class Server;
 }
@@ -38,6 +39,8 @@ public:
      void move_twoCards();
      void play();
      void caculateScore(int rivalScore);
+     QLabel *scoreLabel;
+     QLabel*scoreNumber;
     ~Server();
 signals:
     void sendIp(QString ip);

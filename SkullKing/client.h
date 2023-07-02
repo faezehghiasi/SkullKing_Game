@@ -33,6 +33,9 @@ public:
     struct buttons get_server_card();
     void move_oneCards(buttons& c);
     void move_twoCards();
+    void calculateScore();
+    QLabel *scoreLabel;
+    QLabel*scoreNumber;
 signals:
     void existClient();
     void startTheGame();

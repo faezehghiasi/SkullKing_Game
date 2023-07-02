@@ -246,6 +246,8 @@ void Player::calculate(cards rivalCard){
             currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
             currentPlayer.set_turn(true);
             currentPlayer.set_starterOfEachRound(true);
+            if(get_server())srv->scoreNumber->setText(QString::number(get_score()));
+            else cln->scoreNumber->setText(QString::number(get_score()));
             return;
            }
         }
@@ -257,6 +259,8 @@ void Player::calculate(cards rivalCard){
                 currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
                 currentPlayer.set_turn(true);
                 currentPlayer.set_starterOfEachRound(true);
+                if(get_server())srv->scoreNumber->setText(QString::number(get_score()));
+                else cln->scoreNumber->setText(QString::number(get_score()));
                 return;
             }
             }
@@ -280,6 +284,8 @@ void Player::calculate(cards rivalCard){
                 currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
                 currentPlayer.set_turn(true);
                 currentPlayer.set_starterOfEachRound(true);
+                if(get_server())srv->scoreNumber->setText(QString::number(get_score()));
+                else cln->scoreNumber->setText(QString::number(get_score()));
                 return;
             }
             ////**********************************************************
@@ -288,6 +294,8 @@ void Player::calculate(cards rivalCard){
                     currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
                     currentPlayer.set_turn(true);
                     currentPlayer.set_starterOfEachRound(true);
+                    if(get_server())srv->scoreNumber->setText(QString::number(get_score()));
+                    else cln->scoreNumber->setText(QString::number(get_score()));
                     return;
                 }
 
@@ -311,6 +319,8 @@ void Player::calculate(cards rivalCard){
             currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
             currentPlayer.set_turn(true);
             currentPlayer.set_starterOfEachRound(true);
+            if(get_server())srv->scoreNumber->setText(QString::number(get_score()));
+            else cln->scoreNumber->setText(QString::number(get_score()));
             return;
         }
         else {
@@ -321,6 +331,8 @@ void Player::calculate(cards rivalCard){
                      currentPlayer.set_score(currentPlayer.get_score()+30);
                      currentPlayer.set_turn(true);
                      currentPlayer.set_starterOfEachRound(true);
+                     if(get_server())srv->scoreNumber->setText(QString::number(get_score()));
+                     else cln->scoreNumber->setText(QString::number(get_score()));
                      return;
                      }
                     break;
@@ -329,6 +341,8 @@ void Player::calculate(cards rivalCard){
                     currentPlayer.set_score(currentPlayer.get_score()+25);
                     currentPlayer.set_turn(true);
                     currentPlayer.set_starterOfEachRound(true);
+                    if(get_server())srv->scoreNumber->setText(QString::number(get_score()));
+                    else cln->scoreNumber->setText(QString::number(get_score()));
                     return;
                  }
                     break;
@@ -341,6 +355,8 @@ void Player::calculate(cards rivalCard){
                     currentPlayer.set_score(currentPlayer.get_score()+35);
                     currentPlayer.set_turn(true);
                     currentPlayer.set_starterOfEachRound(true);
+                    if(get_server())srv->scoreNumber->setText(QString::number(get_score()));
+                    else cln->scoreNumber->setText(QString::number(get_score()));
                     return;
                 }
 
@@ -350,6 +366,8 @@ void Player::calculate(cards rivalCard){
                         currentPlayer.set_score(currentPlayer.get_score()+40);
                         currentPlayer.set_turn(true);
                         currentPlayer.set_starterOfEachRound(true);
+                        if(get_server())srv->scoreNumber->setText(QString::number(get_score()));
+                        else cln->scoreNumber->setText(QString::number(get_score()));
                         return;
                     }
 
@@ -366,6 +384,8 @@ void Player::calculate(cards rivalCard){
                     currentPlayer.set_score(currentPlayer.get_score()+30);
                     currentPlayer.set_turn(true);
                     currentPlayer.set_starterOfEachRound(true);
+                    if(get_server())srv->scoreNumber->setText(QString::number(get_score()));
+                    else cln->scoreNumber->setText(QString::number(get_score()));
                     return;
                 }
                    break;
@@ -375,6 +395,8 @@ void Player::calculate(cards rivalCard){
                      currentPlayer.set_score(currentPlayer.get_score()+20);
                      currentPlayer.set_turn(true);
                      currentPlayer.set_starterOfEachRound(true);
+                     if(get_server())srv->scoreNumber->setText(QString::number(get_score()));
+                     else cln->scoreNumber->setText(QString::number(get_score()));
                      return;
                     }
 

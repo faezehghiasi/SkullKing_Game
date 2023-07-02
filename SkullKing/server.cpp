@@ -27,7 +27,17 @@ Server::Server(QWidget *parent) :
     client_card.cards_button->setGeometry(210,240,101,141);
     server_card.cards_button->hide();
     client_card.cards_button->hide();
+    scoreLabel= new QLabel(this);
+    scoreNumber= new QLabel(this);
+    scoreLabel->setStyleSheet("font: 14pt Broadway;  color: rgb(255, 255, 255);background-color: rgb(7, 7, 7);");
+    scoreNumber->setStyleSheet("font: 10pt Broadway;  color: rgb(13, 13, 13);");
+    scoreLabel->setGeometry(10,50,81,31);
+    scoreNumber->setGeometry(10,90,71,31);
+    scoreLabel->show();
+    scoreNumber->show();
+    scoreNumber->setText(QString::number(currentPlayer.get_score()));
 }
+
 //************************************************************
 Server::~Server()
 {
@@ -1287,22 +1297,7 @@ void Server::caculateScore(int rivalScore){
 
         }
 
-    else if(rivalScore==currentPlayer.get_score()){
-        cards server_order;
-        server_order.setOrder("Equal");
-        sendCard.push_back(server_order);
-        writeToFileCards("sendCard.bin",sendCard);
-        QFile file("sendCard.bin");
-        file.open(QFile::ReadOnly | QFile::Text);
-        QByteArray file_content = file.readAll();
-        ////mutex bzar....
-        socket->write(file_content);
-        socket->flush();
-        ////.........
-        file.close();
-
-    }
-    else{
+    else if(rivalScore<currentPlayer.get_score()){
         cards server_order;
         server_order.setOrder("You Lose");
         sendCard.push_back(server_order);
@@ -1323,6 +1318,8 @@ void Server::caculateScore(int rivalScore){
         foundPlayer->set_win(currentPlayer.get_win());
         foundPlayer->set_score(currentPlayer.get_score());
          writeToFile("myfile.bin");
+         scoreNumber->setText(QString::number(currentPlayer.get_score()));
+
     }
 
 }

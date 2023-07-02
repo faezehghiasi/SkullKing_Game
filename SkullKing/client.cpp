@@ -1,4 +1,4 @@
-
+#include"signup.h"
 #include "client.h"
 #include"signin.h"
 #include "ui_client.h"
@@ -22,6 +22,15 @@ Client::Client(QWidget *parent) :
     client_card.cards_button->setGeometry(290,290,101,141);
     server_card.cards_button->hide();
     client_card.cards_button->hide();
+    scoreLabel= new QLabel(this);
+    scoreNumber= new QLabel(this);
+    scoreLabel->setStyleSheet("font: 14pt Broadway;  color: rgb(255, 255, 255);background-color: rgb(7, 7, 7);");
+    scoreNumber->setStyleSheet("font: 10pt Broadway;  color: rgb(13, 13, 13);");
+    scoreLabel->setGeometry(10,50,81,31);
+    scoreNumber->setGeometry(10,90,71,31);
+    scoreLabel->show();
+    scoreNumber->show();
+    scoreNumber->setText(QString::number(currentPlayer.get_score()));
 
 
 }
@@ -1223,6 +1232,26 @@ void Client::move_twoCards(){
        connect(animClient,&QAbstractAnimation::finished,this,[&](){client_card.cards_button->hide();server_card.clear();client_card.clear();});
 
 
+
+}
+//*******************************************************************************************************************************************
+void Client::calculateScore(){
+    //age dorost gofte bashe....
+    if(currentPlayer.get_guess()==currentPlayer.get_setWin()){
+        //age gofte bashe 0 dast
+        if(currentPlayer.get_guess()==0)currentPlayer.set_score(currentPlayer.get_score()+(currentPlayer.get_countOfTurn()*10));
+       else currentPlayer.set_score(currentPlayer.get_score()+(currentPlayer.get_guess()*10));
+    }
+    //age ghalat gofte bashe.....
+    else{
+        //age gofte bashe 0 dast
+        if(currentPlayer.get_guess()==0)currentPlayer.set_score(currentPlayer.get_score()-(currentPlayer.get_countOfTurn()*10));
+        else currentPlayer.set_score(currentPlayer.get_score()-(abs(currentPlayer.get_guess()-currentPlayer.get_setWin())*10));
+    }
+    auto foundPlayer=find_if(listOfPlayer.begin(),listOfPlayer.end(),[](auto x){return(x.get_username()==currentPlayer.get_username());});
+    foundPlayer->set_score(currentPlayer.get_score());
+    writeToFile("myfile.bin");
+    scoreNumber->setText(QString::number(currentPlayer.get_score()));
 
 }
 
