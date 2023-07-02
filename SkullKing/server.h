@@ -59,9 +59,7 @@ public slots:
     void on_Buttons12_clicked();
     void on_Buttons13_clicked();
     void change_geometry();
-
-
-
+    void on_continueTheGameButton_clicked();
 
 private:
     Ui::Server *ui;
@@ -70,6 +68,7 @@ private:
     QVector<struct buttons> pushButtons;
     struct buttons server_card;
     struct buttons client_card;
+    QPushButton * continueTheGameButton;
 
 };
 extern Server* srv;

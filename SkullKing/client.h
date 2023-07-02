@@ -54,6 +54,7 @@ public slots:
     void on_Buttons11_clicked();
     void on_Buttons12_clicked();
     void on_Buttons13_clicked();
+    void on_continueTheGameButton_clicked();
 private:
     Ui::Client *ui;
     QTcpSocket* socket;
@@ -61,6 +62,7 @@ private:
     QString message;
     struct buttons server_card;
     struct buttons client_card;
+    QPushButton * continueTheGameButton;
 };
 extern Client* cln;
 

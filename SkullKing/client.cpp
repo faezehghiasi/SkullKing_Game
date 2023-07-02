@@ -20,6 +20,10 @@ Client::Client(QWidget *parent) :
     client_card.cards_button->setGeometry(290,290,101,141);
     server_card.cards_button->hide();
     client_card.cards_button->hide();
+    continueTheGameButton = new QPushButton("Wait for continue",this);
+    continueTheGameButton->setStyleSheet("background-color:rgb(200, 129, 49); color: rgb(0, 0, 0); font: 15pt Stencil;border-color: rgb(85, 0, 0); border-radius:10px;QPushButton#continueTheGameButton{background-color:rgb(200, 129, 49); color: rgb(0, 0, 0); font: 15pt Stencil;border-color: rgb(85, 0, 0); border-radius:10px;}QPushButton#continueTheGameButton:hover{ color:rgba(155,168,182,210) ;}QPushButton#continueTheGameButton:pressed{padding-left:5px; padding-top:5px;color:rgba(115 ,128,142,210);}");
+    continueTheGameButton->setGeometry(150,300,301,141);
+    continueTheGameButton->hide();
 
 
 }
@@ -85,11 +89,7 @@ void Client::readyRead() {
               file.open(QFile::ReadOnly|QFile::Text);
               QByteArray file_content = file.readAll();
               socket->write(file_content);
-              //socket->waitForBytesWritten(3000);
               socket->flush();
-               /// darkhast jabejaii cards
-              // qDebug()<<currentPlayer.playeCard.size();
-              //showCards(currentPlayer.playeCard);
            }
            else{
 
@@ -109,10 +109,11 @@ void Client::readyRead() {
              ///calculateing the score
               if(!client_card.empty()&& !server_card.empty()){
                 currentPlayer.calculate(server_card.thisCard);
+
                 ClientOrServer::delay(2000);
                 move_twoCards();
-                if(currentPlayer.playeCard.size()==0){
-                    /// new page
+                if(currentPlayer.playeCard.size()==0){  
+                   continueTheGameButton->show();
                 }
               }
              /// end
@@ -129,6 +130,7 @@ void Client::readyRead() {
            }
            server_card = recivedCard[0];
            client_card = recivedCard[1];
+           continueTheGameButton->hide();
            set_picture(server_card);
            set_picture(client_card);
            ClientOrServer::delay(1000);
@@ -136,13 +138,11 @@ void Client::readyRead() {
 
        }
       else{
-           currentPlayer.set_randomCards(recivedCard,7);
+           currentPlayer.set_randomCards(recivedCard,currentPlayer.get_countOfTurn());
            showCards(currentPlayer.playeCard);
            for(int i =0 ; i<pushButtons.size();i++){
               set_picture( pushButtons[i]);
            }
-           for(auto x:currentPlayer.playeCard)qDebug()<<"play cards: "<<x.getId()<<x.getNumber();
-           for(auto x:pushButtons)qDebug()<<"pushButtons: "<<x.thisCard.getId()<<x.thisCard.getNumber();
        }
 
 }
@@ -429,7 +429,7 @@ void Client::on_Buttons0_clicked(){
       ClientOrServer::delay(1000);
        move_twoCards();
        if(currentPlayer.playeCard.size()==0){
-           /// new page
+          continueTheGameButton->show();
        }
     }
 
@@ -467,7 +467,7 @@ void Client::on_Buttons1_clicked(){
        ClientOrServer::delay(1000);
         move_twoCards();
         if(currentPlayer.playeCard.size()==0){
-            /// new page
+             continueTheGameButton->show();
         }
      }
 
@@ -504,7 +504,7 @@ void Client::on_Buttons2_clicked(){
         ClientOrServer::delay(1000);
          move_twoCards();
          if(currentPlayer.playeCard.size()==0){
-             /// new page
+              continueTheGameButton->show();
          }
       }
 
@@ -542,7 +542,7 @@ void Client::on_Buttons3_clicked(){
       ClientOrServer::delay(1000);
        move_twoCards();
        if(currentPlayer.playeCard.size()==0){
-           /// new page
+              continueTheGameButton->show();
        }
     }
 
@@ -580,7 +580,7 @@ void Client::on_Buttons4_clicked(){
       ClientOrServer::delay(1000);
        move_twoCards();
        if(currentPlayer.playeCard.size()==0){
-           /// new page
+           continueTheGameButton->show();
        }
     }
 
@@ -618,7 +618,7 @@ void Client::on_Buttons5_clicked(){
       ClientOrServer::delay(1000);
        move_twoCards();
        if(currentPlayer.playeCard.size()==0){
-           /// new page
+         continueTheGameButton->show();
        }
     }
 
@@ -656,7 +656,7 @@ void Client::on_Buttons6_clicked(){
         ClientOrServer::delay(1000);
          move_twoCards();
          if(currentPlayer.playeCard.size()==0){
-             /// new page
+            continueTheGameButton->show();
          }
       }
 
@@ -694,7 +694,7 @@ void Client::on_Buttons7_clicked(){
         ClientOrServer::delay(1000);
          move_twoCards();
          if(currentPlayer.playeCard.size()==0){
-             /// new page
+             continueTheGameButton->show();
          }
       }
 
@@ -732,7 +732,7 @@ void Client::on_Buttons8_clicked(){
         ClientOrServer::delay(1000);
          move_twoCards();
          if(currentPlayer.playeCard.size()==0){
-             /// new page
+           continueTheGameButton->show();
          }
       }
 
@@ -770,7 +770,7 @@ void Client::on_Buttons9_clicked(){
         ClientOrServer::delay(1000);
          move_twoCards();
          if(currentPlayer.playeCard.size()==0){
-             /// new page
+           continueTheGameButton->show();
          }
       }
 
@@ -807,7 +807,7 @@ void Client::on_Buttons10_clicked(){
       ClientOrServer::delay(1000);
        move_twoCards();
        if(currentPlayer.playeCard.size()==0){
-           /// new page
+          continueTheGameButton->show();
        }
     }
 
@@ -844,7 +844,7 @@ void Client::on_Buttons11_clicked(){
         ClientOrServer::delay(1000);
          move_twoCards();
          if(currentPlayer.playeCard.size()==0){
-             /// new page
+            continueTheGameButton->show();
          }
       }
 
@@ -880,7 +880,7 @@ void Client::on_Buttons12_clicked(){
       ClientOrServer::delay(1000);
        move_twoCards();
        if(currentPlayer.playeCard.size()==0){
-           /// new page
+           continueTheGameButton->show();
        }
     }
 
@@ -917,7 +917,7 @@ void Client::on_Buttons13_clicked(){
         ClientOrServer::delay(1000);
          move_twoCards();
          if(currentPlayer.playeCard.size()==0){
-             /// new page
+             continueTheGameButton->show();
          }
       }
 }
@@ -1158,10 +1158,11 @@ void Client::move_twoCards(){
        animClient->setDuration(500);
        animClient->setEndValue(QPoint(-50, 260));
        animClient->start();
-
        connect(animServer,&QAbstractAnimation::finished,this,[&](){server_card.cards_button->hide();server_card.clear();client_card.clear();});
        connect(animClient,&QAbstractAnimation::finished,this,[&](){client_card.cards_button->hide();server_card.clear();client_card.clear();});
 
 
 }
+//**************************************************************************************************
+
 

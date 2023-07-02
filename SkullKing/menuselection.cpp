@@ -31,7 +31,25 @@ void MenuSelection::on_start_clicked()
         else{
             this->hide();
             srv->show();
-            srv->play();
+            //order client  to start the game
+            cards server_order;
+            server_order.setOrder("Start The Game");
+            sendCard.push_back(server_order);
+            writeToFileCards("sendCard.bin",sendCard);
+            QFile file("sendCard.bin");
+            file.open(QFile::ReadOnly | QFile::Text);
+            QByteArray file_content = file.readAll();
+            srv->get_socket()->write(file_content);
+            srv->get_socket()->flush();
+            file.close();
+            //end
+            // decrese money
+            currentPlayer.set_coin(currentPlayer.get_coin()-50);
+            auto foundPlayer=find_if(listOfPlayer.begin(),listOfPlayer.end(),[](auto x){return(x.get_username()==currentPlayer.get_username());});
+            foundPlayer->set_coin(currentPlayer.get_coin());
+             writeToFile("myfile.bin");
+             //end
+             srv->play();
        }
     }
     else {
