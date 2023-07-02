@@ -83,8 +83,6 @@ void MenuSelection::on_start_clicked()
              srv->get_client_card().cards_button->setGeometry(210,240,101,141);
              srv->set_picture(srv->get_server_card());
              srv->set_picture(srv->get_client_card());
-
-
              ClientOrServer::delay(1000);
              srv->move_twoCards();
              ///end
