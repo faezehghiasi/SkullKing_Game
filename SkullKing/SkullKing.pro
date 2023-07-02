@@ -10,6 +10,7 @@ CONFIG += c++17
 
 SOURCES += \
     cards.cpp \
+    changeinformation.cpp \
     client.cpp \
     clientorserver.cpp \
     common.cpp \
@@ -25,6 +26,7 @@ SOURCES += \
 
 HEADERS += \
     cards.h \
+    changeinformation.h \
     client.h \
     clientorserver.h \
     common.h \
@@ -38,6 +40,7 @@ HEADERS += \
     skullking.h
 
 FORMS += \
+    changeinformation.ui \
     client.ui \
     clientorserver.ui \
     forgetpassword.ui \

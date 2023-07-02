@@ -8,6 +8,7 @@
 #include"algorithm"
 #include<QTime>
 #include"clientorserver.h"
+#include"changeinformation.h"
 MenuSelection::MenuSelection(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MenuSelection)
@@ -78,3 +79,12 @@ void MenuSelection::startTheGame(){
     }
 }
 //***********************************************
+
+void MenuSelection::on_change_info_clicked()
+{
+    changeInformation* w;
+    w=new changeInformation(this);
+    this->hide();
+    w->show();
+}
+

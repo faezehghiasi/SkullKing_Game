@@ -1258,7 +1258,7 @@ void Server::move_oneCards(buttons& cCards){
            client_card.cards_button->setGeometry(210,240,101,141);});
    // mx.unlock();
 }
-//****************************************************************************************
+//**************************************************************************************************
 void Server::move_twoCards(){
    // mx.lock();
     QPropertyAnimation *animServer = new QPropertyAnimation(server_card.cards_button, "pos", this);

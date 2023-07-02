@@ -18,6 +18,8 @@ public slots:
 private slots:
     void on_start_clicked();
 
+    void on_change_info_clicked();
+
 private:
     Ui::MenuSelection *ui;
 };
