@@ -126,11 +126,12 @@ void Server :: readyRead(){
                       for(auto& x:pushButtons)x.cards_button->setEnabled(false);
                       endOfTheGame->setEnabled(true);
                       endOfTheGame->show();}
-                    }
+
                     else{
                  for(auto& x:pushButtons)x.cards_button->setEnabled(false);
                    continueTheGameButton->setEnabled(true);
                    continueTheGameButton->show();}
+                }
                 }
              }
             }
@@ -457,6 +458,7 @@ void Server::set_picture(struct buttons crd){
         case 4:
             crd.cards_button->setStyleSheet("border-image: url(:/resource/treasure4.png);");
              crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/treasure4.png width=150 height=200/></p></body></html>");
+             crd.cards_button->show();
             break;
         case 5:
             crd.cards_button->setStyleSheet("border-image: url(:/resource/treasure5.png);");

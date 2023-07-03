@@ -150,12 +150,15 @@ void Client::readyRead() {
                 ClientOrServer::delay(2000);
                 move_twoCards();
                 if(currentPlayer.playeCard.size()==0){
-
-                    currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
-                   continueTheGameButton->show();
+                    if(currentPlayer.get_countOfTurn()==7){
+                        for(auto& x:pushButtons) delete x.cards_button;
+                        pushButtons.clear();
+                        endOfTheGame->show();
+                    }
+                   else{ currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
+                   continueTheGameButton->show();}
 
                 }
-
               }
              /// end
            }
@@ -1179,6 +1182,7 @@ void Client::set_picture(struct buttons crd){
         case 4:
             crd.cards_button->setStyleSheet("border-image: url(:/resource/treasure4.png);");
              crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/treasure4.png width=150 height=200/></p></body></html>");
+             crd.cards_button->show();
             break;
         case 5:
             crd.cards_button->setStyleSheet("border-image: url(:/resource/treasure5.png);");
