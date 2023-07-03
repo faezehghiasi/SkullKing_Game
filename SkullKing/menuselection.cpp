@@ -9,6 +9,8 @@
 #include<QTime>
 #include"clientorserver.h"
 #include"changeinformation.h"
+#include"skullking.h"
+#include"history.h"
 MenuSelection::MenuSelection(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MenuSelection)
@@ -86,5 +88,21 @@ void MenuSelection::on_change_info_clicked()
     w=new changeInformation(this);
     this->hide();
     w->show();
+}
+//****************************************************************
+void MenuSelection::on_exit_clicked()
+{
+    this->close();
+    Skullking* newPage;
+    newPage = new Skullking;
+    newPage->show();
+}
+//****************************************************************
+void MenuSelection::on_histoty_clicked()
+{
+    this->hide();
+    History* newPage ;
+    newPage = new History;
+    newPage->show();
 }
 

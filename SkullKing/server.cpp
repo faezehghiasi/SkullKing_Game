@@ -1525,7 +1525,7 @@ void Server::on_continueTheGameButton_clicked(){
 }
 //****************************************************************************************************
 void Server::on_pushButton_9_clicked()
-{    if(currentPlayer.get_countOfStop()>2){
+{    if(currentPlayer.get_countOfStop()>1){
         QMessageBox MQ;
         MQ.warning(0,"","You are not allowed to do this");
         return;

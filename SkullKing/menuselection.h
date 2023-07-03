@@ -20,6 +20,10 @@ private slots:
 
     void on_change_info_clicked();
 
+    void on_exit_clicked();
+
+    void on_histoty_clicked();
+
 private:
     Ui::MenuSelection *ui;
 };

@@ -27,34 +27,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">QPushButton#pushButton_8{ 
-background-color: rgb(101, 102, 104);
-color: rgb(0, 0, 0);
-font: 600 10pt &quot;Sitka Small Semibold&quot;;
-}
-QPushButton#pushButton_8:hover{ 
-color:rgba(155,168,182,210)
-}
-QPushButton#pushButton_8:pressed{ 
-padding-left:5px;
-padding-top:5px;
-color:rgba(115 ,128,142,210);
-}
-
-QPushButton#pushButton_7{ 
-background-color: rgb(101, 102, 104);
-color: rgb(0, 0, 0);
-font: 600 10pt &quot;Sitka Small Semibold&quot;;
-}
-QPushButton#pushButton_7:hover{ 
-color:rgba(155,168,182,210)
-}
-QPushButton#pushButton_7:pressed{ 
-padding-left:5px;
-padding-top:5px;
-color:rgba(115 ,128,142,210);
-}
-</string>
+     <string notr="true"/>
     </property>
     <widget class="QLabel" name="label">
      <property name="geometry">
@@ -238,23 +211,47 @@ color:rgba(115 ,128,142,210);
       <string>EXIT</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label_2">
+    <widget class="QWidget" name="widget_2" native="true">
      <property name="geometry">
       <rect>
-       <x>200</x>
-       <y>270</y>
-       <width>221</width>
-       <height>51</height>
+       <x>0</x>
+       <y>0</y>
+       <width>630</width>
+       <height>700</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">color: rgb(0, 0, 0);
-font: 18pt &quot;Snap ITC&quot;;</string>
-     </property>
-     <property name="text">
-      <string>game stoped</string>
+      <string notr="true">QPushButton#pushButton_8{ 
+background-color: rgb(101, 102, 104);
+color: rgb(0, 0, 0);
+font: 600 10pt &quot;Sitka Small Semibold&quot;;
+}
+QPushButton#pushButton_8:hover{ 
+color:rgba(155,168,182,210)
+}
+QPushButton#pushButton_8:pressed{ 
+padding-left:5px;
+padding-top:5px;
+color:rgba(115 ,128,142,210);
+}
+
+QPushButton#pushButton_7{ 
+background-color: rgb(101, 102, 104);
+color: rgb(0, 0, 0);
+font: 600 10pt &quot;Sitka Small Semibold&quot;;
+}
+QPushButton#pushButton_7:hover{ 
+color:rgba(155,168,182,210)
+}
+QPushButton#pushButton_7:pressed{ 
+padding-left:5px;
+padding-top:5px;
+color:rgba(115 ,128,142,210);
+}
+</string>
      </property>
     </widget>
+    <zorder>widget_2</zorder>
     <zorder>label</zorder>
     <zorder>pushButton</zorder>
     <zorder>pushButton_2</zorder>
@@ -264,7 +261,6 @@ font: 18pt &quot;Snap ITC&quot;;</string>
     <zorder>pushButton_5</zorder>
     <zorder>pushButton_7</zorder>
     <zorder>pushButton_8</zorder>
-    <zorder>label_2</zorder>
    </widget>
   </widget>
  </widget>

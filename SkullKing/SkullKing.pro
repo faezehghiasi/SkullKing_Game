@@ -15,6 +15,7 @@ SOURCES += \
     clientorserver.cpp \
     common.cpp \
     forgetpassword.cpp \
+    history.cpp \
     importantcards.cpp \
     main.cpp \
     menuselection.cpp \
@@ -31,6 +32,7 @@ HEADERS += \
     clientorserver.h \
     common.h \
     forgetpassword.h \
+    history.h \
     importantcards.h \
     menuselection.h \
     player.h \
@@ -44,6 +46,7 @@ FORMS += \
     client.ui \
     clientorserver.ui \
     forgetpassword.ui \
+    history.ui \
     menuselection.ui \
     server.ui \
     signin.ui \

@@ -1447,7 +1447,7 @@ void Client::calculateScore(){
 }
 //*******************************************************************************************************************
 void Client::on_pushButton_7_clicked()
-{ if(currentPlayer.get_countOfStop()>2){
+{ if(currentPlayer.get_countOfStop()>1){
         QMessageBox MQ;
         MQ.warning(0,"","You are not allowed to do this");
         return;
