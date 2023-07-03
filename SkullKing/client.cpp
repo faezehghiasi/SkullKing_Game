@@ -28,7 +28,7 @@ Client::Client(QWidget *parent) :
     scoreLabel->setStyleSheet("font: 14pt Broadway;  color: rgb(255, 255, 255);background-color: rgb(7, 7, 7);");
     scoreNumber->setStyleSheet("font: 20pt Broadway;  color: rgb(13, 13, 13);");
     scoreLabel->setGeometry(10,50,81,31);
-    scoreNumber->setGeometry(10,90,71,31);
+    scoreNumber->setGeometry(20,90,71,31);
     scoreLabel->setText("  score");
     scoreNumber->setText(QString::number(currentPlayer.get_score()));
     scoreLabel->show();
@@ -155,18 +155,12 @@ void Client::readyRead() {
            //**********************************************
            else if(recivedCard[0].getOrder()=="STOP"){
                ui->pushButton_7->setEnabled(false);
-               ui->pushButton_7->hide();
-               resume->setEnabled(true);
-               resume->show();
                 gameStop->show();
                 for(auto& x:pushButtons) x.cards_button->setEnabled(false);
            }
            //***********************************************
            else if(recivedCard[0].getOrder()=="RESUME"){
-               resume->setEnabled(false);
-               resume->hide();
-               ui->pushButton_7->setEnabled(true);
-               ui->pushButton_7->show();
+                resume->setEnabled(false);
                 gameStop->hide();
                for(auto& x:pushButtons) x.cards_button->setEnabled(true);
            }

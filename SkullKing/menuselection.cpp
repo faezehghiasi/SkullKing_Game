@@ -96,6 +96,8 @@ void MenuSelection::on_exit_clicked()
     Skullking* newPage;
     newPage = new Skullking;
     newPage->show();
+    Skullking::delay();
+    newPage->Show_TextBrows();
 }
 //****************************************************************
 void MenuSelection::on_histoty_clicked()

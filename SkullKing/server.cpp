@@ -34,7 +34,7 @@ Server::Server(QWidget *parent) :
     scoreLabel->setStyleSheet("font: 14pt Broadway;  color: rgb(255, 255, 255);background-color: rgb(7, 7, 7);");
     scoreNumber->setStyleSheet("font: 20pt Broadway;  color: rgb(13, 13, 13);");
     scoreLabel->setGeometry(10,50,81,31);
-    scoreNumber->setGeometry(10,90,71,31);
+    scoreNumber->setGeometry(20,90,71,31);
     scoreLabel->setText("  Score");
     scoreNumber->setText(QString::number(currentPlayer.get_score()));
     scoreLabel->show();
@@ -123,18 +123,12 @@ void Server :: readyRead(){
               //**********************************************
               else if(recivedCard[0].getOrder()=="STOP"){
                   ui->pushButton_9->setEnabled(false);
-                  ui->pushButton_9->hide();
-                  resume->setEnabled(true);
-                  resume->show();
                    gameStop->show();
                    for(auto& x:pushButtons) x.cards_button->setEnabled(false);
               }
               //***********************************************
               else if(recivedCard[0].getOrder()=="RESUME"){
-                  resume->setEnabled(false);
-                  resume->hide();
                   ui->pushButton_9->setEnabled(true);
-                  ui->pushButton_9->show();
                    gameStop->hide();
                   for(auto& x:pushButtons) x.cards_button->setEnabled(true);
               }
@@ -1436,7 +1430,7 @@ void Server::move_twoCards(){
 }
 //*************************************************************************************************
 void Server ::play(){
-         if(currentPlayer.get_countOfTurn()>1 && currentPlayer.get_countOfTurn()<8)caculateScore(0);
+         if(currentPlayer.get_countOfTurn()>1 && currentPlayer.get_countOfTurn()<7)caculateScore(0);
         // server pick cards first
         int turncount = currentPlayer.get_countOfTurn();
         sendCard = currentPlayer.creat_cards();
@@ -1592,6 +1586,12 @@ void Server::on_pushButton_9_clicked()
 
 void Server::on_pushButton_7_clicked()
 {
+    currentPlayer.set_lose(currentPlayer.get_lose()+1);
+    auto it = find_if(listOfPlayer.begin(),listOfPlayer.end(),[&](auto p){
+        return(currentPlayer.get_username()==p.get_username());
+    });
+    it->set_lose(currentPlayer.get_lose());
+    writeToFile("myfile.bin");
     cards server_order;
     server_order.setOrder("EXIT");
     sendCard.push_back(server_order);

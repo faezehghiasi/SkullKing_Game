@@ -2,6 +2,7 @@
 #include "ui_history.h"
 #include"signin.h"
 #include<QString>
+#include"menuselection.h"
 History::History(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::History)
@@ -22,3 +23,12 @@ History::~History()
 {
     delete ui;
 }
+
+void History::on_pushButton_clicked()
+{
+    this->hide();
+    MenuSelection* newPage;
+    newPage = new   MenuSelection;
+    newPage->show();
+}
+
