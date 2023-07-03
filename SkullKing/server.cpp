@@ -61,7 +61,7 @@ Server::Server(QWidget *parent) :
     gameStop->setGeometry(200,270,221,51);
     gameStop->hide();
     returnButton=new QPushButton("Back to menu",this);
-    returnButton->setGeometry(150,450,93,51);
+    returnButton->setGeometry(150,450,171,51);
     returnButton->setStyleSheet("background-color: qlineargradient(spread:pad, x1:0.0432692, y1:0.051, x2:0.952, y2:0.892045, stop:0.423077 rgba(152, 118, 63, 255), stop:1 rgba(255, 255, 255, 255));color: rgb(8, 8, 8);font: 900 16pt Bodoni MT Black;");
     returnButton->hide();
     returnButton->setEnabled(false);

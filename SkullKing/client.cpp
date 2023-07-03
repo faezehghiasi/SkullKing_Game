@@ -43,6 +43,7 @@ Client::Client(QWidget *parent) :
     endOfTheGame=new QPushButton("End the game",this);
     endOfTheGame->setStyleSheet("background-color:rgb(200, 129, 49); color: rgb(0, 0, 0); font: 15pt Stencil;border-color: rgb(85, 0, 0); border-radius:10px;QPushButton#continueTheGameButton{background-color:rgb(200, 129, 49); color: rgb(0, 0, 0); font: 15pt Stencil;border-color: rgb(85, 0, 0); border-radius:10px;}QPushButton#continueTheGameButton:hover{ color:rgba(155,168,182,210) ;}QPushButton#continueTheGameButton:pressed{padding-left:5px; padding-top:5px;color:rgba(115 ,128,142,210);}");
     endOfTheGame->setGeometry(150,300,301,141);
+    endOfTheGame->setEnabled(false);
     endOfTheGame->hide();
     connect(endOfTheGame,&QPushButton::clicked,this,&Client::endOfGame);
     resume = new QPushButton("Resume",this);
@@ -58,7 +59,7 @@ Client::Client(QWidget *parent) :
     gameStop->hide();
 
     returnButton=new QPushButton("Back to menu",this);
-    returnButton->setGeometry(150,450,93,51);
+    returnButton->setGeometry(150,450,171,51);
     returnButton->setStyleSheet("background-color: qlineargradient(spread:pad, x1:0.0432692, y1:0.051, x2:0.952, y2:0.892045, stop:0.423077 rgba(152, 118, 63, 255), stop:1 rgba(255, 255, 255, 255));color: rgb(8, 8, 8);font: 900 16pt Bodoni MT Black;");
     returnButton->hide();
     returnButton->setEnabled(false);
@@ -188,6 +189,7 @@ void Client::readyRead() {
                     if(currentPlayer.get_countOfTurn()==7){
                         for(auto& x:pushButtons) delete x.cards_button;
                         pushButtons.clear();
+                        endOfTheGame->setEnabled(true);
                         endOfTheGame->show();
                         returnButton->setEnabled(true);
                         returnButton->show();
@@ -528,6 +530,7 @@ void Client::on_Buttons0_clicked(){
            if(currentPlayer.get_countOfTurn()==7){
                for(auto& x:pushButtons) delete x.cards_button;
                pushButtons.clear();
+               endOfTheGame->setEnabled(true);
                endOfTheGame->show();
                returnButton->setEnabled(true);
                returnButton->show();
@@ -578,6 +581,7 @@ void Client::on_Buttons1_clicked(){
             if(currentPlayer.get_countOfTurn()==7){
                 for(auto& x:pushButtons) delete x.cards_button;
                 pushButtons.clear();
+                endOfTheGame->setEnabled(true);
                 endOfTheGame->show();
                 returnButton->setEnabled(true);
                 returnButton->show();
@@ -629,6 +633,7 @@ void Client::on_Buttons2_clicked(){
              if(currentPlayer.get_countOfTurn()==7){
                  for(auto& x:pushButtons) delete x.cards_button;
                  pushButtons.clear();
+                 endOfTheGame->setEnabled(true);
                  endOfTheGame->show();
                  returnButton->setEnabled(true);
                  returnButton->show();
@@ -682,6 +687,7 @@ void Client::on_Buttons3_clicked(){
            if(currentPlayer.get_countOfTurn()==7){
                for(auto& x:pushButtons) delete x.cards_button;
                pushButtons.clear();
+               endOfTheGame->setEnabled(true);
                endOfTheGame->show();
                returnButton->setEnabled(true);
                returnButton->show();
@@ -734,6 +740,7 @@ void Client::on_Buttons4_clicked(){
            if(currentPlayer.get_countOfTurn()==7){
                for(auto& x:pushButtons) delete x.cards_button;
                pushButtons.clear();
+               endOfTheGame->setEnabled(true);
                endOfTheGame->show();
                returnButton->setEnabled(true);
                returnButton->show();
@@ -786,6 +793,7 @@ void Client::on_Buttons5_clicked(){
            if(currentPlayer.get_countOfTurn()==7){
                for(auto& x:pushButtons) delete x.cards_button;
                pushButtons.clear();
+               endOfTheGame->setEnabled(true);
                endOfTheGame->show();
                returnButton->setEnabled(true);
                returnButton->show();
@@ -838,6 +846,7 @@ void Client::on_Buttons6_clicked(){
              if(currentPlayer.get_countOfTurn()==7){
                  for(auto& x:pushButtons) delete x.cards_button;
                  pushButtons.clear();
+                 endOfTheGame->setEnabled(true);
                  endOfTheGame->show();
                  returnButton->setEnabled(true);
                  returnButton->show();
@@ -890,6 +899,7 @@ void Client::on_Buttons7_clicked(){
              if(currentPlayer.get_countOfTurn()==7){
                  for(auto& x:pushButtons) delete x.cards_button;
                  pushButtons.clear();
+                 endOfTheGame->setEnabled(true);
                  endOfTheGame->show();
                  returnButton->setEnabled(true);
                  returnButton->show();
@@ -942,6 +952,7 @@ void Client::on_Buttons8_clicked(){
              if(currentPlayer.get_countOfTurn()==7){
                  for(auto& x:pushButtons) delete x.cards_button;
                  pushButtons.clear();
+                 endOfTheGame->setEnabled(true);
                  endOfTheGame->show();
                  returnButton->setEnabled(true);
                  returnButton->show();
@@ -994,6 +1005,7 @@ void Client::on_Buttons9_clicked(){
              if(currentPlayer.get_countOfTurn()==7){
                  for(auto& x:pushButtons) delete x.cards_button;
                  pushButtons.clear();
+                 endOfTheGame->setEnabled(true);
                  endOfTheGame->show();
                  returnButton->setEnabled(true);
                  returnButton->show();
@@ -1046,6 +1058,7 @@ void Client::on_Buttons10_clicked(){
            if(currentPlayer.get_countOfTurn()==7){
                for(auto& x:pushButtons) delete x.cards_button;
                pushButtons.clear();
+               endOfTheGame->setEnabled(true);
                endOfTheGame->show();
                returnButton->setEnabled(true);
                returnButton->show();
@@ -1097,6 +1110,7 @@ void Client::on_Buttons11_clicked(){
              if(currentPlayer.get_countOfTurn()==7){
                  for(auto& x:pushButtons) delete x.cards_button;
                  pushButtons.clear();
+                 endOfTheGame->setEnabled(true);
                  endOfTheGame->show();
                  returnButton->setEnabled(true);
                  returnButton->show();
@@ -1147,6 +1161,7 @@ void Client::on_Buttons12_clicked(){
            if(currentPlayer.get_countOfTurn()==7){
                for(auto& x:pushButtons) delete x.cards_button;
                pushButtons.clear();
+               endOfTheGame->setEnabled(true);
                endOfTheGame->show();
                returnButton->setEnabled(true);
                returnButton->show();
@@ -1198,6 +1213,7 @@ void Client::on_Buttons13_clicked(){
              if(currentPlayer.get_countOfTurn()==7){
                  for(auto& x:pushButtons) delete x.cards_button;
                  pushButtons.clear();
+                 endOfTheGame->setEnabled(true);
                  endOfTheGame->show();
                  returnButton->setEnabled(true);
                  returnButton->show();
@@ -1509,6 +1525,12 @@ void Client::on_pushButton_7_clicked()
 //********************************************************************************************************************
 void Client::on_pushButton_8_clicked()
 {
+    currentPlayer.set_lose(currentPlayer.get_lose()+1);
+    auto it = find_if(listOfPlayer.begin(),listOfPlayer.end(),[&](auto p){
+        return(currentPlayer.get_username()==p.get_username());
+    });
+    it->set_lose(currentPlayer.get_lose());
+    writeToFile("myfile.bin");
     cards client_order;
     client_order.setOrder("EXIT");
     sendCard.push_back(client_order);
