@@ -49,6 +49,17 @@ Server::Server(QWidget *parent) :
     endOfTheGame->setGeometry(150,300,301,141);
     endOfTheGame->hide();
     endOfTheGame->setEnabled(false);
+    resume = new QPushButton("Resume",this);
+    resume->setStyleSheet("background-color: rgb(101, 102, 104);color: rgb(0, 0, 0); font: 600 10pt Sitka Small Semibold;");
+    resume->setGeometry(10,140,61,51);
+    resume->setEnabled(false);
+    resume->hide();
+    connect(resume,SIGNAL(clicked()),this,SLOT(on_resumeButton_clicked()));
+    gameStop = new QLabel(this);
+    gameStop->setStyleSheet("color: rgb(0, 0, 0); font: 18pt Snap ITC;");
+    gameStop->setText("Game Stoped");
+    gameStop->setGeometry(200,270,221,51);
+    gameStop->hide();
 
 }
 //************************************************************
@@ -96,15 +107,32 @@ void Server :: readyRead(){
                   newPage2->Show_TextBrows();
               }
 
-
               /////////////////////////////////////////
               else if(recivedCard[0].getOrder()=="SCORE"){
                   int rivalScore=recivedCard[0].getNumber();
-                  for(auto& x:pushButtons)delete x.cards_button;
+                  for(auto& x:pushButtons) delete x.cards_button;
                   pushButtons.clear();
                   caculateScore(rivalScore);
               }
-              ////////////////////////////////////////////////
+              //**********************************************
+              else if(recivedCard[0].getOrder()=="STOP"){
+                  ui->pushButton_9->setEnabled(false);
+                  ui->pushButton_9->hide();
+                  resume->setEnabled(true);
+                  resume->show();
+                   gameStop->show();
+                   for(auto& x:pushButtons) x.cards_button->setEnabled(false);
+              }
+              //***********************************************
+              else if(recivedCard[0].getOrder()=="RESUME"){
+                  resume->setEnabled(false);
+                  resume->hide();
+                  ui->pushButton_9->setEnabled(true);
+                  ui->pushButton_9->show();
+                   gameStop->hide();
+                  for(auto& x:pushButtons) x.cards_button->setEnabled(true);
+              }
+              //**********************************************
               else{
                    //client send card
               client_card = recivedCard[0];
@@ -1373,7 +1401,7 @@ void Server::move_twoCards(){
 }
 //*************************************************************************************************
 void Server ::play(){
-         if(currentPlayer.get_countOfTurn()>1 && currentPlayer.get_countOfTurn()<7)caculateScore(0);
+         if(currentPlayer.get_countOfTurn()>1 && currentPlayer.get_countOfTurn()<8)caculateScore(0);
         // server pick cards first
         int turncount = currentPlayer.get_countOfTurn();
         sendCard = currentPlayer.creat_cards();
@@ -1497,14 +1525,36 @@ void Server::on_continueTheGameButton_clicked(){
 }
 //****************************************************************************************************
 void Server::on_pushButton_9_clicked()
-{
+{    if(currentPlayer.get_countOfStop()>2){
+        QMessageBox MQ;
+        MQ.warning(0,"","You are not allowed to do this");
+        return;
+    }
+    currentPlayer.set_countOfStop(currentPlayer.get_countOfStop()+1);
+    ui->pushButton_9->setEnabled(false);
+    ui->pushButton_9->hide();
+    resume->setEnabled(true);
+    resume->show();
+     gameStop->show();
+    for(auto& x:pushButtons) x.cards_button->setEnabled(false);
+     cards server_order;
+     server_order.setOrder("STOP");
+     sendCard.push_back(server_order);
+     writeToFileCards("sendCard.bin",sendCard);
+     QFile file("sendCard.bin");
+     file.open(QFile::ReadOnly | QFile::Text);
+     QByteArray file_content = file.readAll();
+     mx.lock();
+     socket->write(file_content);
+     socket->flush();
+     mx.unlock();
+     file.close();
 
 }
 //****************************************************************************************************
 
 void Server::on_pushButton_7_clicked()
 {
-    qDebug()<<"cos khar";
     cards server_order;
     server_order.setOrder("EXIT");
     sendCard.push_back(server_order);
@@ -1524,4 +1574,25 @@ void Server::on_pushButton_7_clicked()
     Skullking::delay();
     newPage->Show_TextBrows();
 }
+//****************************************************************************************************
+void Server::on_resumeButton_clicked(){
+    resume->setEnabled(false);
+    resume->hide();
+    ui->pushButton_9->setEnabled(true);
+    ui->pushButton_9->show();
+     gameStop->hide();
+    for(auto& x:pushButtons) x.cards_button->setEnabled(true);
+     cards server_order;
+     server_order.setOrder("RESUME");
+     sendCard.push_back(server_order);
+     writeToFileCards("sendCard.bin",sendCard);
+     QFile file("sendCard.bin");
+     file.open(QFile::ReadOnly | QFile::Text);
+     QByteArray file_content = file.readAll();
+     mx.lock();
+     socket->write(file_content);
+     socket->flush();
+     mx.unlock();
+     file.close();
 
+}

@@ -27,7 +27,34 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true"/>
+     <string notr="true">QPushButton#pushButton_8{ 
+background-color: rgb(101, 102, 104);
+color: rgb(0, 0, 0);
+font: 600 10pt &quot;Sitka Small Semibold&quot;;
+}
+QPushButton#pushButton_8:hover{ 
+color:rgba(155,168,182,210)
+}
+QPushButton#pushButton_8:pressed{ 
+padding-left:5px;
+padding-top:5px;
+color:rgba(115 ,128,142,210);
+}
+
+QPushButton#pushButton_7{ 
+background-color: rgb(101, 102, 104);
+color: rgb(0, 0, 0);
+font: 600 10pt &quot;Sitka Small Semibold&quot;;
+}
+QPushButton#pushButton_7:hover{ 
+color:rgba(155,168,182,210)
+}
+QPushButton#pushButton_7:pressed{ 
+padding-left:5px;
+padding-top:5px;
+color:rgba(115 ,128,142,210);
+}
+</string>
     </property>
     <widget class="QLabel" name="label">
      <property name="geometry">
@@ -155,9 +182,24 @@ border: 3px solid ;
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(200, 56, 12);
+      <string notr="true">background-color: rgb(101, 102, 104);;
 color: rgb(0, 0, 0);
-font: 600 10pt &quot;Sitka Small Semibold&quot;;</string>
+font: 600 10pt &quot;Sitka Small Semibold&quot;;
+
+QPushButton#pushButton_7{ 
+background-color: rgb(101, 102, 104);
+color: rgb(0, 0, 0);
+font: 600 10pt &quot;Sitka Small Semibold&quot;;
+}
+QPushButton#pushButton_7:hover{ 
+color:rgba(155,168,182,210)
+}
+QPushButton#pushButton_7:pressed{ 
+padding-left:5px;
+padding-top:5px;
+color:rgba(115 ,128,142,210);
+}
+</string>
      </property>
      <property name="text">
       <string>STOP</string>
@@ -173,12 +215,44 @@ font: 600 10pt &quot;Sitka Small Semibold&quot;;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(200, 56, 12);
+      <string notr="true">background-color: rgb(101, 102, 104);
 color: rgb(0, 0, 0);
-font: 600 10pt &quot;Sitka Small Semibold&quot;;</string>
+font: 600 10pt &quot;Sitka Small Semibold&quot;;
+
+QPushButton#pushButton_8{ 
+background-color: rgb(101, 102, 104);
+color: rgb(0, 0, 0);
+font: 600 10pt &quot;Sitka Small Semibold&quot;;
+}
+QPushButton#pushButton_8:hover{ 
+color:rgba(155,168,182,210)
+}
+QPushButton#pushButton_8:pressed{ 
+padding-left:5px;
+padding-top:5px;
+color:rgba(115 ,128,142,210);
+}
+</string>
      </property>
      <property name="text">
       <string>EXIT</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_2">
+     <property name="geometry">
+      <rect>
+       <x>200</x>
+       <y>270</y>
+       <width>221</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">color: rgb(0, 0, 0);
+font: 18pt &quot;Snap ITC&quot;;</string>
+     </property>
+     <property name="text">
+      <string>game stoped</string>
      </property>
     </widget>
     <zorder>label</zorder>
@@ -190,6 +264,7 @@ font: 600 10pt &quot;Sitka Small Semibold&quot;;</string>
     <zorder>pushButton_5</zorder>
     <zorder>pushButton_7</zorder>
     <zorder>pushButton_8</zorder>
+    <zorder>label_2</zorder>
    </widget>
   </widget>
  </widget>

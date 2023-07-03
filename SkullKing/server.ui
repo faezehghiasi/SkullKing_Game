@@ -23,6 +23,36 @@
       <height>700</height>
      </rect>
     </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#pushButton_9{ 
+background-color: rgb(101, 102, 104);
+color: rgb(0, 0, 0);
+font: 600 10pt &quot;Sitka Small Semibold&quot;;
+}
+QPushButton#pushButton_9:hover{ 
+color:rgba(155,168,182,210)
+}
+QPushButton#pushButton_9:pressed{ 
+padding-left:5px;
+padding-top:5px;
+color:rgba(115 ,128,142,210);
+}
+
+QPushButton#pushButton_7{ 
+background-color: rgb(101, 102, 104);
+color: rgb(0, 0, 0);
+font: 600 10pt &quot;Sitka Small Semibold&quot;;
+}
+QPushButton#pushButton_7:hover{ 
+color:rgba(155,168,182,210)
+}
+QPushButton#pushButton_7:pressed{ 
+padding-left:5px;
+padding-top:5px;
+color:rgba(115 ,128,142,210);
+}
+</string>
+    </property>
     <widget class="QLabel" name="background">
      <property name="enabled">
       <bool>true</bool>
@@ -150,9 +180,23 @@ border-color :#000000</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(200, 56, 12);
+      <string notr="true">background-color: rgb(101, 102, 104);
 color: rgb(0, 0, 0);
-font: 600 10pt &quot;Sitka Small Semibold&quot;;</string>
+font: 600 10pt &quot;Sitka Small Semibold&quot;;
+QPushButton#pushButton_9{ 
+background-color: rgb(101, 102, 104);
+color: rgb(0, 0, 0);
+font: 600 10pt &quot;Sitka Small Semibold&quot;;
+}
+QPushButton#pushButton_9:hover{ 
+color:rgba(155,168,182,210)
+}
+QPushButton#pushButton_9:pressed{ 
+padding-left:5px;
+padding-top:5px;
+color:rgba(115 ,128,142,210);
+}
+</string>
      </property>
      <property name="text">
       <string>STOP</string>
@@ -168,9 +212,22 @@ font: 600 10pt &quot;Sitka Small Semibold&quot;;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(200, 56, 12);
+      <string notr="true">background-color: rgb(101, 102, 104);
 color: rgb(0, 0, 0);
-font: 600 10pt &quot;Sitka Small Semibold&quot;;</string>
+font: 600 10pt &quot;Sitka Small Semibold&quot;;
+QPushButton#pushButton_7{ 
+background-color: rgb(101, 102, 104);
+color: rgb(0, 0, 0);
+font: 600 10pt &quot;Sitka Small Semibold&quot;;
+}
+QPushButton#pushButton_7:hover{ 
+color:rgba(155,168,182,210)
+}
+QPushButton#pushButton_7:pressed{ 
+padding-left:5px;
+padding-top:5px;
+color:rgba(115 ,128,142,210);
+}</string>
      </property>
      <property name="text">
       <string>Exit</string>

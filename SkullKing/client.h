@@ -58,6 +58,7 @@ public slots:
     void on_Buttons12_clicked();
     void on_Buttons13_clicked();
     void endOfGame();
+    void on_resumeButton_clicked();
 private slots:
     void on_pushButton_7_clicked();
 
@@ -72,7 +73,9 @@ private:
     struct buttons client_card;
     QLineEdit* guessLabel;
     QPushButton * continueTheGameButton;
-     QPushButton*  endOfTheGame;
+    QPushButton*  endOfTheGame;
+    QPushButton* resume;
+    QLabel* gameStop;
 };
 extern Client* cln;
 
