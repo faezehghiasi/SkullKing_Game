@@ -57,6 +57,13 @@ Client::Client(QWidget *parent) :
     gameStop->setGeometry(200,270,221,51);
     gameStop->hide();
 
+    returnButton=new QPushButton("Back to menu",this);
+    returnButton->setGeometry(150,450,93,51);
+    returnButton->setStyleSheet("background-color: qlineargradient(spread:pad, x1:0.0432692, y1:0.051, x2:0.952, y2:0.892045, stop:0.423077 rgba(152, 118, 63, 255), stop:1 rgba(255, 255, 255, 255));color: rgb(8, 8, 8);font: 900 16pt Bodoni MT Black;");
+    returnButton->hide();
+    returnButton->setEnabled(false);
+    connect(returnButton,&QPushButton::clicked,this,&Client::on_returnButton);
+
 
 
 }
@@ -130,8 +137,10 @@ void Client::readyRead() {
            //*******************************************
            else if(recivedCard[0].getOrder()=="You Win"){
                  currentPlayer.set_win(currentPlayer.get_win()+1);
+                 currentPlayer.set_coin(currentPlayer.get_coin()+100);
                  auto foundPlayer=find_if(listOfPlayer.begin(),listOfPlayer.end(),[](auto x){return(x.get_username()==currentPlayer.get_username());});
                  foundPlayer->set_win(currentPlayer.get_win());
+                 foundPlayer->set_coin(currentPlayer.get_coin());
                  writeToFile("myfile.bin");
                  endOfTheGame->setText("You win");
            }
@@ -186,6 +195,8 @@ void Client::readyRead() {
                         for(auto& x:pushButtons) delete x.cards_button;
                         pushButtons.clear();
                         endOfTheGame->show();
+                        returnButton->setEnabled(true);
+                        returnButton->show();
                     }
                    else{ currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
                    continueTheGameButton->show();}
@@ -524,6 +535,8 @@ void Client::on_Buttons0_clicked(){
                for(auto& x:pushButtons) delete x.cards_button;
                pushButtons.clear();
                endOfTheGame->show();
+               returnButton->setEnabled(true);
+               returnButton->show();
            }
            ////////////////////////////////////////////////////
           else{
@@ -572,6 +585,8 @@ void Client::on_Buttons1_clicked(){
                 for(auto& x:pushButtons) delete x.cards_button;
                 pushButtons.clear();
                 endOfTheGame->show();
+                returnButton->setEnabled(true);
+                returnButton->show();
             }
             ////////////////////////////////////////////////////
            else{
@@ -621,6 +636,8 @@ void Client::on_Buttons2_clicked(){
                  for(auto& x:pushButtons) delete x.cards_button;
                  pushButtons.clear();
                  endOfTheGame->show();
+                 returnButton->setEnabled(true);
+                 returnButton->show();
              }
              ////////////////////////////////////////////////////
             else{
@@ -672,6 +689,8 @@ void Client::on_Buttons3_clicked(){
                for(auto& x:pushButtons) delete x.cards_button;
                pushButtons.clear();
                endOfTheGame->show();
+               returnButton->setEnabled(true);
+               returnButton->show();
            }
            ////////////////////////////////////////////////////
           else{
@@ -722,6 +741,8 @@ void Client::on_Buttons4_clicked(){
                for(auto& x:pushButtons) delete x.cards_button;
                pushButtons.clear();
                endOfTheGame->show();
+               returnButton->setEnabled(true);
+               returnButton->show();
            }
            ////////////////////////////////////////////////////
           else{
@@ -772,6 +793,8 @@ void Client::on_Buttons5_clicked(){
                for(auto& x:pushButtons) delete x.cards_button;
                pushButtons.clear();
                endOfTheGame->show();
+               returnButton->setEnabled(true);
+               returnButton->show();
            }
            ////////////////////////////////////////////////////
           else{
@@ -822,6 +845,8 @@ void Client::on_Buttons6_clicked(){
                  for(auto& x:pushButtons) delete x.cards_button;
                  pushButtons.clear();
                  endOfTheGame->show();
+                 returnButton->setEnabled(true);
+                 returnButton->show();
              }
              ////////////////////////////////////////////////////
             else{
@@ -872,6 +897,8 @@ void Client::on_Buttons7_clicked(){
                  for(auto& x:pushButtons) delete x.cards_button;
                  pushButtons.clear();
                  endOfTheGame->show();
+                 returnButton->setEnabled(true);
+                 returnButton->show();
              }
              ////////////////////////////////////////////////////
             else{
@@ -922,6 +949,8 @@ void Client::on_Buttons8_clicked(){
                  for(auto& x:pushButtons) delete x.cards_button;
                  pushButtons.clear();
                  endOfTheGame->show();
+                 returnButton->setEnabled(true);
+                 returnButton->show();
              }
              ////////////////////////////////////////////////////
             else{
@@ -972,6 +1001,8 @@ void Client::on_Buttons9_clicked(){
                  for(auto& x:pushButtons) delete x.cards_button;
                  pushButtons.clear();
                  endOfTheGame->show();
+                 returnButton->setEnabled(true);
+                 returnButton->show();
              }
              ////////////////////////////////////////////////////
             else{
@@ -1022,6 +1053,8 @@ void Client::on_Buttons10_clicked(){
                for(auto& x:pushButtons) delete x.cards_button;
                pushButtons.clear();
                endOfTheGame->show();
+               returnButton->setEnabled(true);
+               returnButton->show();
            }
            ////////////////////////////////////////////////////
           else{
@@ -1071,6 +1104,8 @@ void Client::on_Buttons11_clicked(){
                  for(auto& x:pushButtons) delete x.cards_button;
                  pushButtons.clear();
                  endOfTheGame->show();
+                 returnButton->setEnabled(true);
+                 returnButton->show();
              }
              ////////////////////////////////////////////////////
             else{
@@ -1119,6 +1154,8 @@ void Client::on_Buttons12_clicked(){
                for(auto& x:pushButtons) delete x.cards_button;
                pushButtons.clear();
                endOfTheGame->show();
+               returnButton->setEnabled(true);
+               returnButton->show();
            }
            ////////////////////////////////////////////////////
           else{
@@ -1168,6 +1205,8 @@ void Client::on_Buttons13_clicked(){
                  for(auto& x:pushButtons) delete x.cards_button;
                  pushButtons.clear();
                  endOfTheGame->show();
+                 returnButton->setEnabled(true);
+                 returnButton->show();
              }
              ////////////////////////////////////////////////////
             else{
@@ -1533,4 +1572,11 @@ void Client::on_resumeButton_clicked(){
      socketLock.unlock();
      file.close();
 
+}
+//***********************************************************************************************
+void Client::on_returnButton(){
+    MenuSelection* newPage;
+    newPage=new MenuSelection;
+    this->close();
+    newPage->show();
 }

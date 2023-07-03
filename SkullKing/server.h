@@ -66,6 +66,7 @@ public slots:
     void change_geometry();
     void on_continueTheGameButton_clicked();
     void on_resumeButton_clicked();
+    void on_returnButton();
 
 private slots:
 
@@ -85,6 +86,7 @@ private:
     QPushButton*  endOfTheGame;
     QPushButton* resume;
     QLabel* gameStop;
+    QPushButton* returnButton;
 };
 extern Server* srv;
 #endif // SERVER_H

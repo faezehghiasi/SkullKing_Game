@@ -60,6 +60,12 @@ Server::Server(QWidget *parent) :
     gameStop->setText("Game Stoped");
     gameStop->setGeometry(200,270,221,51);
     gameStop->hide();
+    returnButton=new QPushButton("Back to menu",this);
+    returnButton->setGeometry(150,450,93,51);
+    returnButton->setStyleSheet("background-color: qlineargradient(spread:pad, x1:0.0432692, y1:0.051, x2:0.952, y2:0.892045, stop:0.423077 rgba(152, 118, 63, 255), stop:1 rgba(255, 255, 255, 255));color: rgb(8, 8, 8);font: 900 16pt Bodoni MT Black;");
+    returnButton->hide();
+    returnButton->setEnabled(false);
+    connect(returnButton,&QPushButton::clicked,this,&Server::on_returnButton);
 
 }
 //************************************************************
@@ -151,9 +157,10 @@ void Server :: readyRead(){
                 move_twoCards();
                 if(currentPlayer.playeCard.size()==0){
                     if(currentPlayer.get_countOfTurn()==7){
-                      for(auto& x:pushButtons)x.cards_button->setEnabled(false);
-                      endOfTheGame->setEnabled(true);
-                      endOfTheGame->show();}
+                      endOfTheGame->show();
+                      returnButton->setEnabled(true);
+                      returnButton->show();
+                    }
 
                     else{
                  for(auto& x:pushButtons)x.cards_button->setEnabled(false);
@@ -743,6 +750,8 @@ void Server::on_Buttons0_clicked(){
           ////////////////////////////////////
           if(currentPlayer.get_countOfTurn()==7){
               endOfTheGame->show();
+              returnButton->setEnabled(true);
+              returnButton->show();
           }
           ////////////////////////////////////////
           else{for(auto& x:pushButtons)x.cards_button->setEnabled(false);
@@ -791,6 +800,8 @@ void Server::on_Buttons1_clicked(){
            ////////////////////////////////////
            if(currentPlayer.get_countOfTurn()==7){
                endOfTheGame->show();
+               returnButton->setEnabled(true);
+               returnButton->show();
            }
            ////////////////////////////////////////
            else{for(auto& x:pushButtons)x.cards_button->setEnabled(false);
@@ -838,6 +849,8 @@ void Server::on_Buttons2_clicked(){
           ////////////////////////////////////
           if(currentPlayer.get_countOfTurn()==7){
               endOfTheGame->show();
+              returnButton->setEnabled(true);
+              returnButton->show();
           }
           ////////////////////////////////////////
           else{for(auto& x:pushButtons)x.cards_button->setEnabled(false);
@@ -885,6 +898,8 @@ void Server::on_Buttons3_clicked(){
           ////////////////////////////////////
           if(currentPlayer.get_countOfTurn()==7){
               endOfTheGame->show();
+              returnButton->setEnabled(true);
+              returnButton->show();
           }
           ////////////////////////////////////////
          else{ for(auto& x:pushButtons)x.cards_button->setEnabled(false);
@@ -932,6 +947,8 @@ void Server::on_Buttons4_clicked(){
           ////////////////////////////////////
           if(currentPlayer.get_countOfTurn()==7){
               endOfTheGame->show();
+              returnButton->setEnabled(true);
+              returnButton->show();
           }
           ////////////////////////////////////////
           else{for(auto& x:pushButtons)x.cards_button->setEnabled(false);
@@ -979,6 +996,8 @@ void Server::on_Buttons5_clicked(){
            ////////////////////////////////////
            if(currentPlayer.get_countOfTurn()==7){
                endOfTheGame->show();
+               returnButton->setEnabled(true);
+               returnButton->show();
            }
            ////////////////////////////////////////
            else{for(auto& x:pushButtons)x.cards_button->setEnabled(false);
@@ -1027,6 +1046,8 @@ void Server::on_Buttons6_clicked(){
           ////////////////////////////////////
           if(currentPlayer.get_countOfTurn()==7){
               endOfTheGame->show();
+              returnButton->setEnabled(true);
+              returnButton->show();
           }
           ////////////////////////////////////////
          else{ for(auto& x:pushButtons)x.cards_button->setEnabled(false);
@@ -1074,6 +1095,8 @@ void Server::on_Buttons7_clicked(){
           ////////////////////////////////////
           if(currentPlayer.get_countOfTurn()==7){
               endOfTheGame->show();
+              returnButton->setEnabled(true);
+              returnButton->show();
           }
           ////////////////////////////////////////
          else{ for(auto& x:pushButtons)x.cards_button->setEnabled(false);
@@ -1121,6 +1144,8 @@ void Server::on_Buttons8_clicked(){
           ////////////////////////////////////
           if(currentPlayer.get_countOfTurn()==7){
               endOfTheGame->show();
+              returnButton->setEnabled(true);
+              returnButton->show();
           }
           ////////////////////////////////////////
           else{for(auto& x:pushButtons)x.cards_button->setEnabled(false);
@@ -1169,6 +1194,8 @@ void Server::on_Buttons9_clicked(){
           ////////////////////////////////////
           if(currentPlayer.get_countOfTurn()==7){
               endOfTheGame->show();
+              returnButton->setEnabled(true);
+              returnButton->show();
           }
           ////////////////////////////////////////
           else{for(auto& x:pushButtons)x.cards_button->setEnabled(false);
@@ -1216,6 +1243,8 @@ void Server::on_Buttons10_clicked(){
            ////////////////////////////////////
            if(currentPlayer.get_countOfTurn()==7){
                endOfTheGame->show();
+               returnButton->setEnabled(true);
+               returnButton->show();
            }
            ////////////////////////////////////////
            else{for(auto& x:pushButtons)x.cards_button->setEnabled(false);
@@ -1263,6 +1292,8 @@ void Server::on_Buttons11_clicked(){
            ////////////////////////////////////
            if(currentPlayer.get_countOfTurn()==7){
                endOfTheGame->show();
+               returnButton->setEnabled(true);
+               returnButton->show();
            }
            ////////////////////////////////////////
            else{for(auto& x:pushButtons)x.cards_button->setEnabled(false);
@@ -1310,6 +1341,8 @@ void Server::on_Buttons12_clicked(){
           ////////////////////////////////////
           if(currentPlayer.get_countOfTurn()==7){
               endOfTheGame->show();
+              returnButton->setEnabled(true);
+              returnButton->show();
           }
           ////////////////////////////////////////
          else{ for(auto& x:pushButtons)x.cards_button->setEnabled(false);
@@ -1358,6 +1391,8 @@ void Server::on_Buttons13_clicked(){
            ////////////////////////////////////
            if(currentPlayer.get_countOfTurn()==7){
                endOfTheGame->show();
+               returnButton->setEnabled(true);
+               returnButton->show();
            }
            ////////////////////////////////////////
            else{for(auto& x:pushButtons)x.cards_button->setEnabled(false);
@@ -1496,6 +1531,7 @@ void Server::caculateScore(int rivalScore){
         ////.........
         file.close();
         currentPlayer.set_win(currentPlayer.get_win()+1);
+        currentPlayer.set_coin(currentPlayer.get_coin()+100);
         endOfTheGame->setText("You win");
 
     }
@@ -1504,6 +1540,7 @@ void Server::caculateScore(int rivalScore){
         auto foundPlayer=find_if(listOfPlayer.begin(),listOfPlayer.end(),[](auto x){return(x.get_username()==currentPlayer.get_username());});
         foundPlayer->set_lose(currentPlayer.get_lose());
         foundPlayer->set_win(currentPlayer.get_win());
+        foundPlayer->set_coin(currentPlayer.get_coin());
         //foundPlayer->set_score(currentPlayer.get_score());
          writeToFile("myfile.bin");
 
@@ -1595,4 +1632,11 @@ void Server::on_resumeButton_clicked(){
      mx.unlock();
      file.close();
 
+}
+//*******************************************************************************************************
+void Server::on_returnButton(){
+    MenuSelection* newPage;
+    newPage=new MenuSelection;
+    this->close();
+    newPage->show();
 }
