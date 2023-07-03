@@ -12,6 +12,7 @@
 QMutex socketLock;
 QString Ip;
 Client* cln;
+QMutex mx;
 Client::Client(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Client)
@@ -34,7 +35,7 @@ Client::Client(QWidget *parent) :
     scoreLabel->show();
     scoreNumber->show();
 
-    continueTheGameButton = new QPushButton("Wait for continue",this);
+    continueTheGameButton = new QPushButton("Wait for continue...",this);
     continueTheGameButton->setStyleSheet("background-color:rgb(200, 129, 49); color: rgb(0, 0, 0); font: 15pt Stencil;border-color: rgb(85, 0, 0); border-radius:10px;QPushButton#continueTheGameButton{background-color:rgb(200, 129, 49); color: rgb(0, 0, 0); font: 15pt Stencil;border-color: rgb(85, 0, 0); border-radius:10px;}QPushButton#continueTheGameButton:hover{ color:rgba(155,168,182,210) ;}QPushButton#continueTheGameButton:pressed{padding-left:5px; padding-top:5px;color:rgba(115 ,128,142,210);}");
     continueTheGameButton->setGeometry(150,300,301,141);
     continueTheGameButton->hide();
@@ -45,6 +46,17 @@ Client::Client(QWidget *parent) :
     endOfTheGame->setGeometry(150,300,301,141);
     endOfTheGame->hide();
     connect(endOfTheGame,&QPushButton::clicked,this,&Client::endOfGame);
+    resume = new QPushButton("Resume",this);
+    resume->setStyleSheet("background-color: rgb(101, 102, 104);color: rgb(0, 0, 0); font: 600 10pt Sitka Small Semibold;");
+    resume->setGeometry(10,140,61,51);
+    resume->setEnabled(false);
+    resume->hide();
+    connect(resume,SIGNAL(clicked()),this,SLOT(on_resumeButton_clicked()));
+    gameStop = new QLabel(this);
+    gameStop->setStyleSheet("color: rgb(0, 0, 0); font: 18pt Snap ITC;");
+    gameStop->setText("Game Stoped");
+    gameStop->setGeometry(200,270,221,51);
+    gameStop->hide();
 
 
 
@@ -98,6 +110,7 @@ void Client::readyRead() {
              emit startTheGame();
              return;
           }
+           //****************************************
           else if(recivedCard[0].getOrder()=="EXIT"){
 
                currentPlayer.set_win(currentPlayer.get_win()+1);
@@ -115,6 +128,7 @@ void Client::readyRead() {
                Skullking::delay();
                newPage->Show_TextBrows();
            }
+           //*******************************************
            else if(recivedCard[0].getOrder()=="You Win"){
                  currentPlayer.set_win(currentPlayer.get_win()+1);
                  auto foundPlayer=find_if(listOfPlayer.begin(),listOfPlayer.end(),[](auto x){return(x.get_username()==currentPlayer.get_username());});
@@ -122,6 +136,7 @@ void Client::readyRead() {
                  writeToFile("myfile.bin");
                  endOfTheGame->setText("You win");
            }
+           //*********************************************
            else if(recivedCard[0].getOrder()=="You Lose"){
                currentPlayer.set_lose(currentPlayer.get_lose()+1);
                auto foundPlayer=find_if(listOfPlayer.begin(),listOfPlayer.end(),[](auto x){return(x.get_username()==currentPlayer.get_username());});
@@ -129,8 +144,26 @@ void Client::readyRead() {
                writeToFile("myfile.bin");
                endOfTheGame->setText("You lose");
            }
+           //**********************************************
+           else if(recivedCard[0].getOrder()=="STOP"){
+               ui->pushButton_7->setEnabled(false);
+               ui->pushButton_7->hide();
+               resume->setEnabled(true);
+               resume->show();
+                gameStop->show();
+                for(auto& x:pushButtons) x.cards_button->setEnabled(false);
+           }
+           //***********************************************
+           else if(recivedCard[0].getOrder()=="RESUME"){
+               resume->setEnabled(false);
+               resume->hide();
+               ui->pushButton_7->setEnabled(true);
+               ui->pushButton_7->show();
+                gameStop->hide();
+               for(auto& x:pushButtons) x.cards_button->setEnabled(true);
+           }
+           //**********************************************
           else{
-
             //server send card
              server_card = recivedCard[0];
              if(!currentPlayer.get_starterOfEachRound()){
@@ -150,16 +183,15 @@ void Client::readyRead() {
                 ClientOrServer::delay(2000);
                 move_twoCards();
                 if(currentPlayer.playeCard.size()==0){
-
                     currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
-                   continueTheGameButton->show();
-
+                    continueTheGameButton->show();
                 }
-
               }
              /// end
            }
+           //***************************************************************
       }
+  //************************************************************************************
       else if(recivedCard.size()==2){
            if(recivedCard[0].getNumber()<recivedCard[1].getNumber()) {
                currentPlayer.set_turn(true);
@@ -192,10 +224,7 @@ void Client::readyRead() {
                guessLabel->hide();
                for(auto& x:pushButtons)x.cards_button->setEnabled(true);
            });
-           qDebug()<<currentPlayer.get_guess();
-
-
-
+ //*************************************************************************************************
        }
       else{
            if (currentPlayer.get_countOfTurn()>1)calculateScore();
@@ -1179,6 +1208,7 @@ void Client::set_picture(struct buttons crd){
         case 4:
             crd.cards_button->setStyleSheet("border-image: url(:/resource/treasure4.png);");
              crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/treasure4.png width=150 height=200/></p></body></html>");
+              crd.cards_button->show();
             break;
         case 5:
             crd.cards_button->setStyleSheet("border-image: url(:/resource/treasure5.png);");
@@ -1408,7 +1438,30 @@ void Client::calculateScore(){
 }
 //*******************************************************************************************************************
 void Client::on_pushButton_7_clicked()
-{
+{ if(currentPlayer.get_countOfStop()>2){
+        QMessageBox MQ;
+        MQ.warning(0,"","You are not allowed to do this");
+        return;
+    }
+    currentPlayer.set_countOfStop(currentPlayer.get_countOfStop()+1);
+    ui->pushButton_7->setEnabled(false);
+    ui->pushButton_7->hide();
+    resume->setEnabled(true);
+    resume->show();
+     gameStop->show();
+    for(auto& x:pushButtons) x.cards_button->setEnabled(false);
+     cards client_order;
+     client_order.setOrder("STOP");
+     sendCard.push_back(client_order);
+     writeToFileCards("sendCard.bin",sendCard);
+     QFile file("sendCard.bin");
+     file.open(QFile::ReadOnly | QFile::Text);
+     QByteArray file_content = file.readAll();
+     mx.lock();
+     socket->write(file_content);
+     socket->flush();
+     mx.unlock();
+     file.close();
 
 }
 //********************************************************************************************************************
@@ -1443,8 +1496,32 @@ void Client::endOfGame(){
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
     /////mutex....
+    mx.lock();
     socket->write(file_content);
     socket->flush();
     ////.......
+    mx.unlock();
     file.close();
+}
+//*********************************************************************************************************************
+void Client::on_resumeButton_clicked(){
+    resume->setEnabled(false);
+    resume->hide();
+    ui->pushButton_7->setEnabled(true);
+    ui->pushButton_7->show();
+     gameStop->hide();
+    for(auto& x:pushButtons) x.cards_button->setEnabled(true);
+     cards client_order;
+     client_order.setOrder("RESUME");
+     sendCard.push_back(client_order);
+     writeToFileCards("sendCard.bin",sendCard);
+     QFile file("sendCard.bin");
+     file.open(QFile::ReadOnly | QFile::Text);
+     QByteArray file_content = file.readAll();
+     mx.lock();
+     socket->write(file_content);
+     socket->flush();
+     mx.unlock();
+     file.close();
+
 }

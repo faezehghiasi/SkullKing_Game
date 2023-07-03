@@ -61,7 +61,7 @@ void writeToFileCards(QString filename,QVector<cards>& card_val)
 }
 //************************************************************
 Player::Player(QString name_val, QString username_val, QString password_val, QString address_val,
-    QString phoneNumber_val, int win_val, int lose_val,int coin_val, bool score_val, bool turn_val,bool server_val,int countturn,int geuss_val,int setWin_val,bool starter_val) {
+    QString phoneNumber_val, int win_val, int lose_val,int coin_val, bool score_val, bool turn_val,bool server_val,int countturn,int geuss_val,int setWin_val,bool starter_val,int countStop) {
     name = name_val;
     username = username_val;
     password = password_val;
@@ -77,6 +77,7 @@ Player::Player(QString name_val, QString username_val, QString password_val, QSt
     guess=geuss_val;
     setWin=setWin_val;
     starterOfEachRound = starter_val;
+    countOfStop=countStop;
 
 }
 //***********************************************
@@ -162,6 +163,14 @@ bool Player::get_starterOfEachRound(){
 //**********************************************************
 void Player::set_starterOfEachRound(bool starter_val){
     starterOfEachRound = starter_val;
+}
+//***********************************************************
+int Player::get_countOfStop(){
+    return countOfStop;
+}
+//**********************************************************
+void Player::set_countOfStop(int count){
+    countOfStop = count;
 }
 //***********************************************************
 QVector<cards> Player::set_randomCards(QVector<cards>& exitCards, int countOfTurn){
