@@ -60,7 +60,7 @@ Client::Client(QWidget *parent) :
 
     returnButton=new QPushButton("Back to menu",this);
     returnButton->setGeometry(150,450,171,51);
-    returnButton->setStyleSheet("background-color: qlineargradient(spread:pad, x1:0.0432692, y1:0.051, x2:0.952, y2:0.892045, stop:0.423077 rgba(152, 118, 63, 255), stop:1 rgba(255, 255, 255, 255));color: rgb(8, 8, 8);font: 900 16pt Bodoni MT Black;");
+    returnButton->setStyleSheet("background-color:rgb(200, 129, 49); color: rgb(0, 0, 0); font: 15pt Stencil;");
     returnButton->hide();
     returnButton->setEnabled(false);
     connect(returnButton,&QPushButton::clicked,this,&Client::on_returnButton);
@@ -166,6 +166,10 @@ void Client::readyRead() {
                for(auto& x:pushButtons) x.cards_button->setEnabled(true);
            }
            //**********************************************
+           else if(recivedCard[0].getOrder()=="Continue The Game"){
+                  continueTheGameButton->hide();
+           }
+           //**********************************************
           else{
             //server send card
              server_card = recivedCard[0];
@@ -221,7 +225,6 @@ void Client::readyRead() {
            client_card = recivedCard[1];
            client_card.cards_button->setGeometry(290,290,101,141);
            server_card.cards_button->setGeometry(210,240,101,141);
-           continueTheGameButton->hide();
            set_picture(client_card);
            set_picture(server_card);
            ClientOrServer::delay(1000);
