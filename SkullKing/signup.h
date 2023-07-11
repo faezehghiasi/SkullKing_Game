@@ -35,6 +35,8 @@ public:
 private slots:
     void on_singup_push_clicked();
 
+    void on_backButton_clicked();
+
 private:
     Ui::SignUp *ui;
 

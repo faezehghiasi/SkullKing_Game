@@ -113,3 +113,14 @@ void SignUp::on_singup_push_clicked()
      w->Show_TextBrows();
 }
 
+
+void SignUp::on_backButton_clicked()
+{
+    Skullking* back;
+    back=new Skullking;
+    this->close();
+    back->show();
+    Skullking::delay();
+    back->Show_TextBrows();
+}
+

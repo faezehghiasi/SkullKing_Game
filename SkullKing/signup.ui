@@ -51,7 +51,7 @@
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-image: url(:/resource/pirate_ship.jpg);</string>
+      <string notr="true">border-image: url(:/resource/Screenshot 2023-07-11 141205.png);</string>
      </property>
      <property name="text">
       <string/>
@@ -60,10 +60,10 @@
     <widget class="QLabel" name="sign_up">
      <property name="geometry">
       <rect>
-       <x>60</x>
-       <y>10</y>
-       <width>301</width>
-       <height>101</height>
+       <x>0</x>
+       <y>40</y>
+       <width>241</width>
+       <height>61</height>
       </rect>
      </property>
      <property name="font">
@@ -76,130 +76,20 @@
      </property>
      <property name="styleSheet">
       <string notr="true">font: 20pt &quot;Snap ITC&quot;;
-color: rgb(255, 255, 255);
+color: rgb(232, 171, 18);
 background-color:rgba(0,0,0,0)</string>
      </property>
      <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:36pt;&quot;&gt;Sign UP&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:26pt;&quot;&gt;Sign UP&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
-    </widget>
-    <widget class="QWidget" name="layoutWidget">
-     <property name="geometry">
-      <rect>
-       <x>80</x>
-       <y>100</y>
-       <width>271</width>
-       <height>321</height>
-      </rect>
-     </property>
-     <layout class="QVBoxLayout" name="verticalLayout">
-      <item>
-       <widget class="QLineEdit" name="Name">
-        <property name="styleSheet">
-         <string notr="true">background-color:rgba(0,0,0,0);
-background-color: qlineargradient(spread:reflect, x1:0.034, y1:0.063, x2:0.846, y2:0.840545, stop:0.264423 rgba(125, 193, 200, 255), stop:0.697115 rgba(0, 0, 0, 255));
-
-
-
-color: rgb(255, 255, 255);
-</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="placeholderText">
-         <string>Enter your Name</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="username">
-        <property name="styleSheet">
-         <string notr="true">background-color:rgba(0,0,0,0);
-background-color: qlineargradient(spread:reflect, x1:0.034, y1:0.063, x2:0.846, y2:0.840545, stop:0.264423 rgba(125, 193, 200, 255), stop:0.697115 rgba(0, 0, 0, 255));
-
-
-
-color: rgb(255, 255, 255);
-</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="placeholderText">
-         <string>Enter your Username</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="password">
-        <property name="styleSheet">
-         <string notr="true">background-color:rgba(0,0,0,0);
-background-color: qlineargradient(spread:reflect, x1:0.034, y1:0.063, x2:0.846, y2:0.840545, stop:0.264423 rgba(125, 193, 200, 255), stop:0.697115 rgba(0, 0, 0, 255));
-
-
-
-color: rgb(255, 255, 255);
-</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="echoMode">
-         <enum>QLineEdit::Password</enum>
-        </property>
-        <property name="placeholderText">
-         <string>Enter your Password</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="phone_num">
-        <property name="styleSheet">
-         <string notr="true">background-color:rgba(0,0,0,0);
-background-color: qlineargradient(spread:reflect, x1:0.034, y1:0.063, x2:0.846, y2:0.840545, stop:0.264423 rgba(125, 193, 200, 255), stop:0.697115 rgba(0, 0, 0, 255));
-
-
-
-color: rgb(255, 255, 255);
-</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="placeholderText">
-         <string>Enter your Phone Number</string>
-        </property>
-       </widget>
-      </item>
-      <item>
-       <widget class="QLineEdit" name="address">
-        <property name="styleSheet">
-         <string notr="true">background-color:rgba(0,0,0,0);
-background-color: qlineargradient(spread:reflect, x1:0.034, y1:0.063, x2:0.846, y2:0.840545, stop:0.264423 rgba(125, 193, 200, 255), stop:0.697115 rgba(0, 0, 0, 255));
-
-
-
-color: rgb(255, 255, 255);
-</string>
-        </property>
-        <property name="text">
-         <string/>
-        </property>
-        <property name="placeholderText">
-         <string>Enter your Address</string>
-        </property>
-       </widget>
-      </item>
-     </layout>
     </widget>
     <widget class="QPushButton" name="singup_push">
      <property name="geometry">
       <rect>
-       <x>130</x>
-       <y>450</y>
-       <width>171</width>
-       <height>29</height>
+       <x>160</x>
+       <y>440</y>
+       <width>71</width>
+       <height>51</height>
       </rect>
      </property>
      <property name="font">
@@ -211,14 +101,259 @@ color: rgb(255, 255, 255);
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: qconicalgradient(cx:0.452231, cy:0.466, angle:297, stop:0.293269 rgba(49, 144, 136, 255), stop:0.514423 rgba(35, 100, 92, 255), stop:0.552885 rgba(187, 156, 51, 255), stop:0.591346 rgba(235, 219, 102, 255), stop:0.635 rgba(168, 142, 42, 255), stop:0.668269 rgba(136, 106, 22, 255), stop:0.695 rgba(202, 174, 68, 255), stop:0.730769 rgba(218, 202, 86, 255), stop:0.764423 rgba(209, 190, 76, 255), stop:0.793269 rgba(166, 140, 41, 255), stop:0.815 rgba(208, 187, 73, 255), stop:0.865385 rgba(245, 236, 112, 255), stop:0.88 rgba(187, 156, 51, 255));
-color: rgb(255, 255, 255);
-font: 900 9pt &quot;Segoe UI Black&quot;;</string>
+      <string notr="true">border-image: url(:/resource/nextIcon.png);</string>
      </property>
      <property name="text">
-      <string>Sign Up</string>
+      <string/>
      </property>
     </widget>
+    <widget class="QLabel" name="nameIcon">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>200</y>
+       <width>41</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-image: url(:/resource/account_3033143.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="userIcon">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>240</y>
+       <width>41</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-image: url(:/resource/id-card_6785400.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="secondBack">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>180</y>
+       <width>281</width>
+       <height>321</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-image: url(:/resource/Screenshot 2023-07-11 150237.png);
+border-radius:26px;</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="passIcon">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>290</y>
+       <width>41</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-image: url(:/resource/padlock_3064155.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="phoneIcon">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>340</y>
+       <width>41</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-image: url(:/resource/phone-call_455705.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="mapIcon">
+     <property name="geometry">
+      <rect>
+       <x>30</x>
+       <y>380</y>
+       <width>41</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-image: url(:/resource/maps-flags_447031.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="Name">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>200</y>
+       <width>191</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(0, 0, 0);
+font: 9pt &quot;Segoe Script&quot;;
+color: rgb(255, 255, 255);
+border:2px solid;
+border-color: rgb(200, 111, 22);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="placeholderText">
+      <string>Enter your Name</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="password">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>290</y>
+       <width>191</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(0, 0, 0);
+font: 9pt &quot;Segoe Script&quot;;
+color: rgb(255, 255, 255);
+border:2px solid;
+border-color: rgb(200, 111, 22);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="echoMode">
+      <enum>QLineEdit::Password</enum>
+     </property>
+     <property name="placeholderText">
+      <string>Enter your Password</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="username">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>240</y>
+       <width>191</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(0, 0, 0);
+font: 9pt &quot;Segoe Script&quot;;
+color: rgb(255, 255, 255);
+border:2px solid;
+border-color: rgb(200, 111, 22);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="placeholderText">
+      <string>Enter your Username</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="phone_num">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>340</y>
+       <width>191</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(0, 0, 0);
+font: 9pt &quot;Segoe Script&quot;;
+color: rgb(255, 255, 255);
+border:2px solid;
+border-color: rgb(200, 111, 22);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="placeholderText">
+      <string>Enter your Phone Number</string>
+     </property>
+    </widget>
+    <widget class="QLineEdit" name="address">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>380</y>
+       <width>191</width>
+       <height>26</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgb(0, 0, 0);
+font: 9pt &quot;Segoe Script&quot;;
+color: rgb(255, 255, 255);
+border:2px solid;
+border-color: rgb(200, 111, 22);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+     <property name="placeholderText">
+      <string>Enter your Address</string>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="backButton">
+     <property name="geometry">
+      <rect>
+       <x>80</x>
+       <y>440</y>
+       <width>71</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-image: url(:/resource/back-button_93634.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <zorder>base_picture</zorder>
+    <zorder>sign_up</zorder>
+    <zorder>layoutWidget</zorder>
+    <zorder>secondBack</zorder>
+    <zorder>nameIcon</zorder>
+    <zorder>userIcon</zorder>
+    <zorder>passIcon</zorder>
+    <zorder>phoneIcon</zorder>
+    <zorder>mapIcon</zorder>
+    <zorder>Name</zorder>
+    <zorder>password</zorder>
+    <zorder>username</zorder>
+    <zorder>phone_num</zorder>
+    <zorder>address</zorder>
+    <zorder>singup_push</zorder>
+    <zorder>backButton</zorder>
    </widget>
   </widget>
  </widget>
