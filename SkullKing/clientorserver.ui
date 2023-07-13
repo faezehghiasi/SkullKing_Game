@@ -75,7 +75,7 @@ border-color :#000</string>
     <widget class="QPushButton" name="clientButton">
      <property name="geometry">
       <rect>
-       <x>70</x>
+       <x>440</x>
        <y>150</y>
        <width>261</width>
        <height>71</height>
@@ -105,7 +105,7 @@ padding-top:5px;
     <widget class="QPushButton" name="serverButton">
      <property name="geometry">
       <rect>
-       <x>450</x>
+       <x>100</x>
        <y>150</y>
        <width>261</width>
        <height>71</height>
@@ -137,7 +137,7 @@ padding-top:5px;
     <widget class="QLabel" name="label">
      <property name="geometry">
       <rect>
-       <x>130</x>
+       <x>120</x>
        <y>10</y>
        <width>531</width>
        <height>151</height>
