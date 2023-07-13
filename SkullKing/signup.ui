@@ -87,7 +87,7 @@ background-color:rgba(0,0,0,0)</string>
      <property name="geometry">
       <rect>
        <x>80</x>
-       <y>100</y>
+       <y>110</y>
        <width>271</width>
        <height>321</height>
       </rect>
@@ -117,9 +117,6 @@ color: rgb(255, 255, 255);
         <property name="styleSheet">
          <string notr="true">background-color:rgba(0,0,0,0);
 background-color: qlineargradient(spread:reflect, x1:0.034, y1:0.063, x2:0.846, y2:0.840545, stop:0.264423 rgba(125, 193, 200, 255), stop:0.697115 rgba(0, 0, 0, 255));
-
-
-
 color: rgb(255, 255, 255);
 </string>
         </property>
@@ -156,7 +153,8 @@ color: rgb(255, 255, 255);
       <item>
        <widget class="QLineEdit" name="phone_num">
         <property name="styleSheet">
-         <string notr="true">background-color:rgba(0,0,0,0);
+         <string notr="true">
+background-color:rgba(0,0,0,0);
 background-color: qlineargradient(spread:reflect, x1:0.034, y1:0.063, x2:0.846, y2:0.840545, stop:0.264423 rgba(125, 193, 200, 255), stop:0.697115 rgba(0, 0, 0, 255));
 
 

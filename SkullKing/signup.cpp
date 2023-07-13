@@ -1,9 +1,12 @@
-
+#include<QRegularExpressionValidator>
+#include <QRegularExpression>
 #include "signup.h"
 #include "ui_signup.h"
 #include"player.h"
 #include"skullking.h"
 #include<QVector>
+#include<QLineEdit>
+#include<QPalette>
 QVector<Player> listOfPlayer;
 //******************************************************
 QTextStream &operator<<(QTextStream& out ,Player p)
@@ -93,23 +96,87 @@ SignUp::~SignUp()
 //*****************************************************
 void SignUp::on_singup_push_clicked()
 {
-    Player p;
-    p.set_name(ui->Name->text());
-    p.set_username(ui->username->text());
-    p.set_password(ui->password->text());
-    p.set_address(ui->address->text());
-    p.set_phoneNumber(ui->phone_num->text());
-    QString filename= "myfile.bin";
-    p.set_coin(1000);
-    listOfPlayer.append(p);
-    writeToFile(filename);
-    QMessageBox Mb;
-    Mb.information(0,"Sign Up","Registration was successful");
-     this->hide();
-    Skullking* w;
-    w=new Skullking;
-    w->show();
-     Skullking::delay();
-     w->Show_TextBrows();
+
+    QString name = ui->Name->text();
+    bool isValid2 = name==""?false:true;
+    if (!isValid2) {
+       ui->Name->setStyleSheet(" background-color:rgba(0,0,0,0);  background-color: qlineargradient(spread:reflect, x1:0.034, y1:0.063, x2:0.846, y2:0.840545, stop:0.264423 rgba(125, 193, 200, 255), stop:0.697115 rgba(0, 0, 0, 255)); border:2"
+                                     "px solid;  border-color :rgb(225,0,0);");
+      } else {
+               ui->Name->setStyleSheet(" background-color:rgba(0,0,0,0);  background-color: qlineargradient(spread:reflect, x1:0.034, y1:0.063, x2:0.846, y2:0.840545, stop:0.264423 rgba(125, 193, 200, 255), stop:0.697115 rgba(0, 0, 0, 255));color: rgb(255, 225, 225);");
+      }
+    QString username = ui->username->text();
+    bool isValid3 = username==""?false:true;
+    if (!isValid3) {
+       ui->username->setStyleSheet(" background-color:rgba(0,0,0,0);  background-color: qlineargradient(spread:reflect, x1:0.034, y1:0.063, x2:0.846, y2:0.840545, stop:0.264423 rgba(125, 193, 200, 255), stop:0.697115 rgba(0, 0, 0, 255)); border:2"
+                                   "px solid;  border-color :rgb(225,0,0);");
+      } else {
+               ui->username->setStyleSheet(" background-color:rgba(0,0,0,0);  background-color: qlineargradient(spread:reflect, x1:0.034, y1:0.063, x2:0.846, y2:0.840545, stop:0.264423 rgba(125, 193, 200, 255), stop:0.697115 rgba(0, 0, 0, 255));color: rgb(255, 225, 225);");
+      }
+    QString address = ui->address->text();
+    bool isValid4 = address==""?false:true;
+    if (!isValid4) {
+       ui->address->setStyleSheet(" background-color:rgba(0,0,0,0);  background-color: qlineargradient(spread:reflect, x1:0.034, y1:0.063, x2:0.846, y2:0.840545, stop:0.264423 rgba(125, 193, 200, 255), stop:0.697115 rgba(0, 0, 0, 255)); border:2"
+                                     "px solid;  border-color :rgb(225,0,0);");
+      } else {
+               ui->address->setStyleSheet(" background-color:rgba(0,0,0,0);  background-color: qlineargradient(spread:reflect, x1:0.034, y1:0.063, x2:0.846, y2:0.840545, stop:0.264423 rgba(125, 193, 200, 255), stop:0.697115 rgba(0, 0, 0, 255));color: rgb(255, 225, 225);");
+      }
+    QString password = ui->password->text();
+    bool isValid5 = password==""?false:true;
+    if (!isValid5) {
+       ui->password->setStyleSheet(" background-color:rgba(0,0,0,0);  background-color: qlineargradient(spread:reflect, x1:0.034, y1:0.063, x2:0.846, y2:0.840545, stop:0.264423 rgba(125, 193, 200, 255), stop:0.697115 rgba(0, 0, 0, 255)); border:2"
+                                     "px solid;  border-color :rgb(225,0,0);");
+      } else {
+               ui->password->setStyleSheet(" background-color:rgba(0,0,0,0);  background-color: qlineargradient(spread:reflect, x1:0.034, y1:0.063, x2:0.846, y2:0.840545, stop:0.264423 rgba(125, 193, 200, 255), stop:0.697115 rgba(0, 0, 0, 255));color: rgb(255, 225, 225);");
+      }
+
+    QRegularExpression pattern("^[0-9]{11}$");
+     QValidator *validator = new QRegularExpressionValidator(pattern, ui->phone_num);
+     ui->phone_num->setValidator(validator);
+     QString phoneNumber =ui->phone_num->text();
+           bool isValid = pattern.match(phoneNumber).hasMatch();
+           if (!isValid) {
+              ui->phone_num->setStyleSheet(" background-color:rgba(0,0,0,0);  background-color: qlineargradient(spread:reflect, x1:0.034, y1:0.063, x2:0.846, y2:0.840545, stop:0.264423 rgba(125, 193, 200, 255), stop:0.697115 rgba(0, 0, 0, 255)); border:2"
+                                            "px solid;  border-color :rgb(225,0,0);");
+             } else {
+                      ui->phone_num->setStyleSheet(" background-color:rgba(0,0,0,0);  background-color: qlineargradient(spread:reflect, x1:0.034, y1:0.063, x2:0.846, y2:0.840545, stop:0.264423 rgba(125, 193, 200, 255), stop:0.697115 rgba(0, 0, 0, 255));color: rgb(255, 225, 225);");
+             }
+           auto exitPlayer = find_if(listOfPlayer.begin(),listOfPlayer.end(),
+                                    [&]( auto p)
+                     { return(p.get_username()==username);});
+           if( exitPlayer!=listOfPlayer.end()){
+               ui->username->setStyleSheet(" background-color:rgba(0,0,0,0);  background-color: qlineargradient(spread:reflect, x1:0.034, y1:0.063, x2:0.846, y2:0.840545, stop:0.264423 rgba(125, 193, 200, 255), stop:0.697115 rgba(0, 0, 0, 255)); border:2"
+                                             "px solid;  border-color :rgb(225,0,0);");
+               QMessageBox Mb;
+               Mb.critical(this,"Sign Up","Username already exists");
+               isValid3=false;
+           }
+           else if(isValid3){
+                 ui->username->setStyleSheet(" background-color:rgba(0,0,0,0);  background-color: qlineargradient(spread:reflect, x1:0.034, y1:0.063, x2:0.846, y2:0.840545, stop:0.264423 rgba(125, 193, 200, 255), stop:0.697115 rgba(0, 0, 0, 255));color: rgb(255, 225, 225);");
+           }
+
+
+    if(isValid&&isValid2&&isValid3&&isValid4&&isValid5){
+
+      Player p;
+      p.set_name(ui->Name->text());
+      p.set_username(ui->username->text());
+      p.set_password(ui->password->text());
+      p.set_address(ui->address->text());
+      p.set_phoneNumber(ui->phone_num->text());
+      QString filename= "myfile.bin";
+      p.set_coin(1000);
+      listOfPlayer.append(p);
+      writeToFile(filename);
+      QMessageBox Mb;
+      Mb.information(0,"Sign Up","Registration was successful");
+      this->hide();
+      Skullking* w;
+      w=new Skullking;
+      w->show();
+      Skullking::delay();
+      w->Show_TextBrows();
+    }
+    else return;
 }
 
