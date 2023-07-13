@@ -3,7 +3,6 @@
         <file>../resource/background3.jpeg</file>
         <file>../resource/board.png</file>
         <file>../resource/dozd.png</file>
-        <file>../resource/flag.png</file>
         <file>../resource/flagcard1.png</file>
         <file>../resource/flagcard2.png</file>
         <file>../resource/flagcard3.png</file>
@@ -36,7 +35,6 @@
         <file>../resource/parrot7.png</file>
         <file>../resource/parrot8.png</file>
         <file>../resource/Pirate Flag IPhone Wallpaper - IPhone Wallpapers.png</file>
-        <file>../resource/pirate_ship.jpg</file>
         <file>../resource/posht.jpg</file>
         <file>../resource/poshtCard.jpg</file>
         <file>../resource/queen.png</file>
@@ -49,5 +47,14 @@
         <file>../resource/treasure7.png</file>
         <file>../resource/treasure8.png</file>
         <file>../resource/wallpaper house and son tribal.jfif</file>
+        <file>../resource/Screenshot 2023-07-11 141205.png</file>
+        <file>../resource/account_3033143.png</file>
+        <file>../resource/back-button_93634.png</file>
+        <file>../resource/id-card_6785400.png</file>
+        <file>../resource/maps-flags_447031.png</file>
+        <file>../resource/nextIcon.png</file>
+        <file>../resource/padlock_3064155.png</file>
+        <file>../resource/phone-call_455705.png</file>
+        <file>../resource/ligthOrange.png</file>
     </qresource>
 </RCC>
