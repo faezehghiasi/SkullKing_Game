@@ -149,8 +149,8 @@ background-color:rgba(0,0,0,0)</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-image: url(:/resource/Screenshot 2023-07-11 150237.png);
-border-radius:26px;</string>
+      <string notr="true">border-radius:26px;
+border-image: url(:/resource/ligthOrange.png);</string>
      </property>
      <property name="text">
       <string/>
@@ -340,7 +340,6 @@ border-color: rgb(200, 111, 22);</string>
     </widget>
     <zorder>base_picture</zorder>
     <zorder>sign_up</zorder>
-    <zorder>layoutWidget</zorder>
     <zorder>secondBack</zorder>
     <zorder>nameIcon</zorder>
     <zorder>userIcon</zorder>

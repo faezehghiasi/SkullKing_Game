@@ -4,6 +4,8 @@
 #include"skullking.h"
 #include<QMessageBox>
 #include"clientorserver.h"
+#include"menuselection.h"
+#include<QRegularExpressionValidator>
 Player currentPlayer;
 SignIn::SignIn(QWidget *parent) :
     QMainWindow(parent),
@@ -45,6 +47,8 @@ void SignIn::on_ButtonLogIn_clicked()
   client_server = new ClientOrServer(this);
   this->hide();
   client_server->show();
+
+
 }
 //********************************************************
 void SignIn::on_ButtonForgetPassword_clicked()

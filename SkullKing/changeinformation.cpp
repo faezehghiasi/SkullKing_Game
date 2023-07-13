@@ -21,6 +21,14 @@ changeInformation::~changeInformation()
 void changeInformation::on_change_clicked()
 {
     auto it=find_if(listOfPlayer.begin(),listOfPlayer.end(),[=](Player x){return x.get_username()==currentPlayer.get_username();});
+    if (it == listOfPlayer.end()) {
+          QMessageBox:: critical(0,"Not Found","The information is wrong");
+          this->hide();
+          MenuSelection* w;
+          w=new MenuSelection;
+          this->hide();
+          return;
+        }
     it->set_name(ui->nameLine->text());
     it->set_username(ui->usernamLine->text());
     it->set_password(ui->passLine->text());

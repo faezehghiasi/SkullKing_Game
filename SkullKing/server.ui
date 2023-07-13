@@ -153,11 +153,11 @@ border-color :#000000</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(101, 102, 104);
+      <string notr="true">background-color: rgb(101, 102, 104);;
 color: rgb(0, 0, 0);
 font: 600 10pt &quot;Sitka Small Semibold&quot;;
 QPushButton#pushButton_9{ 
-background-color: rgb(101, 102, 104);
+background-color: rgb(130, 61, 44);
 color: rgb(0, 0, 0);
 font: 600 10pt &quot;Sitka Small Semibold&quot;;
 }
@@ -185,11 +185,11 @@ color:rgba(115 ,128,142,210);
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(101, 102, 104);
+      <string notr="true">background-color: rgb(101, 102, 104);;
 color: rgb(0, 0, 0);
 font: 600 10pt &quot;Sitka Small Semibold&quot;;
 QPushButton#pushButton_7{ 
-background-color: rgb(101, 102, 104);
+background-color: rgb(130, 61, 44);
 color: rgb(0, 0, 0);
 font: 600 10pt &quot;Sitka Small Semibold&quot;;
 }

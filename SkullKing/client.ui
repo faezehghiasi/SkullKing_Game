@@ -192,6 +192,7 @@ color:rgba(115 ,128,142,210);
 color: rgb(0, 0, 0);
 font: 600 10pt &quot;Sitka Small Semibold&quot;;
 
+
 QPushButton#pushButton_8{ 
 background-color: rgb(101, 102, 104);
 color: rgb(0, 0, 0);

@@ -57,7 +57,7 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb
 border-radius:20px</string>
      </property>
      <property name="text">
-      <string>TextLabel</string>
+      <string/>
      </property>
     </widget>
     <widget class="QLabel" name="label_2">
@@ -108,7 +108,7 @@ padding-top:5px;
       <string>Change</string>
      </property>
     </widget>
-    <widget class="QWidget" name="">
+    <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
        <x>70</x>
@@ -214,7 +214,7 @@ font: 14pt &quot;Baskerville Old Face&quot;;</string>
      <x>0</x>
      <y>0</y>
      <width>450</width>
-     <height>26</height>
+     <height>25</height>
     </rect>
    </property>
   </widget>
