@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Skullking</class>
+ <widget class="QMainWindow" name="Skullking">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>800</width>
+    <height>600</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Skullking</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true"/>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>440</x>
+      <y>40</y>
+      <width>321</width>
+      <height>231</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/resource/nameOfGame.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_2">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>260</y>
+      <width>201</width>
+      <height>241</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/resource/dozd.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_3">
+    <property name="geometry">
+     <rect>
+      <x>130</x>
+      <y>50</y>
+      <width>211</width>
+      <height>251</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/resource/king.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label_4">
+    <property name="geometry">
+     <rect>
+      <x>230</x>
+      <y>240</y>
+      <width>251</width>
+      <height>271</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/resource/queen.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QWidget" name="widget" native="true">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>800</width>
+      <height>600</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#signIn{ 
+background-color: rgba(0,0,0,0);
+color:rgba(85,98,112,255);
+}
+QPushButton#signIn:hover{ 
+color:rgba(177,168,182,220)
+}
+QPushButton#signIn:pressed{ 
+padding-left:5px;
+padding-top:5px;
+color:rgba(115 ,128,142,255);
+}
+
+QPushButton#SignUp{ 
+background-color: rgba(0,0,0,0);
+color:rgba(85,98,112,255);
+}
+QPushButton#SignUp:hover{ 
+color:rgba(177,168,182,220)
+}
+QPushButton#SignUp:pressed{ 
+padding-left:5px;
+padding-top:5px;
+color:rgba(115 ,128,142,255);
+}
+</string>
+    </property>
+    <widget class="QPushButton" name="signIn">
+     <property name="geometry">
+      <rect>
+       <x>500</x>
+       <y>480</y>
+       <width>101</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Showcard Gothic</family>
+       <pointsize>16</pointsize>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton#signIn{ 
+font: 16pt &quot;Showcard Gothic&quot;;
+background-color: rgba(0,0,0,0);
+color:rgb(0,0,0)
+}
+QPushButton#signIn:hover{ 
+color:rgba(255,119,0,220)
+}
+QPushButton#signIn:pressed{ 
+padding-left:5px;
+padding-top:5px;
+color:rgba(255,119,0,220)
+}</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="SignUp">
+     <property name="geometry">
+      <rect>
+       <x>620</x>
+       <y>480</y>
+       <width>101</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Showcard Gothic</family>
+       <pointsize>16</pointsize>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton#SignUp{ 
+font: 16pt &quot;Showcard Gothic&quot;;
+background-color: rgba(0,0,0,0);
+color:rgb(0,0,0)
+}
+QPushButton#SignUp:hover{ 
+color:rgba(255,119,0,220)
+}
+QPushButton#SignUp:pressed{ 
+padding-left:5px;
+padding-top:5px;
+color:rgba(255,119,0,220)
+}
+</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_5">
+     <property name="geometry">
+      <rect>
+       <x>530</x>
+       <y>320</y>
+       <width>171</width>
+       <height>101</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color:rgba(0,0,0,0);
+border:none;
+color:rgba(255,255,255,230);
+padding-bottom:7px;</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label_6">
+     <property name="geometry">
+      <rect>
+       <x>0</x>
+       <y>0</y>
+       <width>800</width>
+       <height>600</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-image: url(:/resource/board.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QTextBrowser" name="textBrowser">
+     <property name="geometry">
+      <rect>
+       <x>470</x>
+       <y>390</y>
+       <width>291</width>
+       <height>71</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgba(0,0,0,0);
+color: rgb(0, 0, 0);
+border:none;
+font: 12pt &quot;Snap ITC&quot;;
+</string>
+     </property>
+    </widget>
+    <zorder>label_6</zorder>
+    <zorder>signIn</zorder>
+    <zorder>SignUp</zorder>
+    <zorder>label_5</zorder>
+    <zorder>textBrowser</zorder>
+   </widget>
+   <widget class="QTextBrowser" name="welcomBrowser">
+    <property name="geometry">
+     <rect>
+      <x>470</x>
+      <y>300</y>
+      <width>291</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(0,0,0,0);
+color: rgb(0, 0, 0);
+border:none;
+font: 26pt &quot;Snap ITC&quot;;</string>
+    </property>
+   </widget>
+   <zorder>widget</zorder>
+   <zorder>label_4</zorder>
+   <zorder>label</zorder>
+   <zorder>label_3</zorder>
+   <zorder>label_2</zorder>
+   <zorder>welcomBrowser</zorder>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
