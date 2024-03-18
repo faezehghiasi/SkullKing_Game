@@ -51,7 +51,8 @@
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-image: url(:/resource/Screenshot 2023-07-11 141205.png);</string>
+      <string notr="true">
+border-image:url(:/resource/Iphone wallpaper.jfif);</string>
      </property>
      <property name="text">
       <string/>
