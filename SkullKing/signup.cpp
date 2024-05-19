@@ -50,10 +50,12 @@ QTextStream& operator>>(QTextStream& in , Player& p){
 //**********************************************************
 void readFromFile(QString filename)
 {
+   // QMessageBox Mb;
     QFile myfile(filename);
     if(!myfile.open(QFile::ReadOnly | QFile::Text)){
-        QMessageBox Mb;
-        Mb.critical(0,"File Situation","File didn't open!");
+        //Mb.critical(0,"File Situation","File didn't open!");
+        qDebug()<<"Not opened!";
+        return ;
         return ;
     }
    QTextStream in(&myfile);
