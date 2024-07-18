@@ -26,6 +26,7 @@ SOURCES += \
     skullking.cpp
 
 HEADERS += \
+    SlowTyper.h \
     cards.h \
     changeinformation.h \
     client.h \

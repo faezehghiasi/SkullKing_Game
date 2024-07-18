@@ -52,6 +52,7 @@ void SignIn::on_ButtonLogIn_clicked()
   men = new menu(this);
   this->hide();
   men->show();
+  men->showText();
 
 
 }

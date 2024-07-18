@@ -6,8 +6,8 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>580</width>
-    <height>600</height>
+    <width>550</width>
+    <height>654</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -18,8 +18,8 @@
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>580</width>
-     <height>600</height>
+     <width>550</width>
+     <height>800</height>
     </rect>
    </property>
    <property name="styleSheet">
@@ -75,10 +75,10 @@ color:rgba(115 ,128,142,255);
    <widget class="QPushButton" name="change_info">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>260</y>
-      <width>411</width>
-      <height>91</height>
+      <x>120</x>
+      <y>280</y>
+      <width>441</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="font">
@@ -111,10 +111,10 @@ color:rgba(115 ,128,142,255);
    <widget class="QPushButton" name="histoty">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>350</y>
-      <width>371</width>
-      <height>91</height>
+      <x>-30</x>
+      <y>360</y>
+      <width>441</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="font">
@@ -148,10 +148,10 @@ color:rgba(115 ,128,142,255);
    <widget class="QPushButton" name="exit">
     <property name="geometry">
      <rect>
-      <x>220</x>
-      <y>440</y>
-      <width>317</width>
-      <height>81</height>
+      <x>70</x>
+      <y>460</y>
+      <width>441</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="font">
@@ -184,10 +184,10 @@ color:rgba(115 ,128,142,255);
    <widget class="QPushButton" name="start">
     <property name="geometry">
      <rect>
-      <x>20</x>
-      <y>160</y>
-      <width>317</width>
-      <height>101</height>
+      <x>0</x>
+      <y>200</y>
+      <width>441</width>
+      <height>61</height>
      </rect>
     </property>
     <property name="font">
@@ -202,6 +202,7 @@ color:rgba(115 ,128,142,255);
      <string notr="true">font: 20pt &quot;Snap ITC&quot;;
 QPushButton#start{ 
 background-color: rgba(0,0,0,0);
+	
 	color: rgb(255, 255, 255);
 }
 QPushButton#start:hover{ 
@@ -221,17 +222,98 @@ color:rgba(115 ,128,142,255);
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>0</y>
-      <width>580</width>
-      <height>600</height>
+      <y>-340</y>
+      <width>550</width>
+      <height>1000</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/resource/Pirate Flag IPhone Wallpaper - IPhone Wallpapers.png);
-</string>
+     <string notr="true">border-image: url(:/resource/Wooden wallpaper by Antarifox.jpg);</string>
     </property>
     <property name="text">
      <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="skelet">
+    <property name="geometry">
+     <rect>
+      <x>360</x>
+      <y>10</y>
+      <width>181</width>
+      <height>191</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/resource/Premium_Vector___Mariachi_skeleton-removebg-preview.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="skelet2">
+    <property name="geometry">
+     <rect>
+      <x>330</x>
+      <y>450</y>
+      <width>221</width>
+      <height>191</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/resource/DesignsByRockly_-_Etsy_Nederland-removebg-preview.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="coin">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>0</y>
+      <width>111</width>
+      <height>91</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/resource/Gold_Coin_Hd_Transparent__Gold_Coin_Skull__Gold__Coin__Skull_PNG_Image_For_Free_Download-removebg-preview.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="coninsNum">
+    <property name="geometry">
+     <rect>
+      <x>100</x>
+      <y>30</y>
+      <width>101</width>
+      <height>41</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(0,0,0,0);
+color: rgb(255, 255, 255);
+border:none;
+font: 15pt &quot;Snap ITC&quot;;
+</string>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="text">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>100</y>
+      <width>331</width>
+      <height>81</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(0,0,0,0);
+color: rgb(255, 255, 255);
+border:none;
+font: 14pt &quot;Snap ITC&quot;;
+</string>
     </property>
    </widget>
    <zorder>background</zorder>
@@ -239,6 +321,11 @@ color:rgba(115 ,128,142,255);
    <zorder>start</zorder>
    <zorder>histoty</zorder>
    <zorder>change_info</zorder>
+   <zorder>skelet</zorder>
+   <zorder>skelet2</zorder>
+   <zorder>coin</zorder>
+   <zorder>coninsNum</zorder>
+   <zorder>text</zorder>
   </widget>
  </widget>
  <resources/>

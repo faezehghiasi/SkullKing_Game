@@ -95,7 +95,7 @@ color:rgba(115 ,128,142,255);
 }
 QPushButton#backButton{ 
 border-image: url(:/resource/back-button_93634.png);
-background-color:rgb(243,192,101);
+background-color:rgb(237,185,59);
 border-radius:25px;
 }
 QPushButton#backButton:hover{ 
@@ -281,130 +281,6 @@ color:rgba(115 ,128,142,255);
         </item>
        </layout>
       </item>
-      <item>
-       <layout class="QHBoxLayout" name="horizontalLayout">
-        <item>
-         <widget class="QPushButton" name="pushButton_4">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">font: 11pt &quot;Social Media Circled&quot;;
-QPushButton#pushButton_4{ 
-background-color: rgba(0,0,0,0);
-color:rgba(85,98,112,255);
-}
-QPushButton#pushButton_4:hover{ 
-color:rgba(155,168,182,220)
-}
-QPushButton#pushButton_4:pressed{ 
-padding-left:5px;
-padding-top:5px;
-color:rgba(115 ,128,142,255);
-}</string>
-          </property>
-          <property name="text">
-           <string>E</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_2">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">font: 11pt &quot;Social Media Circled&quot;;
-QPushButton#pushButton_2{ 
-background-color: rgba(0,0,0,0);
-color:rgba(85,98,112,255);
-}
-QPushButton#pushButton_2:hover{ 
-color:rgba(155,168,182,220)
-}
-QPushButton#pushButton_2:pressed{ 
-padding-left:5px;
-padding-top:5px;
-color:rgba(115 ,128,142,255);
-}</string>
-          </property>
-          <property name="text">
-           <string>5</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_5">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">font: 11pt &quot;Social Media Circled&quot;;
-QPushButton#pushButton_5{ 
-background-color: rgba(0,0,0,0);
-color:rgba(85,98,112,255);
-}
-QPushButton#pushButton_5:hover{ 
-color:rgba(155,168,182,220)
-}
-QPushButton#pushButton_5:pressed{ 
-padding-left:5px;
-padding-top:5px;
-color:rgba(115 ,128,142,255);
-}</string>
-          </property>
-          <property name="text">
-           <string>H</string>
-          </property>
-         </widget>
-        </item>
-        <item>
-         <widget class="QPushButton" name="pushButton_3">
-          <property name="maximumSize">
-           <size>
-            <width>30</width>
-            <height>30</height>
-           </size>
-          </property>
-          <property name="font">
-           <font>
-            <family>Social Media Circled</family>
-            <pointsize>11</pointsize>
-            <italic>false</italic>
-            <bold>false</bold>
-           </font>
-          </property>
-          <property name="styleSheet">
-           <string notr="true">font: 11pt &quot;Social Media Circled&quot;;
-QPushButton#pushButton_3{ 
-background-color: rgba(0,0,0,0);
-color:rgba(85,98,112,255);
-}
-QPushButton#pushButton_3:hover{ 
-color:rgba(155,168,182,220)
-}
-QPushButton#pushButton_3:pressed{ 
-padding-left:5px;
-padding-top:5px;
-color:rgba(115 ,128,142,255);
-}</string>
-          </property>
-          <property name="text">
-           <string>M</string>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
      </layout>
     </widget>
     <widget class="QPushButton" name="backButton">
@@ -419,7 +295,7 @@ color:rgba(115 ,128,142,255);
      <property name="styleSheet">
       <string notr="true">QPushButton#backButton{ 
 border-image: url(:/resource/back-button_93634.png);
-background-color:rgb(243,192,101);
+background-color:rgb(237,185,59);
 border-radius:25px;
 }
 QPushButton#backButton:hover{ 

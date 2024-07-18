@@ -14,7 +14,7 @@ class menu : public QDialog
 public:
     explicit menu(QWidget *parent = nullptr);
     ~menu();
-
+    void showText();
 private slots:
     void on_start_clicked();
 

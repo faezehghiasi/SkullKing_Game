@@ -2,8 +2,7 @@
 #include "ui_skullking.h"
 #include<QWindow>
 #include<QTime>
-
-
+#include"SlowTyper.h"
 Skullking::Skullking(QWidget *parent)
     : QMainWindow(parent)
     , ui(new Ui::Skullking)
@@ -21,7 +20,8 @@ void Skullking::Show_TextBrows(){
     ui->welcomBrowser->append("");
     ui->welcomBrowser->append("   Welcom");
     delay();
-    ui->textBrowser->append("Choose the intended option to start the game");
+    SlowTyper *typer = new SlowTyper(ui->textBrowser, "Choose the intended option to start the game", 40); // Interval in milliseconds
+       typer->start();
     ui->SignUp->setText("Sign Up");
     ui->signIn->setText("Sign In");
 

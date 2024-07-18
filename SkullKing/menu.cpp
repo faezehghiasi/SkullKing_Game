@@ -11,11 +11,13 @@
 #include"changeinformation.h"
 #include"skullking.h"
 #include"history.h"
+#include"SlowTyper.h"
 menu::menu(QWidget *parent) :
     QDialog(parent),
     ui(new Ui::menu)
 {
     ui->setupUi(this);
+    ui->coninsNum->append(QString::number(currentPlayer.get_coin()));
 }
 //*****************************************************************
 menu::~menu()
@@ -70,3 +72,11 @@ void menu::on_change_info_clicked()
     w->show();
 }
 //*****************************************************************
+void menu::showText()
+{
+    QString myText ="Dear ";
+    myText+=currentPlayer.get_name();
+    myText+=", welcome back...";
+    SlowTyper *typer = new SlowTyper(ui->text, myText, 60); // Interval in milliseconds
+       typer->start();
+}
