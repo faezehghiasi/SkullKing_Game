@@ -6,7 +6,6 @@
 #include<QTime>
 #include"clientorserver.h"
 #include"server.h"
-bool ClientOrServer::changePage = false;
 QLabel* ClientOrServer::ip_label;
 QLabel* ClientOrServer::server_label;
 int main(int argc, char *argv[])

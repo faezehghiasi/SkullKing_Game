@@ -18,7 +18,7 @@ SOURCES += \
     history.cpp \
     importantcards.cpp \
     main.cpp \
-    menuselection.cpp \
+    menu.cpp \
     player.cpp \
     server.cpp \
     signin.cpp \
@@ -34,7 +34,7 @@ HEADERS += \
     forgetpassword.h \
     history.h \
     importantcards.h \
-    menuselection.h \
+    menu.h \
     player.h \
     server.h \
     signin.h \
@@ -47,7 +47,7 @@ FORMS += \
     clientorserver.ui \
     forgetpassword.ui \
     history.ui \
-    menuselection.ui \
+    menu.ui \
     server.ui \
     signin.ui \
     signup.ui \

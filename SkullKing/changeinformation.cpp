@@ -4,7 +4,7 @@
 #include"signup.h"
 #include"signin.h"
 #include<QMessageBox>
-#include"menuselection.h"
+#include"menu.h"
 
 changeInformation::changeInformation(QWidget *parent) :
     QMainWindow(parent),
@@ -24,8 +24,8 @@ void changeInformation::on_change_clicked()
     if (it == listOfPlayer.end()) {
           QMessageBox:: critical(0,"Not Found","The information is wrong");
           this->hide();
-          MenuSelection* w;
-          w=new MenuSelection;
+          menu* w;
+          w=new menu;
           this->hide();
           return;
         }
@@ -37,8 +37,8 @@ void changeInformation::on_change_clicked()
     writeToFile("myfile.bin");
     QMessageBox Mb;
     Mb.information(0,"Change Information","Change information was successful");
-    MenuSelection* w;
-    w=new MenuSelection;
+    menu* w;
+    w=new menu;
     this->hide();
     w->show();
 

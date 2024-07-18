@@ -26,25 +26,26 @@ MenuSelection::~MenuSelection()
 //***********************************************
 void MenuSelection::on_start_clicked()
 {
-    if(currentPlayer.get_server()){
         if(currentPlayer.get_coin()<50){
             QMessageBox mb;
             mb.critical(0,"Error","You don't have enough coins to start the game");
         }
         else{
-            this->hide();
-            srv->show();
-            //order client  to start the game
-            cards server_order;
-            server_order.setOrder("Start The Game");
-            sendCard.push_back(server_order);
-            writeToFileCards("sendCard.bin",sendCard);
-            QFile file("sendCard.bin");
-            file.open(QFile::ReadOnly | QFile::Text);
-            QByteArray file_content = file.readAll();
-            srv->get_socket()->write(file_content);
-            srv->get_socket()->flush();
-            file.close();
+
+//            this->hide();
+//            srv->show();
+//            //order client  to start the game
+//            cards server_order;
+//            server_order.setOrder("Start The Game");
+//            sendCard.push_back(server_order);
+//            writeToFileCards("sendCard.bin",sendCard);
+//            QFile file("sendCard.bin");
+//            file.open(QFile::ReadOnly | QFile::Text);
+//            QByteArray file_content = file.readAll();
+//            srv->get_socket()->write(file_content);
+//            srv->get_socket()->flush();
+//            file.close();
+
             //end
             // decrese money
             currentPlayer.set_coin(currentPlayer.get_coin()-50);
@@ -53,33 +54,23 @@ void MenuSelection::on_start_clicked()
              writeToFile("myfile.bin");
              //end
 
-             srv->play();
+             //srv->play();
+
+             ClientOrServer* client_server ;
+              client_server = new ClientOrServer(this);
+              this->hide();
+              client_server->show();
 
        }
 
-    }
-    else {
-        QMessageBox MQ;
-        MQ.warning(0,"Warning","Only server can start the game!");
-    }
+
+//    else {
+//        QMessageBox MQ;
+//        MQ.warning(0,"Warning","Only server can start the game!");
+//    }
+
 }
-//***********************************************
-void MenuSelection::startTheGame(){
-    auto it = find_if(listOfPlayer.begin(),listOfPlayer.end(),[&](auto p){
-       return( p.get_username() == currentPlayer.get_username());
-    });
-    if(currentPlayer.get_coin()<50){
-        QMessageBox mb;
-        mb.critical(0,"Error","You don't have enough coins to start the game");
-        //exit....
-    }
-    else{
-    it->set_coin(it->get_coin()-50);
-    writeToFile("myfile.bin");
-    this->hide();
-    cln->show();
-    }
-}
+
 //***********************************************
 
 void MenuSelection::on_change_info_clicked()

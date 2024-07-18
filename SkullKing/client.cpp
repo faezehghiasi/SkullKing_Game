@@ -3,11 +3,11 @@
 #include"signin.h"
 #include "ui_client.h"
 #include"clientorserver.h"
-#include"menuselection.h"
 #include <QDataStream>
 #include<QFile>
 #include<QDebug>
 #include"skullking.h"
+#include"menu.h"
 #include<QMutex>
 QMutex socketLock;
 QString Ip;
@@ -81,9 +81,7 @@ void Client::creation(){
     if(!socket->waitForConnected(2000)){
      mb.critical(this,"Error","server not found");
     }
-    else{
-           ClientOrServer::changePage = true;
-    }
+
 }
 //******************************************************************************
 Client::~Client()
@@ -104,7 +102,6 @@ void Client::readyRead() {
        QByteArray file_content = socket->readAll();
        QFile file("recivedCard.bin");
        if(!file.open(QFile::WriteOnly | QFile::Text)){
-           qDebug()<<"file can not open";
            return;
        }
        file.write(file_content);
@@ -114,7 +111,8 @@ void Client::readyRead() {
 
        if(recivedCard.size()==1){
            if(recivedCard[0].getOrder()=="Start The Game"){
-             emit startTheGame();
+               emit closePage();
+               cln->show();
              return;
           }
            //****************************************
@@ -1594,8 +1592,8 @@ void Client::on_resumeButton_clicked(){
 }
 //***********************************************************************************************
 void Client::on_returnButton(){
-    MenuSelection* newPage;
-    newPage=new MenuSelection;
+    menu* newPage;
+    newPage=new menu;
     this->close();
     newPage->show();
 }

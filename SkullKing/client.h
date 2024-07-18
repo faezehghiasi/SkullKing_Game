@@ -38,7 +38,7 @@ public:
     QLabel*scoreNumber;
 signals:
     void existClient();
-    void startTheGame();
+    void closePage();
 public slots:
     void connected();
     void disconnected();

@@ -1,4 +1,4 @@
-
+#include"menu.h"
 #include "server.h"
 #include "ui_server.h"
 #include<QDebug>
@@ -1477,7 +1477,7 @@ void Server ::play(){
       for(auto& x:pushButtons)x.cards_button->setEnabled(true);
      //continue ro ham able kon
      });
-     qDebug()<<currentPlayer.get_guess();
+
 
 }
 //***********************************************************************************************
@@ -1649,8 +1649,8 @@ void Server::on_resumeButton_clicked(){
 }
 //*******************************************************************************************************
 void Server::on_returnButton(){
-    MenuSelection* newPage;
-    newPage=new MenuSelection;
+    menu* newPage;
+    newPage=new menu;
     this->close();
     newPage->show();
 }

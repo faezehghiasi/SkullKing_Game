@@ -4,7 +4,7 @@
 #include"skullking.h"
 #include<QMessageBox>
 #include"clientorserver.h"
-#include"menuselection.h"
+#include"menu.h"
 #include<QRegularExpressionValidator>
 Player currentPlayer;
 SignIn::SignIn(QWidget *parent) :
@@ -43,14 +43,15 @@ void SignIn::on_ButtonLogIn_clicked()
       main->Show_TextBrows();
      return;
   }
-  ClientOrServer* client_server ;
-//  client_server = new ClientOrServer(this);
-//  this->hide();
-//  client_server->show();
-  MenuSelection* menu ;
-  menu = new MenuSelection(this);
-  this->close();
-  menu->show();
+  //some chenges here
+  // ClientOrServer* client_server ;
+  //  client_server = new ClientOrServer(this);
+  //  this->hide();
+  //  client_server->show();
+  menu* men ;
+  men = new menu(this);
+  this->hide();
+  men->show();
 
 
 }
