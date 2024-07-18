@@ -6,21 +6,21 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>580</width>
-    <height>600</height>
+    <width>550</width>
+    <height>654</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>MainWindow</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="label">
+   <widget class="QLabel" name="background">
     <property name="geometry">
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>580</width>
-      <height>600</height>
+      <width>550</width>
+      <height>654</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -30,35 +30,17 @@
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="name">
-    <property name="geometry">
-     <rect>
-      <x>110</x>
-      <y>30</y>
-      <width>351</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">font: 20pt &quot;Stencil&quot;;
-color: rgb(0, 0, 0);</string>
-    </property>
-    <property name="text">
-     <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-    </property>
-   </widget>
    <widget class="QLabel" name="label_2">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>150</y>
-      <width>111</width>
+      <x>10</x>
+      <y>500</y>
+      <width>131</width>
       <height>51</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">
-font: 600 20pt &quot;Sitka Small Semibold&quot;;
+     <string notr="true">font: 21pt &quot;Snap ITC&quot;;
 color: rgb(0, 0, 0);</string>
     </property>
     <property name="text">
@@ -68,69 +50,31 @@ color: rgb(0, 0, 0);</string>
    <widget class="QLabel" name="label_3">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>220</y>
-      <width>111</width>
-      <height>51</height>
+      <x>10</x>
+      <y>350</y>
+      <width>141</width>
+      <height>71</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">
-font: 600 20pt &quot;Sitka Small Semibold&quot;;
+     <string notr="true">font: 21pt &quot;Snap ITC&quot;;
 color: rgb(0, 0, 0);</string>
     </property>
     <property name="text">
      <string> lose : </string>
     </property>
    </widget>
-   <widget class="QLabel" name="label_4">
-    <property name="geometry">
-     <rect>
-      <x>30</x>
-      <y>290</y>
-      <width>111</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">
-font: 600 20pt &quot;Sitka Small Semibold&quot;;
-color: rgb(0, 0, 0);</string>
-    </property>
-    <property name="text">
-     <string> coin : </string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="coin">
-    <property name="geometry">
-     <rect>
-      <x>150</x>
-      <y>290</y>
-      <width>271</width>
-      <height>51</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">
-font: 600 20pt &quot;Sitka Small Semibold&quot;;
-color: rgb(0, 0, 0);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
    <widget class="QLabel" name="lose">
     <property name="geometry">
      <rect>
-      <x>140</x>
-      <y>220</y>
-      <width>271</width>
+      <x>160</x>
+      <y>370</y>
+      <width>231</width>
       <height>51</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">
-font: 600 20pt &quot;Sitka Small Semibold&quot;;
+     <string notr="true">font: 21pt &quot;Snap ITC&quot;;
 color: rgb(0, 0, 0);</string>
     </property>
     <property name="text">
@@ -140,39 +84,187 @@ color: rgb(0, 0, 0);</string>
    <widget class="QLabel" name="win">
     <property name="geometry">
      <rect>
-      <x>130</x>
-      <y>160</y>
+      <x>160</x>
+      <y>500</y>
       <width>271</width>
       <height>51</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">
-font: 600 20pt &quot;Sitka Small Semibold&quot;;
+     <string notr="true">font: 21pt &quot;Snap ITC&quot;;
 color: rgb(0, 0, 0);</string>
     </property>
     <property name="text">
      <string/>
     </property>
    </widget>
-   <widget class="QPushButton" name="pushButton">
+   <widget class="QWidget" name="widget" native="true">
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>550</y>
-      <width>141</width>
+      <y>0</y>
+      <width>580</width>
+      <height>600</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton#backButton{ 
+border-image: url(:/resource/back-button_93634.png);
+background-color: rgb(130,77,46);
+border-radius:25px;
+}
+QPushButton#backButton:hover{ 
+border-image: url(:/resource/back-button_93634.png);
+background-color: rgb(190,122,73);
+border-radius:25px;
+}
+QPushButton#backButton:pressed{ 
+padding-left:5px;
+padding-top:5px;
+background-color:rgb(216,148,99);
+}</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="skelet">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>-10</y>
+      <width>161</width>
+      <height>201</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/resource/19_Halloween_Clipart_PNG__Ghost_Clipart_PNG__Ghost_PNG__Commercial_Use_digital_Download_card_Making_clip_Art_digital_Craft_-_Etsy-removebg-preview.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="skelet_2">
+    <property name="geometry">
+     <rect>
+      <x>260</x>
+      <y>-20</y>
+      <width>291</width>
+      <height>381</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/resource/Car_Sticker_Funny_Halloween_Ghost_Sticker_Weatherproof_Outdoor_Vinyl_Sticker_Customizable-removebg-preview.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="skelet_3">
+    <property name="geometry">
+     <rect>
+      <x>0</x>
+      <y>90</y>
+      <width>161</width>
+      <height>201</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/resource/cute_ghost_face_emoji_cute_ghost_face_emoji_transparent_png-removebg-preview.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="skelet_4">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>450</y>
+      <width>151</width>
+      <height>141</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/resource/Skeleton_Clipart__16_JPGs__Kawaii_Clipart__Funny_Skeleton__Halloween_Clipart__Digital_Paper_Craft__Digital_Download__Commercial_Use-removebg-preview.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="skelet_5">
+    <property name="geometry">
+     <rect>
+      <x>90</x>
+      <y>50</y>
+      <width>161</width>
+      <height>201</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/resource/Line_Art_Ghost_Halloween__Ghost_Drawing__Halloween_Drawing__Ghost_Sketch_PNG_Transparent_Clipart_Image_and_PSD_File_for_Free_Download-removebg-preview.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="skelet_6">
+    <property name="geometry">
+     <rect>
+      <x>370</x>
+      <y>290</y>
+      <width>161</width>
+      <height>201</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/resource/download__3_-removebg-preview.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QPushButton" name="backButton">
+    <property name="geometry">
+     <rect>
+      <x>10</x>
+      <y>600</y>
+      <width>51</width>
       <height>51</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">background-color: rgb(175, 84, 51);
-color: rgb(0, 0, 0);
-font: 900 16pt &quot;Bodoni MT Black&quot;;</string>
+     <string notr="true">QPushButton#backButton{ 
+border-image: url(:/resource/back-button_93634.png);
+
+background-color: rgb(190,122,73);
+border-radius:25px;
+}
+QPushButton#backButton:hover{ 
+border-image: url(:/resource/back-button_93634.png);
+background-color: rgb(130,77,46);
+border-radius:25px;
+}
+QPushButton#backButton:pressed{ 
+padding-left:5px;
+padding-top:5px;
+background-color:rgb(216,148,99);
+}</string>
     </property>
     <property name="text">
-     <string>Back</string>
+     <string/>
     </property>
    </widget>
+   <zorder>widget</zorder>
+   <zorder>background</zorder>
+   <zorder>label_2</zorder>
+   <zorder>win</zorder>
+   <zorder>label_3</zorder>
+   <zorder>skelet</zorder>
+   <zorder>skelet_2</zorder>
+   <zorder>skelet_3</zorder>
+   <zorder>skelet_4</zorder>
+   <zorder>skelet_5</zorder>
+   <zorder>skelet_6</zorder>
+   <zorder>lose</zorder>
+   <zorder>backButton</zorder>
   </widget>
  </widget>
  <resources/>

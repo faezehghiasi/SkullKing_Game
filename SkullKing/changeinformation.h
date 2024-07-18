@@ -18,6 +18,8 @@ public:
 private slots:
     void on_change_clicked();
 
+    void on_backBotton_clicked();
+
 private:
     Ui::changeInformation *ui;
 };

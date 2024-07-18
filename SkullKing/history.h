@@ -16,7 +16,8 @@ public:
     ~History();
 
 private slots:
-    void on_pushButton_clicked();
+
+    void on_backButton_clicked();
 
 private:
     Ui::History *ui;

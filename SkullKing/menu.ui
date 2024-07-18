@@ -250,22 +250,6 @@ color:rgba(115 ,128,142,255);
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="skelet2">
-    <property name="geometry">
-     <rect>
-      <x>330</x>
-      <y>450</y>
-      <width>221</width>
-      <height>191</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border-image: url(:/resource/DesignsByRockly_-_Etsy_Nederland-removebg-preview.png);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
    <widget class="QLabel" name="coin">
     <property name="geometry">
      <rect>
@@ -304,7 +288,7 @@ font: 15pt &quot;Snap ITC&quot;;
      <rect>
       <x>40</x>
       <y>100</y>
-      <width>331</width>
+      <width>371</width>
       <height>81</height>
      </rect>
     </property>
@@ -312,8 +296,40 @@ font: 15pt &quot;Snap ITC&quot;;
      <string notr="true">background-color: rgba(0,0,0,0);
 color: rgb(255, 255, 255);
 border:none;
-font: 14pt &quot;Snap ITC&quot;;
+font: 15pt &quot;Snap ITC&quot;;
 </string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="gost">
+    <property name="geometry">
+     <rect>
+      <x>300</x>
+      <y>410</y>
+      <width>251</width>
+      <height>251</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/resource/Set_van_8_PNG_Chibi_skelet_clipart_bundel_Skelet_png__herfst_clipart__Halloween_png__Thanksgiving_png__300_dpi__commercieel_gebruik_-_Etsy_Nederland-removebg-preview.png);</string>
+    </property>
+    <property name="text">
+     <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="gost_2">
+    <property name="geometry">
+     <rect>
+      <x>40</x>
+      <y>420</y>
+      <width>171</width>
+      <height>151</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">border-image: url(:/resource/cute_ghost_face_emoji_cute_ghost_face_emoji_transparent_png-removebg-preview.png);</string>
+    </property>
+    <property name="text">
+     <string/>
     </property>
    </widget>
    <zorder>background</zorder>
@@ -322,10 +338,11 @@ font: 14pt &quot;Snap ITC&quot;;
    <zorder>histoty</zorder>
    <zorder>change_info</zorder>
    <zorder>skelet</zorder>
-   <zorder>skelet2</zorder>
    <zorder>coin</zorder>
    <zorder>coninsNum</zorder>
    <zorder>text</zorder>
+   <zorder>gost</zorder>
+   <zorder>gost_2</zorder>
   </widget>
  </widget>
  <resources/>

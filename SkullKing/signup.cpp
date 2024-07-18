@@ -173,8 +173,6 @@ void SignUp::on_nextButton_clicked()
       p.set_coin(1000);
       listOfPlayer.append(p);
       writeToFile(filename);
-      QMessageBox Mb;
-      Mb.information(0,"Sign Up","Registration was successful");
       this->hide();
       Skullking* w;
       w=new Skullking;

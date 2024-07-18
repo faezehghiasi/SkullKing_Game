@@ -95,18 +95,18 @@ color:rgba(115 ,128,142,255);
 }
 QPushButton#backButton{ 
 border-image: url(:/resource/back-button_93634.png);
-background-color:rgb(237,185,59);
+background-color: qlineargradient(spread:pad, x1:0.703878, y1:0.472, x2:1, y2:1, stop:0 rgba(255, 171, 30, 255), stop:1 rgba(255, 255, 255, 255));
 border-radius:25px;
 }
 QPushButton#backButton:hover{ 
 border-image: url(:/resource/back-button_93634.png);
-background-color: rgb(255,159,85);
+background-color: qlineargradient(spread:pad, x1:0.703878, y1:0.472, x2:1, y2:1, stop:0 rgba(192, 70, 0, 255), stop:1 rgba(255, 255, 255, 255));
 border-radius:25px;
 }
 QPushButton#backButton:pressed{ 
 padding-left:5px;
 padding-top:5px;
-background-color:rgb(254,174,121);
+background-color:rgba(149,8,0,255);
 }</string>
     </property>
     <widget class="QLabel" name="label">
@@ -295,18 +295,18 @@ color:rgba(115 ,128,142,255);
      <property name="styleSheet">
       <string notr="true">QPushButton#backButton{ 
 border-image: url(:/resource/back-button_93634.png);
-background-color:rgb(237,185,59);
+background-color: qlineargradient(spread:pad, x1:0.703878, y1:0.472, x2:1, y2:1, stop:0 rgba(255, 171, 30, 255), stop:1 rgba(255, 255, 255, 255));
 border-radius:25px;
 }
 QPushButton#backButton:hover{ 
 border-image: url(:/resource/back-button_93634.png);
-background-color: rgb(255,159,85);
+background-color: qlineargradient(spread:pad, x1:0.703878, y1:0.472, x2:1, y2:1, stop:0 rgba(192, 70, 0, 255), stop:1 rgba(255, 255, 255, 255));
 border-radius:25px;
 }
 QPushButton#backButton:pressed{ 
 padding-left:5px;
 padding-top:5px;
-background-color:rgb(254,174,121);
+background-color:rgba(149,8,0,255);
 }</string>
      </property>
      <property name="text">
