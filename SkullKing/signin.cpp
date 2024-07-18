@@ -44,9 +44,13 @@ void SignIn::on_ButtonLogIn_clicked()
      return;
   }
   ClientOrServer* client_server ;
-  client_server = new ClientOrServer(this);
-  this->hide();
-  client_server->show();
+//  client_server = new ClientOrServer(this);
+//  this->hide();
+//  client_server->show();
+  MenuSelection* menu ;
+  menu = new MenuSelection(this);
+  this->close();
+  menu->show();
 
 
 }
@@ -56,5 +60,16 @@ void SignIn::on_ButtonForgetPassword_clicked()
    this->hide();
    forgetP = new forgetPassword(this);
    forgetP->show();
+}
+
+
+void SignIn::on_backButton_clicked()
+{
+    Skullking* back;
+    back=new Skullking;
+    this->close();
+    back->show();
+    Skullking::delay();
+    back->Show_TextBrows();
 }
 

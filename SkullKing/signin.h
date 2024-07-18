@@ -21,6 +21,8 @@ private slots:
 
     void on_ButtonForgetPassword_clicked();
 
+    void on_backButton_clicked();
+
 private:
     Ui::SignIn *ui;
     forgetPassword * forgetP;

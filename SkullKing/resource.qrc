@@ -51,8 +51,9 @@
         <file>../resource/back-button_93634.png</file>
         <file>../resource/id-card_6785400.png</file>
         <file>../resource/maps-flags_447031.png</file>
-        <file>../resource/nextIcon.png</file>
         <file>../resource/padlock_3064155.png</file>
         <file>../resource/phone-call_455705.png</file>
+        <file>../resource/download.jpg</file>
+        <file>../resource/nextIcone.png</file>
     </qresource>
 </RCC>

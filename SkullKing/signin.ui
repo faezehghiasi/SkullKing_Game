@@ -92,6 +92,21 @@ QPushButton#ButtonForgetPassword:pressed{
 padding-left:5px;
 padding-top:5px;
 color:rgba(115 ,128,142,255);
+}
+QPushButton#backButton{ 
+border-image: url(:/resource/back-button_93634.png);
+background-color:rgb(243,192,101);
+border-radius:25px;
+}
+QPushButton#backButton:hover{ 
+border-image: url(:/resource/back-button_93634.png);
+background-color: rgb(255,159,85);
+border-radius:25px;
+}
+QPushButton#backButton:pressed{ 
+padding-left:5px;
+padding-top:5px;
+background-color:rgb(254,174,121);
 }</string>
     </property>
     <widget class="QLabel" name="label">
@@ -111,28 +126,11 @@ background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:1, stop:0 rgb
       <string/>
      </property>
     </widget>
-    <widget class="QLabel" name="label_2">
-     <property name="geometry">
-      <rect>
-       <x>30</x>
-       <y>20</y>
-       <width>391</width>
-       <height>521</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color:rgba(0,0,0,70);
-border-radius:20px;</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
     <widget class="QLabel" name="label_3">
      <property name="geometry">
       <rect>
-       <x>90</x>
-       <y>80</y>
+       <x>80</x>
+       <y>40</y>
        <width>251</width>
        <height>61</height>
       </rect>
@@ -157,7 +155,7 @@ font: 30pt &quot;Showcard Gothic&quot;;</string>
      <property name="geometry">
       <rect>
        <x>80</x>
-       <y>165</y>
+       <y>120</y>
        <width>271</width>
        <height>71</height>
       </rect>
@@ -171,7 +169,7 @@ font: 30pt &quot;Showcard Gothic&quot;;</string>
      <property name="styleSheet">
       <string notr="true">background-color:rgba(0,0,0,0);
 border:none;
-border-bottom:2px solid rgba(105,118,132,255);
+border-bottom:2px solid rgb(0, 0, 0);
 color:rgba(255,255,255,230);
 padding-bottom:7px;</string>
      </property>
@@ -186,7 +184,7 @@ padding-bottom:7px;</string>
      <property name="geometry">
       <rect>
        <x>80</x>
-       <y>230</y>
+       <y>200</y>
        <width>261</width>
        <height>81</height>
       </rect>
@@ -200,7 +198,7 @@ padding-bottom:7px;</string>
      <property name="styleSheet">
       <string notr="true">background-color:rgba(0,0,0,0);
 border:none;
-border-bottom:2px solid rgba(105,118,132,255);
+border-bottom:2px solid rgb(0, 0, 0);
 color:rgba(255,255,255,230);
 padding-bottom:7px;</string>
      </property>
@@ -214,8 +212,8 @@ padding-bottom:7px;</string>
     <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>60</x>
-       <y>340</y>
+       <x>50</x>
+       <y>300</y>
        <width>321</width>
        <height>171</height>
       </rect>
@@ -256,13 +254,13 @@ background-color:rgba(149,8,0,255);
           <property name="font">
            <font>
             <family>Segoe UI</family>
-            <pointsize>9</pointsize>
+            <pointsize>11</pointsize>
             <italic>false</italic>
-            <bold>false</bold>
+            <bold>true</bold>
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">font: 9pt &quot;Segoe UI&quot;;
+           <string notr="true">font: 700 11pt &quot;Segoe UI&quot;;
 QPushButton#ButtonForgetPassword{ 
 background-color: rgba(0,0,0,0);
 color:rgba(85,98,112,255);
@@ -408,6 +406,36 @@ color:rgba(115 ,128,142,255);
        </layout>
       </item>
      </layout>
+    </widget>
+    <widget class="QPushButton" name="backButton">
+     <property name="geometry">
+      <rect>
+       <x>10</x>
+       <y>490</y>
+       <width>51</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton#backButton{ 
+border-image: url(:/resource/back-button_93634.png);
+background-color:rgb(243,192,101);
+border-radius:25px;
+}
+QPushButton#backButton:hover{ 
+border-image: url(:/resource/back-button_93634.png);
+background-color: rgb(255,159,85);
+border-radius:25px;
+}
+QPushButton#backButton:pressed{ 
+padding-left:5px;
+padding-top:5px;
+background-color:rgb(254,174,121);
+}</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
     </widget>
    </widget>
   </widget>
