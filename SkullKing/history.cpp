@@ -21,7 +21,7 @@ History::~History()
 
 
 void History::on_backButton_clicked()
-{    this->hide();
+{    this->close();
      menu* newPage;
      newPage = new   menu;
      newPage->show();

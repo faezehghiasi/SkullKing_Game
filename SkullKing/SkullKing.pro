@@ -62,4 +62,6 @@ else: unix:!android: target.path = /opt/$${TARGET}/bin
 RESOURCES += \
     resource.qrc
 
-DISTFILES +=
+DISTFILES += \
+    ../resource/Beige Plain Textured Wallpaper R8200 - Sample Price.jpg \
+    ../resource/download (5).jpg

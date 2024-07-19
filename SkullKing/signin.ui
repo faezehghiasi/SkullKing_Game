@@ -169,7 +169,7 @@ font: 30pt &quot;Showcard Gothic&quot;;</string>
      <property name="styleSheet">
       <string notr="true">background-color:rgba(0,0,0,0);
 border:none;
-border-bottom:2px solid rgb(0, 0, 0);
+border-bottom:2px solid rgb(255, 255, 255);
 color:rgba(255,255,255,230);
 padding-bottom:7px;</string>
      </property>
@@ -198,7 +198,7 @@ padding-bottom:7px;</string>
      <property name="styleSheet">
       <string notr="true">background-color:rgba(0,0,0,0);
 border:none;
-border-bottom:2px solid rgb(0, 0, 0);
+border-bottom:2px solid rgb(255, 255, 255);
 color:rgba(255,255,255,230);
 padding-bottom:7px;</string>
      </property>

@@ -158,6 +158,9 @@ color: rgb(0, 0, 0);
 padding-bottom:7px;
 font: 14pt &quot;Baskerville Old Face&quot;;</string>
         </property>
+        <property name="text">
+         <string/>
+        </property>
         <property name="placeholderText">
          <string/>
         </property>

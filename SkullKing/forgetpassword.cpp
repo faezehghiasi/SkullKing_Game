@@ -2,6 +2,7 @@
 #include "ui_forgetpassword.h"
 #include"player.h"
 #include"signup.h"
+#include"signin.h"
 #include<algorithm>
 #include"skullking.h"
 #include<QMessageBox>
@@ -44,5 +45,13 @@ void forgetPassword::on_save_clicked()
    main->show();
    Skullking::delay();
    main->Show_TextBrows();
+}
+
+
+void forgetPassword::on_backButton_clicked()
+{
+    this->close();
+    SignIn* signinPage = new SignIn;
+    signinPage->show();
 }
 

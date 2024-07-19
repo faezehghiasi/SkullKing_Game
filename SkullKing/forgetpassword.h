@@ -18,6 +18,8 @@ public:
 private slots:
     void on_save_clicked();
 
+    void on_backButton_clicked();
+
 private:
     Ui::forgetPassword *ui;
 };

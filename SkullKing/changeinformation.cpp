@@ -89,7 +89,7 @@ void changeInformation::on_change_clicked()
 
 void changeInformation::on_backBotton_clicked()
 {
-    this->hide();
+    this->close();
         menu* newPage;
         newPage = new   menu;
         newPage->show();

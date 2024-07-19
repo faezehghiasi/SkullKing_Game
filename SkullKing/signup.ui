@@ -417,6 +417,74 @@ background-color:rgb(78, 193, 255);
       <string/>
      </property>
     </widget>
+    <widget class="QPushButton" name="nextButton_2">
+     <property name="geometry">
+      <rect>
+       <x>400</x>
+       <y>400</y>
+       <width>51</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Segoe UI Black</family>
+       <pointsize>9</pointsize>
+       <italic>false</italic>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton#nextButton{ 
+border-image: url(:/resource/nextIcone.png);
+background-color: rgb(255, 255, 255);
+border-radius:25px;
+}
+QPushButton#nextButton:hover{ 
+border-image: url(:/resource/nextIcone.png);
+background-color: rgb(134, 255, 255);
+border-radius:25px;
+}
+QPushButton#nextButton:pressed{ 
+padding-left:5px;
+padding-top:5px;
+background-color:rgb(78, 193, 255);
+}</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <widget class="QPushButton" name="backButton_2">
+     <property name="geometry">
+      <rect>
+       <x>90</x>
+       <y>500</y>
+       <width>51</width>
+       <height>51</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton#backButton{ 
+border-image: url(:/resource/back-button_93634.png);
+background-color: rgb(255, 255, 255);
+border-radius:25px;
+}
+QPushButton#backButton:hover{ 
+border-image: url(:/resource/back-button_93634.png);
+background-color: rgb(134, 255, 255);
+border-radius:25px;
+}
+QPushButton#backButton:pressed{ 
+padding-left:5px;
+padding-top:5px;
+background-color:rgb(78, 193, 255);
+}</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
     <zorder>base_picture</zorder>
     <zorder>sign_up</zorder>
     <zorder>secondBack</zorder>
@@ -432,6 +500,8 @@ background-color:rgb(78, 193, 255);
     <zorder>address</zorder>
     <zorder>nextButton</zorder>
     <zorder>backButton</zorder>
+    <zorder>nextButton_2</zorder>
+    <zorder>backButton_2</zorder>
    </widget>
   </widget>
  </widget>
