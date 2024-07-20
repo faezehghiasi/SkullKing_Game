@@ -98,7 +98,7 @@ background-color: rgba(0,0,0,0);
      </font>
     </property>
     <property name="mouseTracking">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="styleSheet">
      <string notr="true">
@@ -228,7 +228,7 @@ background-color: rgba(0,0,0,0);
      </font>
     </property>
     <property name="mouseTracking">
-     <bool>false</bool>
+     <bool>true</bool>
     </property>
     <property name="styleSheet">
      <string notr="true">
@@ -347,7 +347,7 @@ font: 15pt &quot;Snap ITC&quot;;
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/Prefix/resource/Set_van_8_PNG_Chibi_skelet_clipart_bundel_Skelet_png__herfst_clipart__Halloween_png__Thanksgiving_png__300_dpi__commercieel_gebruik_-_Etsy_Nederland-removebg-preview.png);</string>
+     <string notr="true">border-image: url(:/Prefix/resource/largeSkelet.png);</string>
     </property>
     <property name="text">
      <string/>
