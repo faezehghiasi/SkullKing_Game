@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/resource/background3.jpeg);</string>
+     <string notr="true">border-image: url(:/Prefix/resource/background3.jpeg);</string>
     </property>
     <property name="text">
      <string/>
@@ -34,7 +34,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>500</y>
+      <y>510</y>
       <width>131</width>
       <height>51</height>
      </rect>
@@ -51,7 +51,7 @@ color: rgb(0, 0, 0);</string>
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>350</y>
+      <y>390</y>
       <width>141</width>
       <height>71</height>
      </rect>
@@ -109,12 +109,12 @@ color: rgb(0, 0, 0);</string>
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton#backButton{ 
-border-image: url(:/resource/back-button_93634.png);
+border-image: url(:/Prefix/resource/back-button_93634.png);
 background-color: rgb(130,77,46);
 border-radius:25px;
 }
 QPushButton#backButton:hover{ 
-border-image: url(:/resource/back-button_93634.png);
+border-image: url(:/Prefix/resource/back-button_93634.png);
 background-color: rgb(190,122,73);
 border-radius:25px;
 }
@@ -128,14 +128,14 @@ background-color:rgb(216,148,99);
    <widget class="QLabel" name="skelet">
     <property name="geometry">
      <rect>
-      <x>0</x>
-      <y>-10</y>
+      <x>-10</x>
+      <y>90</y>
       <width>161</width>
       <height>201</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/resource/19_Halloween_Clipart_PNG__Ghost_Clipart_PNG__Ghost_PNG__Commercial_Use_digital_Download_card_Making_clip_Art_digital_Craft_-_Etsy-removebg-preview.png);</string>
+     <string notr="true">border-image: url(:/Prefix/resource/19_Halloween_Clipart_PNG__Ghost_Clipart_PNG__Ghost_PNG__Commercial_Use_digital_Download_card_Making_clip_Art_digital_Craft_-_Etsy-removebg-preview.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -144,14 +144,14 @@ background-color:rgb(216,148,99);
    <widget class="QLabel" name="skelet_2">
     <property name="geometry">
      <rect>
-      <x>260</x>
+      <x>290</x>
       <y>-20</y>
-      <width>291</width>
-      <height>381</height>
+      <width>261</width>
+      <height>341</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/resource/Car_Sticker_Funny_Halloween_Ghost_Sticker_Weatherproof_Outdoor_Vinyl_Sticker_Customizable-removebg-preview.png);</string>
+     <string notr="true">border-image: url(:/Prefix/resource/Car_Sticker_Funny_Halloween_Ghost_Sticker_Weatherproof_Outdoor_Vinyl_Sticker_Customizable-removebg-preview.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -161,13 +161,13 @@ background-color:rgb(216,148,99);
     <property name="geometry">
      <rect>
       <x>0</x>
-      <y>90</y>
+      <y>160</y>
       <width>161</width>
       <height>201</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/resource/cute_ghost_face_emoji_cute_ghost_face_emoji_transparent_png-removebg-preview.png);</string>
+     <string notr="true">border-image: url(:/Prefix/resource/cute_ghost_face_emoji_cute_ghost_face_emoji_transparent_png-removebg-preview.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -177,13 +177,13 @@ background-color:rgb(216,148,99);
     <property name="geometry">
      <rect>
       <x>370</x>
-      <y>450</y>
+      <y>470</y>
       <width>151</width>
       <height>141</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/resource/Skeleton_Clipart__16_JPGs__Kawaii_Clipart__Funny_Skeleton__Halloween_Clipart__Digital_Paper_Craft__Digital_Download__Commercial_Use-removebg-preview.png);</string>
+     <string notr="true">border-image: url(:/Prefix/resource/Skeleton_Clipart__16_JPGs__Kawaii_Clipart__Funny_Skeleton__Halloween_Clipart__Digital_Paper_Craft__Digital_Download__Commercial_Use-removebg-preview.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -192,14 +192,14 @@ background-color:rgb(216,148,99);
    <widget class="QLabel" name="skelet_5">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>50</y>
+      <x>70</x>
+      <y>100</y>
       <width>161</width>
       <height>201</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/resource/Line_Art_Ghost_Halloween__Ghost_Drawing__Halloween_Drawing__Ghost_Sketch_PNG_Transparent_Clipart_Image_and_PSD_File_for_Free_Download-removebg-preview.png);</string>
+     <string notr="true">border-image: url(:/Prefix/resource/Line_Art_Ghost_Halloween__Ghost_Drawing__Halloween_Drawing__Ghost_Sketch_PNG_Transparent_Clipart_Image_and_PSD_File_for_Free_Download-removebg-preview.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -209,13 +209,13 @@ background-color:rgb(216,148,99);
     <property name="geometry">
      <rect>
       <x>370</x>
-      <y>290</y>
+      <y>320</y>
       <width>161</width>
       <height>201</height>
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/resource/download__3_-removebg-preview.png);</string>
+     <string notr="true">border-image: url(:/Prefix/resource/download__3_-removebg-preview.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -232,13 +232,13 @@ background-color:rgb(216,148,99);
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton#backButton{ 
-border-image: url(:/resource/back-button_93634.png);
+border-image: url(:/Prefix/resource/back-button_93634.png);
 
 background-color: rgb(190,122,73);
 border-radius:25px;
 }
 QPushButton#backButton:hover{ 
-border-image: url(:/resource/back-button_93634.png);
+border-image: url(:/Prefix/resource/back-button_93634.png);
 background-color: rgb(130,77,46);
 border-radius:25px;
 }
@@ -250,6 +250,39 @@ background-color:rgb(216,148,99);
     </property>
     <property name="text">
      <string/>
+    </property>
+   </widget>
+   <widget class="QLabel" name="label">
+    <property name="geometry">
+     <rect>
+      <x>30</x>
+      <y>10</y>
+      <width>161</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">font: 18pt &quot;Snap ITC&quot;;
+color: rgb(0, 0, 0);</string>
+    </property>
+    <property name="text">
+     <string> today :</string>
+    </property>
+   </widget>
+   <widget class="QTextBrowser" name="today">
+    <property name="geometry">
+     <rect>
+      <x>150</x>
+      <y>30</y>
+      <width>201</width>
+      <height>71</height>
+     </rect>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">background-color: rgba(0,0,0,0);
+border:none;
+font: 14pt &quot;Snap ITC&quot;;
+color: rgb(0, 0, 0);</string>
     </property>
    </widget>
    <zorder>widget</zorder>
@@ -265,6 +298,8 @@ background-color:rgb(216,148,99);
    <zorder>skelet_6</zorder>
    <zorder>lose</zorder>
    <zorder>backButton</zorder>
+   <zorder>label</zorder>
+   <zorder>today</zorder>
   </widget>
  </widget>
  <resources/>

@@ -24,6 +24,8 @@ void Skullking::Show_TextBrows(){
        typer->start();
     ui->SignUp->setText("Sign Up");
     ui->signIn->setText("Sign In");
+    ui->signIn->setEnabled(true);
+    ui->SignUp->setEnabled(true);
 
 }
  void Skullking::delay(){

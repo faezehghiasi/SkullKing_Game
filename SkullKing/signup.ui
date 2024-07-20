@@ -37,12 +37,12 @@
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton#backButton{ 
-border-image: url(:/resource/back-button_93634.png);
+border-image: url(:/Prefix/resource/back-button_93634.png);
 background-color: rgb(255, 255, 255);
 border-radius:25px;
 }
 QPushButton#backButton:hover{ 
-border-image: url(:/resource/back-button_93634.png);
+border-image: url(:/Prefix/resource/back-button_93634.png);
 background-color: rgb(134, 255, 255);
 border-radius:25px;
 }
@@ -52,12 +52,12 @@ padding-top:5px;
 background-color:rgb(78, 193, 255);
 }
 QPushButton#nextButton{ 
-border-image: url(:/resource/nextIcone.png);
+border-image: url(:/Prefix/resource/nextIcone.png);
 background-color: rgb(255, 255, 255);
 border-radius:25px;
 }
 QPushButton#nextButton:hover{ 
-border-image: url(:/resource/nextIcone.png);
+border-image: url(:/Prefix/resource/nextIcone.png);
 background-color: rgb(134, 255, 255);
 border-radius:25px;
 }
@@ -83,7 +83,7 @@ background-color:rgb(78, 193, 255);
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-image:url(:/resource/download.jpg)
+      <string notr="true">border-image:url(:/Prefix/resource/download.jpg)
 </string>
      </property>
      <property name="text">
@@ -135,12 +135,12 @@ background-color:rgba(0,0,0,0);</string>
      </property>
      <property name="styleSheet">
       <string notr="true">QPushButton#nextButton{ 
-border-image: url(:/resource/nextIcone.png);
+border-image: url(:/Prefix/resource/nextIcone.png);
 background-color: rgb(255, 255, 255);
 border-radius:25px;
 }
 QPushButton#nextButton:hover{ 
-border-image: url(:/resource/nextIcone.png);
+border-image: url(:/Prefix/resource/nextIcone.png);
 background-color: rgb(134, 255, 255);
 border-radius:25px;
 }
@@ -164,7 +164,7 @@ background-color:rgb(78, 193, 255);
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-image: url(:/resource/account_3033143.png);
+      <string notr="true">border-image: url(:/Prefix/resource/account_3033143.png);
 background-color: rgb(255, 255, 255);
 border-radius:10px;</string>
      </property>
@@ -182,26 +182,9 @@ border-radius:10px;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-image: url(:/resource/id-card_6785400.png);
+      <string notr="true">border-image: url(:/Prefix/resource/id-card_6785400.png);
 background-color: rgb(255, 255, 255);
 border-radius:10px;</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QLabel" name="secondBack">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>190</y>
-       <width>281</width>
-       <height>321</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">border-radius:26px;
-border-image: url(:/resource/ligthOrange.png);</string>
      </property>
      <property name="text">
       <string/>
@@ -217,7 +200,7 @@ border-image: url(:/resource/ligthOrange.png);</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-image: url(:/resource/padlock_3064155.png);
+      <string notr="true">border-image: url(:/Prefix/resource/padlock_3064155.png);
 background-color: rgb(255, 255, 255);
 border-radius:10px;</string>
      </property>
@@ -235,7 +218,7 @@ border-radius:10px;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-image: url(:/resource/phone-call_455705.png);
+      <string notr="true">border-image: url(:/Prefix/resource/phone-call_455705.png);
 background-color: rgb(255, 255, 255);
 border-radius:10px;</string>
      </property>
@@ -253,7 +236,7 @@ border-radius:10px;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-image: url(:/resource/maps-flags_447031.png);
+      <string notr="true">border-image: url(:/Prefix/resource/maps-flags_447031.png);
 background-color: rgb(255, 255, 255);
 border-radius:10px;</string>
      </property>
@@ -398,80 +381,12 @@ border-color: rgbrgb(255, 255, 255)</string>
      </property>
      <property name="styleSheet">
       <string notr="true">QPushButton#backButton{ 
-border-image: url(:/resource/back-button_93634.png);
+border-image: url(:/Prefix/resource/back-button_93634.png);
 background-color: rgb(255, 255, 255);
 border-radius:25px;
 }
 QPushButton#backButton:hover{ 
-border-image: url(:/resource/back-button_93634.png);
-background-color: rgb(134, 255, 255);
-border-radius:25px;
-}
-QPushButton#backButton:pressed{ 
-padding-left:5px;
-padding-top:5px;
-background-color:rgb(78, 193, 255);
-}</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="nextButton_2">
-     <property name="geometry">
-      <rect>
-       <x>400</x>
-       <y>400</y>
-       <width>51</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Segoe UI Black</family>
-       <pointsize>9</pointsize>
-       <italic>false</italic>
-       <bold>true</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QPushButton#nextButton{ 
-border-image: url(:/resource/nextIcone.png);
-background-color: rgb(255, 255, 255);
-border-radius:25px;
-}
-QPushButton#nextButton:hover{ 
-border-image: url(:/resource/nextIcone.png);
-background-color: rgb(134, 255, 255);
-border-radius:25px;
-}
-QPushButton#nextButton:pressed{ 
-padding-left:5px;
-padding-top:5px;
-background-color:rgb(78, 193, 255);
-}</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="backButton_2">
-     <property name="geometry">
-      <rect>
-       <x>90</x>
-       <y>500</y>
-       <width>51</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QPushButton#backButton{ 
-border-image: url(:/resource/back-button_93634.png);
-background-color: rgb(255, 255, 255);
-border-radius:25px;
-}
-QPushButton#backButton:hover{ 
-border-image: url(:/resource/back-button_93634.png);
+border-image: url(:/Prefix/resource/back-button_93634.png);
 background-color: rgb(134, 255, 255);
 border-radius:25px;
 }
@@ -487,7 +402,6 @@ background-color:rgb(78, 193, 255);
     </widget>
     <zorder>base_picture</zorder>
     <zorder>sign_up</zorder>
-    <zorder>secondBack</zorder>
     <zorder>nameIcon</zorder>
     <zorder>userIcon</zorder>
     <zorder>passIcon</zorder>
@@ -500,8 +414,6 @@ background-color:rgb(78, 193, 255);
     <zorder>address</zorder>
     <zorder>nextButton</zorder>
     <zorder>backButton</zorder>
-    <zorder>nextButton_2</zorder>
-    <zorder>backButton_2</zorder>
    </widget>
   </widget>
  </widget>

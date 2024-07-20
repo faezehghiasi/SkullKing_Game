@@ -31,11 +31,11 @@
     <property name="styleSheet">
      <string notr="true">QPushButton#change{ 
 background-color: rgb(255, 153, 51);
-border-image: url(:/resource/nextIcone.png);
+border-image: url(:/Prefix/resource/nextIcone.png);
 border-radius:25px;
 }
 QPushButton#change:hover{ 
-border-image: url(:/resource/nextIcone.png);
+border-image: url(:/Prefix/resource/nextIcone.png);
 background-color: rgb(200, 109, 19);
 }
 QPushButton#change:pressed{ 
@@ -45,11 +45,11 @@ padding-top:5px;
 }
 QPushButton#backBotton{ 
 background-color: rgb(255, 153, 51);
-border-image: url(:/resource/back-button_93634.png);
+border-image: url(:/Prefix/resource/back-button_93634.png);
 border-radius:25px;
 }
 QPushButton#backBotton:hover{ 
-border-image: url(:/resource/back-button_93634.png);
+border-image: url(:/Prefix/resource/back-button_93634.png);
 background-color: rgb(200, 109, 19);
 }
 QPushButton#backBotton:pressed{ 
@@ -69,7 +69,7 @@ background-color: rgb(200, 109, 19);
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-image: url(:/resource/board.png);
+      <string notr="true">border-image: url(:/Prefix/resource/board.png);
 </string>
      </property>
      <property name="text">
@@ -190,7 +190,7 @@ font: 14pt &quot;Baskerville Old Face&quot;;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-image: url(:/resource/DesignsByRockly_-_Etsy_Nederland__10_-removebg-preview.png);</string>
+      <string notr="true">border-image: url(:/Prefix/resource/DesignsByRockly_-_Etsy_Nederland__10_-removebg-preview.png);</string>
      </property>
      <property name="text">
       <string/>
@@ -206,7 +206,7 @@ font: 14pt &quot;Baskerville Old Face&quot;;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-image: url(:/resource/DesignsByRockly_-_Etsy_Nederland__6_-removebg-preview.png);</string>
+      <string notr="true">border-image: url(:/Prefix/resource/DesignsByRockly_-_Etsy_Nederland__6_-removebg-preview.png);</string>
      </property>
      <property name="text">
       <string/>
@@ -222,7 +222,7 @@ font: 14pt &quot;Baskerville Old Face&quot;;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-image: url(:/resource/DesignsByRockly_-_Etsy_Nederland-removebg-preview.png);</string>
+      <string notr="true">border-image: url(:/Prefix/resource/DesignsByRockly_-_Etsy_Nederland-removebg-preview.png);</string>
      </property>
      <property name="text">
       <string/>
@@ -353,11 +353,11 @@ font: 700 14pt &quot;Baskerville Old Face&quot;;</string>
      <property name="styleSheet">
       <string notr="true">QPushButton#change{ 
 background-color: rgb(247,170,56);
-border-image: url(:/resource/nextIcone.png);
+border-image: url(:/Prefix/resource/nextIcone.png);
 border-radius:25px;
 }
 QPushButton#change:hover{ 
-border-image: url(:/resource/nextIcone.png);
+border-image: url(:/Prefix/resource/nextIcone.png);
 background-color: rgb(200, 109, 19);
 }
 QPushButton#change:pressed{ 
@@ -391,11 +391,11 @@ padding-top:5px;
      <property name="styleSheet">
       <string notr="true">QPushButton#backBotton{ 
 background-color: rgb(247,170,56);
-border-image: url(:/resource/back-button_93634.png);
+border-image: url(:/Prefix/resource/back-button_93634.png);
 border-radius:25px;
 }
 QPushButton#backBotton:hover{ 
-border-image: url(:/resource/back-button_93634.png);
+border-image: url(:/Prefix/resource/back-button_93634.png);
 background-color: rgb(200, 109, 19);
 }
 QPushButton#backBotton:pressed{ 
@@ -419,7 +419,7 @@ background-color: rgb(200, 109, 19);
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-image: url(:/resource/Line_Art_Ghost_Halloween__Ghost_Drawing__Halloween_Drawing__Ghost_Sketch_PNG_Transparent_Clipart_Image_and_PSD_File_for_Free_Download-removebg-preview.png);</string>
+      <string notr="true">border-image: url(:/Prefix/resource/Line_Art_Ghost_Halloween__Ghost_Drawing__Halloween_Drawing__Ghost_Sketch_PNG_Transparent_Clipart_Image_and_PSD_File_for_Free_Download-removebg-preview.png);</string>
      </property>
      <property name="text">
       <string/>

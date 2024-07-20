@@ -24,19 +24,18 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">
-QPushButton#serverButton{ 
+     <string notr="true">QPushButton#serverButton{ 
 background-color: qlineargradient(spread:pad, x1:0.0432692, y1:0.051, x2:0.952, y2:0.892045, stop:0.423077 rgba(152, 118, 63, 255), stop:1 rgba(255, 255, 255, 255));
 color: rgb(8, 8, 8);
 font: 900 16pt &quot;Bodoni MT Black&quot;;
 }
 QPushButton#serverButton:hover{ 
-	background-color: rgb(156, 119, 56);
+background-color: rgb(156, 119, 56);
 }
 QPushButton#serverButton:pressed{ 
 padding-left:5px;
 padding-top:5px;
-	background-color: rgb(200, 158, 73);
+background-color: rgb(200, 158, 73);
 }
 
 QPushButton#clientButton{ 
@@ -50,7 +49,7 @@ QPushButton#clientButton:hover{
 QPushButton#clientButton:pressed{ 
 padding-left:5px;
 padding-top:5px;
-	background-color: rgb(200, 158, 73);
+background-color: rgb(200, 158, 73);
 }
 </string>
     </property>
@@ -64,7 +63,7 @@ padding-top:5px;
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-image: url(:/resource/map3.jpg);
+      <string notr="true">border-image: url(:/Prefix/resource/download (2).jpg);
 border:3px solid; 
 border-color :#000</string>
      </property>
@@ -75,9 +74,9 @@ border-color :#000</string>
     <widget class="QPushButton" name="clientButton">
      <property name="geometry">
       <rect>
-       <x>440</x>
-       <y>150</y>
-       <width>261</width>
+       <x>220</x>
+       <y>200</y>
+       <width>151</width>
        <height>71</height>
       </rect>
      </property>
@@ -86,10 +85,12 @@ border-color :#000</string>
 
 background-color: qlineargradient(spread:pad, x1:0.0432692, y1:0.051, x2:0.952, y2:0.892045, stop:0.423077 rgba(152, 118, 63, 255), stop:1 rgba(255, 255, 255, 255));
 color: rgb(8, 8, 8);
+border-radius:15px;
 font: 900 16pt &quot;Bodoni MT Black&quot;;
 }
 QPushButton#clientButton:hover{ 
 	background-color: rgb(156, 119, 56);
+border-radius:15px;
 }
 QPushButton#clientButton:pressed{ 
 padding-left:5px;
@@ -105,9 +106,9 @@ padding-top:5px;
     <widget class="QPushButton" name="serverButton">
      <property name="geometry">
       <rect>
-       <x>100</x>
-       <y>150</y>
-       <width>261</width>
+       <x>410</x>
+       <y>200</y>
+       <width>151</width>
        <height>71</height>
       </rect>
      </property>
@@ -117,10 +118,12 @@ QPushButton#serverButton{
 
 background-color: qlineargradient(spread:pad, x1:0.0432692, y1:0.051, x2:0.952, y2:0.892045, stop:0.423077 rgba(152, 118, 63, 255), stop:1 rgba(255, 255, 255, 255));
 color: rgb(8, 8, 8);
+border-radius:15px;
 font: 900 16pt &quot;Bodoni MT Black&quot;;
 }
 QPushButton#serverButton:hover{ 
 	background-color: rgb(156, 119, 56);
+border-radius:15px;
 }
 QPushButton#serverButton:pressed{ 
 padding-left:5px;
@@ -134,39 +137,12 @@ padding-top:5px;
       <string>Server</string>
      </property>
     </widget>
-    <widget class="QLabel" name="label">
-     <property name="geometry">
-      <rect>
-       <x>120</x>
-       <y>10</y>
-       <width>531</width>
-       <height>151</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Bernard MT Condensed</family>
-       <pointsize>14</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background:rgba(0,0,0,0);
-color: rgb(0, 0, 0);
-font: 14pt &quot;Bernard MT Condensed&quot;;
-</string>
-     </property>
-     <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt;&quot;&gt;ٍEnter your intended position &lt;/span&gt;&lt;/p&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:24pt;&quot;&gt;in the game&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-     </property>
-    </widget>
     <widget class="QLabel" name="ipLable">
      <property name="geometry">
       <rect>
-       <x>62</x>
-       <y>489</y>
-       <width>681</width>
+       <x>20</x>
+       <y>460</y>
+       <width>591</width>
        <height>61</height>
       </rect>
      </property>
@@ -179,6 +155,42 @@ font: 14pt &quot;Bernard MT Condensed&quot;;
       <string/>
      </property>
     </widget>
+    <widget class="QTextBrowser" name="textBrowser">
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>140</y>
+       <width>491</width>
+       <height>111</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">background-color: rgba(0,0,0,0);
+color: rgb(0, 0, 0);
+border:none;
+font: 16pt &quot;Snap ITC&quot;;
+</string>
+     </property>
+    </widget>
+    <widget class="QLabel" name="label">
+     <property name="geometry">
+      <rect>
+       <x>300</x>
+       <y>300</y>
+       <width>91</width>
+       <height>81</height>
+      </rect>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
+    <zorder>basePicture</zorder>
+    <zorder>ipLable</zorder>
+    <zorder>textBrowser</zorder>
+    <zorder>label</zorder>
+    <zorder>serverButton</zorder>
+    <zorder>clientButton</zorder>
    </widget>
   </widget>
  </widget>

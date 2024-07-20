@@ -90,7 +90,7 @@ Client::~Client()
 }
 //*****************************************************************************
 void Client::connected() {
-   qDebug()<<"client connected to server";
+   //qDebug()<<"client connected to server";
 }
 //*****************************************************************************
 void Client::disconnected() {

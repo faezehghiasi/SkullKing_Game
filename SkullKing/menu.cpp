@@ -29,9 +29,11 @@ void menu::on_start_clicked()
 {
     if(currentPlayer.get_coin()<50){
         QMessageBox mb;
-        mb.critical(0,"Error","You don't have enough coins to start the game");
+        mb.critical(this,"Error","You don't have enough coins to start the game");
+        return;
     }
     else{
+
         currentPlayer.set_coin(currentPlayer.get_coin()-50);
         auto foundPlayer=find_if(listOfPlayer.begin(),listOfPlayer.end(),[](auto x){return(x.get_username()==currentPlayer.get_username());});
         foundPlayer->set_coin(currentPlayer.get_coin());

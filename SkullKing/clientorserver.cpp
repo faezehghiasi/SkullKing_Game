@@ -8,12 +8,19 @@
 #include"signin.h"
 #include"client.h"
 #include<QFile>
+#include"SlowTyper.h"
+#include <QApplication>
+#include <QLabel>
+#include <QMovie>
 ClientOrServer::ClientOrServer(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ClientOrServer)
 {
 
+
     ui->setupUi(this);
+    SlowTyper *typer = new SlowTyper(ui->textBrowser, "Choose your role in the game...", 40); // Interval in milliseconds
+    typer->start();
 }
 //*************************************************************************
 ClientOrServer::~ClientOrServer()
@@ -45,16 +52,33 @@ void ClientOrServer::on_clientButton_clicked()
 //****************************************************************************************************
 void ClientOrServer::on_serverButton_clicked()
 {
+
+    QMovie* movie = new QMovie(":/Prefix/resource/search.gif");
+
+    if (!movie->isValid()) {
+        // Something went wrong :(
+        QMessageBox Mb;
+        Mb.critical(this, "Error", "Failed to load GIF: " + movie->lastErrorString());
+        delete movie;  // Clean up the movie object
+        return;
+    }
+
+    // Play GIF
+    ui->label->setScaledContents(true);
+    ui->label->setMovie(movie);
+    movie->start();
+
+
     currentPlayer.set_server(true);
     server_label = new QLabel (this);
-    server_label->setGeometry(210,230,331,111);
+    server_label->setGeometry(140,310,256,61);
     server_label->setStyleSheet("color: rgb(2, 2, 2);font: 20pt Snap ITC;");
     server_label->setText("waiting...");
     server_label->show();
     ui->clientButton->disconnect();
     ui->serverButton->disconnect();
     ip_label=new QLabel(this);
-    ip_label->setGeometry(20,560,321,20);
+    ip_label->setGeometry(20,460,591,61);
     ip_label->setText("");
     ip_label->setStyleSheet("color: rgb(0,0,0);font:20pt Algerian");
     ip_label->show();
@@ -80,6 +104,7 @@ void ClientOrServer::connect_button_clicked(){
 
 //*******************************************************************************
 void ClientOrServer::chanePage(){
+    ui->label->hide();
     delay(3000);
 
     //order client  to start the game

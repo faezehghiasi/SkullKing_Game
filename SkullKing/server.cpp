@@ -77,8 +77,8 @@ Server::~Server()
 //**************************************************************
 void Server::newConnection(){
    socket = server->nextPendingConnection();
-   ClientOrServer::server_label->setGeometry(80,280,513,51);
-   ClientOrServer::server_label->setStyleSheet("font: 14pt Showcard Gothic; color: rgb(8, 8, 8);");
+   ClientOrServer::server_label->setGeometry(50,350,561,71);
+   ClientOrServer::server_label->setStyleSheet("color: rgb(2, 2, 2);font: 15pt Snap ITC;");
    ClientOrServer::server_label->setText("A new player has been added to the game...");
    emit changePage();
    connect(socket,SIGNAL(readyRead()),this,SLOT(readyRead()));
@@ -198,7 +198,8 @@ void Server::creation(){
     ClientOrServer::ip_label->setText(serverIp);
     if(!server->listen(myIP,9999)){
         QMessageBox MQ;
-        MQ.critical(this,"Error","server can not start");
+        MQ.critical(0,"Error","server can not start");
+
     }
 }
 //***************************************************************************
