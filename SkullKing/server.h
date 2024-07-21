@@ -10,7 +10,9 @@
 #include"player.h"
 #include <QPropertyAnimation>
 #include<QLineEdit>
+#include<QMutex>
 #include<QLabel>
+extern QMutex mx;
 namespace Ui {
 class Server;
 }
@@ -39,8 +41,12 @@ public:
      void move_twoCards();
      void play();
      void caculateScore(int rivalScore);
-     QLabel *scoreLabel;
+     void sendNameOrder();
      QLabel*scoreNumber;
+     QLabel*clientScore;
+     QLabel*serverName;
+     QLabel*clientName;
+
     ~Server();
 signals:
     void sendIp(QString ip);
@@ -70,9 +76,11 @@ public slots:
 
 private slots:
 
-    void on_pushButton_9_clicked();
 
-    void on_pushButton_7_clicked();
+
+    void on_stop_clicked();
+
+    void on_exit_clicked();
 
 private:
     Ui::Server *ui;

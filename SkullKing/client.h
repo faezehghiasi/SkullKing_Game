@@ -34,8 +34,11 @@ public:
     void move_oneCards(buttons& c);
     void move_twoCards();
     void calculateScore();
-    QLabel *scoreLabel;
+    void sendName();
     QLabel*scoreNumber;
+    QLabel*serverScore;
+    QLabel*serverName;
+    QLabel*clientName;
 signals:
     void existClient();
     void closePage();
@@ -61,9 +64,10 @@ public slots:
     void on_resumeButton_clicked();
     void on_returnButton();
 private slots:
-    void on_pushButton_7_clicked();
 
-    void on_pushButton_8_clicked();
+    void on_stop_clicked();
+
+    void on_exit_clicked();
 
 private:
     Ui::Client *ui;

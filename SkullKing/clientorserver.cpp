@@ -12,6 +12,8 @@
 #include <QApplication>
 #include <QLabel>
 #include <QMovie>
+#include<QMutex>
+#include<QThread>
 ClientOrServer::ClientOrServer(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ClientOrServer)
@@ -114,12 +116,35 @@ void ClientOrServer::chanePage(){
     writeToFileCards("sendCard.bin",sendCard);
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
+
+    // QByteArray file_content = file.readAll();
+    // srv->get_socket()->write(file_content);
+    // srv->get_socket()->flush();
+    // file.close();
+    // this->hide();
+
+    // srv->show();
+    // srv->play();
     QByteArray file_content = file.readAll();
-    srv->get_socket()->write(file_content);
-    srv->get_socket()->flush();
     file.close();
+
+    QMutexLocker locker(&mx);
+    if (srv->socket->state() == QAbstractSocket::ConnectedState) {
+
+        qint64 bytesWritten = srv->socket->write(file_content);
+        if (bytesWritten == -1) {
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+        }
+        srv->socket->flush();
+    } else {
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
+        return;
+    }
+    locker.unlock();
     this->hide();
+
     srv->show();
+    srv->sendNameOrder();
     srv->play();
 }
 //*******************************************************************************

@@ -3,8 +3,6 @@
 #include "ui_server.h"
 #include<QDebug>
 #include"clientorserver.h"
-#include"ui_clientorserver.h"
-#include"menuselection.h"
 #include<QMessageBox>
 #include<QDataStream>
 #include<QFile>
@@ -14,8 +12,11 @@
 #include"player.h"
 #include<math.h>
 #include<QMutex>
+#include<QThread>
+#include<QString>
 #include"skullking.h"
 QMutex mx;
+QMutex mxForRead;
 //******
 Server * srv;
 Server::Server(QWidget *parent) :
@@ -23,44 +24,69 @@ Server::Server(QWidget *parent) :
     ui(new Ui::Server)
 {
     ui->setupUi(this);
+
     server = new QTcpServer;
     server_card.cards_button = new QPushButton(this);
-    server_card.cards_button->setGeometry(290,290,101,141);
+    server_card.cards_button->setGeometry(140,230,181,251);
     client_card.cards_button = new QPushButton(this);
-    client_card.cards_button->setGeometry(210,240,101,141);
+    client_card.cards_button->setGeometry(660,230,181,251);
+
     server_card.cards_button->hide();
     client_card.cards_button->hide();
-    scoreLabel= new QLabel(this);
+
     scoreNumber= new QLabel(this);
-    scoreLabel->setStyleSheet("font: 14pt Broadway;  color: rgb(255, 255, 255);background-color: rgb(7, 7, 7);");
     scoreNumber->setStyleSheet("font: 20pt Broadway;  color: rgb(13, 13, 13);");
-    scoreLabel->setGeometry(10,50,81,31);
-    scoreNumber->setGeometry(20,90,71,31);
-    scoreLabel->setText("  Score");
+    scoreNumber->setGeometry(180,85,141,41);
     scoreNumber->setText(QString::number(currentPlayer.get_score()));
-    scoreLabel->show();
     scoreNumber->show();
+
+
+    serverName= new QLabel(this);
+    serverName->setStyleSheet("font: 18pt Broadway;  color: rgb(13, 13, 13);");
+    serverName->setGeometry(120,30,141,41);
+    serverName->setText(currentPlayer.get_name());
+    serverName->show();
+
+    clientScore = new QLabel(this);
+    clientScore->setStyleSheet("font: 20pt Broadway;  color: rgb(13, 13, 13);");
+    clientScore->setGeometry(690,110,141,41);
+    clientScore->hide();
+
+
+
+    clientName= new QLabel(this);
+    clientName->setStyleSheet("font: 18pt Broadway;  color: rgb(13, 13, 13);");
+    clientName->setGeometry(770,40,141,41);
+    clientName->hide();
+
+
+
+
     continueTheGameButton = new QPushButton("Continue the game",this);
     continueTheGameButton->setStyleSheet("background-color:rgb(200, 129, 49); color: rgb(0, 0, 0); font: 15pt Stencil;border-color: rgb(85, 0, 0); border-radius:10px;QPushButton#continueTheGameButton{background-color:rgb(200, 129, 49); color: rgb(0, 0, 0); font: 15pt Stencil;border-color: rgb(85, 0, 0); border-radius:10px;}QPushButton#continueTheGameButton:hover{ color:rgba(155,168,182,210) ;}QPushButton#continueTheGameButton:pressed{padding-left:5px; padding-top:5px;color:rgba(115 ,128,142,210);}");
     continueTheGameButton->setGeometry(150,300,301,141);
     continueTheGameButton->hide();
     connect(continueTheGameButton,SIGNAL(clicked()),this , SLOT(on_continueTheGameButton_clicked()));
+
     endOfTheGame=new QPushButton("Wait for end...",this);
     endOfTheGame->setStyleSheet("background-color:rgb(200, 129, 49); color: rgb(0, 0, 0); font: 15pt Stencil;border-color: rgb(85, 0, 0); border-radius:10px;QPushButton#continueTheGameButton{background-color:rgb(200, 129, 49); color: rgb(0, 0, 0); font: 15pt Stencil;border-color: rgb(85, 0, 0); border-radius:10px;}QPushButton#continueTheGameButton:hover{ color:rgba(155,168,182,210) ;}QPushButton#continueTheGameButton:pressed{padding-left:5px; padding-top:5px;color:rgba(115 ,128,142,210);}");
     endOfTheGame->setGeometry(150,300,301,141);
     endOfTheGame->hide();
     endOfTheGame->setEnabled(false);
+
     resume = new QPushButton("Resume",this);
     resume->setStyleSheet("background-color: rgb(101, 102, 104);color: rgb(0, 0, 0); font: 600 10pt Sitka Small Semibold;");
     resume->setGeometry(10,140,61,51);
     resume->setEnabled(false);
     resume->hide();
     connect(resume,SIGNAL(clicked()),this,SLOT(on_resumeButton_clicked()));
+
     gameStop = new QLabel(this);
     gameStop->setStyleSheet("color: rgb(0, 0, 0); font: 18pt Snap ITC;");
     gameStop->setText("Game Stoped");
     gameStop->setGeometry(200,270,221,51);
     gameStop->hide();
+
     returnButton=new QPushButton("Back to menu",this);
     returnButton->setGeometry(150,450,171,51);
     returnButton->setStyleSheet("background-color:rgb(200, 129, 49); color: rgb(0, 0, 0); font: 15pt Stencil;");
@@ -76,6 +102,7 @@ Server::~Server()
 }
 //**************************************************************
 void Server::newConnection(){
+
    socket = server->nextPendingConnection();
    ClientOrServer::server_label->setGeometry(50,350,561,71);
    ClientOrServer::server_label->setStyleSheet("color: rgb(2, 2, 2);font: 15pt Snap ITC;");
@@ -87,94 +114,117 @@ void Server::newConnection(){
 }
 //*****************************************************************
 void Server :: readyRead(){
-    QByteArray file_content = socket->readAll();
-          QFile file("recivedCard.bin");
-          if(!file.open(QIODevice::WriteOnly)){
-              qDebug()<<"file can not open";
-              return;
-          }
-          file.write(file_content);
-          file .close();
-          readFromFileCards("recivedCard.bin",recivedCard);
-          if(recivedCard.size()==1){
-              if(recivedCard[0].getOrder()=="EXIT"){
-                  currentPlayer.set_win(currentPlayer.get_win()+1);
-                  currentPlayer.set_coin(currentPlayer.get_coin()+100);
-                  auto it = find_if(listOfPlayer.begin(),listOfPlayer.end(),[&](auto p){
-                      return(currentPlayer.get_username()==p.get_username());
-                  });
-                  it->set_win(currentPlayer.get_win());
-                  it->set_coin(currentPlayer.get_coin());
-                  writeToFile("myfile.bin");
-                  this->close();
-                  Skullking* newPage2;
-                  newPage2=new Skullking;
-                  newPage2->show();
-                  Skullking::delay();
-                  newPage2->Show_TextBrows();
-              }
 
-              /////////////////////////////////////////
-              else if(recivedCard[0].getOrder()=="SCORE"){
-                  int rivalScore=recivedCard[0].getNumber();
-                  for(auto& x:pushButtons) delete x.cards_button;
-                  pushButtons.clear();
-                  caculateScore(rivalScore);
-              }
-              //**********************************************
-              else if(recivedCard[0].getOrder()=="STOP"){
-                  ui->pushButton_9->setEnabled(false);
-                   gameStop->show();
-                   for(auto& x:pushButtons) x.cards_button->setEnabled(false);
-              }
-              //***********************************************
-              else if(recivedCard[0].getOrder()=="RESUME"){
-                  ui->pushButton_9->setEnabled(true);
-                   gameStop->hide();
-                  for(auto& x:pushButtons) x.cards_button->setEnabled(true);
-              }
-              //**********************************************
-              else{
-                   //client send card
-              client_card = recivedCard[0];
-                if(!currentPlayer.get_starterOfEachRound()){
-                    currentPlayer.set_turn(true);
-                    availbleCards(client_card);
-                }
-                else {
-                    buttons temp;
-                    availbleCards(temp);
-                }
-                set_picture(client_card);
-                if(!client_card.empty()&& !server_card.empty()){
+    QThread::msleep(100);
+    QByteArray file_content = socket->readAll();
+    QFile file("recivedCard.bin");
+    if (file_content.isEmpty()) {
+        QMessageBox Mb;
+        Mb.critical(0,"ERROR","Received empty data");
+    }
+    if (!file.open(QIODevice::WriteOnly)) {
+        qDebug() << "File can not open";
+        return;
+        QMessageBox Mb;
+        Mb.critical(0,"ERROR","File can not open");
+    }
+    file.write(file_content);
+    file .close();
+
+    // استفاده از mutex برای مدیریت همزمانی
+    QMutexLocker locker(&mxForRead);
+    readFromFileCards("recivedCard.bin",recivedCard);
+
+    if(recivedCard.size()==1){
+
+        if(recivedCard[0].getOrder()=="EXIT"){
+            currentPlayer.set_win(currentPlayer.get_win()+1);
+            currentPlayer.set_coin(currentPlayer.get_coin()+100);
+            auto it = find_if(listOfPlayer.begin(),listOfPlayer.end(),[&](auto p){
+                return(currentPlayer.get_username()==p.get_username());
+            });
+            it->set_win(currentPlayer.get_win());
+            it->set_coin(currentPlayer.get_coin());
+            writeToFile("myfile.bin");
+            this->close();
+            Skullking* newPage2;
+            newPage2=new Skullking;
+            newPage2->show();
+            Skullking::delay();
+            newPage2->Show_TextBrows();
+        }
+
+        /////////////////////////////////////////
+        else if(recivedCard[0].getOrder()=="SCORE"){
+            int rivalScore=recivedCard[0].getNumber();
+            for(auto& x:pushButtons) delete x.cards_button;
+            pushButtons.clear();
+            caculateScore(rivalScore);
+        }
+        /////////////////////////////////////////
+        else if (recivedCard[0].getOrder().endsWith('*')) {
+            QString name = recivedCard[0].getOrder();
+            name.chop(1);
+            clientName->setText(name);
+            clientName->show();
+        }
+
+        //**********************************************
+        else if(recivedCard[0].getOrder()=="STOP"){
+            ui->stop->setEnabled(false);
+            gameStop->show();
+            for(auto& x:pushButtons) x.cards_button->setEnabled(false);
+        }
+        //***********************************************
+        else if(recivedCard[0].getOrder()=="RESUME"){
+            ui->stop->setEnabled(true);
+            gameStop->hide();
+            for(auto& x:pushButtons) x.cards_button->setEnabled(true);
+        }
+        //**********************************************
+        else{
+            //client send card
+            client_card = recivedCard[0];
+            if(!currentPlayer.get_starterOfEachRound()){
+                currentPlayer.set_turn(true);
+                availbleCards(client_card);
+            }
+            else {
+                buttons temp;
+                availbleCards(temp);
+            }
+            set_picture(client_card);
+            if(!client_card.empty()&& !server_card.empty()){
                 currentPlayer.calculate(client_card.thisCard);
                 ClientOrServer::delay(2000);
                 move_twoCards();
                 if(currentPlayer.playeCard.size()==0){
                     if(currentPlayer.get_countOfTurn()==7){
-                      endOfTheGame->show();
-                      returnButton->setEnabled(true);
-                      returnButton->show();
+                        endOfTheGame->show();
+                        returnButton->setEnabled(true);
+                        returnButton->show();
                     }
 
                     else{
-                 for(auto& x:pushButtons)x.cards_button->setEnabled(false);
-                   continueTheGameButton->setEnabled(true);
-                   continueTheGameButton->show();}
+                        for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+                        continueTheGameButton->setEnabled(true);
+                        continueTheGameButton->show();}
                 }
-                }
-             }
             }
+        }
+    }
 
-         else{
-            currentPlayer.set_randomCards(recivedCard,currentPlayer.get_countOfTurn());
-            showCards(currentPlayer.playeCard);
-            for(int i =0 ; i<pushButtons.size();i++){
-               set_picture( pushButtons[i]);
-            }
-          }
+    else{
+        currentPlayer.set_randomCards(recivedCard,currentPlayer.get_countOfTurn());
+        showCards(currentPlayer.playeCard);
+        for(int i =0 ; i<pushButtons.size();i++){
+            set_picture( pushButtons[i]);
+        }
+    }
 
 }
+
+
 //*****************************************************************
 void Server::disconnected(){
 
@@ -428,7 +478,7 @@ void Server::showCards(QList<cards> cCards){
 //***************************************************************************
 void Server::whoShouldStartTheGameFirst(){
     //delay function......
-    QTime dietime=QTime::currentTime().addMSecs(2000);
+    QTime dietime=QTime::currentTime().addMSecs(3000);
     while(QTime::currentTime()<dietime)
     QCoreApplication::processEvents(QEventLoop::AllEvents,100);
 
@@ -459,11 +509,21 @@ void Server::whoShouldStartTheGameFirst(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-    mx.lock();
-    socket->write(file_content);
-    socket->flush();
-    mx.unlock();
     file.close();
+
+    QMutexLocker locker(&mx);
+    if (socket->state() == QAbstractSocket::ConnectedState) {
+
+        qint64 bytesWritten = socket->write(file_content);
+        if (bytesWritten == -1) {
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+        }
+        socket->flush();
+    } else {
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
+        return;
+    }
+    locker.unlock();
 }
 //*************************************************************************************
 void Server::set_picture(struct buttons crd){
@@ -472,43 +532,43 @@ void Server::set_picture(struct buttons crd){
     case 1:{
         switch(crd.thisCard.getNumber()){
         case 1:
-            crd.cards_button->setStyleSheet("border-image: url(:/resource/treasure1.png);");
-            crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/treasure1.png width=150 height=200/></p></body></html>");
+            crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/treasure1.png);");
+            crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resourcetreasure1.png width=150 height=200/></p></body></html>");
             crd.cards_button->show();
             break;
         case 2:
-            crd.cards_button->setStyleSheet("border-image: url(:/resource/treasure2.png);");
-             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/treasure2.png width=150 height=200/></p></body></html>");
+            crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/treasure2.png);");
+             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/treasure2.png width=150 height=200/></p></body></html>");
             crd.cards_button->show();
             break;
         case 3:
-            crd.cards_button->setStyleSheet("border-image: url(:/resource/treasure3.png);");
-             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/treasure3.png width=150 height=200/></p></body></html>");
+            crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/treasure3.png);");
+             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/treasure3.png width=150 height=200/></p></body></html>");
              crd.cards_button->show();
             break;
         case 4:
-            crd.cards_button->setStyleSheet("border-image: url(:/resource/treasure4.png);");
-             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/treasure4.png width=150 height=200/></p></body></html>");
+            crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/treasure4.png);");
+             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/treasure4.png width=150 height=200/></p></body></html>");
              crd.cards_button->show();
             break;
         case 5:
-            crd.cards_button->setStyleSheet("border-image: url(:/resource/treasure5.png);");
-             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/treasure5.png width=150 height=200/></p></body></html>");
+            crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/treasure5.png);");
+             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/treasure5.png width=150 height=200/></p></body></html>");
                 crd.cards_button->show();
             break;
         case 6:
-            crd.cards_button->setStyleSheet("border-image: url(:/resource/treasure6.png);");
-             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/treasure6.png width=150 height=200/></p></body></html>");
+            crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/treasure6.png);");
+             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/treasure6.png width=150 height=200/></p></body></html>");
             crd.cards_button->show();
             break;
         case 7:
-            crd.cards_button->setStyleSheet("border-image: url(:/resource/treasure7.png);");
-             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/treasure7.png width=150 height=200/></p></body></html>");
+            crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/treasure7.png);");
+             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/treasure7.png width=150 height=200/></p></body></html>");
            crd.cards_button->show();
             break;
         case 8:
-            crd.cards_button->setStyleSheet("border-image: url(:/resource/treasure8.png);");
-             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/treasure8.png width=150 height=200/></p></body></html>");
+            crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/treasure8.png);");
+             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/treasure8.png width=150 height=200/></p></body></html>");
             crd.cards_button->show();
             break;
         }
@@ -518,43 +578,43 @@ void Server::set_picture(struct buttons crd){
     case 2:
         switch(crd.thisCard.getNumber()){
         case 1:
-            crd.cards_button->setStyleSheet("border-image: url(:/resource/mapcard1.png);");
-            crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/mapcard1.png width=150 height=200/></p></body></html>");
+            crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/mapcard1.png);");
+            crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/mapcard1.png width=150 height=200/></p></body></html>");
            crd.cards_button->show();
             break;
         case 2:
-            crd.cards_button->setStyleSheet("border-image: url(:/resource/mapcard2.png);");
-             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/mapcard2.png width=150 height=200/></p></body></html>");
+            crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/mapcard2.png);");
+             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/mapcard2.png width=150 height=200/></p></body></html>");
           crd.cards_button->show();
             break;
         case 3:
-           crd.cards_button->setStyleSheet("border-image: url(:/resource/mapcard3.png);");
-            crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/mapcard3.png width=150 height=200/></p></body></html>");
+           crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/mapcard3.png);");
+            crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/mapcard3.png width=150 height=200/></p></body></html>");
           crd.cards_button->show();
             break;
         case 4:
-            crd.cards_button->setStyleSheet("border-image: url(:/resource/mapcard4.png);");
-             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/mapcard4.png width=150 height=200/></p></body></html>");
+            crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/mapcard4.png);");
+             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/mapcard4.png width=150 height=200/></p></body></html>");
            crd.cards_button->show();
             break;
         case 5:
-            crd.cards_button->setStyleSheet("border-image: url(:/resource/mapcard5.png);");
-             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/mapcard5.png width=150 height=200/></p></body></html>");
+            crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/mapcard5.png);");
+             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/mapcard5.png width=150 height=200/></p></body></html>");
            crd.cards_button->show();
             break;
         case 6:
-            crd.cards_button->setStyleSheet("border-image: url(:/resource/mapcard6.png);");
-             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/mapcard6.png width=150 height=200/></p></body></html>");
+            crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/mapcard6.png);");
+             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/mapcard6.png width=150 height=200/></p></body></html>");
             crd.cards_button->show();
             break;
         case 7:
-           crd.cards_button->setStyleSheet("border-image: url(:/resource/mapcard7.png);");
-            crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/mapcard7.png width=150 height=200/></p></body></html>");
+           crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/mapcard7.png);");
+            crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/mapcard7.png width=150 height=200/></p></body></html>");
            crd.cards_button->show();
             break;
         case 8:
-            crd.cards_button->setStyleSheet("border-image: url(:/resource/mapcard8.png);");
-             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/mapcard8.png width=150 height=200/></p></body></html>");
+            crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/mapcard8.png);");
+             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/mapcard8.png width=150 height=200/></p></body></html>");
            crd.cards_button->show();
             break;
         }
@@ -562,43 +622,43 @@ void Server::set_picture(struct buttons crd){
     case 3:
         switch(crd.thisCard.getNumber()){
         case 1:
-            crd.cards_button->setStyleSheet("border-image: url(:/resource/parrot1.png);");
-            crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/parrot1.png  width=150 height=200 /></p></body></html>");
+            crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/parrot1.png);");
+            crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/parrot1.png  width=150 height=200 /></p></body></html>");
            crd.cards_button->show();
             break;
         case 2:
-           crd.cards_button->setStyleSheet("border-image: url(:/resource/parrot2.png);");
-           crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/parrot2.png  width=150 height=200 /></p></body></html>");
+           crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/parrot2.png);");
+           crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/parrot2.png  width=150 height=200 /></p></body></html>");
            crd.cards_button->show();
             break;
         case 3:
-            crd.cards_button->setStyleSheet("border-image: url(:/resource/parrot3.png);");
-            crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/parrot3.png  width=150 height=200 /></p></body></html>");
+            crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/parrot3.png);");
+            crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/parrot3.png  width=150 height=200 /></p></body></html>");
            crd.cards_button->show();
             break;
         case 4:
-            crd.cards_button->setStyleSheet("border-image: url(:/resource/parrot4.png);");
-            crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/parrot4.png  width=150 height=200 /></p></body></html>");
+            crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/parrot4.png);");
+            crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/parrot4.png  width=150 height=200 /></p></body></html>");
            crd.cards_button->show();
             break;
         case 5:
-              crd.cards_button->setStyleSheet("border-image: url(:/resource/parrot5.png);");
-              crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/parrot5.png  width=150 height=200 /></p></body></html>");
+              crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/parrot5.png);");
+              crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/parrot5.png  width=150 height=200 /></p></body></html>");
            crd.cards_button->show();
             break;
         case 6:
-               crd.cards_button->setStyleSheet("border-image: url(:/resource/parrot6.png);");
-               crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/parrot6.png  width=150 height=200 /></p></body></html>");
+               crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/parrot6.png);");
+               crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/parrot6.png  width=150 height=200 /></p></body></html>");
            crd.cards_button->show();
             break;
         case 7:
-             crd.cards_button->setStyleSheet("border-image: url(:/resource/parrot7.png);");
-             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/parrot7.png  width=150 height=200 /></p></body></html>");
+             crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/parrot7.png);");
+             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/parrot7.png  width=150 height=200 /></p></body></html>");
            crd.cards_button->show();
             break;
         case 8:
-            crd.cards_button->setStyleSheet("border-image: url(:/resource/parrot8.png);");
-            crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/parrot8.png  width=150 height=200 /></p></body></html>");
+            crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/parrot8.png);");
+            crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/parrot8.png  width=150 height=200 /></p></body></html>");
             crd.cards_button->show();
             break;
         }
@@ -607,60 +667,60 @@ void Server::set_picture(struct buttons crd){
         switch(crd.thisCard.getNumber())
         {
         case 1:
-            crd.cards_button->setStyleSheet("border-image: url(:/resource/flagcard1.png);");
-            crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/flagcard1.png width=150 height=200/></p></body></html>");
+            crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/flagcard1.png);");
+            crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/flagcard1.png width=150 height=200/></p></body></html>");
            crd.cards_button->show();
             break;
         case 2:
-            crd.cards_button->setStyleSheet("border-image: url(:/resource/flagcard2.png);");
-            crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/flagcard2.png width=150 height=200/></p></body></html>");
+            crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/flagcard2.png);");
+            crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/flagcard2.png width=150 height=200/></p></body></html>");
           crd.cards_button->show();
             break;
         case 3:
-             crd.cards_button->setStyleSheet("border-image: url(:/resource/flagcard3.png);");
-             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/flagcard3.png width=150 height=200/></p></body></html>");
+             crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/flagcard3.png);");
+             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/flagcard3.png width=150 height=200/></p></body></html>");
            crd.cards_button->show();
             break;
         case 4:
-             crd.cards_button->setStyleSheet("border-image: url(:/resource/flagcard4.png);");
-             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/flagcard4.png width=150 height=200/></p></body></html>");
+             crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/flagcard4.png);");
+             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/flagcard4.png width=150 height=200/></p></body></html>");
            crd.cards_button->show();
             break;
         case 5:
-              crd.cards_button->setStyleSheet("border-image: url(:/resource/flagcard5.png);");
-              crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/flagcard5.png width=150 height=200/></p></body></html>");
+              crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/flagcard5.png);");
+              crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/flagcard5.png width=150 height=200/></p></body></html>");
            crd.cards_button->show();
             break;
         case 6:
-               crd.cards_button->setStyleSheet("border-image: url(:/resource/flagcard6.png);");
-               crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/flagcard6.png width=150 height=200/></p></body></html>");
+               crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/flagcard6.png);");
+               crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/flagcard6.png width=150 height=200/></p></body></html>");
            crd.cards_button->show();
             break;
         case 7:
-             crd.cards_button->setStyleSheet("border-image: url(:/resource/flagcard7.png);");
-             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/flagcard7.png width=150 height=200/></p></body></html>");
+             crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/flagcard7.png);");
+             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/flagcard7.png width=150 height=200/></p></body></html>");
             crd.cards_button->show();
             break;
         case 8:
-             crd.cards_button->setStyleSheet("border-image: url(:/resource/flagcard8.png);");
-             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/flagcard8.png width=150 height=200/></p></body></html>");
+             crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/flagcard8.png);");
+             crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/flagcard8.png width=150 height=200/></p></body></html>");
              crd.cards_button->show();
             break;
         }
         break;
     case 5:
-         crd.cards_button->setStyleSheet("border-image: url(:/resource/king.png);");
-         crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/king.png width=150 height=200/></p></body></html>");
+         crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/king.png);");
+         crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/king.png width=150 height=200/></p></body></html>");
          crd.cards_button->show();
         break;
     case 6:
-        crd.cards_button->setStyleSheet("border-image: url(:/resource/queen.png);");
-        crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/queen.png width=150 height=200/></p></body></html>");
+        crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/queen.png);");
+        crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/queen.png width=150 height=200/></p></body></html>");
         crd.cards_button->show();
         break;
     case 7:
-        crd.cards_button->setStyleSheet("border-image: url(:/resource/dozd.png);");
-        crd.cards_button->setToolTip("<html><head/><body><p><img src=:/resource/dozd.png width=150 height=200/></p></body></html>");
+        crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/dozd.png);");
+        crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/dozd.png width=150 height=200/></p></body></html>");
         crd.cards_button->show();
         break;
     }
@@ -704,61 +764,81 @@ buttons& Server::get_server_card(){
 }
 //*************************************************************************************************
 void Server::change_geometry(){
-    server_card.cards_button->setGeometry(290,290,101,141);
-    client_card.cards_button->setGeometry(210,240,101,141);
+    server_card.cards_button->setGeometry(140,230,181,251);
+    client_card.cards_button->setGeometry(660,230,181,251);
 }
 //************************************************************************************************
 void Server::on_Buttons0_clicked(){
+
+
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
-      return (p==pushButtons[0].thisCard);
+        return (p==pushButtons[0].thisCard);
     });
     if(it!=currentPlayer.playeCard.end()){
-    currentPlayer.playeCard.erase(it);
+        currentPlayer.playeCard.erase(it);
     }
     server_card = pushButtons[0];
-    //qDebug()<<"0"<< pushButtons[0].thisCard.getId()<<" "<< pushButtons[0].thisCard.getNumber()<<" "<<pushButtons[0].thisCard.getValue();
+
+
     currentPlayer.set_selectedCard(server_card.thisCard);
     sendCard.push_back(pushButtons[0].thisCard);
     writeToFileCards("sendCard.bin",sendCard);
     QFile file("sendCard.bin");
-    file.open(QFile::ReadOnly | QFile::Text);
+
+    if (!file.open(QFile::ReadOnly | QFile::Text)) {
+        QMessageBox::critical(0, "Error", "Failed to open file for reading.");
+        return;
+    }
+
     QByteArray file_content = file.readAll();
-    mx.lock();
-    socket->write(file_content);
-   // socket->waitForBytesWritten(2000);
-    socket->flush();
-    mx.unlock();
     file.close();
+
+    QMutexLocker locker(&mx);
+    if (socket->state() == QAbstractSocket::ConnectedState) {
+
+        qint64 bytesWritten = socket->write(file_content);
+        if (bytesWritten == -1) {
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+        }
+        socket->flush();
+    } else {
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
+        return;
+    }
+    locker.unlock();
+
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[0]);
     ClientOrServer::delay(1000);
     pushButtons[0].clear();
     if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(client_card.thisCard);
-      ClientOrServer::delay(1000);
-      move_twoCards();
-      if(currentPlayer.playeCard.size()==0){
-          ////////////////////////////////////
-          if(currentPlayer.get_countOfTurn()==7){
-              endOfTheGame->show();
-              returnButton->setEnabled(true);
-              returnButton->show();
-          }
-          ////////////////////////////////////////
-          else{for(auto& x:pushButtons)x.cards_button->setEnabled(false);
-            continueTheGameButton->setEnabled(true);
-            continueTheGameButton->show();}
+        currentPlayer.calculate(client_card.thisCard);
+        ClientOrServer::delay(1000);
+        move_twoCards();
+        if(currentPlayer.playeCard.size()==0){
+            ////////////////////////////////////
+            if(currentPlayer.get_countOfTurn()==7){
+                endOfTheGame->show();
+                returnButton->setEnabled(true);
+                returnButton->show();
+            }
+            ////////////////////////////////////////
+            else{for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+                continueTheGameButton->setEnabled(true);
+                continueTheGameButton->show();}
 
-      }
+        }
     }
 }
+
 //**************************************************************************************************
 void Server::on_Buttons1_clicked(){
+
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
         MQ.warning(0,"","it's not you'r turn...");
@@ -777,13 +857,23 @@ void Server::on_Buttons1_clicked(){
     writeToFileCards("sendCard.bin",sendCard);
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
+
     QByteArray file_content = file.readAll();
-    mx.lock();
-    socket->write(file_content);
-    //socket->waitForBytesWritten(2000);
-    socket->flush();
-    mx.unlock();
     file.close();
+
+    QMutexLocker locker(&mx);
+    if (socket->state() == QAbstractSocket::ConnectedState) {
+
+        qint64 bytesWritten = socket->write(file_content);
+        if (bytesWritten == -1) {
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+        }
+        socket->flush();
+    } else {
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
+        return;
+    }
+    locker.unlock();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[1]);
     ClientOrServer::delay(1000);
@@ -808,6 +898,7 @@ void Server::on_Buttons1_clicked(){
 }
 //**************************************************************************************************
 void Server::on_Buttons2_clicked(){
+
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
         MQ.warning(0,"","it's not you'r turn...");
@@ -827,12 +918,21 @@ void Server::on_Buttons2_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-    mx.lock();
-    socket->write(file_content);
-   // socket->waitForBytesWritten(2000);
-    socket->flush();
-    mx.unlock();
     file.close();
+
+    QMutexLocker locker(&mx);
+    if (socket->state() == QAbstractSocket::ConnectedState) {
+
+        qint64 bytesWritten = socket->write(file_content);
+        if (bytesWritten == -1) {
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+        }
+        socket->flush();
+    } else {
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
+        return;
+    }
+    locker.unlock();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[2]);
         ClientOrServer::delay(1000);
@@ -857,6 +957,7 @@ void Server::on_Buttons2_clicked(){
 }
 //**************************************************************************************************
 void Server::on_Buttons3_clicked(){
+
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
         MQ.warning(0,"","it's not you'r turn...");
@@ -868,7 +969,7 @@ void Server::on_Buttons3_clicked(){
     if(it!=currentPlayer.playeCard.end()){
     currentPlayer.playeCard.erase(it);
     }
-    // qDebug()<<"3"<< pushButtons[3].thisCard.getId()<<" "<< pushButtons[3].thisCard.getNumber()<<" "<<pushButtons[3].thisCard.getValue();
+
     server_card  = pushButtons[3];
     currentPlayer.set_selectedCard(server_card.thisCard);
     sendCard.push_back(pushButtons[3].thisCard);
@@ -876,12 +977,20 @@ void Server::on_Buttons3_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-     mx.lock();
-    socket->write(file_content);
-    //socket->waitForBytesWritten(2000);
-    socket->flush();
-     mx.unlock();
     file.close();
+    QMutexLocker locker(&mx);
+    if (socket->state() == QAbstractSocket::ConnectedState) {
+
+        qint64 bytesWritten = socket->write(file_content);
+        if (bytesWritten == -1) {
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+        }
+        socket->flush();
+    } else {
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
+        return;
+    }
+    locker.unlock();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[3]);
         ClientOrServer::delay(1000);
@@ -906,6 +1015,7 @@ void Server::on_Buttons3_clicked(){
 }
 //**************************************************************************************************
 void Server::on_Buttons4_clicked(){
+
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
         MQ.warning(0,"","it's not you'r turn...");
@@ -925,12 +1035,20 @@ void Server::on_Buttons4_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-     mx.lock();
-    socket->write(file_content);
-   // socket->waitForBytesWritten(2000);
-    socket->flush();
-    mx.unlock();
-    file.close();
+    QMutexLocker locker(&mx);
+    if (socket->state() == QAbstractSocket::ConnectedState) {
+
+        qint64 bytesWritten = socket->write(file_content);
+        if (bytesWritten == -1) {
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+        }
+        socket->flush();
+    } else {
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
+        return;
+    }
+    locker.unlock();
+
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[4]);
         ClientOrServer::delay(1000);
@@ -955,6 +1073,7 @@ void Server::on_Buttons4_clicked(){
 }
 //**************************************************************************************************
 void Server::on_Buttons5_clicked(){
+
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
         MQ.warning(0,"","it's not you'r turn...");
@@ -966,7 +1085,7 @@ void Server::on_Buttons5_clicked(){
     if(it!=currentPlayer.playeCard.end()){
     currentPlayer.playeCard.erase(it);
     }
-     //qDebug()<<"5"<< pushButtons[5].thisCard.getId()<<" "<< pushButtons[5].thisCard.getNumber()<<" "<<pushButtons[5].thisCard.getValue();
+
     server_card  = pushButtons[5];
     currentPlayer.set_selectedCard(server_card.thisCard);
     sendCard.push_back(pushButtons[5].thisCard);
@@ -974,12 +1093,21 @@ void Server::on_Buttons5_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-    mx.lock();
-    socket->write(file_content);
-   // socket->waitForBytesWritten(2000);
-    socket->flush();
-    mx.unlock();
     file.close();
+
+    QMutexLocker locker(&mx);
+    if (socket->state() == QAbstractSocket::ConnectedState) {
+
+        qint64 bytesWritten = socket->write(file_content);
+        if (bytesWritten == -1) {
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+        }
+        socket->flush();
+    } else {
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
+        return;
+    }
+    locker.unlock();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[5]);
         ClientOrServer::delay(1000);
@@ -1005,6 +1133,7 @@ void Server::on_Buttons5_clicked(){
 }
 //**************************************************************************************************
 void Server::on_Buttons6_clicked(){
+
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
         MQ.warning(0,"","it's not you'r turn...");
@@ -1024,12 +1153,21 @@ void Server::on_Buttons6_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-     mx.lock();
-    socket->write(file_content);
-   // socket->waitForBytesWritten(2000);
-    socket->flush();
-     mx.unlock();
     file.close();
+
+    QMutexLocker locker(&mx);
+    if (socket->state() == QAbstractSocket::ConnectedState) {
+
+        qint64 bytesWritten = socket->write(file_content);
+        if (bytesWritten == -1) {
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+        }
+        socket->flush();
+    } else {
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
+        return;
+    }
+    locker.unlock();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[6]);
         ClientOrServer::delay(1000);
@@ -1054,6 +1192,7 @@ void Server::on_Buttons6_clicked(){
 }
 //**************************************************************************************************
 void Server::on_Buttons7_clicked(){
+
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
         MQ.warning(0,"","it's not you'r turn...");
@@ -1073,12 +1212,21 @@ void Server::on_Buttons7_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-     mx.lock();
-    socket->write(file_content);
-    //socket->waitForBytesWritten(2000);
-    socket->flush();
-    mx.unlock();
     file.close();
+
+    QMutexLocker locker(&mx);
+    if (socket->state() == QAbstractSocket::ConnectedState) {
+
+        qint64 bytesWritten = socket->write(file_content);
+        if (bytesWritten == -1) {
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+        }
+        socket->flush();
+    } else {
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
+        return;
+    }
+    locker.unlock();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[7]);
         ClientOrServer::delay(1000);
@@ -1103,6 +1251,7 @@ void Server::on_Buttons7_clicked(){
 }
 //**************************************************************************************************
 void Server::on_Buttons8_clicked(){
+
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
         MQ.warning(0,"","it's not you'r turn...");
@@ -1122,12 +1271,21 @@ void Server::on_Buttons8_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-    mx.lock();
-    socket->write(file_content);
-   // socket->waitForBytesWritten(2000);
-    socket->flush();
-      mx.unlock();
     file.close();
+
+    QMutexLocker locker(&mx);
+    if (socket->state() == QAbstractSocket::ConnectedState) {
+
+        qint64 bytesWritten = socket->write(file_content);
+        if (bytesWritten == -1) {
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+        }
+        socket->flush();
+    } else {
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
+        return;
+    }
+    locker.unlock();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[8]);
         ClientOrServer::delay(1000);
@@ -1153,6 +1311,7 @@ void Server::on_Buttons8_clicked(){
 }
 //**************************************************************************************************
 void Server::on_Buttons9_clicked(){
+
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
         MQ.warning(0,"","it's not you'r turn...");
@@ -1172,12 +1331,21 @@ void Server::on_Buttons9_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-    mx.lock();
-    socket->write(file_content);
-    //socket->waitForBytesWritten(2000);
-    socket->flush();
-    mx.unlock();
     file.close();
+
+    QMutexLocker locker(&mx);
+    if (socket->state() == QAbstractSocket::ConnectedState) {
+
+        qint64 bytesWritten = socket->write(file_content);
+        if (bytesWritten == -1) {
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+        }
+        socket->flush();
+    } else {
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
+        return;
+    }
+    locker.unlock();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[9]);
         ClientOrServer::delay(1000);
@@ -1202,6 +1370,7 @@ void Server::on_Buttons9_clicked(){
 }
 //**************************************************************************************************
 void Server::on_Buttons10_clicked(){
+
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
         MQ.warning(0,"","it's not you'r turn...");
@@ -1221,12 +1390,20 @@ void Server::on_Buttons10_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-     mx.lock();
-    socket->write(file_content);
-    //socket->waitForBytesWritten(2000);
-    socket->flush();
-     mx.unlock();
     file.close();
+    QMutexLocker locker(&mx);
+    if (socket->state() == QAbstractSocket::ConnectedState) {
+
+        qint64 bytesWritten = socket->write(file_content);
+        if (bytesWritten == -1) {
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+        }
+        socket->flush();
+    } else {
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
+        return;
+    }
+    locker.unlock();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[10]);
         ClientOrServer::delay(1000);
@@ -1251,6 +1428,7 @@ void Server::on_Buttons10_clicked(){
 }
 //**************************************************************************************************
 void Server::on_Buttons11_clicked(){
+
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
         MQ.warning(0,"","it's not you'r turn...");
@@ -1270,12 +1448,21 @@ void Server::on_Buttons11_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-    mx.lock();
-    socket->write(file_content);
-    //socket->waitForBytesWritten(2000);
-    socket->flush();
-     mx.unlock();
     file.close();
+
+    QMutexLocker locker(&mx);
+    if (socket->state() == QAbstractSocket::ConnectedState) {
+
+        qint64 bytesWritten = socket->write(file_content);
+        if (bytesWritten == -1) {
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+        }
+        socket->flush();
+    } else {
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
+        return;
+    }
+    locker.unlock();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[11]);
         ClientOrServer::delay(1000);
@@ -1300,6 +1487,7 @@ void Server::on_Buttons11_clicked(){
 }
 //**************************************************************************************************
 void Server::on_Buttons12_clicked(){
+
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
         MQ.warning(0,"","it's not you'r turn...");
@@ -1319,12 +1507,20 @@ void Server::on_Buttons12_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-    mx.lock();
-    socket->write(file_content);
-    //socket->waitForBytesWritten(2000);
-    socket->flush();
-    mx.unlock();
     file.close();
+    QMutexLocker locker(&mx);
+    if (socket->state() == QAbstractSocket::ConnectedState) {
+
+        qint64 bytesWritten = socket->write(file_content);
+        if (bytesWritten == -1) {
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+        }
+        socket->flush();
+    } else {
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
+        return;
+    }
+    locker.unlock();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[12]);
         ClientOrServer::delay(1000);
@@ -1350,6 +1546,7 @@ void Server::on_Buttons12_clicked(){
 }
 //**************************************************************************************************
 void Server::on_Buttons13_clicked(){
+
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
         MQ.warning(0,"","it's not you'r turn...");
@@ -1369,12 +1566,21 @@ void Server::on_Buttons13_clicked(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-     mx.lock();
-    socket->write(file_content);
-    //socket->waitForBytesWritten(2000);
-    socket->flush();
-    mx.unlock();
     file.close();
+
+    QMutexLocker locker(&mx);
+    if (socket->state() == QAbstractSocket::ConnectedState) {
+
+        qint64 bytesWritten = socket->write(file_content);
+        if (bytesWritten == -1) {
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+        }
+        socket->flush();
+    } else {
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
+        return;
+    }
+    locker.unlock();
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[13]);
         ClientOrServer::delay(1000);
@@ -1400,19 +1606,17 @@ void Server::on_Buttons13_clicked(){
 }
 //**************************************************************************************************
 void Server::move_oneCards(buttons& cCards){
-   // mx.lock();
-    QPropertyAnimation *anim = new QPropertyAnimation(cCards.cards_button, "pos", this);
-       anim->setDuration(500);
-       anim->setEndValue(QPoint(290, 290));
-       anim->start();
-       connect(anim,&QAbstractAnimation::finished,this,[&](){cCards.cards_button->disconnect();cCards.cards_button->hide();set_picture(server_card);
-           server_card.cards_button->setGeometry(290,290,101,141);
-           client_card.cards_button->setGeometry(210,240,101,141);});
-   // mx.unlock();
+
+    cCards.cards_button->disconnect();
+    cCards.cards_button->hide();
+    set_picture(server_card);
+    server_card.cards_button->setGeometry(140,230,181,251);
+    client_card.cards_button->setGeometry(660,230,181,251);
+
 }
 //**************************************************************************************************
 void Server::move_twoCards(){
-   // mx.lock();
+    QMutexLocker locker(&mx);
     QPropertyAnimation *animServer = new QPropertyAnimation(server_card.cards_button, "pos", this);
     QPropertyAnimation *animClient = new QPropertyAnimation(client_card.cards_button, "pos", this);
        animServer->setDuration(500);
@@ -1428,7 +1632,6 @@ void Server::move_twoCards(){
        connect(animClient,SIGNAL(finished()),animClient,SLOT(deleteLater()));
        connect(animClient,SIGNAL(finished()),this,SLOT(change_geometry()));
 
-      // mx.unlock();
 }
 //*************************************************************************************************
 void Server ::play(){
@@ -1444,30 +1647,41 @@ void Server ::play(){
 
         }
         writeToFileCards("sendCard.bin",sendCard);
+
         QFile file2("sendCard.bin");
         file2.open(QFile::ReadOnly | QFile::Text);
         QByteArray file_content2 = file2.readAll();
-        mx.lock();
-        socket->write(file_content2);
-        socket->flush();
-        mx.unlock();
         file2.close();
+
+        QMutexLocker locker(&mx);
+        if (socket->state() == QAbstractSocket::ConnectedState) {
+
+            qint64 bytesWritten = socket->write(file_content2);
+            if (bytesWritten == -1) {
+                QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+            }
+            socket->flush();
+        } else {
+            QMessageBox::critical(0, "Error", "Socket is not connected.");
+            return;
+        }
+        locker.unlock();
      /// making parrote cards
-     ///
      whoShouldStartTheGameFirst();
-     server_card.cards_button->setGeometry(290,290,101,141);
-     client_card.cards_button->setGeometry(210,240,101,141);
+     server_card.cards_button->setGeometry(140,230,181,251);
+     client_card.cards_button->setGeometry(660,230,181,251);
      set_picture(server_card);
      set_picture(client_card);
-     ClientOrServer::delay(1000);
+     ClientOrServer::delay(2000);
      move_twoCards();
      //end
      ////guess label....
      ClientOrServer::delay(1000);
+
      guessLabel=new QLineEdit(this);
-       guessLabel->setGeometry(120,310,391,51);
+     guessLabel->setGeometry(202,310,450,51);
      QFont font_line("Algerian");
-     guessLabel->setStyleSheet("font : 14pt;color: rgb(0,0,0);background:rgba(0,0,0,0);border:2px solid;border-color:#000;");
+     guessLabel->setStyleSheet("font : 14pt;color: rgb(255,255,255);background:rgba(0,0,0,0);border:2px solid;border-color:#000;");
      guessLabel->setFont(font_line);
      guessLabel->setPlaceholderText("Enter your guess");
      for(auto& x:pushButtons)x.cards_button->setEnabled(false);
@@ -1504,11 +1718,19 @@ void Server::caculateScore(int rivalScore){
             QFile file("sendCard.bin");
             file.open(QFile::ReadOnly | QFile::Text);
             QByteArray file_content = file.readAll();
-            ////mutex bzar....
-            socket->write(file_content);
-            socket->flush();
-            ////.........
             file.close();
+
+            if (socket->state() == QAbstractSocket::ConnectedState) {
+
+                qint64 bytesWritten = socket->write(file_content);
+                if (bytesWritten == -1) {
+                    QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+                }
+                socket->flush();
+            } else {
+                QMessageBox::critical(0, "Error", "Socket is not connected.");
+                return;
+            }
             currentPlayer.set_lose(currentPlayer.get_lose()+1);
             endOfTheGame->setText("You lose");
 
@@ -1522,11 +1744,19 @@ void Server::caculateScore(int rivalScore){
         QFile file("sendCard.bin");
         file.open(QFile::ReadOnly | QFile::Text);
         QByteArray file_content = file.readAll();
-        ////mutex bzar....
-        socket->write(file_content);
-        socket->flush();
-        ////.........
         file.close();
+
+        if (socket->state() == QAbstractSocket::ConnectedState) {
+
+            qint64 bytesWritten = socket->write(file_content);
+            if (bytesWritten == -1) {
+                QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+            }
+            socket->flush();
+        } else {
+            QMessageBox::critical(0, "Error", "Socket is not connected.");
+            return;
+        }
         currentPlayer.set_win(currentPlayer.get_win()+1);
         currentPlayer.set_coin(currentPlayer.get_coin()+100);
         endOfTheGame->setText("You win");
@@ -1548,18 +1778,27 @@ void Server::caculateScore(int rivalScore){
 }
 //**************************************************************************************************
 void Server::on_continueTheGameButton_clicked(){
+
     cards server_order;
     server_order.setOrder("Continue The Game");
     sendCard.push_back(server_order);
     writeToFileCards("sendCard.bin",sendCard);
     QFile file("sendCard.bin");
-    file.open(QFile::ReadOnly | QFile::Text);
     QByteArray file_content = file.readAll();
-    ////mutex bzar....
-    socket->write(file_content);
-    socket->flush();
-    ////.........
     file.close();
+    QMutexLocker locker(&mx);
+    if (socket->state() == QAbstractSocket::ConnectedState) {
+
+        qint64 bytesWritten = socket->write(file_content);
+        if (bytesWritten == -1) {
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+        }
+        socket->flush();
+    } else {
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
+        return;
+    }
+    locker.unlock();
    currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
    for(auto& x:pushButtons) delete x.cards_button;
    pushButtons.clear();
@@ -1569,69 +1808,15 @@ void Server::on_continueTheGameButton_clicked(){
    play();
 
 }
-//****************************************************************************************************
-void Server::on_pushButton_9_clicked()
-{    if(currentPlayer.get_countOfStop()>1){
-        QMessageBox MQ;
-        MQ.warning(0,"","You are not allowed to do this");
-        return;
-    }
-    currentPlayer.set_countOfStop(currentPlayer.get_countOfStop()+1);
-    ui->pushButton_9->setEnabled(false);
-    ui->pushButton_9->hide();
-    resume->setEnabled(true);
-    resume->show();
-     gameStop->show();
-    for(auto& x:pushButtons) x.cards_button->setEnabled(false);
-     cards server_order;
-     server_order.setOrder("STOP");
-     sendCard.push_back(server_order);
-     writeToFileCards("sendCard.bin",sendCard);
-     QFile file("sendCard.bin");
-     file.open(QFile::ReadOnly | QFile::Text);
-     QByteArray file_content = file.readAll();
-     mx.lock();
-     socket->write(file_content);
-     socket->flush();
-     mx.unlock();
-     file.close();
 
-}
-//****************************************************************************************************
-
-void Server::on_pushButton_7_clicked()
-{
-    currentPlayer.set_lose(currentPlayer.get_lose()+1);
-    auto it = find_if(listOfPlayer.begin(),listOfPlayer.end(),[&](auto p){
-        return(currentPlayer.get_username()==p.get_username());
-    });
-    it->set_lose(currentPlayer.get_lose());
-    writeToFile("myfile.bin");
-    cards server_order;
-    server_order.setOrder("EXIT");
-    sendCard.push_back(server_order);
-    writeToFileCards("sendCard.bin",sendCard);
-    QFile file("sendCard.bin");
-    file.open(QFile::ReadOnly | QFile::Text);
-    QByteArray file_content = file.readAll();
-    mx.lock();
-    socket->write(file_content);
-    socket->flush();
-    mx.unlock();
-    file.close();
-    this->close();
-    Skullking* newPage;
-    newPage=new Skullking;
-    newPage->show();
-    Skullking::delay();
-    newPage->Show_TextBrows();
-}
 //****************************************************************************************************
 void Server::on_resumeButton_clicked(){
+
+
     resume->setEnabled(false);
     resume->hide();
-    ui->pushButton_9->setEnabled(true);
-    ui->pushButton_9->show();
+    ui->stop->setEnabled(true);
+    ui->stop->show();
      gameStop->hide();
     for(auto& x:pushButtons) x.cards_button->setEnabled(true);
      cards server_order;
@@ -1641,11 +1826,21 @@ void Server::on_resumeButton_clicked(){
      QFile file("sendCard.bin");
      file.open(QFile::ReadOnly | QFile::Text);
      QByteArray file_content = file.readAll();
-     mx.lock();
-     socket->write(file_content);
-     socket->flush();
-     mx.unlock();
      file.close();
+
+     QMutexLocker locker(&mx);
+     if (socket->state() == QAbstractSocket::ConnectedState) {
+
+         qint64 bytesWritten = socket->write(file_content);
+         if (bytesWritten == -1) {
+             QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+         }
+         socket->flush();
+     } else {
+         QMessageBox::critical(0, "Error", "Socket is not connected.");
+         return;
+     }
+     locker.unlock();
 
 }
 //*******************************************************************************************************
@@ -1654,4 +1849,113 @@ void Server::on_returnButton(){
     newPage=new menu;
     this->close();
     newPage->show();
+}
+//*******************************************************************************************************
+void Server::on_stop_clicked()
+{
+
+    if(currentPlayer.get_countOfStop()>1){
+        QMessageBox MQ;
+        MQ.warning(0,"","You are not allowed to do this");
+        return;
+    }
+    currentPlayer.set_countOfStop(currentPlayer.get_countOfStop()+1);
+    ui->stop->setEnabled(false);
+    ui->stop->hide();
+    resume->setEnabled(true);
+    resume->show();
+    gameStop->show();
+    for(auto& x:pushButtons) x.cards_button->setEnabled(false);
+    cards server_order;
+    server_order.setOrder("STOP");
+    sendCard.push_back(server_order);
+    writeToFileCards("sendCard.bin",sendCard);
+    QFile file("sendCard.bin");
+    file.open(QFile::ReadOnly | QFile::Text);
+    QByteArray file_content = file.readAll();
+    file.close();
+    QMutexLocker locker(&mx);
+    if (socket->state() == QAbstractSocket::ConnectedState) {
+
+        qint64 bytesWritten = socket->write(file_content);
+        if (bytesWritten == -1) {
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+        }
+        socket->flush();
+    } else {
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
+        return;
+    }
+    locker.unlock();
+
+}
+//*******************************************************************************************************
+void Server::on_exit_clicked()
+{
+
+    currentPlayer.set_lose(currentPlayer.get_lose()+1);
+    auto it = find_if(listOfPlayer.begin(),listOfPlayer.end(),[&](auto p){
+        return(currentPlayer.get_username()==p.get_username());
+    });
+    it->set_lose(currentPlayer.get_lose());
+
+    writeToFile("myfile.bin");
+
+    cards server_order;
+    server_order.setOrder("EXIT");
+    sendCard.push_back(server_order);
+
+    writeToFileCards("sendCard.bin",sendCard);
+    QFile file("sendCard.bin");
+    file.open(QFile::ReadOnly | QFile::Text);
+    QByteArray file_content = file.readAll();
+    file.close();
+
+    QMutexLocker locker(&mx);
+    if (socket->state() == QAbstractSocket::ConnectedState) {
+
+        qint64 bytesWritten = socket->write(file_content);
+        if (bytesWritten == -1) {
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+        }
+        socket->flush();
+    } else {
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
+        return;
+    }
+    locker.unlock();
+    this->close();
+    Skullking* newPage;
+    newPage=new Skullking;
+    newPage->show();
+    Skullking::delay();
+    newPage->Show_TextBrows();
+}
+//*******************************************************************************************************
+void Server::sendNameOrder(){
+
+    cards server_order;
+    QString order="NAME";
+    server_order.setOrder(order);
+    sendCard.push_back(server_order);
+    writeToFileCards("sendCard.bin",sendCard);
+    QFile file("sendCard.bin");
+    file.open(QFile::ReadOnly | QFile::Text);
+    QByteArray file_content = file.readAll();
+    file.close();
+
+    QMutexLocker locker(&mx);
+    if (socket->state() == QAbstractSocket::ConnectedState) {
+
+        qint64 bytesWritten = socket->write(file_content);
+        if (bytesWritten == -1) {
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+        }
+        socket->flush();
+    } else {
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
+        return;
+    }
+    locker.unlock();
+    //QThread::sleep(100);
 }

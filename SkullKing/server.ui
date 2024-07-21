@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>630</width>
+    <width>1000</width>
     <height>700</height>
    </rect>
   </property>
@@ -19,243 +19,217 @@
      <rect>
       <x>0</x>
       <y>0</y>
-      <width>630</width>
+      <width>1000</width>
       <height>700</height>
      </rect>
     </property>
     <property name="styleSheet">
      <string notr="true"/>
     </property>
-    <widget class="QLabel" name="background">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>630</width>
-       <height>700</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">border:3px solid;
-border-image: url(:/resource/background3.jpeg);
-border-color :#000000</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton">
-     <property name="geometry">
-      <rect>
-       <x>410</x>
-       <y>-20</y>
-       <width>83</width>
-       <height>141</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">border-image: url(:/resource/poshtCard.jpg);</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_2">
-     <property name="geometry">
-      <rect>
-       <x>350</x>
-       <y>-10</y>
-       <width>83</width>
-       <height>141</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">border-image: url(:/resource/poshtCard.jpg);</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_3">
-     <property name="geometry">
-      <rect>
-       <x>290</x>
-       <y>0</y>
-       <width>83</width>
-       <height>141</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">border-image: url(:/resource/poshtCard.jpg);</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_4">
-     <property name="geometry">
-      <rect>
-       <x>230</x>
-       <y>0</y>
-       <width>83</width>
-       <height>141</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">border-image: url(:/resource/poshtCard.jpg);</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_5">
-     <property name="geometry">
-      <rect>
-       <x>170</x>
-       <y>-10</y>
-       <width>83</width>
-       <height>141</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">border-image: url(:/resource/poshtCard.jpg);</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_6">
-     <property name="geometry">
-      <rect>
-       <x>110</x>
-       <y>-20</y>
-       <width>83</width>
-       <height>141</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">border-image: url(:/resource/poshtCard.jpg);</string>
-     </property>
-     <property name="text">
-      <string/>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_9">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>140</y>
-       <width>61</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(101, 102, 104);;
-color: rgb(0, 0, 0);
-font: 600 10pt &quot;Sitka Small Semibold&quot;;
-QPushButton#pushButton_9{ 
-background-color: rgb(130, 61, 44);
-color: rgb(0, 0, 0);
-font: 600 10pt &quot;Sitka Small Semibold&quot;;
-}
-QPushButton#pushButton_9:hover{ 
-color:rgba(155,168,182,210)
-}
-QPushButton#pushButton_9:pressed{ 
-padding-left:5px;
-padding-top:5px;
-color:rgba(115 ,128,142,210);
-}
-</string>
-     </property>
-     <property name="text">
-      <string>STOP</string>
-     </property>
-    </widget>
-    <widget class="QPushButton" name="pushButton_7">
-     <property name="geometry">
-      <rect>
-       <x>10</x>
-       <y>190</y>
-       <width>61</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">background-color: rgb(101, 102, 104);;
-color: rgb(0, 0, 0);
-font: 600 10pt &quot;Sitka Small Semibold&quot;;
-QPushButton#pushButton_7{ 
-background-color: rgb(130, 61, 44);
-color: rgb(0, 0, 0);
-font: 600 10pt &quot;Sitka Small Semibold&quot;;
-}
-QPushButton#pushButton_7:hover{ 
-color:rgba(155,168,182,210)
-}
-QPushButton#pushButton_7:pressed{ 
-padding-left:5px;
-padding-top:5px;
-color:rgba(115 ,128,142,210);
-}</string>
-     </property>
-     <property name="text">
-      <string>Exit</string>
-     </property>
-    </widget>
     <widget class="QWidget" name="widget_2" native="true">
      <property name="geometry">
       <rect>
        <x>0</x>
        <y>0</y>
-       <width>630</width>
+       <width>1000</width>
        <height>700</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">QPushButton#pushButton_9{ 
-background-color: rgb(101, 102, 104);
-color: rgb(0, 0, 0);
+      <string notr="true">QPushButton#exit{ 
+background-color: rgba(0,0,0,0);
+border-radius:25px;
+	border-image: url(:/Prefix/resource/Firefly_x_icon_is_circular_in_green_color_in_3D_31063-removebg-preview (1).png);
 font: 600 10pt &quot;Sitka Small Semibold&quot;;
 }
-QPushButton#pushButton_9:hover{ 
-color:rgba(155,168,182,210)
+QPushButton#exit:hover{ 
+background-color: rgba(0,0,0,0);
 }
-QPushButton#pushButton_9:pressed{ 
+QPushButton#exit:pressed{ 
 padding-left:5px;
 padding-top:5px;
 color:rgba(115 ,128,142,210);
 }
-
-QPushButton#pushButton_7{ 
-background-color: rgb(101, 102, 104);
-color: rgb(0, 0, 0);
-font: 600 10pt &quot;Sitka Small Semibold&quot;;
+QPushButton#stop{ 
+border-image: url(:/Prefix/resource/Firefly_pause_icon_is_circular_in_green_color_in_3D_31063-removebg-preview.png);
+background-color: rgba(0,0,0,0);
+border-radius:25px;
 }
-QPushButton#pushButton_7:hover{ 
+QPushButton#stop:hover{ 
 color:rgba(155,168,182,210)
 }
-QPushButton#pushButton_7:pressed{ 
+QPushButton#stop:pressed{ 
 padding-left:5px;
 padding-top:5px;
 color:rgba(115 ,128,142,210);
 }
 </string>
      </property>
+     <widget class="QLabel" name="background">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
+      <property name="geometry">
+       <rect>
+        <x>-40</x>
+        <y>-330</y>
+        <width>1100</width>
+        <height>1100</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border:3px solid;
+border-color :#000000;
+border-image: url(:/Prefix/resource/Firefly 20240720203910.png);
+</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="stop">
+      <property name="geometry">
+       <rect>
+        <x>920</x>
+        <y>270</y>
+        <width>71</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton#stop{ 
+border-image: url(:/Prefix/resource/Firefly_pause_icon_is_circular_in_green_color_in_3D_31063-removebg-preview.png);
+background-color: rgba(0,0,0,0);
+border-radius:25px;
+}
+QPushButton#stop:hover{ 
+color:rgba(155,168,182,210)
+}
+QPushButton#stop:pressed{ 
+padding-left:5px;
+padding-top:5px;
+color:rgba(115 ,128,142,210);
+}
+</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QPushButton" name="exit">
+      <property name="geometry">
+       <rect>
+        <x>920</x>
+        <y>190</y>
+        <width>71</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton#exit{ 
+background-color: rgba(0,0,0,0);
+border-radius:25px;
+	border-image: url(:/Prefix/resource/Firefly_x_icon_is_circular_in_green_color_in_3D_31063-removebg-preview (1).png);
+font: 600 10pt &quot;Sitka Small Semibold&quot;;
+}
+QPushButton#exit:hover{ 
+background-color: rgba(0,0,0,0);
+}
+QPushButton#exit:pressed{ 
+padding-left:5px;
+padding-top:5px;
+color:rgba(115 ,128,142,210);
+}</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="severPic">
+      <property name="geometry">
+       <rect>
+        <x>-10</x>
+        <y>0</y>
+        <width>161</width>
+        <height>141</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-image: url(:/Prefix/resource/Firefly_cute_skeleton_icon_for_game_in_3D_78259-removebg-preview.png);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="clientPic">
+      <property name="geometry">
+       <rect>
+        <x>870</x>
+        <y>10</y>
+        <width>151</width>
+        <height>151</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-image: url(:/Prefix/resource/Firefly_cute_skeleton_icon_for_game_in_3D_56539-removebg-preview.png);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="gost">
+      <property name="geometry">
+       <rect>
+        <x>380</x>
+        <y>180</y>
+        <width>241</width>
+        <height>381</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">border-image: url(:/Prefix/resource/Free_Halloween_T-Shirt_or_Sticker_Design-removebg-preview.png);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="coin">
+      <property name="geometry">
+       <rect>
+        <x>110</x>
+        <y>70</y>
+        <width>71</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 20pt Broadway;  
+border-image: url(:/Prefix/resource/Gold_Coin_Hd_Transparent__Gold_Coin_Skull__Gold__Coin__Skull_PNG_Image_For_Free_Download-removebg-preview.png);
+color: rgb(13, 13, 13);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="coin_2">
+      <property name="geometry">
+       <rect>
+        <x>830</x>
+        <y>90</y>
+        <width>71</width>
+        <height>71</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 20pt Broadway;  
+border-image: url(:/Prefix/resource/Gold_Coin_Hd_Transparent__Gold_Coin_Skull__Gold__Coin__Skull_PNG_Image_For_Free_Download-removebg-preview.png);
+color: rgb(13, 13, 13);</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
     </widget>
-    <zorder>widget_2</zorder>
-    <zorder>background</zorder>
-    <zorder>pushButton</zorder>
-    <zorder>pushButton_2</zorder>
-    <zorder>pushButton_3</zorder>
-    <zorder>pushButton_4</zorder>
-    <zorder>pushButton_5</zorder>
-    <zorder>pushButton_6</zorder>
-    <zorder>pushButton_9</zorder>
-    <zorder>pushButton_7</zorder>
    </widget>
   </widget>
  </widget>
