@@ -41,11 +41,13 @@ public:
      void move_twoCards();
      void play();
      void caculateScore(int rivalScore);
-     void sendNameOrder();
+     void worksForCalculateScore();
+     void sendScore();
      QLabel*scoreNumber;
      QLabel*clientScore;
      QLabel*serverName;
      QLabel*clientName;
+     bool sendName = false;
 
     ~Server();
 signals:

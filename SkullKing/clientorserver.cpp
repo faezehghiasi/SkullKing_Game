@@ -101,7 +101,9 @@ void ClientOrServer::connect_button_clicked(){
     client_label->setText("waiting...");
     client_label->show();
     connect(cln,&Client::closePage,this,&ClientOrServer::closePage);
+
     delay(3000);
+
 }
 
 //*******************************************************************************
@@ -117,14 +119,6 @@ void ClientOrServer::chanePage(){
     QFile file("sendCard.bin");
     file.open(QFile::ReadOnly | QFile::Text);
 
-    // QByteArray file_content = file.readAll();
-    // srv->get_socket()->write(file_content);
-    // srv->get_socket()->flush();
-    // file.close();
-    // this->hide();
-
-    // srv->show();
-    // srv->play();
     QByteArray file_content = file.readAll();
     file.close();
 
@@ -144,7 +138,7 @@ void ClientOrServer::chanePage(){
     this->hide();
 
     srv->show();
-    srv->sendNameOrder();
+
     srv->play();
 }
 //*******************************************************************************

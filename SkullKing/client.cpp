@@ -37,20 +37,23 @@ Client::Client(QWidget *parent) :
 
     serverName= new QLabel(this);
     serverName->setStyleSheet("font: 18pt Broadway;  color: rgb(13, 13, 13);");
-    serverName->setGeometry(770,40,141,41);
-    serverName->hide();
+    serverName->setGeometry(650,40,252,51);
+    serverName->setAlignment(Qt::AlignRight);
+    serverName->show();
 
     serverScore = new QLabel(this);
     serverScore->setStyleSheet("font: 20pt Broadway;  color: rgb(13, 13, 13);");
-    serverScore->setGeometry(690,110,141,41);
-    serverScore->hide();
+    serverScore->setGeometry(710,110,121,41);
+    serverScore->setAlignment(Qt::AlignRight);
+    serverScore->setText("0");
+    serverScore->show();
 
 
 
     clientName= new QLabel(this);
     clientName->setStyleSheet("font: 18pt Broadway;  color: rgb(13, 13, 13);");
-    clientName->setGeometry( 120,30,141,41);
     clientName->setText(currentPlayer.get_name());
+    clientName->setGeometry(120,30,141,41);
     clientName->show();
 
 
@@ -144,9 +147,11 @@ void Client::readyRead() {
 
         }
 
-        //****************************************
-        if(recivedCard[0].getOrder()=="NAME"){
-            sendName();
+        //**********************************************
+        else if (recivedCard[0].getOrder().endsWith('#')) {
+            QString scoreNumber = recivedCard[0].getOrder();
+            scoreNumber.chop(1);
+            serverScore->setText(scoreNumber);
 
         }
         //****************************************
@@ -169,6 +174,7 @@ void Client::readyRead() {
         }
         //*******************************************
         else if(recivedCard[0].getOrder()=="You Win"){
+
             currentPlayer.set_win(currentPlayer.get_win()+1);
             currentPlayer.set_coin(currentPlayer.get_coin()+100);
             auto foundPlayer=find_if(listOfPlayer.begin(),listOfPlayer.end(),[](auto x){return(x.get_username()==currentPlayer.get_username());});
@@ -220,31 +226,17 @@ void Client::readyRead() {
             set_picture(server_card);
 
             ///calculateing the score
-            if(!client_card.empty()&& !server_card.empty()){
-                currentPlayer.calculate(server_card.thisCard);
-                ClientOrServer::delay(2000);
-                move_twoCards();
-                if(currentPlayer.playeCard.size()==0){
-                    if(currentPlayer.get_countOfTurn()==7){
-                        for(auto& x:pushButtons) delete x.cards_button;
-                        pushButtons.clear();
-                        endOfTheGame->setEnabled(true);
-                        endOfTheGame->show();
-                        returnButton->setEnabled(true);
-                        returnButton->show();
-                    }
-                    else{ currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
-                        continueTheGameButton->show();}
-
-                }
-            }
+            worksForCalculateScore();
             /// end
         }
 
     }
     //************************************************************************************
     else if(recivedCard.size()==2){
-
+        if(!recivedName){
+        serverName->setText(recivedCard[0].getOrder());
+            recivedName = true;
+        }
         if(recivedCard[0].getNumber()<recivedCard[1].getNumber()) {
             currentPlayer.set_turn(true);
             currentPlayer.set_starterOfEachRound(true);
@@ -283,6 +275,7 @@ void Client::readyRead() {
     }
     //*************************************************************************************************
     else{
+
         if (currentPlayer.get_countOfTurn()>1)calculateScore();
         for(auto& x:pushButtons) delete x.cards_button;
         pushButtons.clear();
@@ -297,221 +290,217 @@ void Client::readyRead() {
 }
 //***************************************************************************
 void Client::showCards(QList<cards> cCards){
+    switch(cCards.size()){
+    case 2:{
+        for(int i = 0;i<2;i++){
+            buttons QP;
+            QP.cards_button = new QPushButton(this);
+            QP.thisCard= cCards[i];
+            pushButtons.push_back(QP);
+        }
+        int X =190;
+        int Y = 490;
+        int height = 181;
+        int width =101;
+        for(int i=0;i<2;i++,X+=120){
+            pushButtons[i].cards_button->setGeometry(X,Y,width,height);
+            pushButtons[i]. cards_button->show();
+        }
+        connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons0_clicked()));
+        connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons1_clicked()));
+    }
+    break;
+    case 4:{
+        for(int i = 0;i<4;i++){
+            buttons QP;
+            QP.cards_button = new QPushButton(this);
+            QP.thisCard= cCards[i];
+            pushButtons.push_back(QP);
+        }
+        int X =100;
+        int Y = 510;
+        int height = 171;
+        int width =101;
+        for(int i=0;i<2;i++,X+=90,Y-=10){
+            pushButtons[i].cards_button->setGeometry(X,Y,width,height);
+            pushButtons[i].cards_button->show();
+        }
+        Y+=10;
+        for(int i=2;i<4;i++,X+=90,Y+=10){
+            pushButtons[i].cards_button->setGeometry(X,Y,width,height);
+            pushButtons[i].cards_button->show();
+        }
+        connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT(  on_Buttons0_clicked()));
+        connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons1_clicked()));
+        connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons2_clicked()));
+        connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT(  on_Buttons3_clicked()));
+    }
+    break;
+    case 6:{
+        for(int i = 0;i<6;i++){
+            buttons QP;
+            QP.cards_button = new QPushButton(this);
+            QP.thisCard= cCards[i];
+            pushButtons.push_back(QP);
+        }
+        int X = 90;
+        int Y = 530;
+        int height = 151;
+        int width =91;
+        for(int i=0;i<3;i++,X+=70,Y-=10){
+            pushButtons[i].cards_button->setGeometry(X,Y,width,height);
+            pushButtons[i].cards_button->show();
+        }
+        Y+=10;
+        for(int i=3;i<6;i++,X+=70,Y+=10){
+            pushButtons[i].cards_button->setGeometry(X,Y,width,height);
+            pushButtons[i].cards_button->show();
+        }
+        connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT(  on_Buttons0_clicked()));
+        connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons1_clicked()));
+        connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT(  on_Buttons2_clicked()));
+        connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT(  on_Buttons3_clicked()));
+        connect(pushButtons[4].cards_button,SIGNAL(clicked()),this,SLOT(  on_Buttons4_clicked()));
+        connect(pushButtons[5].cards_button,SIGNAL(clicked()),this,SLOT(  on_Buttons5_clicked()));
+    }
+    break;
+    case 8:{
+        for(int i = 0;i<8;i++){
+            buttons QP;
+            QP.cards_button = new QPushButton(this);
+            QP.thisCard= cCards[i];
+            pushButtons.push_back(QP);
+        }
+        int X = 60;
+        int Y = 540;
+        int height = 131;
+        int width =81;
+        for(int i=0;i<4;i++,X+=60,Y-=10){
+            pushButtons[i].cards_button->setGeometry(X,Y,width,height);
+            pushButtons[i].cards_button->show();
+        }
+        Y+=10;
+        for(int i=4;i<8;i++,X+=60,Y+=10){
+            pushButtons[i].cards_button->setGeometry(X,Y,width,height);
+            pushButtons[i].cards_button->show();
+        }
+        connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT(  on_Buttons0_clicked()));
+        connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT(  on_Buttons1_clicked()));
+        connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT(  on_Buttons2_clicked()));
+        connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT(  on_Buttons3_clicked()));
+        connect(pushButtons[4].cards_button,SIGNAL(clicked()),this,SLOT(  on_Buttons4_clicked()));
+        connect(pushButtons[5].cards_button,SIGNAL(clicked()),this,SLOT(  on_Buttons5_clicked()));
+        connect(pushButtons[6].cards_button,SIGNAL(clicked()),this,SLOT(  on_Buttons6_clicked()));
+        connect(pushButtons[7].cards_button,SIGNAL(clicked()),this,SLOT(  on_Buttons7_clicked()));
+    }
+    break;
+    case 10:{
+        for(int i = 0;i<10;i++){
+            buttons QP;
+            QP.cards_button = new QPushButton(this);
+            QP.thisCard= cCards[i];
+            pushButtons.push_back(QP);
+        }
+        int X = 40;
+        int Y = 550;
+        int height = 131;
+        int width =71;
+        for(int i=0;i<5;i++,X+=50,Y-=10){
+            pushButtons[i].cards_button->setGeometry(X,Y,width,height);
+            pushButtons[i].cards_button->show();
+        }
+        Y+=10;
+        for(int i=5;i<10;i++,X+=50,Y+=10){
+            pushButtons[i].cards_button->setGeometry(X,Y,width,height);
+            pushButtons[i].cards_button->show();
+        }
 
-   switch(cCards.size()){
-   case 2:{
-       for(int i = 0;i<2;i++){
-           buttons QP;
-           QP.cards_button = new QPushButton(this);
-           QP.thisCard= cCards[i];
+        connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons0_clicked()));
+        connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons1_clicked()));
+        connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons2_clicked()));
+        connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons3_clicked()));
+        connect(pushButtons[4].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons4_clicked()));
+        connect(pushButtons[5].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons5_clicked()));
+        connect(pushButtons[6].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons6_clicked()));
+        connect(pushButtons[7].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons7_clicked()));
+        connect(pushButtons[8].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons8_clicked()));
+        connect(pushButtons[9].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons9_clicked()));
+    }
+    break;
+    case 12:{
+        for(int i = 0;i<12;i++){
+            buttons QP;
+            QP.cards_button = new QPushButton(this);
+            QP.thisCard= cCards[i];
             pushButtons.push_back(QP);
-       }
-       int X =190;
-       int Y = 490;
-       int height = 181;
-       int width =101;
-       for(int i=0;i<2;i++,X+=120){
-           pushButtons[i].cards_button->setGeometry(X,Y,width,height);
-          pushButtons[i]. cards_button->show();
-       }
-       connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons0_clicked()));
-       connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons1_clicked()));
-   }
-             break;
-   case 4:{
-       for(int i = 0;i<4;i++){
-           buttons QP;
-           QP.cards_button = new QPushButton(this);
-           QP.thisCard= cCards[i];
-            pushButtons.push_back(QP);
-       }
-       int X =100;
-       int Y = 510;
-       int height = 171;
-       int width =101;
-       for(int i=0;i<2;i++,X+=90,Y-=10){
-           pushButtons[i].cards_button->setGeometry(X,Y,width,height);
-           pushButtons[i].cards_button->show();
-       }
-       Y+=10;
-       for(int i=2;i<4;i++,X+=90,Y+=10){
-           pushButtons[i].cards_button->setGeometry(X,Y,width,height);
-           pushButtons[i].cards_button->show();
-       }
-       connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons0_clicked()));
-       connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons1_clicked()));
-       connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons2_clicked()));
-       connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons3_clicked()));
-   }
-              break;
-   case 6:{
-       for(int i = 0;i<6;i++){
-           buttons QP;
-           QP.cards_button = new QPushButton(this);
-           QP.thisCard= cCards[i];
-            pushButtons.push_back(QP);
-       }
-       int X = 90;
-       int Y = 530;
-       int height = 151;
-       int width =91;
-       for(int i=0;i<3;i++,X+=70,Y-=10){
-           pushButtons[i].cards_button->setGeometry(X,Y,width,height);
-           pushButtons[i].cards_button->show();
-       }
-       Y+=10;
-       for(int i=3;i<6;i++,X+=70,Y+=10){
-           pushButtons[i].cards_button->setGeometry(X,Y,width,height);
-           pushButtons[i].cards_button->show();
-       }
-       connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons0_clicked()));
-       connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons1_clicked()));
-       connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons2_clicked()));
-       connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons3_clicked()));
-       connect(pushButtons[4].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons4_clicked()));
-       connect(pushButtons[5].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons5_clicked()));
-   }
-              break;
-   case 8:{
-       for(int i = 0;i<8;i++){
-           buttons QP;
-           QP.cards_button = new QPushButton(this);
-           QP.thisCard= cCards[i];
-            pushButtons.push_back(QP);
-       }
-       int X = 60;
-       int Y = 540;
-       int height = 131;
-       int width =81;
-       for(int i=0;i<4;i++,X+=60,Y-=10){
-           pushButtons[i].cards_button->setGeometry(X,Y,width,height);
-           pushButtons[i].cards_button->show();
-       }
-       Y+=10;
-       for(int i=4;i<8;i++,X+=60,Y+=10){
-           pushButtons[i].cards_button->setGeometry(X,Y,width,height);
-           pushButtons[i].cards_button->show();
-       }
-       connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons0_clicked()));
-       connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons1_clicked()));
-       connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons2_clicked()));
-       connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons3_clicked()));
-       connect(pushButtons[4].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons4_clicked()));
-       connect(pushButtons[5].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons5_clicked()));
-       connect(pushButtons[6].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons6_clicked()));
-       connect(pushButtons[7].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons7_clicked()));
-   }
-              break;
-   case 10:{
-       for(int i = 0;i<10;i++){
-           buttons QP;
-           QP.cards_button = new QPushButton(this);
-           QP.thisCard= cCards[i];
-            pushButtons.push_back(QP);
-       }
-       int X = 40;
-       int Y = 550;
-       int height = 131;
-       int width =71;
-       for(int i=0;i<5;i++,X+=50,Y-=10){
-           pushButtons[i].cards_button->setGeometry(X,Y,width,height);
-           pushButtons[i].cards_button->show();
-       }
-         Y+=10;
-       for(int i=5;i<10;i++,X+=50,Y+=10){
-           pushButtons[i].cards_button->setGeometry(X,Y,width,height);
-           pushButtons[i].cards_button->show();
-       }
+        }
+        int X = 5;
+        int Y = 560;
+        int height = 131;
+        int width =71;
+        for(int i=0;i<6;i++,X+=50,Y-=10){
+            pushButtons[i].cards_button->setGeometry(X,Y,width,height);
+            pushButtons[i].cards_button->show();
+        }
+        Y+=10;
+        for(int i=6;i<12;i++,X+=50,Y+=10){
+            pushButtons[i].cards_button->setGeometry(X,Y,width,height);
+            pushButtons[i].cards_button->show();
+        }
 
-       connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons0_clicked()));
-       connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons1_clicked()));
-       connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons2_clicked()));
-       connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons3_clicked()));
-       connect(pushButtons[4].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons4_clicked()));
-       connect(pushButtons[5].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons5_clicked()));
-       connect(pushButtons[6].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons6_clicked()));
-       connect(pushButtons[7].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons7_clicked()));
-       connect(pushButtons[8].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons8_clicked()));
-       connect(pushButtons[9].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons9_clicked()));
-   }
-              break;
-   case 12:{
-       for(int i = 0;i<12;i++){
-           buttons QP;
-           QP.cards_button = new QPushButton(this);
-           QP.thisCard= cCards[i];
+        connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons0_clicked()));
+        connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons1_clicked()));
+        connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons2_clicked()));
+        connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons3_clicked()));
+        connect(pushButtons[4].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons4_clicked()));
+        connect(pushButtons[5].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons5_clicked()));
+        connect(pushButtons[6].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons6_clicked()));
+        connect(pushButtons[7].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons7_clicked()));
+        connect(pushButtons[8].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons8_clicked()));
+        connect(pushButtons[9].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons9_clicked()));
+        connect(pushButtons[10].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons10_clicked()));
+        connect(pushButtons[11].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons11_clicked()));
+    }
+    break;
+    case 14: {
+        for(int i = 0;i<14;i++){
+            buttons QP;
+            QP.cards_button = new QPushButton(this);
+            QP.thisCard= cCards[i];
             pushButtons.push_back(QP);
-       }
-       int X = 5;
-       int Y = 560;
-       int height = 131;
-       int width =71;
-       for(int i=0;i<6;i++,X+=50,Y-=10){
-           pushButtons[i].cards_button->setGeometry(X,Y,width,height);
-           pushButtons[i].cards_button->show();
-       }
-         Y+=10;
-       for(int i=6;i<12;i++,X+=50,Y+=10){
-           pushButtons[i].cards_button->setGeometry(X,Y,width,height);
-           pushButtons[i].cards_button->show();
-       }
-
-       connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons0_clicked()));
-       connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons1_clicked()));
-       connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons2_clicked()));
-       connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons3_clicked()));
-       connect(pushButtons[4].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons4_clicked()));
-       connect(pushButtons[5].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons5_clicked()));
-       connect(pushButtons[6].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons6_clicked()));
-       connect(pushButtons[7].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons7_clicked()));
-       connect(pushButtons[8].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons8_clicked()));
-       connect(pushButtons[9].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons9_clicked()));
-       connect(pushButtons[10].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons10_clicked()));
-       connect(pushButtons[11].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons11_clicked()));
-   }
-              break;
-   case 14: {
-       for(int i = 0;i<14;i++){
-           buttons QP;
-           QP.cards_button = new QPushButton(this);
-           QP.thisCard= cCards[i];
-            pushButtons.push_back(QP);
-       }
-       int X =10;
-       int Y = 540;
-       int height = 140;
-       int width =60;
-       for(int i=0;i<7;i++,X+=42,Y-=10){
-           pushButtons[i].cards_button->setGeometry(X,Y,width,height);
-           pushButtons[i].cards_button->show();
-       }
-         Y+=10;
-       for(int i=7;i<14;i++,X+=42,Y+=10){
-           pushButtons[i].cards_button->setGeometry(X,Y,width,height);
-           pushButtons[i].cards_button->show();
-       }
-       connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons0_clicked()));
-       connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons1_clicked()));
-       connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons2_clicked()));
-       connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons3_clicked()));
-       connect(pushButtons[4].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons4_clicked()));
-       connect(pushButtons[5].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons5_clicked()));
-       connect(pushButtons[6].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons6_clicked()));
-       connect(pushButtons[7].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons7_clicked()));
-       connect(pushButtons[8].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons8_clicked()));
-       connect(pushButtons[9].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons9_clicked()));
-       connect(pushButtons[10].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons10_clicked()));
-       connect(pushButtons[11].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons11_clicked()));
-       connect(pushButtons[12].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons12_clicked()));
-       connect(pushButtons[13].cards_button,SIGNAL(clicked()),this,SLOT(on_Buttons13_clicked()));
+        }
+        int X =10;
+        int Y = 540;
+        int height = 140;
+        int width =60;
+        for(int i=0;i<7;i++,X+=42,Y-=10){
+            pushButtons[i].cards_button->setGeometry(X,Y,width,height);
+            pushButtons[i].cards_button->show();
+        }
+        Y+=10;
+        for(int i=7;i<14;i++,X+=42,Y+=10){
+            pushButtons[i].cards_button->setGeometry(X,Y,width,height);
+            pushButtons[i].cards_button->show();
+        }
+        connect(pushButtons[0].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons0_clicked()));
+        connect(pushButtons[1].cards_button,SIGNAL(clicked()),this,SLOT(  on_Buttons1_clicked()));
+        connect(pushButtons[2].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons2_clicked()));
+        connect(pushButtons[3].cards_button,SIGNAL(clicked()),this,SLOT(  on_Buttons3_clicked()));
+        connect(pushButtons[4].cards_button,SIGNAL(clicked()),this,SLOT(  on_Buttons4_clicked()));
+        connect(pushButtons[5].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons5_clicked()));
+        connect(pushButtons[6].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons6_clicked()));
+        connect(pushButtons[7].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons7_clicked()));
+        connect(pushButtons[8].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons8_clicked()));
+        connect(pushButtons[9].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons9_clicked()));
+        connect(pushButtons[10].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons10_clicked()));
+        connect(pushButtons[11].cards_button,SIGNAL(clicked()),this,SLOT(  on_Buttons11_clicked()));
+        connect(pushButtons[12].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons12_clicked()));
+        connect(pushButtons[13].cards_button,SIGNAL(clicked()),this,SLOT( on_Buttons13_clicked()));
 
     }
-              break;
+    break;
 
-  }
-
-
-
+    }
 
 }
 //***************************************************************************
@@ -573,26 +562,9 @@ void Client::on_Buttons0_clicked(){
     move_oneCards(pushButtons[0]);
     ClientOrServer::delay(1000);
     pushButtons[0].clear();
-    if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(server_card.thisCard);
-      ClientOrServer::delay(1000);
-       move_twoCards();
-       if(currentPlayer.playeCard.size()==0){
-           ///////////////////////////////////////
-           if(currentPlayer.get_countOfTurn()==7){
-               for(auto& x:pushButtons) delete x.cards_button;
-               pushButtons.clear();
-               endOfTheGame->setEnabled(true);
-               endOfTheGame->show();
-               returnButton->setEnabled(true);
-               returnButton->show();
-           }
-           ////////////////////////////////////////////////////
-          else{
-               continueTheGameButton->show();
-          currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
-       }
-    }
+
+    worksForCalculateScore();
+
 
 }
 //**************************************************************************************************
@@ -633,27 +605,8 @@ void Client::on_Buttons1_clicked(){
      move_oneCards(pushButtons[1]);
      ClientOrServer::delay(1000);
      pushButtons[1].clear();
-     if(!client_card.empty()&& !server_card.empty()){
-       currentPlayer.calculate(server_card.thisCard);
-       ClientOrServer::delay(1000);
-        move_twoCards();
-        if(currentPlayer.playeCard.size()==0){
-            ///////////////////////////////////////
-            if(currentPlayer.get_countOfTurn()==7){
-                for(auto& x:pushButtons) delete x.cards_button;
-                pushButtons.clear();
-                endOfTheGame->setEnabled(true);
-                endOfTheGame->show();
-                returnButton->setEnabled(true);
-                returnButton->show();
-            }
-            ////////////////////////////////////////////////////
-           else{
-             continueTheGameButton->show();
-             currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
+     worksForCalculateScore();
 
-        }
-     }
 
 }
 //**************************************************************************************************
@@ -696,28 +649,8 @@ void Client::on_Buttons2_clicked(){
       move_oneCards(pushButtons[2]);
       ClientOrServer::delay(1000);
       pushButtons[2].clear();
-      if(!client_card.empty()&& !server_card.empty()){
-        currentPlayer.calculate(server_card.thisCard);
-        ClientOrServer::delay(1000);
-         move_twoCards();
-         if(currentPlayer.playeCard.size()==0){
-             ///////////////////////////////////////
-             if(currentPlayer.get_countOfTurn()==7){
-                 for(auto& x:pushButtons) delete x.cards_button;
-                 pushButtons.clear();
-                 endOfTheGame->setEnabled(true);
-                 endOfTheGame->show();
-                 returnButton->setEnabled(true);
-                 returnButton->show();
-             }
-             ////////////////////////////////////////////////////
-            else{
+      worksForCalculateScore();
 
-              continueTheGameButton->show();
-               currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
-
-         }
-      }
 
 
 }
@@ -759,27 +692,8 @@ void Client::on_Buttons3_clicked(){
     move_oneCards(pushButtons[3]);
     ClientOrServer::delay(1000);
     pushButtons[3].clear();
-    if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(server_card.thisCard);
-      ClientOrServer::delay(1000);
-       move_twoCards();
-       if(currentPlayer.playeCard.size()==0){
-           ///////////////////////////////////////
-           if(currentPlayer.get_countOfTurn()==7){
-               for(auto& x:pushButtons) delete x.cards_button;
-               pushButtons.clear();
-               endOfTheGame->setEnabled(true);
-               endOfTheGame->show();
-               returnButton->setEnabled(true);
-               returnButton->show();
-           }
-           ////////////////////////////////////////////////////
-          else{
-              continueTheGameButton->show();
-               currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
+    worksForCalculateScore();
 
-       }
-    }
 
 
 }
@@ -821,27 +735,7 @@ void Client::on_Buttons4_clicked(){
     move_oneCards(pushButtons[4]);
     ClientOrServer::delay(1000);
     pushButtons[4].clear();
-    if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(server_card.thisCard);
-      ClientOrServer::delay(1000);
-       move_twoCards();
-       if(currentPlayer.playeCard.size()==0){
-           ///////////////////////////////////////
-           if(currentPlayer.get_countOfTurn()==7){
-               for(auto& x:pushButtons) delete x.cards_button;
-               pushButtons.clear();
-               endOfTheGame->setEnabled(true);
-               endOfTheGame->show();
-               returnButton->setEnabled(true);
-               returnButton->show();
-           }
-           ////////////////////////////////////////////////////
-          else{
-           continueTheGameButton->show();
-            currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
-
-       }
-    }
+    worksForCalculateScore();
 
 
 }
@@ -882,27 +776,8 @@ void Client::on_Buttons5_clicked(){
     move_oneCards(pushButtons[5]);
     ClientOrServer::delay(1000);
     pushButtons[5].clear();
-    if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(server_card.thisCard);
-      ClientOrServer::delay(1000);
-       move_twoCards();
-       if(currentPlayer.playeCard.size()==0){
-           ///////////////////////////////////////
-           if(currentPlayer.get_countOfTurn()==7){
-               for(auto& x:pushButtons) delete x.cards_button;
-               pushButtons.clear();
-               endOfTheGame->setEnabled(true);
-               endOfTheGame->show();
-               returnButton->setEnabled(true);
-               returnButton->show();
-           }
-           ////////////////////////////////////////////////////
-          else{
-         continueTheGameButton->show();
-          currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
+    worksForCalculateScore();
 
-       }
-    }
 
 
 }
@@ -944,27 +819,8 @@ void Client::on_Buttons6_clicked(){
       move_oneCards(pushButtons[6]);
       ClientOrServer::delay(1000);
       pushButtons[6].clear();
-      if(!client_card.empty()&& !server_card.empty()){
-        currentPlayer.calculate(server_card.thisCard);
-        ClientOrServer::delay(1000);
-         move_twoCards();
-         if(currentPlayer.playeCard.size()==0){
-             ///////////////////////////////////////
-             if(currentPlayer.get_countOfTurn()==7){
-                 for(auto& x:pushButtons) delete x.cards_button;
-                 pushButtons.clear();
-                 endOfTheGame->setEnabled(true);
-                 endOfTheGame->show();
-                 returnButton->setEnabled(true);
-                 returnButton->show();
-             }
-             ////////////////////////////////////////////////////
-            else{
-            continueTheGameButton->show();
-             currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
+      worksForCalculateScore();
 
-         }
-      }
 
 
 }
@@ -1006,27 +862,7 @@ void Client::on_Buttons7_clicked(){
       move_oneCards(pushButtons[7]);
       ClientOrServer::delay(1000);
       pushButtons[7].clear();
-      if(!client_card.empty()&& !server_card.empty()){
-        currentPlayer.calculate(server_card.thisCard);
-        ClientOrServer::delay(1000);
-         move_twoCards();
-         if(currentPlayer.playeCard.size()==0){
-             ///////////////////////////////////////
-             if(currentPlayer.get_countOfTurn()==7){
-                 for(auto& x:pushButtons) delete x.cards_button;
-                 pushButtons.clear();
-                 endOfTheGame->setEnabled(true);
-                 endOfTheGame->show();
-                 returnButton->setEnabled(true);
-                 returnButton->show();
-             }
-             ////////////////////////////////////////////////////
-            else{
-             continueTheGameButton->show();
-              currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
-
-         }
-      }
+      worksForCalculateScore();
 
 
 }
@@ -1068,27 +904,8 @@ void Client::on_Buttons8_clicked(){
       move_oneCards(pushButtons[8]);
       ClientOrServer::delay(1000);
       pushButtons[8].clear();
-      if(!client_card.empty()&& !server_card.empty()){
-        currentPlayer.calculate(server_card.thisCard);
-        ClientOrServer::delay(1000);
-         move_twoCards();
-         if(currentPlayer.playeCard.size()==0){
-             ///////////////////////////////////////
-             if(currentPlayer.get_countOfTurn()==7){
-                 for(auto& x:pushButtons) delete x.cards_button;
-                 pushButtons.clear();
-                 endOfTheGame->setEnabled(true);
-                 endOfTheGame->show();
-                 returnButton->setEnabled(true);
-                 returnButton->show();
-             }
-             ////////////////////////////////////////////////////
-            else{
-           continueTheGameButton->show();
-            currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
+      worksForCalculateScore();
 
-         }
-      }
 
 
 }
@@ -1130,27 +947,7 @@ void Client::on_Buttons9_clicked(){
       move_oneCards(pushButtons[9]);
       ClientOrServer::delay(1000);
       pushButtons[9].clear();
-      if(!client_card.empty()&& !server_card.empty()){
-        currentPlayer.calculate(server_card.thisCard);
-        ClientOrServer::delay(1000);
-         move_twoCards();
-         if(currentPlayer.playeCard.size()==0){
-             ///////////////////////////////////////
-             if(currentPlayer.get_countOfTurn()==7){
-                 for(auto& x:pushButtons) delete x.cards_button;
-                 pushButtons.clear();
-                 endOfTheGame->setEnabled(true);
-                 endOfTheGame->show();
-                 returnButton->setEnabled(true);
-                 returnButton->show();
-             }
-             ////////////////////////////////////////////////////
-            else{
-           continueTheGameButton->show();
-            currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
-
-         }
-      }
+      worksForCalculateScore();
 
 
 }
@@ -1192,27 +989,8 @@ void Client::on_Buttons10_clicked(){
     move_oneCards(pushButtons[10]);
     ClientOrServer::delay(1000);
     pushButtons[10].clear();
-    if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(server_card.thisCard);
-      ClientOrServer::delay(1000);
-       move_twoCards();
-       if(currentPlayer.playeCard.size()==0){
-           ///////////////////////////////////////
-           if(currentPlayer.get_countOfTurn()==7){
-               for(auto& x:pushButtons) delete x.cards_button;
-               pushButtons.clear();
-               endOfTheGame->setEnabled(true);
-               endOfTheGame->show();
-               returnButton->setEnabled(true);
-               returnButton->show();
-           }
-           ////////////////////////////////////////////////////
-          else{
-          continueTheGameButton->show();
-           currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
+    worksForCalculateScore();
 
-       }
-    }
 
 
 }
@@ -1254,27 +1032,8 @@ void Client::on_Buttons11_clicked(){
       move_oneCards(pushButtons[11]);
       ClientOrServer::delay(1000);
       pushButtons[11].clear();
-      if(!client_card.empty()&& !server_card.empty()){
-        currentPlayer.calculate(server_card.thisCard);
-        ClientOrServer::delay(1000);
-         move_twoCards();
-         if(currentPlayer.playeCard.size()==0){
-             ///////////////////////////////////////
-             if(currentPlayer.get_countOfTurn()==7){
-                 for(auto& x:pushButtons) delete x.cards_button;
-                 pushButtons.clear();
-                 endOfTheGame->setEnabled(true);
-                 endOfTheGame->show();
-                 returnButton->setEnabled(true);
-                 returnButton->show();
-             }
-             ////////////////////////////////////////////////////
-            else{
-            continueTheGameButton->show();
-             currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
+      worksForCalculateScore();
 
-         }
-      }
 
 }
 //**************************************************************************************************
@@ -1315,27 +1074,8 @@ void Client::on_Buttons12_clicked(){
     move_oneCards(pushButtons[12]);
     ClientOrServer::delay(1000);
     pushButtons[12].clear();
-    if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(server_card.thisCard);
-      ClientOrServer::delay(1000);
-       move_twoCards();
-       if(currentPlayer.playeCard.size()==0){
-           ///////////////////////////////////////
-           if(currentPlayer.get_countOfTurn()==7){
-               for(auto& x:pushButtons) delete x.cards_button;
-               pushButtons.clear();
-               endOfTheGame->setEnabled(true);
-               endOfTheGame->show();
-               returnButton->setEnabled(true);
-               returnButton->show();
-           }
-           ////////////////////////////////////////////////////
-          else{
-           continueTheGameButton->show();
-            currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
+    worksForCalculateScore();
 
-       }
-    }
 
 
 }
@@ -1375,27 +1115,8 @@ void Client::on_Buttons13_clicked(){
       move_oneCards(pushButtons[13]);
       ClientOrServer::delay(1000);
       pushButtons[13].clear();
-      if(!client_card.empty()&& !server_card.empty()){
-        currentPlayer.calculate(server_card.thisCard);
-        ClientOrServer::delay(1000);
-         move_twoCards();
-         if(currentPlayer.playeCard.size()==0){
-             ///////////////////////////////////////
-             if(currentPlayer.get_countOfTurn()==7){
-                 for(auto& x:pushButtons) delete x.cards_button;
-                 pushButtons.clear();
-                 endOfTheGame->setEnabled(true);
-                 endOfTheGame->show();
-                 returnButton->setEnabled(true);
-                 returnButton->show();
-             }
-             ////////////////////////////////////////////////////
-            else{
-             continueTheGameButton->show();
-             currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
 
-         }
-      }
+      worksForCalculateScore();
 
 }
 //**************************************************************************************************
@@ -1662,6 +1383,7 @@ void Client::calculateScore(){
    // foundPlayer->set_score(currentPlayer.get_score());
     //writeToFile("myfile.bin");
     scoreNumber->setText(QString::number(currentPlayer.get_score()));
+    sendScore();
     currentPlayer.set_setWin(0);
 }
 //********************************************************************************************************************
@@ -1811,12 +1533,66 @@ void Client::on_exit_clicked()
     newPage->Show_TextBrows();
 }
 
+// //*******************************************************************************************************************
+// void Client::sendName(){
+
+//     cards client_order;
+//     QString order=currentPlayer.get_name()+"*";
+//     client_order.setOrder(order);
+//     sendCard.push_back(client_order);
+//     writeToFileCards("sendCard.bin",sendCard);
+//     QFile file("sendCard.bin");
+//     file.open(QFile::ReadOnly | QFile::Text);
+//     QByteArray file_content = file.readAll();
+//     file.close();
+
+//     QMutexLocker locker(&mx2);
+//     if (socket->state() == QAbstractSocket::ConnectedState) {
+
+//         qint64 bytesWritten = socket->write(file_content);
+//         if (bytesWritten == -1) {
+//             QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+//         }
+//         socket->flush();
+//     } else {
+//         QMessageBox::critical(0, "Error", "Socket is not connected.");
+//         return;
+//     }
+//     locker.unlock();
+// }
 //*******************************************************************************************************************
-void Client::sendName(){
+void Client::worksForCalculateScore(){
+
+    if(!client_card.empty()&& !server_card.empty()){
+        currentPlayer.calculate(server_card.thisCard);
+        ClientOrServer::delay(1000);
+        move_twoCards();
+        if(currentPlayer.playeCard.size()==0){
+            ///////////////////////////////////////
+            if(currentPlayer.get_countOfTurn()==7){
+                for(auto& x:pushButtons) delete x.cards_button;
+                pushButtons.clear();
+                endOfTheGame->setEnabled(true);
+                endOfTheGame->show();
+                returnButton->setEnabled(true);
+                returnButton->show();
+            }
+            ////////////////////////////////////////////////////
+            else{
+                continueTheGameButton->show();
+                currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);}
+
+        }
+        sendScore();
+    }
+}
+//*******************************************************************************************************************
+void Client::sendScore(){
 
     cards client_order;
-    QString order=currentPlayer.get_name()+"*";
+    QString order= currentPlayer.get_name() +"#";
     client_order.setOrder(order);
+    client_order.setNumber(currentPlayer.get_score());
     sendCard.push_back(client_order);
     writeToFileCards("sendCard.bin",sendCard);
     QFile file("sendCard.bin");
@@ -1837,4 +1613,7 @@ void Client::sendName(){
         return;
     }
     locker.unlock();
+
 }
+
+

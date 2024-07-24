@@ -34,11 +34,14 @@ public:
     void move_oneCards(buttons& c);
     void move_twoCards();
     void calculateScore();
-    void sendName();
+   // void sendName();
+    void sendScore();
+    void worksForCalculateScore();
     QLabel*scoreNumber;
     QLabel*serverScore;
     QLabel*serverName;
     QLabel*clientName;
+    bool recivedName = false;
 signals:
     void existClient();
     void closePage();

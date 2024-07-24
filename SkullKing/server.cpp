@@ -19,6 +19,7 @@ QMutex mx;
 QMutex mxForRead;
 //******
 Server * srv;
+
 Server::Server(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::Server)
@@ -49,15 +50,19 @@ Server::Server(QWidget *parent) :
 
     clientScore = new QLabel(this);
     clientScore->setStyleSheet("font: 20pt Broadway;  color: rgb(13, 13, 13);");
-    clientScore->setGeometry(690,110,141,41);
-    clientScore->hide();
+    clientScore->setGeometry(710,110,121,41);
+    clientScore->setAlignment(Qt::AlignRight);
+    clientScore->setText("0");
+    clientScore->show();
 
 
 
     clientName= new QLabel(this);
     clientName->setStyleSheet("font: 18pt Broadway;  color: rgb(13, 13, 13);");
-    clientName->setGeometry(770,40,141,41);
-    clientName->hide();
+    clientName->setGeometry(650,40,252,51);
+    clientName->setAlignment(Qt::AlignRight);
+    clientName->setText("competitor");
+    clientName->show();
 
 
 
@@ -153,20 +158,21 @@ void Server :: readyRead(){
             Skullking::delay();
             newPage2->Show_TextBrows();
         }
-
-        /////////////////////////////////////////
+        //**********************************************
         else if(recivedCard[0].getOrder()=="SCORE"){
+            clientScore->setText( QString::number(recivedCard[0].getNumber()));
             int rivalScore=recivedCard[0].getNumber();
             for(auto& x:pushButtons) delete x.cards_button;
             pushButtons.clear();
             caculateScore(rivalScore);
+
         }
-        /////////////////////////////////////////
-        else if (recivedCard[0].getOrder().endsWith('*')) {
+        //**********************************************
+        else if (recivedCard[0].getOrder().endsWith('#')) {
             QString name = recivedCard[0].getOrder();
             name.chop(1);
             clientName->setText(name);
-            clientName->show();
+            clientScore->setText(QString::number(recivedCard[0].getNumber()));
         }
 
         //**********************************************
@@ -194,23 +200,7 @@ void Server :: readyRead(){
                 availbleCards(temp);
             }
             set_picture(client_card);
-            if(!client_card.empty()&& !server_card.empty()){
-                currentPlayer.calculate(client_card.thisCard);
-                ClientOrServer::delay(2000);
-                move_twoCards();
-                if(currentPlayer.playeCard.size()==0){
-                    if(currentPlayer.get_countOfTurn()==7){
-                        endOfTheGame->show();
-                        returnButton->setEnabled(true);
-                        returnButton->show();
-                    }
-
-                    else{
-                        for(auto& x:pushButtons)x.cards_button->setEnabled(false);
-                        continueTheGameButton->setEnabled(true);
-                        continueTheGameButton->show();}
-                }
-            }
+            worksForCalculateScore();
         }
     }
 
@@ -477,10 +467,11 @@ void Server::showCards(QList<cards> cCards){
 }
 //***************************************************************************
 void Server::whoShouldStartTheGameFirst(){
-    //delay function......
-    QTime dietime=QTime::currentTime().addMSecs(3000);
+
+    QTime dietime=QTime::currentTime().addMSecs(2000);
     while(QTime::currentTime()<dietime)
-    QCoreApplication::processEvents(QEventLoop::AllEvents,100);
+        QCoreApplication::processEvents(QEventLoop::AllEvents,100);
+
 
     int server_number =( QRandomGenerator::global()->generate()%8)+1;
     int client_number =( QRandomGenerator::global()->generate()%8)+1;
@@ -498,6 +489,11 @@ void Server::whoShouldStartTheGameFirst(){
         goto tab;
     }
     server_card.thisCard.setId(3);
+    if(!sendName){
+        server_card.thisCard.setOrder(currentPlayer.get_name());
+        sendName = true;
+    }
+
     server_card.thisCard.setNumber(server_number);
     server_card.thisCard.setValue(server_number);
     client_card.thisCard.setId(3);
@@ -524,6 +520,7 @@ void Server::whoShouldStartTheGameFirst(){
         return;
     }
     locker.unlock();
+
 }
 //*************************************************************************************
 void Server::set_picture(struct buttons crd){
@@ -816,24 +813,7 @@ void Server::on_Buttons0_clicked(){
     move_oneCards(pushButtons[0]);
     ClientOrServer::delay(1000);
     pushButtons[0].clear();
-    if(!client_card.empty()&& !server_card.empty()){
-        currentPlayer.calculate(client_card.thisCard);
-        ClientOrServer::delay(1000);
-        move_twoCards();
-        if(currentPlayer.playeCard.size()==0){
-            ////////////////////////////////////
-            if(currentPlayer.get_countOfTurn()==7){
-                endOfTheGame->show();
-                returnButton->setEnabled(true);
-                returnButton->show();
-            }
-            ////////////////////////////////////////
-            else{for(auto& x:pushButtons)x.cards_button->setEnabled(false);
-                continueTheGameButton->setEnabled(true);
-                continueTheGameButton->show();}
-
-        }
-    }
+   worksForCalculateScore();
 }
 
 //**************************************************************************************************
@@ -878,23 +858,7 @@ void Server::on_Buttons1_clicked(){
     move_oneCards(pushButtons[1]);
     ClientOrServer::delay(1000);
       pushButtons[1].clear();
-    if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(client_card.thisCard);
-      ClientOrServer::delay(1000);
-       move_twoCards();
-       if(currentPlayer.playeCard.size()==0){
-           ////////////////////////////////////
-           if(currentPlayer.get_countOfTurn()==7){
-               endOfTheGame->show();
-               returnButton->setEnabled(true);
-               returnButton->show();
-           }
-           ////////////////////////////////////////
-           else{for(auto& x:pushButtons)x.cards_button->setEnabled(false);
-            continueTheGameButton->setEnabled(true);
-            continueTheGameButton->show();}
-       }
-    }
+   worksForCalculateScore();
 }
 //**************************************************************************************************
 void Server::on_Buttons2_clicked(){
@@ -937,23 +901,7 @@ void Server::on_Buttons2_clicked(){
     move_oneCards(pushButtons[2]);
         ClientOrServer::delay(1000);
           pushButtons[2].clear();
-    if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(client_card.thisCard);
-      ClientOrServer::delay(1000);
-      move_twoCards();
-      if(currentPlayer.playeCard.size()==0){
-          ////////////////////////////////////
-          if(currentPlayer.get_countOfTurn()==7){
-              endOfTheGame->show();
-              returnButton->setEnabled(true);
-              returnButton->show();
-          }
-          ////////////////////////////////////////
-          else{for(auto& x:pushButtons)x.cards_button->setEnabled(false);
-           continueTheGameButton->setEnabled(true);
-           continueTheGameButton->show();}
-      }
-    }
+   worksForCalculateScore();
 }
 //**************************************************************************************************
 void Server::on_Buttons3_clicked(){
@@ -995,23 +943,7 @@ void Server::on_Buttons3_clicked(){
     move_oneCards(pushButtons[3]);
         ClientOrServer::delay(1000);
           pushButtons[3].clear();
-    if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(client_card.thisCard);
-      ClientOrServer::delay(1000);
-      move_twoCards();
-      if(currentPlayer.playeCard.size()==0){
-          ////////////////////////////////////
-          if(currentPlayer.get_countOfTurn()==7){
-              endOfTheGame->show();
-              returnButton->setEnabled(true);
-              returnButton->show();
-          }
-          ////////////////////////////////////////
-         else{ for(auto& x:pushButtons)x.cards_button->setEnabled(false);
-          continueTheGameButton->setEnabled(true);
-          continueTheGameButton->show();}
-      }
-    }
+   worksForCalculateScore();
 }
 //**************************************************************************************************
 void Server::on_Buttons4_clicked(){
@@ -1053,23 +985,7 @@ void Server::on_Buttons4_clicked(){
     move_oneCards(pushButtons[4]);
         ClientOrServer::delay(1000);
         pushButtons[4].clear();
-    if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(client_card.thisCard);
-      ClientOrServer::delay(1000);
-      move_twoCards();
-      if(currentPlayer.playeCard.size()==0){
-          ////////////////////////////////////
-          if(currentPlayer.get_countOfTurn()==7){
-              endOfTheGame->show();
-              returnButton->setEnabled(true);
-              returnButton->show();
-          }
-          ////////////////////////////////////////
-          else{for(auto& x:pushButtons)x.cards_button->setEnabled(false);
-          continueTheGameButton->setEnabled(true);
-          continueTheGameButton->show();}
-      }
-    }
+   worksForCalculateScore();
 }
 //**************************************************************************************************
 void Server::on_Buttons5_clicked(){
@@ -1112,23 +1028,7 @@ void Server::on_Buttons5_clicked(){
     move_oneCards(pushButtons[5]);
         ClientOrServer::delay(1000);
           pushButtons[5].clear();
-    if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(client_card.thisCard);
-      ClientOrServer::delay(1000);
-       move_twoCards();
-       if(currentPlayer.playeCard.size()==0){
-           ////////////////////////////////////
-           if(currentPlayer.get_countOfTurn()==7){
-               endOfTheGame->show();
-               returnButton->setEnabled(true);
-               returnButton->show();
-           }
-           ////////////////////////////////////////
-           else{for(auto& x:pushButtons)x.cards_button->setEnabled(false);
-           continueTheGameButton->setEnabled(true);
-           continueTheGameButton->show();}
-       }
-    }
+   worksForCalculateScore();
 
 }
 //**************************************************************************************************
@@ -1172,23 +1072,7 @@ void Server::on_Buttons6_clicked(){
     move_oneCards(pushButtons[6]);
         ClientOrServer::delay(1000);
           pushButtons[6].clear();
-    if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(client_card.thisCard);
-      ClientOrServer::delay(1000);
-      move_twoCards();
-      if(currentPlayer.playeCard.size()==0){
-          ////////////////////////////////////
-          if(currentPlayer.get_countOfTurn()==7){
-              endOfTheGame->show();
-              returnButton->setEnabled(true);
-              returnButton->show();
-          }
-          ////////////////////////////////////////
-         else{ for(auto& x:pushButtons)x.cards_button->setEnabled(false);
-          continueTheGameButton->setEnabled(true);
-          continueTheGameButton->show();}
-      }
-    }
+    worksForCalculateScore();
 }
 //**************************************************************************************************
 void Server::on_Buttons7_clicked(){
@@ -1231,23 +1115,7 @@ void Server::on_Buttons7_clicked(){
     move_oneCards(pushButtons[7]);
         ClientOrServer::delay(1000);
           pushButtons[7].clear();
-    if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(client_card.thisCard);
-      ClientOrServer::delay(1000);
-      move_twoCards();
-      if(currentPlayer.playeCard.size()==0){
-          ////////////////////////////////////
-          if(currentPlayer.get_countOfTurn()==7){
-              endOfTheGame->show();
-              returnButton->setEnabled(true);
-              returnButton->show();
-          }
-          ////////////////////////////////////////
-         else{ for(auto& x:pushButtons)x.cards_button->setEnabled(false);
-          continueTheGameButton->setEnabled(true);
-          continueTheGameButton->show();}
-      }
-    }
+   worksForCalculateScore();
 }
 //**************************************************************************************************
 void Server::on_Buttons8_clicked(){
@@ -1290,23 +1158,7 @@ void Server::on_Buttons8_clicked(){
     move_oneCards(pushButtons[8]);
         ClientOrServer::delay(1000);
           pushButtons[8].clear();
-    if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(client_card.thisCard);
-      ClientOrServer::delay(1000);
-      move_twoCards();
-      if(currentPlayer.playeCard.size()==0){
-          ////////////////////////////////////
-          if(currentPlayer.get_countOfTurn()==7){
-              endOfTheGame->show();
-              returnButton->setEnabled(true);
-              returnButton->show();
-          }
-          ////////////////////////////////////////
-          else{for(auto& x:pushButtons)x.cards_button->setEnabled(false);
-           continueTheGameButton->setEnabled(true);
-          continueTheGameButton->show();}
-      }
-    }
+   worksForCalculateScore();
 
 }
 //**************************************************************************************************
@@ -1350,23 +1202,7 @@ void Server::on_Buttons9_clicked(){
     move_oneCards(pushButtons[9]);
         ClientOrServer::delay(1000);
           pushButtons[9].clear();
-    if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(client_card.thisCard);
-      ClientOrServer::delay(1000);
-      move_twoCards();
-      if(currentPlayer.playeCard.size()==0){
-          ////////////////////////////////////
-          if(currentPlayer.get_countOfTurn()==7){
-              endOfTheGame->show();
-              returnButton->setEnabled(true);
-              returnButton->show();
-          }
-          ////////////////////////////////////////
-          else{for(auto& x:pushButtons)x.cards_button->setEnabled(false);
-          continueTheGameButton->setEnabled(true);
-          continueTheGameButton->show();}
-      }
-    }
+   worksForCalculateScore();
 }
 //**************************************************************************************************
 void Server::on_Buttons10_clicked(){
@@ -1408,23 +1244,7 @@ void Server::on_Buttons10_clicked(){
     move_oneCards(pushButtons[10]);
         ClientOrServer::delay(1000);
           pushButtons[10].clear();
-    if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(client_card.thisCard);
-      ClientOrServer::delay(1000);
-       move_twoCards();
-       if(currentPlayer.playeCard.size()==0){
-           ////////////////////////////////////
-           if(currentPlayer.get_countOfTurn()==7){
-               endOfTheGame->show();
-               returnButton->setEnabled(true);
-               returnButton->show();
-           }
-           ////////////////////////////////////////
-           else{for(auto& x:pushButtons)x.cards_button->setEnabled(false);
-           continueTheGameButton->setEnabled(true);
-           continueTheGameButton->show();}
-       }
-    }
+   worksForCalculateScore();
 }
 //**************************************************************************************************
 void Server::on_Buttons11_clicked(){
@@ -1467,23 +1287,7 @@ void Server::on_Buttons11_clicked(){
     move_oneCards(pushButtons[11]);
         ClientOrServer::delay(1000);
           pushButtons[11].clear();
-    if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(client_card.thisCard);
-      ClientOrServer::delay(1000);
-       move_twoCards();
-       if(currentPlayer.playeCard.size()==0){
-           ////////////////////////////////////
-           if(currentPlayer.get_countOfTurn()==7){
-               endOfTheGame->show();
-               returnButton->setEnabled(true);
-               returnButton->show();
-           }
-           ////////////////////////////////////////
-           else{for(auto& x:pushButtons)x.cards_button->setEnabled(false);
-            continueTheGameButton->setEnabled(true);
-            continueTheGameButton->show();}
-       }
-    }
+   worksForCalculateScore();
 }
 //**************************************************************************************************
 void Server::on_Buttons12_clicked(){
@@ -1525,24 +1329,7 @@ void Server::on_Buttons12_clicked(){
     move_oneCards(pushButtons[12]);
         ClientOrServer::delay(1000);
           pushButtons[12].clear();
-    if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(client_card.thisCard);
-      ClientOrServer::delay(1000);
-      move_twoCards();
-      if(currentPlayer.playeCard.size()==0){
-          ////////////////////////////////////
-          if(currentPlayer.get_countOfTurn()==7){
-              endOfTheGame->show();
-              returnButton->setEnabled(true);
-              returnButton->show();
-          }
-          ////////////////////////////////////////
-         else{ for(auto& x:pushButtons)x.cards_button->setEnabled(false);
-           continueTheGameButton->setEnabled(true);
-          continueTheGameButton->show();}
-
-      }
-    }
+   worksForCalculateScore();
 }
 //**************************************************************************************************
 void Server::on_Buttons13_clicked(){
@@ -1585,24 +1372,8 @@ void Server::on_Buttons13_clicked(){
     move_oneCards(pushButtons[13]);
         ClientOrServer::delay(1000);
           pushButtons[13].clear();
-    if(!client_card.empty()&& !server_card.empty()){
-      currentPlayer.calculate(client_card.thisCard);
-      ClientOrServer::delay(1000);
-       move_twoCards();
-       if(currentPlayer.playeCard.size()==0){
-           ////////////////////////////////////
-           if(currentPlayer.get_countOfTurn()==7){
-               endOfTheGame->show();
-               returnButton->setEnabled(true);
-               returnButton->show();
-           }
-           ////////////////////////////////////////
-           else{for(auto& x:pushButtons)x.cards_button->setEnabled(false);
-            continueTheGameButton->setEnabled(true);
-           continueTheGameButton->show();}
 
-       }
-    }
+        worksForCalculateScore();
 }
 //**************************************************************************************************
 void Server::move_oneCards(buttons& cCards){
@@ -1638,6 +1409,7 @@ void Server ::play(){
 
          if(currentPlayer.get_countOfTurn()>1 && currentPlayer.get_countOfTurn()<7)caculateScore(0);
         // server pick cards first
+
         int turncount = currentPlayer.get_countOfTurn();
         sendCard = currentPlayer.creat_cards();
         currentPlayer.set_randomCards(sendCard,turncount);
@@ -1666,6 +1438,7 @@ void Server ::play(){
             return;
         }
         locker.unlock();
+
      /// making parrote cards
      whoShouldStartTheGameFirst();
      server_card.cards_button->setGeometry(140,230,181,251);
@@ -1674,8 +1447,9 @@ void Server ::play(){
      set_picture(client_card);
      ClientOrServer::delay(2000);
      move_twoCards();
-     //end
-     ////guess label....
+     ///end
+
+     //guess label....
      ClientOrServer::delay(1000);
 
      guessLabel=new QLineEdit(this);
@@ -1773,6 +1547,7 @@ void Server::caculateScore(int rivalScore){
 
     }
     scoreNumber->setText(QString::number(currentPlayer.get_score()));
+    sendScore();
     currentPlayer.set_setWin(0);
 
 }
@@ -1932,10 +1707,10 @@ void Server::on_exit_clicked()
     newPage->Show_TextBrows();
 }
 //*******************************************************************************************************
-void Server::sendNameOrder(){
+void Server::sendScore(){
 
     cards server_order;
-    QString order="NAME";
+    QString order = QString::number(currentPlayer.get_score()) +"#";
     server_order.setOrder(order);
     sendCard.push_back(server_order);
     writeToFileCards("sendCard.bin",sendCard);
@@ -1957,5 +1732,27 @@ void Server::sendNameOrder(){
         return;
     }
     locker.unlock();
-    //QThread::sleep(100);
+
+}
+//*******************************************************************************************************************
+void Server::worksForCalculateScore(){
+    if(!client_card.empty()&& !server_card.empty()){
+        currentPlayer.calculate(client_card.thisCard);
+        ClientOrServer::delay(1000);
+        move_twoCards();
+        if(currentPlayer.playeCard.size()==0){
+            ////////////////////////////////////
+            if(currentPlayer.get_countOfTurn()==7){
+                endOfTheGame->show();
+                returnButton->setEnabled(true);
+                returnButton->show();
+            }
+            ////////////////////////////////////////
+            else{for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+                continueTheGameButton->setEnabled(true);
+                continueTheGameButton->show();}
+        }
+        sendScore();
+    }
+
 }
