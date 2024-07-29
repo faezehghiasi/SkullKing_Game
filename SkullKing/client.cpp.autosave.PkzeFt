@@ -97,9 +97,10 @@ Client::Client(QWidget *parent) :
 
 
 
+
 }
 //*****************************************************************************
-bool Client::creation(){
+void Client::creation(){
     socket  = new QTcpSocket;
     connect(socket,SIGNAL(connected()),this,SLOT(connected()));
     connect(socket,SIGNAL(disconnected()),this,SLOT(disconnected()));
@@ -109,10 +110,9 @@ bool Client::creation(){
     socket->connectToHost(add,9999);
     QMessageBox mb;
     if(!socket->waitForConnected(2000)){
-        mb.critical(this,"Error","server not found");
-        return false;
+        mb.critical(0,"Error","server not found");
     }
-    return true;
+
 }
 //******************************************************************************
 Client::~Client()
@@ -293,7 +293,6 @@ void Client::readyRead() {
 }
 //***************************************************************************
 void Client::showCards(QList<cards> cCards){
-
     switch(cCards.size()){
     case 2:{
         for(int i = 0;i<2;i++){
@@ -438,16 +437,16 @@ void Client::showCards(QList<cards> cCards){
             QP.thisCard= cCards[i];
             pushButtons.push_back(QP);
         }
-        int X = 8;
+        int X = 10;
         int Y = 560;
-        int height = 138;
-        int width =85;
-        for(int i=0;i<6;i++,X+=83,Y-=10){
+        int height = 131;
+        int width =71;
+        for(int i=0;i<6;i++,X+=71,Y-=10){
             pushButtons[i].cards_button->setGeometry(X,Y,width,height);
             pushButtons[i].cards_button->show();
         }
         Y+=10;
-        for(int i=6;i<12;i++,X+=83,Y+=10){
+        for(int i=6;i<12;i++,X+=71,Y+=10){
             pushButtons[i].cards_button->setGeometry(X,Y,width,height);
             pushButtons[i].cards_button->show();
         }
@@ -509,7 +508,6 @@ void Client::showCards(QList<cards> cCards){
 }
 //***************************************************************************
 void Client::availbleCards(buttons rivalCard){
-
     //mitooni bhine tar koni
     int rivalCardId=rivalCard.thisCard.getId();
    if(rivalCardId==1||rivalCardId==2||rivalCardId==3||rivalCardId==4){
@@ -536,9 +534,9 @@ void Client::on_Buttons0_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
-    for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+            for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
-        return (p==pushButtons[0].thisCard);
+      return (p==pushButtons[0].thisCard);
     });
     if(it!=currentPlayer.playeCard.end()) currentPlayer.playeCard.erase(it);
     client_card = pushButtons[0];
@@ -556,20 +554,17 @@ void Client::on_Buttons0_clicked(){
 
         qint64 bytesWritten = socket->write(file_content);
         if (bytesWritten == -1) {
-            QMessageBox mx;
-            mx.critical(0, "Error", "Failed to send card");
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
         }
         socket->flush();
     } else {
-        QMessageBox mx;
-        mx.critical(0, "Error", "server is offline");
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
         return;
     }
     locker.unlock();
-
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[0]);
-    ClientOrServer::delay(800);
+    ClientOrServer::delay(1000);
     pushButtons[0].clear();
 
     worksForCalculateScore();
@@ -586,39 +581,36 @@ void Client::on_Buttons1_clicked(){
     }
     for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
-        return (p==pushButtons[1].thisCard);
+      return (p==pushButtons[1].thisCard);
     });
-    if(it!=currentPlayer.playeCard.end()) currentPlayer.playeCard.erase(it);
-    client_card = pushButtons[1];
+     if(it!=currentPlayer.playeCard.end()) currentPlayer.playeCard.erase(it);
+     client_card = pushButtons[1];
     currentPlayer.set_selectedCard(client_card.thisCard);
     sendCard.push_back(pushButtons[1].thisCard);
-    writeToFileCards("sendCard.bin",sendCard);
-    QFile file("sendCard.bin");
-    file.open(QFile::ReadOnly | QFile::Text);
-    QByteArray file_content = file.readAll();
-    file.close();
+     writeToFileCards("sendCard.bin",sendCard);
+     QFile file("sendCard.bin");
+     file.open(QFile::ReadOnly | QFile::Text);
+     QByteArray file_content = file.readAll();
+     file.close();
 
-    QMutexLocker locker(&mx2);
-    if (socket->state() == QAbstractSocket::ConnectedState) {
+     QMutexLocker locker(&mx2);
+     if (socket->state() == QAbstractSocket::ConnectedState) {
 
-        qint64 bytesWritten = socket->write(file_content);
-        if (bytesWritten == -1) {
-            QMessageBox mx;
-            mx.critical(0, "Error", "Failed to send card");
-        }
-        socket->flush();
-    } else {
-        QMessageBox mx;
-        mx.critical(0, "Error", "server is offline");
-        return;
-    }
-    locker.unlock();
-
+         qint64 bytesWritten = socket->write(file_content);
+         if (bytesWritten == -1) {
+             QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+         }
+         socket->flush();
+     } else {
+         QMessageBox::critical(0, "Error", "Socket is not connected.");
+         return;
+     }
+     locker.unlock();
     currentPlayer.set_turn(false);
-    move_oneCards(pushButtons[1]);
-    ClientOrServer::delay(800);
-    pushButtons[1].clear();
-    worksForCalculateScore();
+     move_oneCards(pushButtons[1]);
+     ClientOrServer::delay(1000);
+     pushButtons[1].clear();
+     worksForCalculateScore();
 
 
 }
@@ -632,41 +624,38 @@ void Client::on_Buttons2_clicked(){
     }
     for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
-        return (p==pushButtons[2].thisCard);
+      return (p==pushButtons[2].thisCard);
     });
     if(it!=currentPlayer.playeCard.end())currentPlayer.playeCard.erase(it);
-    client_card = pushButtons[2];
+     client_card = pushButtons[2];
     currentPlayer.set_selectedCard(client_card.thisCard);
 
 
     sendCard.push_back(pushButtons[2].thisCard);
-    writeToFileCards("sendCard.bin",sendCard);
-    QFile file("sendCard.bin");
-    file.open(QFile::ReadOnly | QFile::Text);
-    QByteArray file_content = file.readAll();
-    file.close();
+      writeToFileCards("sendCard.bin",sendCard);
+      QFile file("sendCard.bin");
+      file.open(QFile::ReadOnly | QFile::Text);
+      QByteArray file_content = file.readAll();
+      file.close();
 
-    QMutexLocker locker(&mx2);
-    if (socket->state() == QAbstractSocket::ConnectedState) {
+      QMutexLocker locker(&mx2);
+      if (socket->state() == QAbstractSocket::ConnectedState) {
 
-        qint64 bytesWritten = socket->write(file_content);
-        if (bytesWritten == -1) {
-            QMessageBox mx;
-            mx.critical(0, "Error", "Failed to send card");
-        }
-        socket->flush();
-    } else {
-        QMessageBox mx;
-        mx.critical(0, "Error", "server is offline");
-        return;
-    }
-    locker.unlock();
-
-    currentPlayer.set_turn(false);
-    move_oneCards(pushButtons[2]);
-    ClientOrServer::delay(800);
-    pushButtons[2].clear();
-    worksForCalculateScore();
+          qint64 bytesWritten = socket->write(file_content);
+          if (bytesWritten == -1) {
+              QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+          }
+          socket->flush();
+      } else {
+          QMessageBox::critical(0, "Error", "Socket is not connected.");
+          return;
+      }
+      locker.unlock();
+      currentPlayer.set_turn(false);
+      move_oneCards(pushButtons[2]);
+      ClientOrServer::delay(1000);
+      pushButtons[2].clear();
+      worksForCalculateScore();
 
 
 
@@ -698,20 +687,17 @@ void Client::on_Buttons3_clicked(){
 
         qint64 bytesWritten = socket->write(file_content);
         if (bytesWritten == -1) {
-            QMessageBox mx;
-            mx.critical(0, "Error", "Failed to send card");
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
         }
         socket->flush();
     } else {
-        QMessageBox mx;
-        mx.critical(0, "Error", "server is offline");
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
         return;
     }
     locker.unlock();
-
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[3]);
-    ClientOrServer::delay(800);
+    ClientOrServer::delay(1000);
     pushButtons[3].clear();
     worksForCalculateScore();
 
@@ -728,7 +714,7 @@ void Client::on_Buttons4_clicked(){
     }
     for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
-        return (p==pushButtons[4].thisCard);
+      return (p==pushButtons[4].thisCard);
     });
     if(it!=currentPlayer.playeCard.end())currentPlayer.playeCard.erase(it);
     client_card = pushButtons[4];
@@ -745,20 +731,17 @@ void Client::on_Buttons4_clicked(){
 
         qint64 bytesWritten = socket->write(file_content);
         if (bytesWritten == -1) {
-            QMessageBox mx;
-            mx.critical(0, "Error", "Failed to send card");
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
         }
         socket->flush();
     } else {
-        QMessageBox mx;
-        mx.critical(0, "Error", "server is offline");
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
         return;
     }
     locker.unlock();
-
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[4]);
-    ClientOrServer::delay(800);
+    ClientOrServer::delay(1000);
     pushButtons[4].clear();
     worksForCalculateScore();
 
@@ -774,7 +757,7 @@ void Client::on_Buttons5_clicked(){
     }
     for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
-        return (p==pushButtons[5].thisCard);
+      return (p==pushButtons[5].thisCard);
     });
     if(it!=currentPlayer.playeCard.end())currentPlayer.playeCard.erase(it);
     client_card = pushButtons[5];
@@ -790,20 +773,17 @@ void Client::on_Buttons5_clicked(){
 
         qint64 bytesWritten = socket->write(file_content);
         if (bytesWritten == -1) {
-            QMessageBox mx;
-            mx.critical(0, "Error", "Failed to send card");
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
         }
         socket->flush();
     } else {
-        QMessageBox mx;
-        mx.critical(0, "Error", "server is offline");
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
         return;
     }
     locker.unlock();
-
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[5]);
-    ClientOrServer::delay(800);
+    ClientOrServer::delay(1000);
     pushButtons[5].clear();
     worksForCalculateScore();
 
@@ -818,41 +798,38 @@ void Client::on_Buttons6_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
-    for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+        for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
-        return (p==pushButtons[6].thisCard);
+      return (p==pushButtons[6].thisCard);
     });
     if(it!=currentPlayer.playeCard.end())currentPlayer.playeCard.erase(it);
     client_card = pushButtons[6];
     currentPlayer.set_selectedCard(client_card.thisCard);
     sendCard.push_back(pushButtons[6].thisCard);
-    writeToFileCards("sendCard.bin",sendCard);
-    QFile file("sendCard.bin");
-    file.open(QFile::ReadOnly | QFile::Text);
-    QByteArray file_content = file.readAll();
-    file.close();
+      writeToFileCards("sendCard.bin",sendCard);
+      QFile file("sendCard.bin");
+      file.open(QFile::ReadOnly | QFile::Text);
+      QByteArray file_content = file.readAll();
+      file.close();
 
-    QMutexLocker locker(&mx2);
-    if (socket->state() == QAbstractSocket::ConnectedState) {
+      QMutexLocker locker(&mx2);
+      if (socket->state() == QAbstractSocket::ConnectedState) {
 
-        qint64 bytesWritten = socket->write(file_content);
-        if (bytesWritten == -1) {
-            QMessageBox mx;
-            mx.critical(0, "Error", "Failed to send card");
-        }
-        socket->flush();
-    } else {
-        QMessageBox mx;
-        mx.critical(0, "Error", "server is offline");
-        return;
-    }
-    locker.unlock();
-
-    currentPlayer.set_turn(false);
-    move_oneCards(pushButtons[6]);
-    ClientOrServer::delay(800);
-    pushButtons[6].clear();
-    worksForCalculateScore();
+          qint64 bytesWritten = socket->write(file_content);
+          if (bytesWritten == -1) {
+              QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+          }
+          socket->flush();
+      } else {
+          QMessageBox::critical(0, "Error", "Socket is not connected.");
+          return;
+      }
+      locker.unlock();
+      currentPlayer.set_turn(false);
+      move_oneCards(pushButtons[6]);
+      ClientOrServer::delay(1000);
+      pushButtons[6].clear();
+      worksForCalculateScore();
 
 
 
@@ -865,41 +842,38 @@ void Client::on_Buttons7_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
-    for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+        for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
-        return (p==pushButtons[7].thisCard);
+      return (p==pushButtons[7].thisCard);
     });
     if(it!=currentPlayer.playeCard.end())currentPlayer.playeCard.erase(it);
-    client_card = pushButtons[7];
-    currentPlayer.set_selectedCard(client_card.thisCard);
-    sendCard.push_back(pushButtons[7].thisCard);
-    writeToFileCards("sendCard.bin",sendCard);
-    QFile file("sendCard.bin");
-    file.open(QFile::ReadOnly | QFile::Text);
-    QByteArray file_content = file.readAll();
-    file.close();
+     client_card = pushButtons[7];
+     currentPlayer.set_selectedCard(client_card.thisCard);
+     sendCard.push_back(pushButtons[7].thisCard);
+      writeToFileCards("sendCard.bin",sendCard);
+      QFile file("sendCard.bin");
+      file.open(QFile::ReadOnly | QFile::Text);
+      QByteArray file_content = file.readAll();
+      file.close();
 
-    QMutexLocker locker(&mx2);
-    if (socket->state() == QAbstractSocket::ConnectedState) {
+      QMutexLocker locker(&mx2);
+      if (socket->state() == QAbstractSocket::ConnectedState) {
 
-        qint64 bytesWritten = socket->write(file_content);
-        if (bytesWritten == -1) {
-            QMessageBox mx;
-            mx.critical(0, "Error", "Failed to send card");
-        }
-        socket->flush();
-    } else {
-        QMessageBox mx;
-        mx.critical(0, "Error", "server is offline");
-        return;
-    }
-    locker.unlock();
-
-    currentPlayer.set_turn(false);
-    move_oneCards(pushButtons[7]);
-    ClientOrServer::delay(800);
-    pushButtons[7].clear();
-    worksForCalculateScore();
+          qint64 bytesWritten = socket->write(file_content);
+          if (bytesWritten == -1) {
+              QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+          }
+          socket->flush();
+      } else {
+          QMessageBox::critical(0, "Error", "Socket is not connected.");
+          return;
+      }
+      locker.unlock();
+      currentPlayer.set_turn(false);
+      move_oneCards(pushButtons[7]);
+      ClientOrServer::delay(1000);
+      pushButtons[7].clear();
+      worksForCalculateScore();
 
 
 }
@@ -911,41 +885,38 @@ void Client::on_Buttons8_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
-    for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+        for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
-        return (p==pushButtons[8].thisCard);
+      return (p==pushButtons[8].thisCard);
     });
     if(it!=currentPlayer.playeCard.end())currentPlayer.playeCard.erase(it);
-    client_card = pushButtons[8];
-    currentPlayer.set_selectedCard(client_card.thisCard);
-    sendCard.push_back(pushButtons[8].thisCard);
-    writeToFileCards("sendCard.bin",sendCard);
-    QFile file("sendCard.bin");
-    file.open(QFile::ReadOnly | QFile::Text);
-    QByteArray file_content = file.readAll();
-    file.close();
+      client_card = pushButtons[8];
+      currentPlayer.set_selectedCard(client_card.thisCard);
+      sendCard.push_back(pushButtons[8].thisCard);
+      writeToFileCards("sendCard.bin",sendCard);
+      QFile file("sendCard.bin");
+      file.open(QFile::ReadOnly | QFile::Text);
+      QByteArray file_content = file.readAll();
+      file.close();
 
-    QMutexLocker locker(&mx2);
-    if (socket->state() == QAbstractSocket::ConnectedState) {
+      QMutexLocker locker(&mx2);
+      if (socket->state() == QAbstractSocket::ConnectedState) {
 
-        qint64 bytesWritten = socket->write(file_content);
-        if (bytesWritten == -1) {
-            QMessageBox mx;
-            mx.critical(0, "Error", "Failed to send card");
-        }
-        socket->flush();
-    } else {
-        QMessageBox mx;
-        mx.critical(0, "Error", "server is offline");
-        return;
-    }
-    locker.unlock();
-
-    currentPlayer.set_turn(false);
-    move_oneCards(pushButtons[8]);
-    ClientOrServer::delay(800);
-    pushButtons[8].clear();
-    worksForCalculateScore();
+          qint64 bytesWritten = socket->write(file_content);
+          if (bytesWritten == -1) {
+              QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+          }
+          socket->flush();
+      } else {
+          QMessageBox::critical(0, "Error", "Socket is not connected.");
+          return;
+      }
+      locker.unlock();
+     currentPlayer.set_turn(false);
+      move_oneCards(pushButtons[8]);
+      ClientOrServer::delay(1000);
+      pushButtons[8].clear();
+      worksForCalculateScore();
 
 
 
@@ -958,41 +929,38 @@ void Client::on_Buttons9_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
-    for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+        for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
-        return (p==pushButtons[9].thisCard);
+      return (p==pushButtons[9].thisCard);
     });
     if(it!=currentPlayer.playeCard.end())currentPlayer.playeCard.erase(it);
-    client_card = pushButtons[9];
-    currentPlayer.set_selectedCard(client_card.thisCard);
-    sendCard.push_back(pushButtons[9].thisCard);
-    writeToFileCards("sendCard.bin",sendCard);
-    QFile file("sendCard.bin");
-    file.open(QFile::ReadOnly | QFile::Text);
-    QByteArray file_content = file.readAll();
-    file.close();
+      client_card = pushButtons[9];
+      currentPlayer.set_selectedCard(client_card.thisCard);
+      sendCard.push_back(pushButtons[9].thisCard);
+      writeToFileCards("sendCard.bin",sendCard);
+      QFile file("sendCard.bin");
+      file.open(QFile::ReadOnly | QFile::Text);
+      QByteArray file_content = file.readAll();
+      file.close();
 
-    QMutexLocker locker(&mx2);
-    if (socket->state() == QAbstractSocket::ConnectedState) {
+      QMutexLocker locker(&mx2);
+      if (socket->state() == QAbstractSocket::ConnectedState) {
 
-        qint64 bytesWritten = socket->write(file_content);
-        if (bytesWritten == -1) {
-            QMessageBox mx;
-            mx.critical(0, "Error", "Failed to send card");
-        }
-        socket->flush();
-    } else {
-        QMessageBox mx;
-        mx.critical(0, "Error", "server is offline");
-        return;
-    }
-    locker.unlock();
-
-    currentPlayer.set_turn(false);
-    move_oneCards(pushButtons[9]);
-    ClientOrServer::delay(800);
-    pushButtons[9].clear();
-    worksForCalculateScore();
+          qint64 bytesWritten = socket->write(file_content);
+          if (bytesWritten == -1) {
+              QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+          }
+          socket->flush();
+      } else {
+          QMessageBox::critical(0, "Error", "Socket is not connected.");
+          return;
+      }
+      locker.unlock();
+     currentPlayer.set_turn(false);
+      move_oneCards(pushButtons[9]);
+      ClientOrServer::delay(1000);
+      pushButtons[9].clear();
+      worksForCalculateScore();
 
 
 }
@@ -1004,9 +972,9 @@ void Client::on_Buttons10_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
-    for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+        for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
-        return (p==pushButtons[10].thisCard);
+      return (p==pushButtons[10].thisCard);
     });
     if(it!=currentPlayer.playeCard.end())currentPlayer.playeCard.erase(it);
     client_card = pushButtons[10];
@@ -1023,20 +991,17 @@ void Client::on_Buttons10_clicked(){
 
         qint64 bytesWritten = socket->write(file_content);
         if (bytesWritten == -1) {
-            QMessageBox mx;
-            mx.critical(0, "Error", "Failed to send card");
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
         }
         socket->flush();
     } else {
-        QMessageBox mx;
-        mx.critical(0, "Error", "server is offline");
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
         return;
     }
     locker.unlock();
-
-    currentPlayer.set_turn(false);
+     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[10]);
-    ClientOrServer::delay(800);
+    ClientOrServer::delay(1000);
     pushButtons[10].clear();
     worksForCalculateScore();
 
@@ -1051,41 +1016,38 @@ void Client::on_Buttons11_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
-    for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+        for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
-        return (p==pushButtons[11].thisCard);
+      return (p==pushButtons[11].thisCard);
     });
     if(it!=currentPlayer.playeCard.end())currentPlayer.playeCard.erase(it);
     client_card = pushButtons[11];
     currentPlayer.set_selectedCard(client_card.thisCard);
     sendCard.push_back(pushButtons[11].thisCard);
-    writeToFileCards("sendCard.bin",sendCard);
-    QFile file("sendCard.bin");
-    file.open(QFile::ReadOnly | QFile::Text);
-    QByteArray file_content = file.readAll();
-    file.close();
+      writeToFileCards("sendCard.bin",sendCard);
+      QFile file("sendCard.bin");
+      file.open(QFile::ReadOnly | QFile::Text);
+      QByteArray file_content = file.readAll();
+      file.close();
 
-    QMutexLocker locker(&mx2);
-    if (socket->state() == QAbstractSocket::ConnectedState) {
+      QMutexLocker locker(&mx2);
+      if (socket->state() == QAbstractSocket::ConnectedState) {
 
-        qint64 bytesWritten = socket->write(file_content);
-        if (bytesWritten == -1) {
-            QMessageBox mx;
-            mx.critical(0, "Error", "Failed to send card");
-        }
-        socket->flush();
-    } else {
-        QMessageBox mx;
-        mx.critical(0, "Error", "server is offline");
-        return;
-    }
-    locker.unlock();
-
-    currentPlayer.set_turn(false);
-    move_oneCards(pushButtons[11]);
-    ClientOrServer::delay(800);
-    pushButtons[11].clear();
-    worksForCalculateScore();
+          qint64 bytesWritten = socket->write(file_content);
+          if (bytesWritten == -1) {
+              QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+          }
+          socket->flush();
+      } else {
+          QMessageBox::critical(0, "Error", "Socket is not connected.");
+          return;
+      }
+      locker.unlock();
+       currentPlayer.set_turn(false);
+      move_oneCards(pushButtons[11]);
+      ClientOrServer::delay(1000);
+      pushButtons[11].clear();
+      worksForCalculateScore();
 
 
 }
@@ -1097,9 +1059,9 @@ void Client::on_Buttons12_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
-    for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+        for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
-        return (p==pushButtons[12].thisCard);
+      return (p==pushButtons[12].thisCard);
     });
     if(it!=currentPlayer.playeCard.end())currentPlayer.playeCard.erase(it);
     client_card = pushButtons[12];
@@ -1116,20 +1078,17 @@ void Client::on_Buttons12_clicked(){
 
         qint64 bytesWritten = socket->write(file_content);
         if (bytesWritten == -1) {
-            QMessageBox mx;
-            mx.critical(0, "Error", "Failed to send card");
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
         }
         socket->flush();
     } else {
-        QMessageBox mx;
-        mx.critical(0, "Error", "server is offline");
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
         return;
     }
     locker.unlock();
-
-    currentPlayer.set_turn(false);
+      currentPlayer.set_turn(false);
     move_oneCards(pushButtons[12]);
-    ClientOrServer::delay(800);
+    ClientOrServer::delay(1000);
     pushButtons[12].clear();
     worksForCalculateScore();
 
@@ -1144,42 +1103,37 @@ void Client::on_Buttons13_clicked(){
         MQ.warning(0,"","it's not you'r turn...");
         return;
     }
-    for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+        for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
-        return (p==pushButtons[13].thisCard);
+      return (p==pushButtons[13].thisCard);
     });
     if(it!=currentPlayer.playeCard.end())currentPlayer.playeCard.erase(it);
-    client_card = pushButtons[13];
-    currentPlayer.set_selectedCard(client_card.thisCard);
-    sendCard.push_back(pushButtons[13].thisCard);
-    writeToFileCards("sendCard.bin",sendCard);
-    QFile file("sendCard.bin");
-    file.open(QFile::ReadOnly | QFile::Text);
-    QByteArray file_content = file.readAll();
-    file.close();
+     client_card = pushButtons[13];
+     currentPlayer.set_selectedCard(client_card.thisCard);
+     sendCard.push_back(pushButtons[13].thisCard);
+      writeToFileCards("sendCard.bin",sendCard);
+      QFile file("sendCard.bin");
+      file.open(QFile::ReadOnly | QFile::Text);
+      QByteArray file_content = file.readAll();
+      file.close();
 
-    QMutexLocker locker(&mx2);
-    if (socket->state() == QAbstractSocket::ConnectedState) {
+      if (socket->state() == QAbstractSocket::ConnectedState) {
 
-        qint64 bytesWritten = socket->write(file_content);
-        if (bytesWritten == -1) {
-            QMessageBox mx;
-            mx.critical(0, "Error", "Failed to send card");
-        }
-        socket->flush();
-    } else {
-        QMessageBox mx;
-        mx.critical(0, "Error", "server is offline");
-        return;
-    }
-    locker.unlock();
+          qint64 bytesWritten = socket->write(file_content);
+          if (bytesWritten == -1) {
+              QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+          }
+          socket->flush();
+      } else {
+          QMessageBox::critical(0, "Error", "Socket is not connected.");
+          return;
+      }
+      currentPlayer.set_turn(false);
+      move_oneCards(pushButtons[13]);
+      ClientOrServer::delay(1000);
+      pushButtons[13].clear();
 
-    currentPlayer.set_turn(false);
-    move_oneCards(pushButtons[13]);
-    ClientOrServer::delay(800);
-    pushButtons[13].clear();
-
-    worksForCalculateScore();
+      worksForCalculateScore();
 
 }
 //**************************************************************************************************
@@ -1205,7 +1159,7 @@ void Client::set_picture(struct buttons crd){
         switch(crd.thisCard.getNumber()){
         case 1:
             crd.cards_button->setStyleSheet("border-image: url(:/Prefix/resource/treasure1.png);");
-            crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resource/treasure1.png width=150 height=200/></p></body></html>");
+            crd.cards_button->setToolTip("<html><head/><body><p><img src=:/Prefix/resourcetreasure1.png width=150 height=200/></p></body></html>");
             crd.cards_button->show();
             break;
         case 2:
@@ -1420,52 +1374,23 @@ void Client::change_geometry(){
     server_card.cards_button->setGeometry(660,230,181,251);
     client_card.cards_button->setGeometry(140,230,181,251);
     for(auto& x:pushButtons)x.cards_button->setEnabled(true);
-    // if(currentPlayer.playeCard.size()==0 && currentPlayer.get_countOfTurn()<7){
-    //     cards client_order;
-    //     QString order= "FINISHED CARDS";
-    //     client_order.setOrder(order);
-    //     client_order.setNumber(currentPlayer.get_score());
-    //     sendCard.push_back(client_order);
-    //     writeToFileCards("sendCard.bin",sendCard);
-    //     QFile file("sendCard.bin");
-    //     file.open(QFile::ReadOnly | QFile::Text);
-    //     QByteArray file_content = file.readAll();
-    //     file.close();
-
-    //     QMutexLocker locker(&mx2);
-    //     if (socket->state() == QAbstractSocket::ConnectedState) {
-
-    //         qint64 bytesWritten = socket->write(file_content);
-    //         if (bytesWritten == -1) {
-    //             QMessageBox mx;
-    //             mx.critical(0, "Error", "Failed to send card");
-    //         }
-    //         socket->flush();
-    //     } else {
-    //         QMessageBox mx;
-    //         mx.critical(0, "Error", "server is offline");
-    //         return;
-    //     }
-    //     locker.unlock();
-    // }
-
 }
 //**************************************************************************************************************************
 void Client::move_twoCards(){
 
     QPropertyAnimation *animServer = new QPropertyAnimation(server_card.cards_button, "pos", this);
     QPropertyAnimation *animClient = new QPropertyAnimation(client_card.cards_button, "pos", this);
-    animServer->setDuration(410);
+    animServer->setDuration(500);
     animServer->setEndValue(QPoint(-10, 260));
     animServer->start();
-    animClient->setDuration(410);
+    animClient->setDuration(500);
     animClient->setEndValue(QPoint(-10, 260));
     animClient->start();
     connect(animServer,&QAbstractAnimation::finished,this,[&](){server_card.cards_button->hide();server_card.clear();client_card.clear();for(auto& x:pushButtons)x.cards_button->setEnabled(true);});
     connect(animClient,&QAbstractAnimation::finished,this,[&](){client_card.cards_button->hide();server_card.clear();client_card.clear();for(auto& x:pushButtons)x.cards_button->setEnabled(true);});
     connect(animServer,SIGNAL(finished()),animServer,SLOT(deleteLater()));
     connect(animClient,SIGNAL(finished()),animClient,SLOT(deleteLater()));
-    connect(animServer,SIGNAL(finished()),this,SLOT(change_geometry()));
+    connect(animClient,SIGNAL(finished()),this,SLOT(change_geometry()));
 }
 //*******************************************************************************************************************************************
 void Client::calculateScore(){
@@ -1507,13 +1432,11 @@ void Client::endOfGame(){
 
         qint64 bytesWritten = socket->write(file_content);
         if (bytesWritten == -1) {
-            QMessageBox mx;
-            mx.critical(0, "Error", "Failed to send card");
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
         }
         socket->flush();
     } else {
-        QMessageBox mx;
-        mx.critical(0, "Error", "server is offline");
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
         return;
     }
     locker.unlock();
@@ -1525,32 +1448,29 @@ void Client::on_resumeButton_clicked(){
     resume->hide();
     ui->stop->setEnabled(true);
     ui->stop->show();
-    gameStop->hide();
+     gameStop->hide();
     for(auto& x:pushButtons) x.cards_button->setEnabled(true);
-    cards client_order;
-    client_order.setOrder("RESUME");
-    sendCard.push_back(client_order);
-    writeToFileCards("sendCard.bin",sendCard);
-    QFile file("sendCard.bin");
-    file.open(QFile::ReadOnly | QFile::Text);
-    QByteArray file_content = file.readAll();
-    file.close();
-    QMutexLocker locker(&mx2);
-    if (socket->state() == QAbstractSocket::ConnectedState) {
+     cards client_order;
+     client_order.setOrder("RESUME");
+     sendCard.push_back(client_order);
+     writeToFileCards("sendCard.bin",sendCard);
+     QFile file("sendCard.bin");
+     file.open(QFile::ReadOnly | QFile::Text);
+     QByteArray file_content = file.readAll();
+     file.close();
+     QMutexLocker locker(&mx2);
+     if (socket->state() == QAbstractSocket::ConnectedState) {
 
-        qint64 bytesWritten = socket->write(file_content);
-        if (bytesWritten == -1) {
-            QMessageBox mx;
-            mx.critical(0, "Error", "Failed to send card");
-        }
-        socket->flush();
-    }
-    else {
-        QMessageBox mx;
-        mx.critical(0, "Error", "server is offline");
-        return;
-    }
-    locker.unlock();
+         qint64 bytesWritten = socket->write(file_content);
+         if (bytesWritten == -1) {
+             QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+         }
+         socket->flush();
+     } else {
+         QMessageBox::critical(0, "Error", "Socket is not connected.");
+         return;
+     }
+     locker.unlock();
 }
 //***********************************************************************************************
 void Client::on_returnButton(){
@@ -1558,7 +1478,6 @@ void Client::on_returnButton(){
     newPage=new menu;
     this->close();
     newPage->show();
-    delete cln;
 }
 //******************************************************************************************************************
 void Client::on_stop_clicked()
@@ -1591,13 +1510,11 @@ void Client::on_stop_clicked()
 
         qint64 bytesWritten = socket->write(file_content);
         if (bytesWritten == -1) {
-            QMessageBox mx;
-            mx.critical(0, "Error", "Failed to send card");
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
         }
         socket->flush();
     } else {
-        QMessageBox mx;
-        mx.critical(0, "Error", "server is offline");
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
         return;
     }
     locker.unlock();
@@ -1627,24 +1544,20 @@ void Client::on_exit_clicked()
 
         qint64 bytesWritten = socket->write(file_content);
         if (bytesWritten == -1) {
-            QMessageBox mx;
-            mx.critical(0, "Error", "Failed to send card");
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
         }
         socket->flush();
     } else {
-        QMessageBox mx;
-        mx.critical(0, "Error", "server is offline");
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
         return;
     }
     locker.unlock();
-
     this->close();
     Skullking* newPage;
     newPage=new Skullking;
     newPage->show();
     Skullking::delay();
     newPage->Show_TextBrows();
-     delete cln;
 }
 
 // //*******************************************************************************************************************
@@ -1665,13 +1578,11 @@ void Client::sendName(){
 
         qint64 bytesWritten = socket->write(file_content);
         if (bytesWritten == -1) {
-            QMessageBox mx;
-            mx.critical(0, "Error", "Failed to send card");
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
         }
         socket->flush();
     } else {
-        QMessageBox mx;
-        mx.critical(0, "Error", "server is offline");
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
         return;
     }
     locker.unlock();
@@ -1731,11 +1642,10 @@ void Client::sendScore(){
         socket->flush();
     } else {
         QMessageBox mx;
-        mx.critical(0, "Error", "server is offline");
+        mx.critical(0, "Error", "server is ");
         return;
     }
     locker.unlock();
-
 
 }
 

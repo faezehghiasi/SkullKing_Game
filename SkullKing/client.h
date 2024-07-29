@@ -20,10 +20,10 @@ class Client : public QMainWindow
 
 public:
     explicit Client(QWidget *parent = nullptr);
-    void creation();
+    bool creation();
     ~Client();
     void showCards(QList<cards>Ccards);
-     void availbleCards(buttons rivalCard);
+    void availbleCards(buttons rivalCard);
     void calculate(cards server_card,cards client_card);
     void set_picture(struct buttons crd);
     void set_client_card(struct buttons cCard);
@@ -34,14 +34,13 @@ public:
     void move_oneCards(buttons& c);
     void move_twoCards();
     void calculateScore();
-   // void sendName();
+    void sendName();
     void sendScore();
     void worksForCalculateScore();
     QLabel*scoreNumber;
     QLabel*serverScore;
     QLabel*serverName;
     QLabel*clientName;
-    bool recivedName = false;
 signals:
     void existClient();
     void closePage();
@@ -66,10 +65,11 @@ public slots:
     void endOfGame();
     void on_resumeButton_clicked();
     void on_returnButton();
+    void change_geometry();
+
 private slots:
 
     void on_stop_clicked();
-
     void on_exit_clicked();
 
 private:

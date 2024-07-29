@@ -16,7 +16,7 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
    a.setStyleSheet(
        "QMessageBox {"
-       "   background-color: #f4b26d;" // Light blue background
+       "   background-color: #e8a954;" // Light blue background
        "   color: #4a270e;" // Dark text color
        "   font-family: 'Comic Sans MS';"
        "   font-size: 14px;"

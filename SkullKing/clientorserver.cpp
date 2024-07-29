@@ -94,11 +94,13 @@ void ClientOrServer::connect_button_clicked(){
     Ip=Ip_line->text();
     cln = new Client;
 
-    cln->creation();
+    bool res = cln->creation();
     client_label = new QLabel (this);
     client_label->setGeometry(170,320,161,35);
     client_label->setStyleSheet("color: rgb(2, 2, 2);font: 20pt Snap ITC;");
-    client_label->setText("waiting...");
+    if(res){
+        client_label->setText("waiting...");
+    }
     client_label->show();
     connect(cln,&Client::closePage,this,&ClientOrServer::closePage);
 
@@ -113,7 +115,7 @@ void ClientOrServer::chanePage(){
 
     //order client  to start the game
     cards server_order;
-    server_order.setOrder("Start The Game");
+    server_order.setOrder((currentPlayer.get_name()+"$"));
     sendCard.push_back(server_order);
     writeToFileCards("sendCard.bin",sendCard);
     QFile file("sendCard.bin");
@@ -137,9 +139,7 @@ void ClientOrServer::chanePage(){
     locker.unlock();
     this->hide();
 
-    srv->show();
 
-    srv->play();
 }
 //*******************************************************************************
 void ClientOrServer::delay(int ms){

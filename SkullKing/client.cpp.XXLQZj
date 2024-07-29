@@ -533,8 +533,31 @@ void Client::on_Buttons0_clicked(){
 
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
-        MQ.warning(0,"","it's not you'r turn...");
+        MQ.setStyleSheet(
+            "QMessageBox {"
+            "   background-color: #343d46;"
+            "   color: #ffffff;"
+            "   font-family: 'Comic Sans MS';"
+            "   font-size: 14px;"
+            "}"
+
+            "QMessageBox QPushButton {"
+            "   background-color: #28a745;"
+            "   color: #ffffff;"
+            "   border: none;"
+            "   padding: 5px 10px;"
+            "   font-size: 14px;"
+            "}"
+            "QMessageBox QPushButton:hover {"
+            "   background-color: #218838;"
+            "}"
+            "QMessageBox QPushButton:pressed {"
+            "   background-color: #1e7e34;"
+            "}"
+        );
+        MQ.warning(this, "", "it's not your turn...");
         return;
+
     }
     for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
@@ -581,8 +604,30 @@ void Client::on_Buttons1_clicked(){
 
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
-        MQ.warning(0,"","it's not you'r turn...");
+        MQ.setStyleSheet(
+            "QMessageBox {"
+            "   background-color: #343d46;"
+            "   color: #ffffff;"
+            "   font-family: 'Comic Sans MS';"
+            "   font-size: 14px;"
+            "}"
+            "QMessageBox QPushButton {"
+            "   background-color: #28a745;"
+            "   color: #ffffff;"
+            "   border: none;"
+            "   padding: 5px 10px;"
+            "   font-size: 14px;"
+            "}"
+            "QMessageBox QPushButton:hover {"
+            "   background-color: #218838;"
+            "}"
+            "QMessageBox QPushButton:pressed {"
+            "   background-color: #1e7e34;"
+            "}"
+            );
+        MQ.warning(this, "", "it's not your turn...");
         return;
+
     }
     for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
@@ -627,8 +672,30 @@ void Client::on_Buttons2_clicked(){
 
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
-        MQ.warning(0,"","it's not you'r turn...");
+        MQ.setStyleSheet(
+            "QMessageBox {"
+            "   background-color: #343d46;"
+            "   color: #ffffff;"
+            "   font-family: 'Comic Sans MS';"
+            "   font-size: 14px;"
+            "}"
+            "QMessageBox QPushButton {"
+            "   background-color: #28a745;"
+            "   color: #ffffff;"
+            "   border: none;"
+            "   padding: 5px 10px;"
+            "   font-size: 14px;"
+            "}"
+            "QMessageBox QPushButton:hover {"
+            "   background-color: #218838;"
+            "}"
+            "QMessageBox QPushButton:pressed {"
+            "   background-color: #1e7e34;"
+            "}"
+            );
+        MQ.warning(this, "", "it's not your turn...");
         return;
+
     }
     for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
@@ -676,8 +743,30 @@ void Client::on_Buttons3_clicked(){
 
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
-        MQ.warning(0,"","it's not you'r turn...");
+        MQ.setStyleSheet(
+            "QMessageBox {"
+            "   background-color: #343d46;"
+            "   color: #ffffff;"
+            "   font-family: 'Comic Sans MS';"
+            "   font-size: 14px;"
+            "}"
+            "QMessageBox QPushButton {"
+            "   background-color: #28a745;"
+            "   color: #ffffff;"
+            "   border: none;"
+            "   padding: 5px 10px;"
+            "   font-size: 14px;"
+            "}"
+            "QMessageBox QPushButton:hover {"
+            "   background-color: #218838;"
+            "}"
+            "QMessageBox QPushButton:pressed {"
+            "   background-color: #1e7e34;"
+            "}"
+            );
+        MQ.warning(this, "", "it's not your turn...");
         return;
+
     }
     for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
@@ -723,8 +812,30 @@ void Client::on_Buttons4_clicked(){
 
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
-        MQ.warning(0,"","it's not you'r turn...");
+        MQ.setStyleSheet(
+            "QMessageBox {"
+            "   background-color: #343d46;"
+            "   color: #ffffff;"
+            "   font-family: 'Comic Sans MS';"
+            "   font-size: 14px;"
+            "}"
+            "QMessageBox QPushButton {"
+            "   background-color: #28a745;"
+            "   color: #ffffff;"
+            "   border: none;"
+            "   padding: 5px 10px;"
+            "   font-size: 14px;"
+            "}"
+            "QMessageBox QPushButton:hover {"
+            "   background-color: #218838;"
+            "}"
+            "QMessageBox QPushButton:pressed {"
+            "   background-color: #1e7e34;"
+            "}"
+            );
+        MQ.warning(this, "", "it's not your turn...");
         return;
+
     }
     for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
@@ -769,8 +880,30 @@ void Client::on_Buttons5_clicked(){
 
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
-        MQ.warning(0,"","it's not you'r turn...");
+        MQ.setStyleSheet(
+            "QMessageBox {"
+            "   background-color: #343d46;"
+            "   color: #ffffff;"
+            "   font-family: 'Comic Sans MS';"
+            "   font-size: 14px;"
+            "}"
+            "QMessageBox QPushButton {"
+            "   background-color: #28a745;"
+            "   color: #ffffff;"
+            "   border: none;"
+            "   padding: 5px 10px;"
+            "   font-size: 14px;"
+            "}"
+            "QMessageBox QPushButton:hover {"
+            "   background-color: #218838;"
+            "}"
+            "QMessageBox QPushButton:pressed {"
+            "   background-color: #1e7e34;"
+            "}"
+            );
+        MQ.warning(this, "", "it's not your turn...");
         return;
+
     }
     for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
@@ -815,8 +948,30 @@ void Client::on_Buttons6_clicked(){
 
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
-        MQ.warning(0,"","it's not you'r turn...");
+        MQ.setStyleSheet(
+            "QMessageBox {"
+            "   background-color: #343d46;"
+            "   color: #ffffff;"
+            "   font-family: 'Comic Sans MS';"
+            "   font-size: 14px;"
+            "}"
+            "QMessageBox QPushButton {"
+            "   background-color: #28a745;"
+            "   color: #ffffff;"
+            "   border: none;"
+            "   padding: 5px 10px;"
+            "   font-size: 14px;"
+            "}"
+            "QMessageBox QPushButton:hover {"
+            "   background-color: #218838;"
+            "}"
+            "QMessageBox QPushButton:pressed {"
+            "   background-color: #1e7e34;"
+            "}"
+            );
+        MQ.warning(this, "", "it's not your turn...");
         return;
+
     }
     for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
@@ -862,8 +1017,30 @@ void Client::on_Buttons7_clicked(){
 
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
-        MQ.warning(0,"","it's not you'r turn...");
+        MQ.setStyleSheet(
+            "QMessageBox {"
+            "   background-color: #343d46;"
+            "   color: #ffffff;"
+            "   font-family: 'Comic Sans MS';"
+            "   font-size: 14px;"
+            "}"
+            "QMessageBox QPushButton {"
+            "   background-color: #28a745;"
+            "   color: #ffffff;"
+            "   border: none;"
+            "   padding: 5px 10px;"
+            "   font-size: 14px;"
+            "}"
+            "QMessageBox QPushButton:hover {"
+            "   background-color: #218838;"
+            "}"
+            "QMessageBox QPushButton:pressed {"
+            "   background-color: #1e7e34;"
+            "}"
+            );
+        MQ.warning(this, "", "it's not your turn...");
         return;
+
     }
     for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
@@ -908,8 +1085,30 @@ void Client::on_Buttons8_clicked(){
 
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
-        MQ.warning(0,"","it's not you'r turn...");
+        MQ.setStyleSheet(
+            "QMessageBox {"
+            "   background-color: #343d46;"
+            "   color: #ffffff;"
+            "   font-family: 'Comic Sans MS';"
+            "   font-size: 14px;"
+            "}"
+            "QMessageBox QPushButton {"
+            "   background-color: #28a745;"
+            "   color: #ffffff;"
+            "   border: none;"
+            "   padding: 5px 10px;"
+            "   font-size: 14px;"
+            "}"
+            "QMessageBox QPushButton:hover {"
+            "   background-color: #218838;"
+            "}"
+            "QMessageBox QPushButton:pressed {"
+            "   background-color: #1e7e34;"
+            "}"
+            );
+        MQ.warning(this, "", "it's not your turn...");
         return;
+
     }
     for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
@@ -955,8 +1154,30 @@ void Client::on_Buttons9_clicked(){
 
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
-        MQ.warning(0,"","it's not you'r turn...");
+        MQ.setStyleSheet(
+            "QMessageBox {"
+            "   background-color: #343d46;"
+            "   color: #ffffff;"
+            "   font-family: 'Comic Sans MS';"
+            "   font-size: 14px;"
+            "}"
+            "QMessageBox QPushButton {"
+            "   background-color: #28a745;"
+            "   color: #ffffff;"
+            "   border: none;"
+            "   padding: 5px 10px;"
+            "   font-size: 14px;"
+            "}"
+            "QMessageBox QPushButton:hover {"
+            "   background-color: #218838;"
+            "}"
+            "QMessageBox QPushButton:pressed {"
+            "   background-color: #1e7e34;"
+            "}"
+            );
+        MQ.warning(this, "", "it's not your turn...");
         return;
+
     }
     for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
@@ -1001,8 +1222,30 @@ void Client::on_Buttons10_clicked(){
 
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
-        MQ.warning(0,"","it's not you'r turn...");
+        MQ.setStyleSheet(
+            "QMessageBox {"
+            "   background-color: #343d46;"
+            "   color: #ffffff;"
+            "   font-family: 'Comic Sans MS';"
+            "   font-size: 14px;"
+            "}"
+            "QMessageBox QPushButton {"
+            "   background-color: #28a745;"
+            "   color: #ffffff;"
+            "   border: none;"
+            "   padding: 5px 10px;"
+            "   font-size: 14px;"
+            "}"
+            "QMessageBox QPushButton:hover {"
+            "   background-color: #218838;"
+            "}"
+            "QMessageBox QPushButton:pressed {"
+            "   background-color: #1e7e34;"
+            "}"
+            );
+        MQ.warning(this, "", "it's not your turn...");
         return;
+
     }
     for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
@@ -1048,8 +1291,30 @@ void Client::on_Buttons11_clicked(){
 
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
-        MQ.warning(0,"","it's not you'r turn...");
+        MQ.setStyleSheet(
+            "QMessageBox {"
+            "   background-color: #343d46;"
+            "   color: #ffffff;"
+            "   font-family: 'Comic Sans MS';"
+            "   font-size: 14px;"
+            "}"
+            "QMessageBox QPushButton {"
+            "   background-color: #28a745;"
+            "   color: #ffffff;"
+            "   border: none;"
+            "   padding: 5px 10px;"
+            "   font-size: 14px;"
+            "}"
+            "QMessageBox QPushButton:hover {"
+            "   background-color: #218838;"
+            "}"
+            "QMessageBox QPushButton:pressed {"
+            "   background-color: #1e7e34;"
+            "}"
+            );
+        MQ.warning(this, "", "it's not your turn...");
         return;
+
     }
     for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
@@ -1094,8 +1359,30 @@ void Client::on_Buttons12_clicked(){
 
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
-        MQ.warning(0,"","it's not you'r turn...");
+        MQ.setStyleSheet(
+            "QMessageBox {"
+            "   background-color: #343d46;"
+            "   color: #ffffff;"
+            "   font-family: 'Comic Sans MS';"
+            "   font-size: 14px;"
+            "}"
+            "QMessageBox QPushButton {"
+            "   background-color: #28a745;"
+            "   color: #ffffff;"
+            "   border: none;"
+            "   padding: 5px 10px;"
+            "   font-size: 14px;"
+            "}"
+            "QMessageBox QPushButton:hover {"
+            "   background-color: #218838;"
+            "}"
+            "QMessageBox QPushButton:pressed {"
+            "   background-color: #1e7e34;"
+            "}"
+            );
+        MQ.warning(this, "", "it's not your turn...");
         return;
+
     }
     for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
@@ -1141,8 +1428,30 @@ void Client::on_Buttons13_clicked(){
 
     if(!currentPlayer.get_turn()){
         QMessageBox MQ;
-        MQ.warning(0,"","it's not you'r turn...");
+        MQ.setStyleSheet(
+            "QMessageBox {"
+            "   background-color: #343d46;"
+            "   color: #ffffff;"
+            "   font-family: 'Comic Sans MS';"
+            "   font-size: 14px;"
+            "}"
+            "QMessageBox QPushButton {"
+            "   background-color: #28a745;"
+            "   color: #ffffff;"
+            "   border: none;"
+            "   padding: 5px 10px;"
+            "   font-size: 14px;"
+            "}"
+            "QMessageBox QPushButton:hover {"
+            "   background-color: #218838;"
+            "}"
+            "QMessageBox QPushButton:pressed {"
+            "   background-color: #1e7e34;"
+            "}"
+         );
+        MQ.warning(this, "", "it's not your turn...");
         return;
+
     }
     for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){

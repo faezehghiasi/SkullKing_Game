@@ -53,6 +53,7 @@ public:
 signals:
     void sendIp(QString ip);
     void changePage();
+    void finishCard();
 public slots:
     void readyRead();
     void newConnection();
@@ -72,19 +73,19 @@ public slots:
     void on_Buttons12_clicked();
     void on_Buttons13_clicked();
     void change_geometry();
-    void on_continueTheGameButton_clicked();
     void on_resumeButton_clicked();
     void on_returnButton();
+    void finishCards();
 
 private slots:
 
 
 
     void on_stop_clicked();
-
     void on_exit_clicked();
 
 private:
+
     Ui::Server *ui;
     QTcpServer* server;
     QTcpSocket* socket;

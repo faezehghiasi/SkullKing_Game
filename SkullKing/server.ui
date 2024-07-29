@@ -98,7 +98,7 @@ border-image: url(:/Prefix/resource/Firefly 20240720203910.png);
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton#stop{ 
-border-image: url(:/Prefix/resource/Firefly_pause_icon_is_circular_in_green_color_in_3D_31063-removebg-preview.png);
+	border-image: url(:/Prefix/resource/Firefly_pause_icon_is_circular_in_green_color_in_3D_31063-removebg-preview.png);
 background-color: rgba(0,0,0,0);
 border-radius:25px;
 }
