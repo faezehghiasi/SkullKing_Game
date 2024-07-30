@@ -14,7 +14,8 @@
 #include<QMutex>
 #include<QThread>
 #include<QString>
-#include"skullking.h"
+#include <QMovie>
+#include<QVBoxLayout>
 #include<QTimer>
 QMutex mx;
 QMutex mxForRead;
@@ -26,13 +27,15 @@ Server::Server(QWidget *parent) :
     ui(new Ui::Server)
 {
     ui->setupUi(this);
+    ui->stopGost->hide();
+    ui->gameStoped->hide();
 
     server = new QTcpServer;
+
     server_card.cards_button = new QPushButton(this);
     server_card.cards_button->setGeometry(140,230,181,251);
     client_card.cards_button = new QPushButton(this);
     client_card.cards_button->setGeometry(660,230,181,251);
-
     server_card.cards_button->hide();
     client_card.cards_button->hide();
 
@@ -65,6 +68,43 @@ Server::Server(QWidget *parent) :
     clientName->setAlignment(Qt::AlignRight);
     clientName->show();
 
+    roundNumber = new QLabel(this);
+    roundNumber->setAlignment(Qt::AlignCenter);
+    roundNumber ->setStyleSheet(
+        "QLabel {"
+        "   background: transparent;" // Transparent background
+        "   color: #bb5a3f;" // Vibrant pink color for the text
+        "   font-family: 'Comic Sans MS', cursive, sans-serif;" // Fun, playful font
+        "   font-size: 30px;" // Larger font size
+        "   font-weight: bold;"
+        "   border: none;" // No border
+        "   border-radius: 0px;" // No border radius
+        "   padding: 20px;" // Increased padding for better spacing
+        "   text-align: center;"
+        "   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5), 0 16px 32px rgba(0, 0, 0, 0.3);" // Enhanced 3D shadow effect
+        "   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 105, 180, 0.7);" // Multi-colored 3D text shadow
+        "}"
+     );
+
+    roundNumber->setGeometry(330,15,351,91);
+    roundNumber->hide();
+
+    timerLabel = new QLabel(this);
+    timerLabel->setAlignment(Qt::AlignCenter);
+    timerLabel->setStyleSheet(
+        "QLabel {"
+        "   color: #ffffff;"
+        "   font-family: 'Comic Sans MS';"
+        "   font-size: 75px;"
+        "   padding: 30px;"
+        "   background-color: rgba(0, 0, 0, 0);"
+        "}"
+        );
+    timerLabel->setGeometry(400, 70, 171, 181); // موقعیت و اندازه QLabel را تنظیم کنید
+    timerLabel->hide(); // در ابتدا تایمر را مخفی کنید
+
+    timer = new QTimer(this);
+    connect(timer, &QTimer::timeout, this, &Server::updateTimer);
 
     endOfTheGame=new QPushButton("Wait for end...",this);
     endOfTheGame->setStyleSheet("background-color:rgb(200, 129, 49); color: rgb(0, 0, 0); font: 15pt Stencil;border-color: rgb(85, 0, 0); border-radius:10px;QPushButton#continueTheGameButton{background-color:rgb(200, 129, 49); color: rgb(0, 0, 0); font: 15pt Stencil;border-color: rgb(85, 0, 0); border-radius:10px;}QPushButton#continueTheGameButton:hover{ color:rgba(155,168,182,210) ;}QPushButton#continueTheGameButton:pressed{padding-left:5px; padding-top:5px;color:rgba(115 ,128,142,210);}");
@@ -80,11 +120,6 @@ Server::Server(QWidget *parent) :
 
     connect(resume,SIGNAL(clicked()),this,SLOT(on_resumeButton_clicked()));
 
-    gameStop = new QLabel(this);
-    gameStop->setStyleSheet("color: rgb(0, 0, 0); font: 18pt Snap ITC;");
-    gameStop->setText("Game Stoped");
-    gameStop->setGeometry(200,270,221,51);
-    gameStop->hide();
 
     returnButton=new QPushButton("Back to menu",this);
     returnButton->setGeometry(150,450,171,51);
@@ -148,13 +183,18 @@ void Server :: readyRead(){
             it->set_win(currentPlayer.get_win());
             it->set_coin(currentPlayer.get_coin());
             writeToFile("myfile.bin");
+
             this->close();
-            Skullking* newPage2;
-            newPage2=new Skullking;
-            newPage2->show();
-            Skullking::delay();
-            newPage2->Show_TextBrows();
+            menu* newPage;
+            newPage=new menu;
+            newPage->show();
+            newPage->showText();
+            QTimer::singleShot(1000, this, [&]() {
+                delete srv;
+            });
+
         }
+        //**********************************************
         if(recivedCard[0].getOrder().endsWith('$')){
             srv->show();
             QString name = recivedCard[0].getOrder();
@@ -181,14 +221,25 @@ void Server :: readyRead(){
         //**********************************************
         else if(recivedCard[0].getOrder()=="STOP"){
             ui->stop->setEnabled(false);
-            gameStop->show();
             for(auto& x:pushButtons) x.cards_button->setEnabled(false);
+            for(auto& x:pushButtons) x.cards_button->hide();
+            ui->stopGost->show();
+            ui->gameStoped->show();
+            remainingTime = 60;
+            timerLabel->setText(QString::number(remainingTime));
+            timerLabel->show();
+            timer->start(1000);
+
         }
         //***********************************************
         else if(recivedCard[0].getOrder()=="RESUME"){
             ui->stop->setEnabled(true);
-            gameStop->hide();
+            timer->stop();
+            timerLabel->hide();
+            ui->stopGost->hide();
+            ui->gameStoped->hide();
             for(auto& x:pushButtons) x.cards_button->setEnabled(true);
+            for(auto& x:pushButtons) x.cards_button->show();
         }
         //**********************************************
         else{
@@ -227,29 +278,42 @@ void Server::disconnected(){
     socket->close();
 }
 //*******************************************************************
-void Server::creation(){
+bool Server::creation(){
+    // استفاده از اتصال جدید
+    connect(server, &QTcpServer::newConnection, this, &Server::newConnection);
 
-    connect(server,SIGNAL(newConnection()),this,SLOT(newConnection()));
     QList<QHostAddress> list = QNetworkInterface::allAddresses();
-    for(int nIter=0; nIter<list.count(); nIter++)
-    {
-        if(!list[nIter].isLoopback())
-              if (list[nIter].protocol() == QAbstractSocket::IPv4Protocol ){
-           serverIp= list[nIter].toString();
-          break;
+    bool ipFound = false;
 
+    for(int nIter = 0; nIter < list.count(); nIter++) {
+        if(!list[nIter].isLoopback()) {
+            if (list[nIter].protocol() == QAbstractSocket::IPv4Protocol) {
+                serverIp = list[nIter].toString();
+                ipFound = true;
+                break;
+            }
         }
     }
-    QHostAddress myIP;
-    myIP.setAddress(serverIp);
-    serverIp= "IP: " + serverIp;
-    ClientOrServer::ip_label->setText(serverIp);
-    if(!server->listen(myIP,9999)){
-        QMessageBox MQ;
-        MQ.critical(0,"Error","server can not start");
 
+    if (ipFound) {
+        QHostAddress myIP;
+        myIP.setAddress(serverIp);
+        serverIp = "IP: " + serverIp;
+
+        if (ClientOrServer::ip_label) {
+            ClientOrServer::ip_label->setText(serverIp);
+        }
+
+        if (!server->listen(myIP, 9999)) {
+            QMessageBox::critical(this, "Error", "Server can not start");
+            ipFound = false;
+        }
+    } else {
+        QMessageBox::critical(this, "Error", "No valid IPv4 address found");
     }
+    return ipFound;
 }
+
 //***************************************************************************
 QTcpSocket* Server::get_socket()
 {
@@ -1495,6 +1559,9 @@ void Server::move_twoCards(){
 //*************************************************************************************************
 void Server ::play(){
 
+    QString round = "Round "+ QString::number(currentPlayer.get_countOfTurn())+" 👻🎃";
+    roundNumber->setText(round);
+    roundNumber->show();
     if(currentPlayer.get_countOfTurn()>1 && currentPlayer.get_countOfTurn()<7)caculateScore(0);
 
 
@@ -1508,6 +1575,7 @@ void Server ::play(){
 
     }
     for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+    ui->stop->setEnabled(false);
     writeToFileCards("sendCard.bin",sendCard);
 
     QFile file2("sendCard.bin");
@@ -1544,6 +1612,7 @@ void Server ::play(){
 
     //guess label....
     ClientOrServer::delay(1000);
+    roundNumber->hide();
     guessLabel=new QLineEdit(this);
     guessLabel->setGeometry(300,310,500,51);
     QFont font_line("Algerian");
@@ -1556,6 +1625,7 @@ void Server ::play(){
         currentPlayer.set_guess(guessLabel->text().toInt());
         guessLabel->hide();
         for(auto& x:pushButtons)x.cards_button->setEnabled(true);
+        ui->stop->setEnabled(true);
         //continue ro ham able kon
     });
 
@@ -1567,7 +1637,7 @@ void Server::caculateScore(int rivalScore){
     if(currentPlayer.get_guess()==currentPlayer.get_setWin()){
         //age gofte bashe 0 dast
         if(currentPlayer.get_guess()==0)currentPlayer.set_score(currentPlayer.get_score()+((currentPlayer.get_countOfTurn()-1)*10));
-       else currentPlayer.set_score(currentPlayer.get_score()+(currentPlayer.get_guess()*10));
+        else currentPlayer.set_score(currentPlayer.get_score()+(currentPlayer.get_guess()*10));
     }
     //age ghalat gofte bashe.....
     else{
@@ -1606,35 +1676,35 @@ void Server::caculateScore(int rivalScore){
 
         }
 
-    else if(rivalScore<currentPlayer.get_score()){
-        cards server_order;
-        server_order.setOrder("You Lose");
-        sendCard.push_back(server_order);
-        writeToFileCards("sendCard.bin",sendCard);
-        QFile file("sendCard.bin");
-        file.open(QFile::ReadOnly | QFile::Text);
-        QByteArray file_content = file.readAll();
-        file.close();
-        QMutexLocker locker(&mx);
-        if (socket->state() == QAbstractSocket::ConnectedState) {
+        else if(rivalScore<currentPlayer.get_score()){
+            cards server_order;
+            server_order.setOrder("You Lose");
+            sendCard.push_back(server_order);
+            writeToFileCards("sendCard.bin",sendCard);
+            QFile file("sendCard.bin");
+            file.open(QFile::ReadOnly | QFile::Text);
+            QByteArray file_content = file.readAll();
+            file.close();
+            QMutexLocker locker(&mx);
+            if (socket->state() == QAbstractSocket::ConnectedState) {
 
-            qint64 bytesWritten = socket->write(file_content);
-            if (bytesWritten == -1) {
+                qint64 bytesWritten = socket->write(file_content);
+                if (bytesWritten == -1) {
+                    QMessageBox mx;
+                    mx.critical(0, "Error", "Failed to send card");
+                }
+                socket->flush();
+            } else {
                 QMessageBox mx;
-                mx.critical(0, "Error", "Failed to send card");
+                mx.critical(0, "Error", "client is offline");
+                return;
             }
-            socket->flush();
-        } else {
-            QMessageBox mx;
-            mx.critical(0, "Error", "client is offline");
-            return;
-        }
-        locker.unlock();
-        currentPlayer.set_win(currentPlayer.get_win()+1);
-        currentPlayer.set_coin(currentPlayer.get_coin()+100);
-        endOfTheGame->setText("You win");
+            locker.unlock();
+            currentPlayer.set_win(currentPlayer.get_win()+1);
+            currentPlayer.set_coin(currentPlayer.get_coin()+100);
+            endOfTheGame->setText("You win");
 
-    }
+        }
         else endOfTheGame->setText("Equal");
 
         auto foundPlayer=find_if(listOfPlayer.begin(),listOfPlayer.end(),[](auto x){return(x.get_username()==currentPlayer.get_username());});
@@ -1642,7 +1712,7 @@ void Server::caculateScore(int rivalScore){
         foundPlayer->set_win(currentPlayer.get_win());
         foundPlayer->set_coin(currentPlayer.get_coin());
         //foundPlayer->set_score(currentPlayer.get_score());
-         writeToFile("myfile.bin");
+        writeToFile("myfile.bin");
 
     }
     scoreNumber->setText(QString::number(currentPlayer.get_score()));
@@ -1658,32 +1728,37 @@ void Server::on_resumeButton_clicked(){
     resume->hide();
     ui->stop->setEnabled(true);
     ui->stop->show();
-     gameStop->hide();
+    timer->stop();
+    timerLabel->hide();
+    ui->stopGost->hide();
+    ui->gameStoped->hide();
+
     for(auto& x:pushButtons) x.cards_button->setEnabled(true);
-     cards server_order;
-     server_order.setOrder("RESUME");
-     sendCard.push_back(server_order);
-     writeToFileCards("sendCard.bin",sendCard);
-     QFile file("sendCard.bin");
-     file.open(QFile::ReadOnly | QFile::Text);
-     QByteArray file_content = file.readAll();
-     file.close();
+    for(auto& x:pushButtons) x.cards_button->show();
+    cards server_order;
+    server_order.setOrder("RESUME");
+    sendCard.push_back(server_order);
+    writeToFileCards("sendCard.bin",sendCard);
+    QFile file("sendCard.bin");
+    file.open(QFile::ReadOnly | QFile::Text);
+    QByteArray file_content = file.readAll();
+    file.close();
 
-     QMutexLocker locker(&mx);
-     if (socket->state() == QAbstractSocket::ConnectedState) {
+    QMutexLocker locker(&mx);
+    if (socket->state() == QAbstractSocket::ConnectedState) {
 
-         qint64 bytesWritten = socket->write(file_content);
-         if (bytesWritten == -1) {
-             QMessageBox mx;
-             mx.critical(0, "Error", "Failed to send card");
-         }
-         socket->flush();
-     } else {
-         QMessageBox mx;
-         mx.critical(0, "Error", "client is offline");
-         return;
-     }
-     locker.unlock();
+        qint64 bytesWritten = socket->write(file_content);
+        if (bytesWritten == -1) {
+            QMessageBox mx;
+            mx.critical(0, "Error", "Failed to send card");
+        }
+        socket->flush();
+    } else {
+        QMessageBox mx;
+        mx.critical(0, "Error", "client is offline");
+
+    }
+    locker.unlock();
 
 }
 //*******************************************************************************************************
@@ -1698,18 +1773,16 @@ void Server::on_returnButton(){
 void Server::on_stop_clicked()
 {
 
-    if(currentPlayer.get_countOfStop()>1){
-        QMessageBox MQ;
-        MQ.warning(0,"","You are not allowed to do this");
-        return;
-    }
+    //socket->flush();
     currentPlayer.set_countOfStop(currentPlayer.get_countOfStop()+1);
     ui->stop->setEnabled(false);
     ui->stop->hide();
     resume->setEnabled(true);
     resume->show();
-    gameStop->show();
     for(auto& x:pushButtons) x.cards_button->setEnabled(false);
+    for(auto& x:pushButtons) x.cards_button->hide();
+    ui->stopGost->show();
+    ui->gameStoped->show();
     cards server_order;
     server_order.setOrder("STOP");
     sendCard.push_back(server_order);
@@ -1723,17 +1796,19 @@ void Server::on_stop_clicked()
 
         qint64 bytesWritten = socket->write(file_content);
         if (bytesWritten == -1) {
-            QMessageBox mx;
-            mx.critical(0, "Error", "Failed to send card");
+            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
         }
         socket->flush();
     } else {
-        QMessageBox mx;
-        mx.critical(0, "Error", "client is offline");
+        QMessageBox::critical(0, "Error", "Socket is not connected.");
         return;
     }
     locker.unlock();
 
+    remainingTime = 60;
+    timerLabel->setText(QString::number(remainingTime));
+    timerLabel->show();
+    timer->start(1000);
 }
 //*******************************************************************************************************
 void Server::on_exit_clicked()
@@ -1769,16 +1844,16 @@ void Server::on_exit_clicked()
     } else {
         QMessageBox mx;
         mx.critical(0, "Error", "client is offline");
-        return;
     }
     locker.unlock();
     this->close();
-    Skullking* newPage;
-    newPage=new Skullking;
+    menu* newPage;
+    newPage=new menu;
     newPage->show();
-    Skullking::delay();
-    newPage->Show_TextBrows();
-    delete srv;
+    newPage->showText();
+    QTimer::singleShot(1000, this, [&]() {
+        delete srv;
+    });
 }
 //*******************************************************************************************************
 void Server::sendScore(){
@@ -1805,7 +1880,6 @@ void Server::sendScore(){
     } else {
         QMessageBox mx;
         mx.critical(0, "Error", "client is offline");
-        return;
     }
     locker.unlock();
 }
@@ -1821,12 +1895,6 @@ void Server::worksForCalculateScore(){
                 endOfTheGame->show();
                 returnButton->setEnabled(true);
                 returnButton->show();
-            }
-            ////////////////////////////////////////
-            else{
-
-
-
             }
 
         }
@@ -1844,4 +1912,16 @@ void Server::finishCards(){
         pushButtons.clear();
         play();
     });
+}
+//******************************************************************************************
+void Server::updateTimer() {
+
+    remainingTime--;
+    timerLabel->setText(QString::number(remainingTime));
+    if (remainingTime <= 0) {
+        timer->stop();
+        timerLabel->hide();
+        on_resumeButton_clicked();
+    }
+
 }

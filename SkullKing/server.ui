@@ -180,10 +180,10 @@ color:rgba(115 ,128,142,210);
      <widget class="QLabel" name="gost">
       <property name="geometry">
        <rect>
-        <x>380</x>
-        <y>180</y>
-        <width>241</width>
-        <height>381</height>
+        <x>370</x>
+        <y>230</y>
+        <width>261</width>
+        <height>321</height>
        </rect>
       </property>
       <property name="styleSheet">
@@ -229,6 +229,52 @@ color: rgb(13, 13, 13);</string>
        <string/>
       </property>
      </widget>
+     <widget class="QLabel" name="stopGost">
+      <property name="geometry">
+       <rect>
+        <x>400</x>
+        <y>70</y>
+        <width>171</width>
+        <height>181</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">background-color: rgb(108,136,56);
+border:3px solid; 
+border-color :#000;
+border-radius:85px;</string>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+     </widget>
+     <widget class="QLabel" name="gameStoped">
+      <property name="geometry">
+       <rect>
+        <x>367</x>
+        <y>0</y>
+        <width>271</width>
+        <height>81</height>
+       </rect>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">font: 18pt &quot;Showcard Gothic&quot;;
+color: rgb(154, 98, 2);</string>
+      </property>
+      <property name="text">
+       <string>Game stopped 🎃</string>
+      </property>
+     </widget>
+     <zorder>background</zorder>
+     <zorder>exit</zorder>
+     <zorder>severPic</zorder>
+     <zorder>clientPic</zorder>
+     <zorder>gost</zorder>
+     <zorder>coin</zorder>
+     <zorder>coin_2</zorder>
+     <zorder>stopGost</zorder>
+     <zorder>stop</zorder>
+     <zorder>gameStoped</zorder>
     </widget>
    </widget>
   </widget>

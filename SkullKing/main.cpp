@@ -16,13 +16,13 @@ int main(int argc, char *argv[])
     QApplication a(argc, argv);
    a.setStyleSheet(
        "QMessageBox {"
-       "   background-color: #f4b26d;" // Light blue background
+       "   background-color: #f4b26d;"
        "   color: #4a270e;" // Dark text color
        "   font-family: 'Comic Sans MS';"
        "   font-size: 14px;"
        "}"
        "QMessageBox QPushButton {"
-       "   background-color: #e0e4cc;" // Light green button background
+       "   background-color: #e0e4cc;"
        "   color: #2c3e50;" // Dark text color on buttons
        "   border: 2px solid #2c3e50;" // Dark border
        "   padding: 5px 10px;"

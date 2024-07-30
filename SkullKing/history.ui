@@ -67,8 +67,8 @@ color: rgb(0, 0, 0);</string>
    <widget class="QLabel" name="lose">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>370</y>
+      <x>150</x>
+      <y>400</y>
       <width>231</width>
       <height>51</height>
      </rect>
@@ -84,8 +84,8 @@ color: rgb(0, 0, 0);</string>
    <widget class="QLabel" name="win">
     <property name="geometry">
      <rect>
-      <x>160</x>
-      <y>500</y>
+      <x>140</x>
+      <y>510</y>
       <width>271</width>
       <height>51</height>
      </rect>

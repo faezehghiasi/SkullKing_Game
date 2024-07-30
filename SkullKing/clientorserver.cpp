@@ -85,7 +85,12 @@ void ClientOrServer::on_serverButton_clicked()
     ip_label->setStyleSheet("color: rgb(0,0,0);font:20pt Algerian");
     ip_label->show();
     srv = new Server;
-    srv->creation();
+    if(!srv->creation()){
+        this->close();
+        ClientOrServer* client_server ;
+        client_server = new ClientOrServer;
+        client_server->show();
+    }
     connect(srv,&Server::changePage,this,&ClientOrServer::chanePage);
 
 }

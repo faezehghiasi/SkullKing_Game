@@ -69,6 +69,7 @@ public slots:
 
 private slots:
 
+    void updateTimer();
     void on_stop_clicked();
     void on_exit_clicked();
 
@@ -80,11 +81,13 @@ private:
     struct buttons server_card;
     struct buttons client_card;
     QLineEdit* guessLabel;
-    QPushButton * continueTheGameButton;
     QPushButton*  endOfTheGame;
     QPushButton* resume;
-    QLabel* gameStop;
     QPushButton* returnButton;
+    QLabel* roundNumber;
+    QLabel *timerLabel;
+    QTimer *timer;
+    int remainingTime;
 };
 extern Client* cln;
 

@@ -24,8 +24,8 @@ class Server : public QMainWindow
 public:
      QString serverIp;
      friend class ClientOrServer;
-    explicit Server(QWidget *parent = nullptr);
-     void creation();
+     explicit Server(QWidget *parent = nullptr);
+     bool creation();
      void play(int cturn);
      QTcpSocket* get_socket();
      void showCards(QList<cards> cCards);
@@ -80,7 +80,7 @@ public slots:
 private slots:
 
 
-
+    void updateTimer();
     void on_stop_clicked();
     void on_exit_clicked();
 
@@ -96,8 +96,11 @@ private:
     QPushButton * continueTheGameButton;
     QPushButton*  endOfTheGame;
     QPushButton* resume;
-    QLabel* gameStop;
     QPushButton* returnButton;
+    QLabel* roundNumber;
+    QLabel *timerLabel;
+    QTimer *timer;
+    int remainingTime;
 };
 extern Server* srv;
 #endif // SERVER_H
