@@ -88,7 +88,7 @@
         <file>resource/gostA.png</file>
         <file>resource/gostB.png</file>
         <file>resource/rust duratex.jpg</file>
-        <file>resource/BG.jpg</file>
         <file>resource/BG2.jpg</file>
+        <file>resource/crown.png</file>
     </qresource>
 </RCC>

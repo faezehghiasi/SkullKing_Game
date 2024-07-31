@@ -30,6 +30,7 @@ Server::Server(QWidget *parent) :
     ui->gameStoped->hide();
 
     server = new QTcpServer;
+    connect(this,&Server::finishCard,this,&Server::finishCards);
 
     server_card.cards_button = new QPushButton(this);
     server_card.cards_button->setGeometry(140,230,181,251);
@@ -84,7 +85,6 @@ Server::Server(QWidget *parent) :
         "   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 105, 180, 0.7);" // Multi-colored 3D text shadow
         "}"
      );
-
     roundNumber->setGeometry(330,15,351,91);
     roundNumber->hide();
 
@@ -101,33 +101,39 @@ Server::Server(QWidget *parent) :
         );
     timerLabel->setGeometry(400, 70, 171, 181); // موقعیت و اندازه QLabel را تنظیم کنید
     timerLabel->hide(); // در ابتدا تایمر را مخفی کنید
-
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &Server::updateTimer);
 
-    endOfTheGame=new QPushButton("Wait for end...",this);
-    endOfTheGame->setStyleSheet("background-color:rgb(200, 129, 49); color: rgb(0, 0, 0); font: 15pt Stencil;border-color: rgb(85, 0, 0); border-radius:10px;QPushButton#continueTheGameButton{background-color:rgb(200, 129, 49); color: rgb(0, 0, 0); font: 15pt Stencil;border-color: rgb(85, 0, 0); border-radius:10px;}QPushButton#continueTheGameButton:hover{ color:rgba(155,168,182,210) ;}QPushButton#continueTheGameButton:pressed{padding-left:5px; padding-top:5px;color:rgba(115 ,128,142,210);}");
-    endOfTheGame->setGeometry(150,300,301,141);
-    endOfTheGame->hide();
-    endOfTheGame->setEnabled(false);
+
 
     resume = new QPushButton(this);
     resume->setStyleSheet("border-image: url(:/Prefix/resource/Firefly_play_icon_is_circular_in_green_color_in_3D_35008-removebg-preview.png);background-color: rgba(0,0,0,0);border-radius:25px;");
     resume->setGeometry(920,270,71,71);
     resume->setEnabled(false);
     resume->hide();
-
     connect(resume,SIGNAL(clicked()),this,SLOT(on_resumeButton_clicked()));
 
 
-    returnButton=new QPushButton("Back to menu",this);
-    returnButton->setGeometry(150,450,171,51);
-    returnButton->setStyleSheet("background-color:rgb(200, 129, 49); color: rgb(0, 0, 0); font: 15pt Stencil;");
-    returnButton->hide();
-    returnButton->setEnabled(false);
-    connect(returnButton,&QPushButton::clicked,this,&Server::on_returnButton);
-    connect(this,&Server::finishCard,this,&Server::finishCards);
+    clientPic = new QLabel(this);
+    clientPic->setStyleSheet("border-image: url(:/Prefix/resource/Firefly_cute_skeleton_icon_for_game_in_3D_56539-removebg-preview.png);");
+    clientPic->setGeometry(760,310,211,301);
+    clientPic->hide();
 
+    serverPic = new QLabel(this);
+    serverPic->setStyleSheet("border-image: url(:/Prefix/resource/Firefly_cute_skeleton_icon_for_game_in_3D_78259-removebg-preview.png);");
+    serverPic->setGeometry(30,330,211,261);
+    serverPic->hide();
+
+
+    crown = new QLabel(this);
+    crown->setStyleSheet("border-image: url(:/Prefix/resource/crown.png);");
+    crown->hide();
+
+    result = new QLabel(this);
+    result->setStyleSheet("font:700 90pt Curlz MT;color: rgb(111, 56, 0);");
+    result->setGeometry(240,350,541,181);
+    result->setAlignment(Qt::AlignCenter);
+    result->hide();
 
 }
 //************************************************************
@@ -136,17 +142,19 @@ Server::~Server()
     delete ui;
 }
 //**************************************************************
-void Server::newConnection(){
+void Server::newConnection() {
+    socket = server->nextPendingConnection();
 
-   socket = server->nextPendingConnection();
-   ClientOrServer::server_label->setGeometry(50,350,561,71);
-   ClientOrServer::server_label->setStyleSheet("color: rgb(2, 2, 2);font: 15pt Snap ITC;");
-   ClientOrServer::server_label->setText("A new player has been added to the game...");
-   emit changePage();
-   connect(socket,SIGNAL(readyRead()),this,SLOT(readyRead()));
-   connect(socket,SIGNAL(disconnected()),this,SLOT(disconnected()));
+    ClientOrServer::server_label->setGeometry(50, 350, 561, 71);
+    ClientOrServer::server_label->setStyleSheet("color: rgb(2, 2, 2); font: 15pt Snap ITC;");
+    ClientOrServer::server_label->setText("A new player has been added to the game...");
 
+    emit changePage();
+
+    connect(socket, &QTcpSocket::readyRead, this, &Server::readyRead);
+    connect(socket, &QTcpSocket::disconnected, this, &Server::disconnected);
 }
+
 //*****************************************************************
 void Server :: readyRead(){
 
@@ -183,18 +191,21 @@ void Server :: readyRead(){
             it->set_coin(currentPlayer.get_coin());
             writeToFile("myfile.bin");
 
-            this->close();
-            menu* newPage;
-            newPage=new menu;
-            newPage->show();
-            newPage->showText();
-            QTimer::singleShot(1000, this, [&]() {
+            endTheGame("you win");
+            QTimer::singleShot(10000, this, [&]() {
+                menu* newPage;
+                newPage=new menu;
+                this->close();
+                newPage->show();
+                stopServer();
                 delete srv;
+                newPage->showText();
+
             });
 
         }
         //**********************************************
-        if(recivedCard[0].getOrder().endsWith('$')){
+        if(recivedCard[0].getOrder().endsWith('$')){  // This means that the client has sent basic information such as the name
             srv->show();
             QString name = recivedCard[0].getOrder();
             name.chop(1);
@@ -208,10 +219,20 @@ void Server :: readyRead(){
             for(auto& x:pushButtons) delete x.cards_button;
             pushButtons.clear();
             caculateScore(rivalScore);
+            QTimer::singleShot(10000, this, [&]() {
+                menu* newPage;
+                newPage=new menu;
+                this->close();
+                newPage->show();
+                stopServer();
+                delete srv;
+                newPage->showText();
+
+            });
 
         }
         //**********************************************
-        else if (recivedCard[0].getOrder().endsWith('#')) {
+        else if (recivedCard[0].getOrder().endsWith('#')) {  // This means that the client has sent its score
             QString name = recivedCard[0].getOrder();
             name.chop(1);
             clientName->setText(name);
@@ -221,7 +242,6 @@ void Server :: readyRead(){
         else if(recivedCard[0].getOrder()=="STOP"){
             ui->stop->setEnabled(false);
             for(auto& x:pushButtons) x.cards_button->setEnabled(false);
-            for(auto& x:pushButtons) x.cards_button->hide();
             ui->stopGost->show();
             ui->gameStoped->show();
             remainingTime = 60;
@@ -238,7 +258,6 @@ void Server :: readyRead(){
             ui->stopGost->hide();
             ui->gameStoped->hide();
             for(auto& x:pushButtons) x.cards_button->setEnabled(true);
-            for(auto& x:pushButtons) x.cards_button->show();
         }
         //**********************************************
         else{
@@ -259,7 +278,6 @@ void Server :: readyRead(){
             worksForCalculateScore();
         }
     }
-
     else{
         currentPlayer.set_randomCards(recivedCard,currentPlayer.get_countOfTurn());
         showCards(currentPlayer.playeCard);
@@ -275,6 +293,7 @@ void Server :: readyRead(){
 void Server::disconnected(){
 
     socket->close();
+    socket->deleteLater();
 }
 //*******************************************************************
 bool Server::creation(){
@@ -303,7 +322,7 @@ bool Server::creation(){
             ClientOrServer::ip_label->setText(serverIp);
         }
 
-        if (!server->listen(myIP, 9999)) {
+        if (!server->listen(myIP, 8089)) {
             QMessageBox::critical(this, "Error",QString("Unable to start the server: %1.").arg(server->errorString()));
             ipFound = false;
         }
@@ -434,7 +453,7 @@ void Server::showCards(QList<cards> cCards){
             QP.thisCard= cCards[i];
              pushButtons.push_back(QP);
         }
-        int X = 9;
+        int X = 15;
         int Y = 540;
         int height = 161;
         int width =98;
@@ -467,16 +486,16 @@ void Server::showCards(QList<cards> cCards){
             QP.thisCard= cCards[i];
              pushButtons.push_back(QP);
         }
-        int X = 8;
+        int X = 5;
         int Y = 560;
         int height = 138;
-        int width =85;
-        for(int i=0;i<6;i++,X+=83,Y-=10){
+        int width =83;
+        for(int i=0;i<6;i++,X+=81,Y-=10){
             pushButtons[i].cards_button->setGeometry(X,Y,width,height);
             pushButtons[i].cards_button->show();
         }
           Y+=10;
-        for(int i=6;i<12;i++,X+=83,Y+=10){
+        for(int i=6;i<12;i++,X+=81,Y+=10){
             pushButtons[i].cards_button->setGeometry(X,Y,width,height);
             pushButtons[i].cards_button->show();
         }
@@ -1620,13 +1639,23 @@ void Server ::play(){
     guessLabel->setPlaceholderText("Enter your guess");
     for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     guessLabel->show();
-    connect(guessLabel,&QLineEdit::editingFinished,this,[&](){
-        currentPlayer.set_guess(guessLabel->text().toInt());
-        guessLabel->hide();
-        for(auto& x:pushButtons)x.cards_button->setEnabled(true);
-        ui->stop->setEnabled(true);
-        //continue ro ham able kon
+    guessLabel->show();
+    connect(guessLabel, &QLineEdit::editingFinished, this, [&]() {
+        bool ok;
+        int guess = guessLabel->text().toInt(&ok);
+
+        if (!ok || guess < 0 || guess > pushButtons.size()) {
+            QMessageBox::warning(this, "Invalid Input", "Please enter a valid number.");
+            guessLabel->clear();
+            guessLabel->setFocus();
+        } else {
+            currentPlayer.set_guess(guess);
+            guessLabel->hide();
+            for (auto& x : pushButtons) x.cards_button->setEnabled(true);
+            ui->stop->setEnabled(true);
+        }
     });
+
 
 
 }
@@ -1644,7 +1673,7 @@ void Server::caculateScore(int rivalScore){
         if(currentPlayer.get_guess()==0)currentPlayer.set_score(currentPlayer.get_score()-((currentPlayer.get_countOfTurn()-1)*10));
         else currentPlayer.set_score(currentPlayer.get_score()-(abs(currentPlayer.get_guess()-currentPlayer.get_setWin())*10));
     }
-    if(currentPlayer.get_countOfTurn()==7){
+    if(currentPlayer.get_countOfTurn() == 7){
         if(rivalScore>currentPlayer.get_score()){
             cards server_order;
             server_order.setOrder("You Win");
@@ -1671,7 +1700,7 @@ void Server::caculateScore(int rivalScore){
             }
             locker.unlock();
             currentPlayer.set_lose(currentPlayer.get_lose()+1);
-            endOfTheGame->setText("You lose");
+            endTheGame("you lose");
 
         }
 
@@ -1701,16 +1730,42 @@ void Server::caculateScore(int rivalScore){
             locker.unlock();
             currentPlayer.set_win(currentPlayer.get_win()+1);
             currentPlayer.set_coin(currentPlayer.get_coin()+100);
-            endOfTheGame->setText("You win");
+            endTheGame("you win");
 
         }
-        else endOfTheGame->setText("Equal");
+        else{
+
+            cards server_order;
+            server_order.setOrder("Equal");
+            sendCard.push_back(server_order);
+            writeToFileCards("sendCard.bin",sendCard);
+            QFile file("sendCard.bin");
+            file.open(QFile::ReadOnly | QFile::Text);
+            QByteArray file_content = file.readAll();
+            file.close();
+            QMutexLocker locker(&mx);
+            if (socket->state() == QAbstractSocket::ConnectedState) {
+
+                qint64 bytesWritten = socket->write(file_content);
+                if (bytesWritten == -1) {
+                    QMessageBox mx;
+                    mx.critical(0, "Error", "Failed to send card");
+                }
+                socket->flush();
+            } else {
+                QMessageBox mx;
+                mx.critical(0, "Error", "client is offline");
+                return;
+            }
+            locker.unlock();
+            currentPlayer.set_coin(currentPlayer.get_coin()+50);
+            endTheGame("Equal");
+        }
 
         auto foundPlayer=find_if(listOfPlayer.begin(),listOfPlayer.end(),[](auto x){return(x.get_username()==currentPlayer.get_username());});
         foundPlayer->set_lose(currentPlayer.get_lose());
         foundPlayer->set_win(currentPlayer.get_win());
         foundPlayer->set_coin(currentPlayer.get_coin());
-        //foundPlayer->set_score(currentPlayer.get_score());
         writeToFile("myfile.bin");
 
     }
@@ -1733,7 +1788,6 @@ void Server::on_resumeButton_clicked(){
     ui->gameStoped->hide();
 
     for(auto& x:pushButtons) x.cards_button->setEnabled(true);
-    for(auto& x:pushButtons) x.cards_button->show();
     cards server_order;
     server_order.setOrder("RESUME");
     sendCard.push_back(server_order);
@@ -1761,25 +1815,15 @@ void Server::on_resumeButton_clicked(){
 
 }
 //*******************************************************************************************************
-void Server::on_returnButton(){
-    menu* newPage;
-    newPage=new menu;
-    this->close();
-    newPage->show();
-    delete srv;
-}
-//*******************************************************************************************************
 void Server::on_stop_clicked()
 {
 
-    //socket->flush();
     currentPlayer.set_countOfStop(currentPlayer.get_countOfStop()+1);
     ui->stop->setEnabled(false);
     ui->stop->hide();
     resume->setEnabled(true);
     resume->show();
     for(auto& x:pushButtons) x.cards_button->setEnabled(false);
-    for(auto& x:pushButtons) x.cards_button->hide();
     ui->stopGost->show();
     ui->gameStoped->show();
     cards server_order;
@@ -1845,13 +1889,16 @@ void Server::on_exit_clicked()
         mx.critical(0, "Error", "client is offline");
     }
     locker.unlock();
-    this->close();
-    menu* newPage;
-    newPage=new menu;
-    newPage->show();
-    newPage->showText();
-    QTimer::singleShot(1000, this, [&]() {
+    endTheGame("you lose");
+    QTimer::singleShot(10000, this, [&]() {
+        menu* newPage;
+        newPage=new menu;
+        this->close();
+        newPage->show();
+        stopServer();
         delete srv;
+        newPage->showText();
+
     });
 }
 //*******************************************************************************************************
@@ -1889,11 +1936,17 @@ void Server::worksForCalculateScore(){
         ClientOrServer::delay(900);
         move_twoCards();
         if(currentPlayer.playeCard.size()==0){
-            ////////////////////////////////////
+
             if(currentPlayer.get_countOfTurn()==7){
-                endOfTheGame->show();
-                returnButton->setEnabled(true);
-                returnButton->show();
+                // endOfTheGame->show();
+                // returnButton->setEnabled(true);
+                // returnButton->show();
+                for(auto& x:pushButtons) delete x.cards_button;
+                pushButtons.clear();
+                ui->stop->setEnabled(false);
+                ui->exit->setEnabled(false);
+                ui->stop->hide();
+                ui->exit->hide();
             }
 
         }
@@ -1904,7 +1957,7 @@ void Server::worksForCalculateScore(){
 //******************************************************************************************
 void Server::finishCards(){
     currentPlayer.set_countOfTurn(currentPlayer.get_countOfTurn()+1);
-    QTimer::singleShot(2000, this, [&]() {
+    QTimer::singleShot(1300, this, [&]() {
         for (auto& x : pushButtons) {
             delete x.cards_button;
         }
@@ -1923,4 +1976,45 @@ void Server::updateTimer() {
         on_resumeButton_clicked();
     }
 
+}
+//******************************************************************************************
+void Server::endTheGame(QString res){
+
+
+    ui->stop->setEnabled(false);
+    ui->exit->setEnabled(false);
+    ui->stop->hide();
+    ui->exit->hide();
+    ui->gost->hide();
+    ui->background->setStyleSheet("border-image: url(:/Prefix/resource/board.png);");
+    clientPic->show();
+    serverPic->show();
+    result->show();
+    if(res == "you win"){
+        result->setText("you win");
+        crown->setGeometry(45,230,181,211);
+        crown->show();
+    }
+    else if(res == "you lose"){
+        result->setText("you lose");
+        crown->setGeometry(777,223,181,211);
+        crown->show();
+    }
+    else{
+
+        result->setText("Equal");
+    }
+}
+//******************************************************************************************
+void Server::stopServer() {
+    if (server->isListening()) {
+        server->close();  // Stop listening
+    }
+
+    // Close all pending connections
+    foreach(QTcpSocket *socket, server->findChildren<QTcpSocket*>()) {
+        socket->close();
+        socket->deleteLater();
+    }
+    delete server;
 }

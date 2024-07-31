@@ -180,9 +180,9 @@ color:rgba(115 ,128,142,210);
      <widget class="QLabel" name="gost">
       <property name="geometry">
        <rect>
-        <x>370</x>
+        <x>380</x>
         <y>230</y>
-        <width>261</width>
+        <width>251</width>
         <height>321</height>
        </rect>
       </property>

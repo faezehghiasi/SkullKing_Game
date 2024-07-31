@@ -174,8 +174,7 @@ void Player::set_countOfStop(int count){
 }
 //***********************************************************
 QVector<cards> Player::set_randomCards(QVector<cards>& exitCards, int countOfTurn){
-//    qDebug()<<"list size : "<<playeCard.size();
-//    qDebug()<<"vecto size : "<<exitCards.size();
+
     for(int i =0;i<countOfTurn*2;i++){
         int index = QRandomGenerator::global()->generate()%exitCards.size();
         auto it = exitCards.begin();
@@ -184,10 +183,6 @@ QVector<cards> Player::set_randomCards(QVector<cards>& exitCards, int countOfTur
         exitCards.erase(it);
     }
      sort(playeCard.begin(),playeCard.end(),[](auto a ,auto b){return a.getId()<b.getId();});
-     //\\\\\\
-
-//    qDebug()<<"list size : "<<playeCard.size();
-//    qDebug()<<"vector size : "<<exitCards.size();
     return exitCards;
 }
 //******************************************************************

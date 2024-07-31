@@ -41,9 +41,12 @@ public:
     QLabel*serverScore;
     QLabel*serverName;
     QLabel*clientName;
+    void endTheGame(QString res);
+    void disconnectFromServer();
 signals:
     void existClient();
     void closePage();
+    void sendEndGame();
 public slots:
     void connected();
     void disconnected();
@@ -62,9 +65,8 @@ public slots:
     void on_Buttons11_clicked();
     void on_Buttons12_clicked();
     void on_Buttons13_clicked();
-    void endOfGame();
+    void sendServerendOfGame();
     void on_resumeButton_clicked();
-    void on_returnButton();
     void change_geometry();
 
 private slots:
@@ -81,13 +83,15 @@ private:
     struct buttons server_card;
     struct buttons client_card;
     QLineEdit* guessLabel;
-    QPushButton*  endOfTheGame;
     QPushButton* resume;
-    QPushButton* returnButton;
     QLabel* roundNumber;
     QLabel *timerLabel;
     QTimer *timer;
     int remainingTime;
+    QLabel* clientPic;
+    QLabel *serverPic;
+    QLabel *crown;
+    QLabel *result;
 };
 extern Client* cln;
 

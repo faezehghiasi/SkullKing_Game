@@ -219,9 +219,9 @@ color: rgb(13, 13, 13);</string>
      <widget class="QLabel" name="gost">
       <property name="geometry">
        <rect>
-        <x>370</x>
+        <x>390</x>
         <y>240</y>
-        <width>261</width>
+        <width>241</width>
         <height>321</height>
        </rect>
       </property>

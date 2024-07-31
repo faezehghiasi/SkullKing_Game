@@ -96,7 +96,7 @@ void ClientOrServer::on_serverButton_clicked()
 }
 //****************************************************************************
 void ClientOrServer::connect_button_clicked(){
-    Ip=Ip_line->text();
+    Ip = Ip_line->text();
     cln = new Client;
 
     bool res = cln->creation();
