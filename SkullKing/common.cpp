@@ -1,5 +1,5 @@
 #include "common.h"
-
+//******************************************************************************************
 commonCards::commonCards(int Id, int Number) :cards(Id, Number) {
     if (id == 4) value = 9;//value of hokm
     else value = number;

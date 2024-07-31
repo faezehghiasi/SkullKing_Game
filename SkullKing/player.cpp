@@ -241,24 +241,24 @@ void Player::set_guess(int g){guess=g;}
 void Player::set_turn(bool b){turn=b;}
 //********************************************************************
 void Player::calculate(cards rivalCard){
-   if(get_server())for(auto& x:srv->get_buttons())x.cards_button->setEnabled(true);
+
+    if(get_server())for(auto& x:srv->get_buttons())x.cards_button->setEnabled(true);
     else for(auto& x:cln->get_PushPuttons())x.cards_button->setEnabled(true);
 
-
-   if((selectedCard.getId()==1||selectedCard.getId()==2||selectedCard.getId()==3)&&(rivalCard.getId()==1||rivalCard.getId()==2||rivalCard.getId()==3))
+    if((selectedCard.getId()==1||selectedCard.getId()==2||selectedCard.getId()==3)&&(rivalCard.getId()==1||rivalCard.getId()==2||rivalCard.getId()==3))
     {
         if(selectedCard.getId()==rivalCard.getId()){
 
             ////************************************************
             if(selectedCard.getNumber()>rivalCard.getNumber()){
 
-            currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
-            currentPlayer.set_turn(true);
-            currentPlayer.set_starterOfEachRound(true);
-            if(get_server())srv->scoreNumber->setText(QString::number(get_score()));
-            else cln->scoreNumber->setText(QString::number(get_score()));
-            return;
-           }
+                currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
+                currentPlayer.set_turn(true);
+                currentPlayer.set_starterOfEachRound(true);
+                if(get_server())srv->scoreNumber->setText(QString::number(get_score()));
+                else cln->scoreNumber->setText(QString::number(get_score()));
+                return;
+            }
         }
 
         else{
@@ -272,7 +272,7 @@ void Player::calculate(cards rivalCard){
                 else cln->scoreNumber->setText(QString::number(get_score()));
                 return;
             }
-            }
+        }
 
 
         if(get_server()){
@@ -280,16 +280,26 @@ void Player::calculate(cards rivalCard){
             srv->get_client_card().clear();
         }
         else{
-           cln->get_server_card().clear();
+            cln->get_server_card().clear();
             cln->get_client_card().clear();
         }
 
     }
     ////********************************************************************************************************
 
-       else if(selectedCard.getId()==4){
-            ////*****************************************************
-            if(rivalCard.getId()==1||rivalCard.getId()==2||rivalCard.getId()==3){
+    else if(selectedCard.getId()==4){
+        ////*****************************************************
+        if(rivalCard.getId()==1||rivalCard.getId()==2||rivalCard.getId()==3){
+            currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
+            currentPlayer.set_turn(true);
+            currentPlayer.set_starterOfEachRound(true);
+            if(get_server())srv->scoreNumber->setText(QString::number(get_score()));
+            else cln->scoreNumber->setText(QString::number(get_score()));
+            return;
+        }
+        ////**********************************************************
+        else if(rivalCard.getId()==4){
+            if(selectedCard.getNumber()>rivalCard.getNumber()){
                 currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
                 currentPlayer.set_turn(true);
                 currentPlayer.set_starterOfEachRound(true);
@@ -297,33 +307,23 @@ void Player::calculate(cards rivalCard){
                 else cln->scoreNumber->setText(QString::number(get_score()));
                 return;
             }
-            ////**********************************************************
-            else if(rivalCard.getId()==4){
-                if(selectedCard.getNumber()>rivalCard.getNumber()){
-                    currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
-                    currentPlayer.set_turn(true);
-                    currentPlayer.set_starterOfEachRound(true);
-                    if(get_server())srv->scoreNumber->setText(QString::number(get_score()));
-                    else cln->scoreNumber->setText(QString::number(get_score()));
-                    return;
-                }
 
-                 }
+        }
 
 
-             ////************************************************************
-            if(get_server()){
-                srv->get_server_card().clear();
-                srv->get_client_card().clear();
-            }
-            else{
-               cln->get_server_card().clear();
-                cln->get_client_card().clear();
-            }
+        ////************************************************************
+        if(get_server()){
+            srv->get_server_card().clear();
+            srv->get_client_card().clear();
+        }
+        else{
+            cln->get_server_card().clear();
+            cln->get_client_card().clear();
+        }
 
     }
-  ////***************************************************************************************************
-   else if(selectedCard.getId()==5||selectedCard.getId()==6||selectedCard.getId()==7){
+    ////***************************************************************************************************
+    else if(selectedCard.getId()==5||selectedCard.getId()==6||selectedCard.getId()==7){
         if(rivalCard.getId()==1||rivalCard.getId()==2||rivalCard.getId()==3||rivalCard.getId()==4){
             currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
             currentPlayer.set_turn(true);
@@ -337,16 +337,16 @@ void Player::calculate(cards rivalCard){
         }
         else {
             if(selectedCard.getId()==5){
-                 switch(rivalCard.getId()){
+                switch(rivalCard.getId()){
                 case 5:if(get_starterOfEachRound()){
-                     currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
-                     currentPlayer.set_score(currentPlayer.get_score()+30);
-                     currentPlayer.set_turn(true);
-                     currentPlayer.set_starterOfEachRound(true);
-                     if(get_server())srv->scoreNumber->setText(QString::number(get_score()));
-                     else cln->scoreNumber->setText(QString::number(get_score()));
-                     return;
-                     }
+                        currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
+                        currentPlayer.set_score(currentPlayer.get_score()+30);
+                        currentPlayer.set_turn(true);
+                        currentPlayer.set_starterOfEachRound(true);
+                        if(get_server())srv->scoreNumber->setText(QString::number(get_score()));
+                        else cln->scoreNumber->setText(QString::number(get_score()));
+                        return;
+                    }
                     break;
                 case 7:{
                     currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
@@ -356,13 +356,13 @@ void Player::calculate(cards rivalCard){
                     if(get_server())srv->scoreNumber->setText(QString::number(get_score()));
                     else cln->scoreNumber->setText(QString::number(get_score()));
                     return;
-                 }
-                    break;
+                }
+                break;
                 }
             }
             else if(selectedCard.getId()==6){
                 switch(rivalCard.getId()){
-               case 5:{
+                case 5:{
                     currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
                     currentPlayer.set_score(currentPlayer.get_score()+35);
                     currentPlayer.set_turn(true);
@@ -372,8 +372,8 @@ void Player::calculate(cards rivalCard){
                     return;
                 }
 
-                   break;
-               case 6:if(get_starterOfEachRound()){
+                break;
+                case 6:if(get_starterOfEachRound()){
                         currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
                         currentPlayer.set_score(currentPlayer.get_score()+40);
                         currentPlayer.set_turn(true);
@@ -383,15 +383,15 @@ void Player::calculate(cards rivalCard){
                         return;
                     }
 
-                   break;
+                    break;
 
 
-               }
+                }
             }
             else{
                 switch(rivalCard.getId()){
 
-               case 6:{
+                case 6:{
                     currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
                     currentPlayer.set_score(currentPlayer.get_score()+30);
                     currentPlayer.set_turn(true);
@@ -400,20 +400,20 @@ void Player::calculate(cards rivalCard){
                     else cln->scoreNumber->setText(QString::number(get_score()));
                     return;
                 }
-                   break;
-               case 7:
+                break;
+                case 7:
                     if(get_starterOfEachRound())
                     {currentPlayer.set_setWin(currentPlayer.get_setWin()+1);
-                     currentPlayer.set_score(currentPlayer.get_score()+20);
-                     currentPlayer.set_turn(true);
-                     currentPlayer.set_starterOfEachRound(true);
-                     if(get_server())srv->scoreNumber->setText(QString::number(get_score()));
-                     else cln->scoreNumber->setText(QString::number(get_score()));
-                     return;
+                        currentPlayer.set_score(currentPlayer.get_score()+20);
+                        currentPlayer.set_turn(true);
+                        currentPlayer.set_starterOfEachRound(true);
+                        if(get_server())srv->scoreNumber->setText(QString::number(get_score()));
+                        else cln->scoreNumber->setText(QString::number(get_score()));
+                        return;
                     }
 
-                   break;
-               }
+                    break;
+                }
             }
         }
         if(get_server()){
@@ -421,22 +421,22 @@ void Player::calculate(cards rivalCard){
             srv->get_client_card().clear();
         }
         else{
-           cln->get_server_card().clear();
+            cln->get_server_card().clear();
             cln->get_client_card().clear();
         }
 
     }
     ////************************************************
-        currentPlayer.set_turn(false);
-        currentPlayer.set_starterOfEachRound(false);
-//        if(get_server()){
-//            srv->get_server_card().clear();
-//            srv->get_client_card().clear();
-//        }
-//        else{
-//           cln->get_server_card().clear();
-//            cln->get_client_card().clear();
-//        }
+    currentPlayer.set_turn(false);
+    currentPlayer.set_starterOfEachRound(false);
+    //        if(get_server()){
+    //            srv->get_server_card().clear();
+    //            srv->get_client_card().clear();
+    //        }
+    //        else{
+    //           cln->get_server_card().clear();
+    //            cln->get_client_card().clear();
+    //        }
 
 }
 //************************************************************************************

@@ -10,7 +10,6 @@
 #include<QMutex>
 #include<QThread>
 #include<QMovie>
-
 QMutex mx2;
 QMutex mxForRead2;
 QString Ip;

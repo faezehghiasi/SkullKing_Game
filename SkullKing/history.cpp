@@ -16,13 +16,12 @@ History::History(QWidget *parent) :
     ui->win->setText(win);
     ui->today->setText(today);
 }
-
+//******************************************************************************************
 History::~History()
 {
     delete ui;
 }
-
-
+//******************************************************************************************
 void History::on_backButton_clicked()
 {    this->close();
      menu* newPage;

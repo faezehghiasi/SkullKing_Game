@@ -1,5 +1,5 @@
 #include "importantcards.h"
-
+//******************************************************************************************
 importantCards::importantCards(int Id) :cards(Id, 0) {
     switch (id) {
     //king

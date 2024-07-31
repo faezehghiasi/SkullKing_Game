@@ -64,7 +64,6 @@
         <file>resource/posht.jpg</file>
         <file>resource/poshtCard.jpg</file>
         <file>resource/Premium_Vector___Mariachi_skeleton-removebg-preview.png</file>
-        <file>resource/queen.png</file>
         <file>resource/search.gif</file>
         <file>resource/Skeleton_Clipart__16_JPGs__Kawaii_Clipart__Funny_Skeleton__Halloween_Clipart__Digital_Paper_Craft__Digital_Download__Commercial_Use-removebg-preview.png</file>
         <file>resource/treasure1.png</file>
@@ -85,5 +84,11 @@
         <file>resource/Firefly_cute_skeleton_icon_for_game_in_3D_56539-removebg-preview.png</file>
         <file>resource/Firefly_cute_skeleton_icon_for_game_in_3D_78259-removebg-preview.png</file>
         <file>resource/continu.png</file>
+        <file>resource/queen.png</file>
+        <file>resource/gostA.png</file>
+        <file>resource/gostB.png</file>
+        <file>resource/rust duratex.jpg</file>
+        <file>resource/BG.jpg</file>
+        <file>resource/BG2.jpg</file>
     </qresource>
 </RCC>

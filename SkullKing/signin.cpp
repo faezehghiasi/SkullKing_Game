@@ -22,37 +22,32 @@ SignIn::~SignIn()
 void SignIn::on_ButtonLogIn_clicked()
 {
 
-  QString userName = ui->lineEditUserName->text();
-  QString password = ui->lineEditPassword->text();
-  bool flag = false;
-  QMessageBox ms;
-  for (int i =0 ; i<listOfPlayer.size();i++){
-      if (userName == listOfPlayer[i].get_username()&&
-              password == listOfPlayer[i].get_password()){
-          currentPlayer=listOfPlayer[i];
-          flag = true;
-          break;
-      }
-  }
-  if(!flag){
-      ms.critical(0,"Login failed","The username or password is incorrect");
-      this->hide();
-      Skullking * main = new Skullking;
-      main->show();
-      Skullking::delay();
-      main->Show_TextBrows();
-     return;
-  }
-  //some chenges here
-  // ClientOrServer* client_server ;
-  //  client_server = new ClientOrServer(this);
-  //  this->hide();
-  //  client_server->show();
-  menu* men ;
-  men = new menu(this);
-  this->hide();
-  men->show();
-  men->showText();
+    QString userName = ui->lineEditUserName->text();
+    QString password = ui->lineEditPassword->text();
+    bool flag = false;
+    QMessageBox ms;
+    for (int i =0 ; i<listOfPlayer.size();i++){
+        if (userName == listOfPlayer[i].get_username()&&
+            password == listOfPlayer[i].get_password()){
+            currentPlayer=listOfPlayer[i];
+            flag = true;
+            break;
+        }
+    }
+    if(!flag){
+        ms.critical(0,"Login failed","The username or password is incorrect");
+        this->hide();
+        Skullking * main = new Skullking;
+        main->show();
+        Skullking::delay();
+        main->Show_TextBrows();
+        return;
+    }
+    menu* men ;
+    men = new menu(this);
+    this->hide();
+    men->show();
+    men->showText();
 
 
 }
@@ -63,8 +58,7 @@ void SignIn::on_ButtonForgetPassword_clicked()
    forgetP = new forgetPassword(this);
    forgetP->show();
 }
-
-
+//********************************************************
 void SignIn::on_backButton_clicked()
 {
     Skullking* back;

@@ -111,74 +111,74 @@ void SignUp::on_nextButton_clicked()
     QString name = ui->Name->text();
     bool isValid2 = name==""?false:true;
     if (!isValid2) {
-       ui->Name->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI ;color: rgb(255, 255, 255);border:2px solid;  border-color :rgb(225,0,0);");
-      } else {
-               ui->Name->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UIt;color: rgb(255, 255, 255);border:2px solid;border-color: rgb(200, 111, 22);");
-      }
+        ui->Name->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI ;color: rgb(255, 255, 255);border:2px solid;  border-color :rgb(225,0,0);");
+    } else {
+        ui->Name->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UIt;color: rgb(255, 255, 255);border:2px solid;border-color: rgb(200, 111, 22);");
+    }
     QString username = ui->username->text();
     bool isValid3 = username==""?false:true;
     if (!isValid3) {
-       ui->username->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI ;color: rgb(255, 255, 255);border:2px solid;  border-color :rgb(225,0,0);");
-      } else {
-               ui->username->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI;color: rgb(255, 255, 255);border:2px solid;border-color: rgb(200, 111, 22);");
-      }
+        ui->username->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI ;color: rgb(255, 255, 255);border:2px solid;  border-color :rgb(225,0,0);");
+    } else {
+        ui->username->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI;color: rgb(255, 255, 255);border:2px solid;border-color: rgb(200, 111, 22);");
+    }
     QString address = ui->address->text();
     bool isValid4 = address==""?false:true;
     if (!isValid4) {
-       ui->address->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI ;color: rgb(255, 255, 255);border:2px solid;  border-color :rgb(225,0,0);");
-      } else {
-               ui->address->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI;color: rgb(255, 255, 255);border:2px solid;border-color: rgb(200, 111, 22);");
-      }
+        ui->address->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI ;color: rgb(255, 255, 255);border:2px solid;  border-color :rgb(225,0,0);");
+    } else {
+        ui->address->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI;color: rgb(255, 255, 255);border:2px solid;border-color: rgb(200, 111, 22);");
+    }
     QString password = ui->password->text();
     bool isValid5 = password==""?false:true;
     if (!isValid5) {
-       ui->password->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI ;color: rgb(255, 255, 255);border:2px solid;  border-color :rgb(225,0,0);");
-      } else {
-               ui->password->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI;color: rgb(255, 255, 255);border:2px solid;border-color: rgb(200, 111, 22);");
-      }
+        ui->password->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI ;color: rgb(255, 255, 255);border:2px solid;  border-color :rgb(225,0,0);");
+    } else {
+        ui->password->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI;color: rgb(255, 255, 255);border:2px solid;border-color: rgb(200, 111, 22);");
+    }
 
     QRegularExpression pattern("^[0-9]{11}$");
-     QValidator *validator = new QRegularExpressionValidator(pattern, ui->phone_num);
-     ui->phone_num->setValidator(validator);
-     QString phoneNumber =ui->phone_num->text();
-           bool isValid = pattern.match(phoneNumber).hasMatch();
-           if (!isValid) {
-              ui->phone_num->setStyleSheet(" background-color: rgb(0, 0, 0);font: 9pt Segoe UI ;color: rgb(255, 255, 255);border:2px solid;  border-color :rgb(225,0,0);");
-             } else {
-                      ui->phone_num->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI;color: rgb(255, 255, 255);border:2px solid;border-color: rgb(200, 111, 22);");
-             }
-           auto exitPlayer = find_if(listOfPlayer.begin(),listOfPlayer.end(),
-                                    [&]( auto p)
-                     { return(p.get_username()==username);});
-           if( exitPlayer!=listOfPlayer.end()){
-               ui->username->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI ;color: rgb(255, 255, 255);border:2px solid;  border-color :rgb(225,0,0);");
-               QMessageBox Mb;
-               Mb.critical(this,"Sign Up","Username already exists");
-               isValid3=false;
-           }
-           else if(isValid3){
-                 ui->username->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI;color: rgb(255, 255, 255);border:2px solid;border-color: rgb(200, 111, 22);");
-           }
+    QValidator *validator = new QRegularExpressionValidator(pattern, ui->phone_num);
+    ui->phone_num->setValidator(validator);
+    QString phoneNumber =ui->phone_num->text();
+    bool isValid = pattern.match(phoneNumber).hasMatch();
+    if (!isValid) {
+        ui->phone_num->setStyleSheet(" background-color: rgb(0, 0, 0);font: 9pt Segoe UI ;color: rgb(255, 255, 255);border:2px solid;  border-color :rgb(225,0,0);");
+    } else {
+        ui->phone_num->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI;color: rgb(255, 255, 255);border:2px solid;border-color: rgb(200, 111, 22);");
+    }
+    auto exitPlayer = find_if(listOfPlayer.begin(),listOfPlayer.end(),
+                              [&]( auto p)
+                              { return(p.get_username()==username);});
+    if( exitPlayer!=listOfPlayer.end()){
+        ui->username->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI ;color: rgb(255, 255, 255);border:2px solid;  border-color :rgb(225,0,0);");
+        QMessageBox Mb;
+        Mb.critical(this,"Sign Up","Username already exists");
+        isValid3=false;
+    }
+    else if(isValid3){
+        ui->username->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI;color: rgb(255, 255, 255);border:2px solid;border-color: rgb(200, 111, 22);");
+    }
 
 
     if(isValid&&isValid2&&isValid3&&isValid4&&isValid5){
 
-      Player p;
-      p.set_name(ui->Name->text());
-      p.set_username(ui->username->text());
-      p.set_password(ui->password->text());
-      p.set_address(ui->address->text());
-      p.set_phoneNumber(ui->phone_num->text());
-      QString filename= "myfile.bin";
-      p.set_coin(1000);
-      listOfPlayer.append(p);
-      writeToFile(filename);
-      this->hide();
-      Skullking* w;
-      w=new Skullking;
-      w->show();
-      Skullking::delay();
-      w->Show_TextBrows();
+        Player p;
+        p.set_name(ui->Name->text());
+        p.set_username(ui->username->text());
+        p.set_password(ui->password->text());
+        p.set_address(ui->address->text());
+        p.set_phoneNumber(ui->phone_num->text());
+        QString filename= "myfile.bin";
+        p.set_coin(1000);
+        listOfPlayer.append(p);
+        writeToFile(filename);
+        this->hide();
+        Skullking* w;
+        w=new Skullking;
+        w->show();
+        Skullking::delay();
+        w->Show_TextBrows();
     }
     else return;
 }

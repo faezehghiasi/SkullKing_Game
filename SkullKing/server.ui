@@ -251,7 +251,7 @@ border-radius:85px;</string>
      <widget class="QLabel" name="gameStoped">
       <property name="geometry">
        <rect>
-        <x>367</x>
+        <x>372</x>
         <y>0</y>
         <width>271</width>
         <height>81</height>

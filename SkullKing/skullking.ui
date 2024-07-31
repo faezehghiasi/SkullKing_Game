@@ -66,22 +66,6 @@ border-image: url(:/Prefix/resource/nameOfGame.png);</string>
      <string/>
     </property>
    </widget>
-   <widget class="QLabel" name="label_4">
-    <property name="geometry">
-     <rect>
-      <x>230</x>
-      <y>240</y>
-      <width>251</width>
-      <height>271</height>
-     </rect>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">border-image: url(:/Prefix/resource/queen.png);</string>
-    </property>
-    <property name="text">
-     <string/>
-    </property>
-   </widget>
    <widget class="QWidget" name="widget" native="true">
     <property name="geometry">
      <rect>
@@ -258,11 +242,28 @@ font: 12pt &quot;Snap ITC&quot;;
 </string>
      </property>
     </widget>
+    <widget class="QLabel" name="label_4">
+     <property name="geometry">
+      <rect>
+       <x>260</x>
+       <y>250</y>
+       <width>201</width>
+       <height>241</height>
+      </rect>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">border-image: url(:/Prefix/resource/queen.png);</string>
+     </property>
+     <property name="text">
+      <string/>
+     </property>
+    </widget>
     <zorder>label_6</zorder>
     <zorder>signIn</zorder>
     <zorder>SignUp</zorder>
     <zorder>label_5</zorder>
     <zorder>textBrowser</zorder>
+    <zorder>label_4</zorder>
    </widget>
    <widget class="QTextBrowser" name="welcomBrowser">
     <property name="geometry">
@@ -281,7 +282,6 @@ font: 26pt &quot;Snap ITC&quot;;</string>
     </property>
    </widget>
    <zorder>widget</zorder>
-   <zorder>label_4</zorder>
    <zorder>label</zorder>
    <zorder>label_3</zorder>
    <zorder>label_2</zorder>

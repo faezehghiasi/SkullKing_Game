@@ -19,7 +19,6 @@
 #include<QTimer>
 QMutex mx;
 QMutex mxForRead;
-//******
 Server * srv;
 
 Server::Server(QWidget *parent) :
@@ -305,7 +304,7 @@ bool Server::creation(){
         }
 
         if (!server->listen(myIP, 9999)) {
-            QMessageBox::critical(this, "Error", "Server can not start");
+            QMessageBox::critical(this, "Error",QString("Unable to start the server: %1.").arg(server->errorString()));
             ipFound = false;
         }
     } else {

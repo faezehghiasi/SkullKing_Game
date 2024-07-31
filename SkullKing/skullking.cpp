@@ -10,11 +10,12 @@ Skullking::Skullking(QWidget *parent)
     ui->setupUi(this);
 
 }
-
+//***************************************************************************************
 Skullking::~Skullking()
 {
     delete ui;
 }
+//***************************************************************************************
 void Skullking::Show_TextBrows(){
 
     ui->welcomBrowser->append("");
@@ -28,21 +29,21 @@ void Skullking::Show_TextBrows(){
     ui->SignUp->setEnabled(true);
 
 }
+//***************************************************************************************
  void Skullking::delay(){
     QTime dietime=QTime::currentTime().addMSecs(700);
     while(QTime::currentTime()<dietime){
         QCoreApplication::processEvents(QEventLoop::AllEvents,100);
     }
 }
-
+//***************************************************************************************
 void Skullking::on_signIn_clicked()
 {
     this->hide();
     signIn=new SignIn(this);
     signIn->show();
 }
-
-
+//***************************************************************************************
 void Skullking::on_SignUp_clicked()
 {
     this->hide();
