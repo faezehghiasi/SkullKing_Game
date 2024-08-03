@@ -135,7 +135,7 @@ background-color:rgb(216,148,99);
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/Prefix/resource/19_Halloween_Clipart_PNG__Ghost_Clipart_PNG__Ghost_PNG__Commercial_Use_digital_Download_card_Making_clip_Art_digital_Craft_-_Etsy-removebg-preview.png);</string>
+     <string notr="true">border-image: url(:/Prefix/resource/sGost.png);</string>
     </property>
     <property name="text">
      <string/>

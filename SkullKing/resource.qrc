@@ -1,6 +1,5 @@
 <RCC>
     <qresource prefix="/Prefix">
-        <file>resource/19_Halloween_Clipart_PNG__Ghost_Clipart_PNG__Ghost_PNG__Commercial_Use_digital_Download_card_Making_clip_Art_digital_Craft_-_Etsy-removebg-preview.png</file>
         <file>resource/50_Aesthetic_Ghost_Phone_Wallpapers___Orange_Kawaii_Halloween_Lock_Screen-removebg-preview.png</file>
         <file>resource/account_3033143.png</file>
         <file>resource/back-button_93634.png</file>
@@ -8,7 +7,6 @@
         <file>resource/board.png</file>
         <file>resource/Car_Sticker_Funny_Halloween_Ghost_Sticker_Weatherproof_Outdoor_Vinyl_Sticker_Customizable-removebg-preview.png</file>
         <file>resource/cute_ghost_face_emoji_cute_ghost_face_emoji_transparent_png-removebg-preview.png</file>
-        <file>resource/Cute_halloween_ghost_reading_book-removebg-preview.png</file>
         <file>resource/DesignsByRockly_-_Etsy_Nederland__6_-removebg-preview.png</file>
         <file>resource/DesignsByRockly_-_Etsy_Nederland__10_-removebg-preview.png</file>
         <file>resource/DesignsByRockly_-_Etsy_Nederland__11_-removebg-preview.png</file>
@@ -80,5 +78,6 @@
         <file>resource/coffieS.png</file>
         <file>resource/Purple Pirates.jpg</file>
         <file>resource/981.jpg</file>
+        <file>resource/sGost.png</file>
     </qresource>
 </RCC>

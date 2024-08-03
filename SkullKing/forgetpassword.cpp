@@ -27,12 +27,7 @@ void forgetPassword::on_save_clicked()
                                 [&]( auto p)
                                 { return((p.get_username()==userName)&&(p.get_phoneNumber() == phoneNumber)); });
     if (updatePlayer == listOfPlayer.end()) {
-        QMessageBox:: critical(0,"Not Found","The information is wrong");
-        this->hide();
-        Skullking * main = new Skullking;
-        main->show();
-        Skullking::delay();
-        main->Show_TextBrows();
+        QMessageBox:: critical(this,"Not Found","The information is wrong");
         return;
     }
     updatePlayer->set_password(newPassword);
