@@ -14,6 +14,7 @@
 #include <QMovie>
 #include<QMutex>
 #include<QThread>
+#include<QTimer>
 ClientOrServer::ClientOrServer(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::ClientOrServer)
@@ -108,41 +109,40 @@ void ClientOrServer::connect_button_clicked(){
     }
     client_label->show();
     connect(cln,&Client::closePage,this,&ClientOrServer::closePage);
-
-    delay(3000);
-
 }
 
 //*******************************************************************************
 void ClientOrServer::chanePage(){
+
     ui->label->hide();
-    delay(3000);
+    QTimer::singleShot(2000, this, [&]() {
+        //order client  to start the game
+        cards server_order;
+        server_order.setOrder((currentPlayer.get_name()+"$"));
+        sendCard.push_back(server_order);
+        writeToFileCards("sendCard.bin",sendCard);
+        QFile file("sendCard.bin");
+        file.open(QFile::ReadOnly | QFile::Text);
 
-    //order client  to start the game
-    cards server_order;
-    server_order.setOrder((currentPlayer.get_name()+"$"));
-    sendCard.push_back(server_order);
-    writeToFileCards("sendCard.bin",sendCard);
-    QFile file("sendCard.bin");
-    file.open(QFile::ReadOnly | QFile::Text);
+        QByteArray file_content = file.readAll();
+        file.close();
 
-    QByteArray file_content = file.readAll();
-    file.close();
+        QMutexLocker locker(&mx);
+        if (srv->socket->state() == QAbstractSocket::ConnectedState) {
 
-    QMutexLocker locker(&mx);
-    if (srv->socket->state() == QAbstractSocket::ConnectedState) {
-
-        qint64 bytesWritten = srv->socket->write(file_content);
-        if (bytesWritten == -1) {
-            QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+            qint64 bytesWritten = srv->socket->write(file_content);
+            if (bytesWritten == -1) {
+                QMessageBox::critical(0, "Error", "Failed to write data to socket.");
+            }
+            srv->socket->flush();
+        } else {
+            QMessageBox::critical(0, "Error", "Socket is not connected.");
+            return;
         }
-        srv->socket->flush();
-    } else {
-        QMessageBox::critical(0, "Error", "Socket is not connected.");
-        return;
-    }
-    locker.unlock();
-    this->hide();
+        locker.unlock();
+        this->hide();
+
+    });
 
 
 }

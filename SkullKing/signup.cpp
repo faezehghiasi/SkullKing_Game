@@ -100,30 +100,30 @@ void SignUp::on_nextButton_clicked()
     QString name = ui->Name->text();
     bool isValid2 = name==""?false:true;
     if (!isValid2) {
-        ui->Name->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI ;color: rgb(255, 255, 255);border:2px solid;  border-color :rgb(225,0,0);");
+        ui->Name->setStyleSheet("border-radius:10px;color: rgb(0, 0, 0);font: 15pt Times New Roman;background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgb(211, 232, 255));border:3px solid; border-color :rgb(225,0,0);");
     } else {
-        ui->Name->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UIt;color: rgb(255, 255, 255);border:2px solid;border-color: rgb(200, 111, 22);");
+        ui->Name->setStyleSheet("border-radius:10px;color: rgb(0, 0, 0);font: 15pt Times New Roman;background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgb(211, 232, 255));border:3px solid; border-color :rgb(225,255,255);");
     }
     QString username = ui->username->text();
     bool isValid3 = username==""?false:true;
     if (!isValid3) {
-        ui->username->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI ;color: rgb(255, 255, 255);border:2px solid;  border-color :rgb(225,0,0);");
+        ui->username->setStyleSheet("border-radius:10px;color: rgb(0, 0, 0);font: 15pt Times New Roman;background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgb(211, 232, 255));border:3px solid; border-color :rgb(225,0,0);");
     } else {
-        ui->username->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI;color: rgb(255, 255, 255);border:2px solid;border-color: rgb(200, 111, 22);");
+        ui->username->setStyleSheet("border-radius:10px;color: rgb(0, 0, 0);font: 15pt Times New Roman;background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgb(211, 232, 255));border:3px solid; border-color :rgb(225,255,255);");
     }
     QString address = ui->address->text();
     bool isValid4 = address==""?false:true;
     if (!isValid4) {
-        ui->address->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI ;color: rgb(255, 255, 255);border:2px solid;  border-color :rgb(225,0,0);");
+        ui->address->setStyleSheet("border-radius:10px;color: rgb(0, 0, 0);font: 15pt Times New Roman;background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgb(211, 232, 255));border:3px solid; border-color :rgb(225,0,0);");
     } else {
-        ui->address->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI;color: rgb(255, 255, 255);border:2px solid;border-color: rgb(200, 111, 22);");
+        ui->address->setStyleSheet("border-radius:10px;color: rgb(0, 0, 0);font: 15pt Times New Roman;background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgb(211, 232, 255));border:3px solid; border-color :rgb(225,255,255);");
     }
     QString password = ui->password->text();
     bool isValid5 = password==""?false:true;
     if (!isValid5) {
-        ui->password->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI ;color: rgb(255, 255, 255);border:2px solid;  border-color :rgb(225,0,0);");
+        ui->password->setStyleSheet("border-radius:10px;color: rgb(0, 0, 0);font: 15pt Times New Roman;background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgb(211, 232, 255));border:3px solid; border-color :rgb(225,0,0);");
     } else {
-        ui->password->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI;color: rgb(255, 255, 255);border:2px solid;border-color: rgb(200, 111, 22);");
+        ui->password->setStyleSheet("border-radius:10px;color: rgb(0, 0, 0);font: 15pt Times New Roman;background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgb(211, 232, 255));border:3px solid; border-color :rgb(225,255,255);");
     }
 
     QRegularExpression pattern("^[0-9]{11}$");
@@ -132,21 +132,21 @@ void SignUp::on_nextButton_clicked()
     QString phoneNumber =ui->phone_num->text();
     bool isValid = pattern.match(phoneNumber).hasMatch();
     if (!isValid) {
-        ui->phone_num->setStyleSheet(" background-color: rgb(0, 0, 0);font: 9pt Segoe UI ;color: rgb(255, 255, 255);border:2px solid;  border-color :rgb(225,0,0);");
+        ui->phone_num->setStyleSheet("border-radius:10px;color: rgb(0, 0, 0);font: 15pt Times New Roman;background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgb(211, 232, 255));border:3px solid; border-color :rgb(225,0,0);");
     } else {
-        ui->phone_num->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI;color: rgb(255, 255, 255);border:2px solid;border-color: rgb(200, 111, 22);");
+        ui->phone_num->setStyleSheet("border-radius:10px;color: rgb(0, 0, 0);font: 15pt Times New Roman;background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgb(211, 232, 255));border:3px solid; border-color :rgb(225,255,255);");
     }
     auto exitPlayer = find_if(listOfPlayer.begin(),listOfPlayer.end(),
                               [&]( auto p)
                               { return(p.get_username()==username);});
     if( exitPlayer!=listOfPlayer.end()){
-        ui->username->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI ;color: rgb(255, 255, 255);border:2px solid;  border-color :rgb(225,0,0);");
+        ui->username->setStyleSheet("border-radius:10px;color: rgb(0, 0, 0);font: 15pt Times New Roman;background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgb(211, 232, 255));border:3px solid; border-color :rgb(225,0,0);");
         QMessageBox Mb;
         Mb.critical(this,"Sign Up","Username already exists");
-        isValid3=false;
+        isValid3 = false;
     }
-    else if(isValid3){
-        ui->username->setStyleSheet("background-color: rgb(0, 0, 0);font: 9pt Segoe UI;color: rgb(255, 255, 255);border:2px solid;border-color: rgb(200, 111, 22);");
+    else if(!isValid3){
+        ui->username->setStyleSheet("border-radius:10px;color: rgb(0, 0, 0);font: 15pt Times New Roman;background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgb(211, 232, 255));border:3px solid; border-color :rgb(225,0,0);");
     }
 
 

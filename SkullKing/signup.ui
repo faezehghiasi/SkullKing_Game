@@ -83,37 +83,11 @@ background-color:rgb(78, 193, 255);
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-image:url(:/Prefix/resource/download.jpg)
+      <string notr="true">border-image: url(:/Prefix/resource/Purple Pirates.jpg);
 </string>
      </property>
      <property name="text">
       <string/>
-     </property>
-    </widget>
-    <widget class="QLabel" name="sign_up">
-     <property name="geometry">
-      <rect>
-       <x>-10</x>
-       <y>40</y>
-       <width>241</width>
-       <height>61</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Snap ITC</family>
-       <pointsize>20</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">font: 20pt &quot;Snap ITC&quot;;
-color: rgb(255, 253, 246);
-background-color:rgba(0,0,0,0);</string>
-     </property>
-     <property name="text">
-      <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p align=&quot;center&quot;&gt;&lt;span style=&quot; font-size:26pt;&quot;&gt;Sign UP&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
      </property>
     </widget>
     <widget class="QPushButton" name="nextButton">
@@ -158,7 +132,7 @@ background-color:rgb(78, 193, 255);
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>165</y>
+       <y>120</y>
        <width>41</width>
        <height>41</height>
       </rect>
@@ -176,7 +150,7 @@ border-radius:10px;</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>210</y>
+       <y>190</y>
        <width>41</width>
        <height>41</height>
       </rect>
@@ -212,7 +186,7 @@ border-radius:10px;</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>310</y>
+       <y>330</y>
        <width>41</width>
        <height>31</height>
       </rect>
@@ -230,7 +204,7 @@ border-radius:10px;</string>
      <property name="geometry">
       <rect>
        <x>10</x>
-       <y>360</y>
+       <y>400</y>
        <width>41</width>
        <height>31</height>
       </rect>
@@ -247,26 +221,27 @@ border-radius:10px;</string>
     <widget class="QLineEdit" name="Name">
      <property name="geometry">
       <rect>
-       <x>72</x>
-       <y>165</y>
-       <width>191</width>
-       <height>31</height>
+       <x>70</x>
+       <y>120</y>
+       <width>311</width>
+       <height>41</height>
       </rect>
      </property>
      <property name="font">
       <font>
-       <family>Segoe UI</family>
-       <pointsize>9</pointsize>
+       <family>Times New Roman</family>
+       <pointsize>15</pointsize>
        <italic>false</italic>
        <bold>false</bold>
       </font>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(0, 0, 0);
-color: rgb(255, 255, 255);
-border:2px solid;
-font: 9pt &quot;Segoe UI&quot;;
-border-color: rgbrgb(255, 255, 255)</string>
+      <string notr="true">border-radius:10px;
+color: rgb(0, 0, 0);
+font: 15pt &quot;Times New Roman&quot;;
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgb(211, 232, 255));
+border:3px solid; 
+border-color: rgb(255, 255, 255);</string>
      </property>
      <property name="text">
       <string/>
@@ -280,16 +255,17 @@ border-color: rgbrgb(255, 255, 255)</string>
       <rect>
        <x>70</x>
        <y>260</y>
-       <width>191</width>
-       <height>31</height>
+       <width>311</width>
+       <height>41</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(0, 0, 0);
-font: 9pt &quot;Segoe UI&quot;;
-color: rgb(255, 255, 255);
-border:2px solid;
-border-color: rgbrgb(255, 255, 255)</string>
+      <string notr="true">border-radius:10px;
+color: rgb(0, 0, 0);
+font: 15pt &quot;Times New Roman&quot;;
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgb(211, 232, 255));
+border:3px solid; 
+border-color: rgb(255, 255, 255);</string>
      </property>
      <property name="text">
       <string/>
@@ -304,18 +280,19 @@ border-color: rgbrgb(255, 255, 255)</string>
     <widget class="QLineEdit" name="username">
      <property name="geometry">
       <rect>
-       <x>72</x>
-       <y>210</y>
-       <width>191</width>
-       <height>31</height>
+       <x>70</x>
+       <y>190</y>
+       <width>311</width>
+       <height>41</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(0, 0, 0);
-font: 9pt &quot;Segoe UI&quot;;
-color: rgb(255, 255, 255);
-border:2px solid;
-border-color: rgbrgb(255, 255, 255)</string>
+      <string notr="true">border-radius:10px;
+color: rgb(0, 0, 0);
+font: 15pt &quot;Times New Roman&quot;;
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgb(211, 232, 255));
+border:3px solid; 
+border-color: rgb(255, 255, 255);</string>
      </property>
      <property name="text">
       <string/>
@@ -328,17 +305,18 @@ border-color: rgbrgb(255, 255, 255)</string>
      <property name="geometry">
       <rect>
        <x>70</x>
-       <y>310</y>
-       <width>191</width>
-       <height>31</height>
+       <y>330</y>
+       <width>311</width>
+       <height>41</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(0, 0, 0);
-font: 9pt &quot;Segoe UI&quot;;
-color: rgb(255, 255, 255);
-border:2px solid;
-border-color: rgbrgb(255, 255, 255)</string>
+      <string notr="true">border-radius:10px;
+color: rgb(0, 0, 0);
+font: 15pt &quot;Times New Roman&quot;;
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgb(211, 232, 255));
+border:3px solid; 
+border-color: rgb(255, 255, 255);</string>
      </property>
      <property name="text">
       <string/>
@@ -351,17 +329,18 @@ border-color: rgbrgb(255, 255, 255)</string>
      <property name="geometry">
       <rect>
        <x>70</x>
-       <y>360</y>
-       <width>191</width>
-       <height>31</height>
+       <y>400</y>
+       <width>311</width>
+       <height>41</height>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">background-color: rgb(0, 0, 0);
-font: 9pt &quot;Segoe UI&quot;;
-color: rgb(255, 255, 255);
-border:2px solid;
-border-color: rgbrgb(255, 255, 255)</string>
+      <string notr="true">border-radius:10px;
+color: rgb(0, 0, 0);
+font: 15pt &quot;Times New Roman&quot;;
+background-color: qlineargradient(spread:pad, x1:0, y1:0, x2:1, y2:0, stop:0 rgba(255, 255, 255, 255), stop:1 rgb(211, 232, 255));
+border:3px solid; 
+border-color: rgb(255, 255, 255);</string>
      </property>
      <property name="text">
       <string/>
@@ -401,7 +380,6 @@ background-color:rgb(78, 193, 255);
      </property>
     </widget>
     <zorder>base_picture</zorder>
-    <zorder>sign_up</zorder>
     <zorder>nameIcon</zorder>
     <zorder>userIcon</zorder>
     <zorder>passIcon</zorder>
