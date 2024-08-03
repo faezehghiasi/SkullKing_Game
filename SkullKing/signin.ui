@@ -27,60 +27,7 @@
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">QPushButton#pushButton_4{ 
-font: 12pt &quot;Social Media Circled&quot;;
-background-color: rgba(0,0,0,0);
-color:rgba(255,255,255,255);
-}
-QPushButton#pushButton_4:hover{ 
-color:rgba(155,168,182,210)
-}
-QPushButton#pushButton_4:pressed{ 
-padding-left:5px;
-padding-top:5px;
-color:rgba(115 ,128,142,210);
-}
-
-QPushButton#pushButton_2{ 
-font: 12pt &quot;Social Media Circled&quot;;
-background-color: rgba(0,0,0,0);
-color:rgba(255,255,255,255);
-}
-QPushButton#pushButton_2:hover{ 
-color:rgba(155,168,182,210)
-}
-QPushButton#pushButton_2:pressed{ 
-padding-left:5px;
-padding-top:5px;
-color:rgba(115 ,128,142,210);
-}
-QPushButton#pushButton_5{ 
-font: 12pt &quot;Social Media Circled&quot;;
-background-color: rgba(0,0,0,0);
-color:rgba(255,255,255,255);
-}
-QPushButton#pushButton_5:hover{ 
-color:rgba(155,168,182,220)
-}
-QPushButton#pushButton_5:pressed{ 
-padding-left:5px;
-padding-top:5px;
-color:rgba(115 ,128,142,255);
-}
-
-QPushButton#pushButton_3{ 
-font: 12pt &quot;Social Media Circled&quot;;
-background-color: rgba(0,0,0,0);
-color:rgba(255,255,255,255);
-}
-QPushButton#pushButton_3:hover{ 
-color:rgba(155,168,182,220)
-}
-QPushButton#pushButton_3:pressed{ 
-padding-left:5px;
-padding-top:5px;
-color:rgba(115 ,128,142,210);
-}
+     <string notr="true">
 QPushButton#ButtonForgetPassword{ 
 background-color: rgba(0,0,0,0);
 color:rgba(255,255,255,255);
@@ -95,7 +42,7 @@ color:rgba(115 ,128,142,255);
 }
 QPushButton#backButton{ 
 border-image: url(:/Prefix/resource/back-button_93634.png);
-background-color: qlineargradient(spread:pad, x1:0.703878, y1:0.472, x2:1, y2:1, stop:0 rgba(255, 171, 30, 255), stop:1 rgba(255, 255, 255, 255));
+background-color: rgb(216,148,99)
 border-radius:25px;
 }
 QPushButton#backButton:hover{ 
@@ -106,7 +53,7 @@ border-radius:25px;
 QPushButton#backButton:pressed{ 
 padding-left:5px;
 padding-top:5px;
-background-color:rgba(149,8,0,255);
+background-color:rgb(173,131,99);
 }</string>
     </property>
     <widget class="QLabel" name="label">
@@ -241,7 +188,7 @@ background-color: qlineargradient(spread:pad, x1:0.703878, y1:0.472, x2:1, y2:1,
 QPushButton#ButtonLogIn:pressed{ 
 padding-left:5px;
 padding-top:5px;
-background-color:rgba(149,8,0,255);
+background-color:rgb(216,148,99);
 }</string>
           </property>
           <property name="text">
@@ -300,13 +247,13 @@ border-radius:25px;
 }
 QPushButton#backButton:hover{ 
 border-image: url(:/Prefix/resource/back-button_93634.png);
-background-color: qlineargradient(spread:pad, x1:0.703878, y1:0.472, x2:1, y2:1, stop:0 rgba(192, 70, 0, 255), stop:1 rgba(255, 255, 255, 255));
+background-color: rgb(216,148,99);
 border-radius:25px;
 }
 QPushButton#backButton:pressed{ 
 padding-left:5px;
 padding-top:5px;
-background-color:rgba(149,8,0,255);
+background-color:rgb(173,131,99);
 }</string>
      </property>
      <property name="text">

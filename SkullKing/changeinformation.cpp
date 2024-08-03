@@ -70,9 +70,9 @@ void changeInformation::on_change_clicked()
         it->set_phoneNumber(newPhone);
         writeToFile("myfile.bin");
         QMessageBox Mb;
-        Mb.information(0,"Change Information","Change information was successful");
+        Mb.information(0,"Change Information","Your request has been successfully completed");
         menu* w;
-        w=new menu;
+        w = new menu;
         this->hide();
         w->show();
 

@@ -144,10 +144,10 @@ background-color:rgb(216,148,99);
    <widget class="QLabel" name="skelet_2">
     <property name="geometry">
      <rect>
-      <x>290</x>
-      <y>-20</y>
-      <width>261</width>
-      <height>341</height>
+      <x>240</x>
+      <y>-10</y>
+      <width>321</width>
+      <height>371</height>
      </rect>
     </property>
     <property name="styleSheet">
@@ -183,7 +183,7 @@ background-color:rgb(216,148,99);
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/Prefix/resource/Skeleton_Clipart__16_JPGs__Kawaii_Clipart__Funny_Skeleton__Halloween_Clipart__Digital_Paper_Craft__Digital_Download__Commercial_Use-removebg-preview.png);</string>
+     <string notr="true">border-image: url(:/Prefix/resource/gostA.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -209,7 +209,7 @@ background-color:rgb(216,148,99);
     <property name="geometry">
      <rect>
       <x>370</x>
-      <y>320</y>
+      <y>310</y>
       <width>161</width>
       <height>201</height>
      </rect>

@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
        "   font-size: 14px;"
        "}"
        "QMessageBox QPushButton {"
-       "   background-color: #e0e4cc;"
+       "   background-color: #ebbc7c;"
        "   color: #2c3e50;" // Dark text color on buttons
        "   border: 2px solid #2c3e50;" // Dark border
        "   padding: 5px 10px;"

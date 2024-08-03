@@ -74,12 +74,12 @@ Server::Server(QWidget *parent) :
         "QLabel {"
         "   background: transparent;" // Transparent background
         "   color: #bb5a3f;" // Vibrant pink color for the text
-        "   font-family: 'Comic Sans MS', cursive, sans-serif;" // Fun, playful font
-        "   font-size: 30px;" // Larger font size
+        "   font-family: 'Comic Sans MS', cursive, sans-serif;"
+        "   font-size: 30px;"
         "   font-weight: bold;"
         "   border: none;" // No border
         "   border-radius: 0px;" // No border radius
-        "   padding: 20px;" // Increased padding for better spacing
+        "   padding: 20px;"
         "   text-align: center;"
         "   box-shadow: 0 8px 16px rgba(0, 0, 0, 0.5), 0 16px 32px rgba(0, 0, 0, 0.3);" // Enhanced 3D shadow effect
         "   text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.6), 0 0 25px rgba(255, 105, 180, 0.7);" // Multi-colored 3D text shadow
@@ -99,8 +99,8 @@ Server::Server(QWidget *parent) :
         "   background-color: rgba(0, 0, 0, 0);"
         "}"
         );
-    timerLabel->setGeometry(400, 70, 171, 181); // موقعیت و اندازه QLabel را تنظیم کنید
-    timerLabel->hide(); // در ابتدا تایمر را مخفی کنید
+    timerLabel->setGeometry(400, 70, 171, 181);
+    timerLabel->hide();
     timer = new QTimer(this);
     connect(timer, &QTimer::timeout, this, &Server::updateTimer);
 
@@ -135,6 +135,23 @@ Server::Server(QWidget *parent) :
     result->setAlignment(Qt::AlignCenter);
     result->hide();
 
+    returnButton=new QPushButton("Back to menu",this);
+    returnButton->setGeometry(10,630,211,71);
+    returnButton->setStyleSheet(
+        "QPushButton {"
+        "font: 15pt Stencil;"
+        "color: rgb(111, 56, 0);"
+        "border-radius: 10px;"
+        "padding: 10px;"
+        "}"
+        "QPushButton:pressed {"
+        "color: rgb(200, 146, 85);"
+        "}"
+        );
+    returnButton->hide();
+    returnButton->setEnabled(false);
+    connect(returnButton,&QPushButton::clicked,this,&Server::on_returnButton);
+
 }
 //************************************************************
 Server::~Server()
@@ -167,10 +184,9 @@ void Server :: readyRead(){
         Mb.critical(0,"ERROR","Received empty data");
     }
     if (!file.open(QIODevice::WriteOnly)) {
-        qDebug() << "File can not open";
-        return;
         QMessageBox Mb;
         Mb.critical(0,"ERROR","File can not open");
+        return;
     }
     file.write(file_content);
     file .close();
@@ -182,6 +198,7 @@ void Server :: readyRead(){
     if(recivedCard.size()==1){
 
         if(recivedCard[0].getOrder()=="EXIT"){
+
             currentPlayer.set_win(currentPlayer.get_win()+1);
             currentPlayer.set_coin(currentPlayer.get_coin()+100);
             auto it = find_if(listOfPlayer.begin(),listOfPlayer.end(),[&](auto p){
@@ -190,22 +207,11 @@ void Server :: readyRead(){
             it->set_win(currentPlayer.get_win());
             it->set_coin(currentPlayer.get_coin());
             writeToFile("myfile.bin");
-
             endTheGame("you win");
-            QTimer::singleShot(10000, this, [&]() {
-                menu* newPage;
-                newPage=new menu;
-                this->close();
-                newPage->show();
-                stopServer();
-                delete srv;
-                newPage->showText();
-
-            });
-
+            return;
         }
         //**********************************************
-        if(recivedCard[0].getOrder().endsWith('$')){  // This means that the client has sent basic information such as the name
+        else if(recivedCard[0].getOrder().endsWith('@')){  // This means that the client has sent basic information such as the name
             srv->show();
             QString name = recivedCard[0].getOrder();
             name.chop(1);
@@ -213,23 +219,14 @@ void Server :: readyRead(){
             this->play();
         }
         //**********************************************
-        else if(recivedCard[0].getOrder()=="SCORE"){
+        else if(recivedCard[0].getOrder()=="SCORE"){       // This means that the end of the game has come and the server must announce the result of the game
             clientScore->setText( QString::number(recivedCard[0].getNumber()));
             int rivalScore=recivedCard[0].getNumber();
             for(auto& x:pushButtons) delete x.cards_button;
             pushButtons.clear();
+
             caculateScore(rivalScore);
-            QTimer::singleShot(10000, this, [&]() {
-                menu* newPage;
-                newPage=new menu;
-                this->close();
-                newPage->show();
-                stopServer();
-                delete srv;
-                newPage->showText();
-
-            });
-
+            return;
         }
         //**********************************************
         else if (recivedCard[0].getOrder().endsWith('#')) {  // This means that the client has sent its score
@@ -275,10 +272,14 @@ void Server :: readyRead(){
             server_card.cards_button->setGeometry(140,230,181,251);
             client_card.cards_button->setGeometry(660,230,181,251);
             set_picture(client_card);
-            worksForCalculateScore();
+            QTimer::singleShot(800, this, [&]() {
+                 worksForCalculateScore();
+            });
+
         }
     }
     else{
+
         currentPlayer.set_randomCards(recivedCard,currentPlayer.get_countOfTurn());
         showCards(currentPlayer.playeCard);
         for(int i =0 ; i<pushButtons.size();i++){
@@ -924,6 +925,7 @@ void Server::on_Buttons1_clicked(){
         return;
     }
     for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+
     auto it = find_if(currentPlayer.playeCard.begin(),currentPlayer.playeCard.end(),[&](auto p){
         return (p==pushButtons[1].thisCard);
     });
@@ -1594,6 +1596,7 @@ void Server ::play(){
     }
     for(auto& x:pushButtons)x.cards_button->setEnabled(false);
     ui->stop->setEnabled(false);
+    ui->exit->setEnabled(false);
     writeToFileCards("sendCard.bin",sendCard);
 
     QFile file2("sendCard.bin");
@@ -1653,6 +1656,7 @@ void Server ::play(){
             guessLabel->hide();
             for (auto& x : pushButtons) x.cards_button->setEnabled(true);
             ui->stop->setEnabled(true);
+            ui->exit->setEnabled(true);
         }
     });
 
@@ -1661,6 +1665,7 @@ void Server ::play(){
 }
 //***********************************************************************************************
 void Server::caculateScore(int rivalScore){
+    QString res ;
     //age dorost gofte bashe....
     if(currentPlayer.get_guess()==currentPlayer.get_setWin()){
         //age gofte bashe 0 dast
@@ -1700,7 +1705,7 @@ void Server::caculateScore(int rivalScore){
             }
             locker.unlock();
             currentPlayer.set_lose(currentPlayer.get_lose()+1);
-            endTheGame("you lose");
+            res = "you lose";
 
         }
 
@@ -1730,7 +1735,7 @@ void Server::caculateScore(int rivalScore){
             locker.unlock();
             currentPlayer.set_win(currentPlayer.get_win()+1);
             currentPlayer.set_coin(currentPlayer.get_coin()+100);
-            endTheGame("you win");
+            res = "you win";
 
         }
         else{
@@ -1759,19 +1764,22 @@ void Server::caculateScore(int rivalScore){
             }
             locker.unlock();
             currentPlayer.set_coin(currentPlayer.get_coin()+50);
-            endTheGame("Equal");
+            res = "Equal";
         }
 
-        auto foundPlayer=find_if(listOfPlayer.begin(),listOfPlayer.end(),[](auto x){return(x.get_username()==currentPlayer.get_username());});
+        auto foundPlayer=find_if(listOfPlayer.begin(),listOfPlayer.end(),[](auto x){return(x.get_username() ==currentPlayer.get_username());});
         foundPlayer->set_lose(currentPlayer.get_lose());
         foundPlayer->set_win(currentPlayer.get_win());
         foundPlayer->set_coin(currentPlayer.get_coin());
         writeToFile("myfile.bin");
-
     }
     scoreNumber->setText(QString::number(currentPlayer.get_score()));
     sendScore();
     currentPlayer.set_setWin(0);
+
+    if(currentPlayer.get_countOfTurn() == 7){
+         endTheGame(res);
+    }
 
 }
 //****************************************************************************************************
@@ -1818,7 +1826,6 @@ void Server::on_resumeButton_clicked(){
 void Server::on_stop_clicked()
 {
 
-    currentPlayer.set_countOfStop(currentPlayer.get_countOfStop()+1);
     ui->stop->setEnabled(false);
     ui->stop->hide();
     resume->setEnabled(true);
@@ -1890,16 +1897,6 @@ void Server::on_exit_clicked()
     }
     locker.unlock();
     endTheGame("you lose");
-    QTimer::singleShot(10000, this, [&]() {
-        menu* newPage;
-        newPage=new menu;
-        this->close();
-        newPage->show();
-        stopServer();
-        delete srv;
-        newPage->showText();
-
-    });
 }
 //*******************************************************************************************************
 void Server::sendScore(){
@@ -1938,10 +1935,9 @@ void Server::worksForCalculateScore(){
         if(currentPlayer.playeCard.size()==0){
 
             if(currentPlayer.get_countOfTurn()==7){
-                // endOfTheGame->show();
-                // returnButton->setEnabled(true);
-                // returnButton->show();
-                for(auto& x:pushButtons) delete x.cards_button;
+                for (auto& x : pushButtons) {
+                    delete x.cards_button;
+                }
                 pushButtons.clear();
                 ui->stop->setEnabled(false);
                 ui->exit->setEnabled(false);
@@ -1980,15 +1976,18 @@ void Server::updateTimer() {
 //******************************************************************************************
 void Server::endTheGame(QString res){
 
-
+    clearDataOfGame();
     ui->stop->setEnabled(false);
     ui->exit->setEnabled(false);
     ui->stop->hide();
     ui->exit->hide();
     ui->gost->hide();
-    ui->background->setStyleSheet("border-image: url(:/Prefix/resource/board.png);");
+    ui->background->setGeometry(0,0,1000,700);
+    ui->background->setStyleSheet("border:4px solid;background-color:rgb(241,224,152);border-color :#000;");
     clientPic->show();
     serverPic->show();
+    returnButton->show();
+    returnButton->setEnabled(true);
     result->show();
     if(res == "you win"){
         result->setText("you win");
@@ -2017,4 +2016,35 @@ void Server::stopServer() {
         socket->deleteLater();
     }
     delete server;
+}
+//******************************************************************************************
+void Server::clearDataOfGame(){
+
+    writeToFile("myfile.bin");
+    currentPlayer.clearDataOfGame();
+    sendCard.clear();
+    recivedCard.clear();
+    for (auto& x : pushButtons) {
+        x.cards_button->hide();
+    }
+    for (auto& x : pushButtons) {
+        delete x.cards_button;
+    }
+    pushButtons.clear();
+    server_card.cards_button->hide();
+    client_card.cards_button->hide();
+    server_card.clear();
+    client_card.clear();
+
+}
+//******************************************************************************************
+void Server::on_returnButton(){
+
+
+    menu* newPage = new menu;
+    this->close();
+    newPage->show();
+    stopServer();
+    delete srv;
+    newPage->showText();
 }

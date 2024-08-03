@@ -11,8 +11,6 @@ protected:
 public:
     cards();
     cards(int Id, int Numebr);
-    //show function //i think it will be pure virtual
-    //move function //i think it will be pure virtual
     int getId();
     int getNumber();
     int getValue();

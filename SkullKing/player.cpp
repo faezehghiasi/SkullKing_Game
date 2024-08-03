@@ -10,7 +10,7 @@ using namespace std;
 QVector<cards> recivedCard;
 QVector<cards> sendCard;
 QTextStream &operator<<(QTextStream& out ,cards p)
-{    QString id = QString::number(p.getId());
+{   QString id = QString::number(p.getId());
     QString value = QString::number(p.getValue());
     QString number = QString::number(p.getNumber());
     out<<id<<"\n"<<value<<"\n"<<number<<"\n"<<p.getOrder()<<"\n";
@@ -61,7 +61,7 @@ void writeToFileCards(QString filename,QVector<cards>& card_val)
 }
 //************************************************************
 Player::Player(QString name_val, QString username_val, QString password_val, QString address_val,
-    QString phoneNumber_val, int win_val, int lose_val,int coin_val, bool score_val, bool turn_val,bool server_val,int countturn,int geuss_val,int setWin_val,bool starter_val,int countStop) {
+    QString phoneNumber_val, int win_val, int lose_val,int coin_val, bool score_val, bool turn_val,bool server_val,int countturn,int geuss_val,int setWin_val,bool starter_val) {
     name = name_val;
     username = username_val;
     password = password_val;
@@ -77,7 +77,7 @@ Player::Player(QString name_val, QString username_val, QString password_val, QSt
     guess=geuss_val;
     setWin=setWin_val;
     starterOfEachRound = starter_val;
-    countOfStop=countStop;
+
 
 }
 //***********************************************
@@ -163,14 +163,6 @@ bool Player::get_starterOfEachRound(){
 //**********************************************************
 void Player::set_starterOfEachRound(bool starter_val){
     starterOfEachRound = starter_val;
-}
-//***********************************************************
-int Player::get_countOfStop(){
-    return countOfStop;
-}
-//**********************************************************
-void Player::set_countOfStop(int count){
-    countOfStop = count;
 }
 //***********************************************************
 QVector<cards> Player::set_randomCards(QVector<cards>& exitCards, int countOfTurn){
@@ -424,14 +416,6 @@ void Player::calculate(cards rivalCard){
     ////************************************************
     currentPlayer.set_turn(false);
     currentPlayer.set_starterOfEachRound(false);
-    //        if(get_server()){
-    //            srv->get_server_card().clear();
-    //            srv->get_client_card().clear();
-    //        }
-    //        else{
-    //           cln->get_server_card().clear();
-    //            cln->get_client_card().clear();
-    //        }
 
 }
 //************************************************************************************
@@ -451,5 +435,16 @@ Player& Player::operator=(Player p){
     guess=p.get_guess();
     setWin=p.get_setWin();
     return *this;
+}
+//************************************************************************************
+void Player::clearDataOfGame(){
+    server =false;
+    score = 0;
+    turn = false;
+    countOfTurn = 1;
+    guess = 0;
+    setWin = 0;
+    playeCard.clear();
+    starterOfEachRound = false;
 }
 

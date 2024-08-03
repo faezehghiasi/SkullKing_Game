@@ -14,19 +14,10 @@ QTextStream &operator<<(QTextStream& out ,Player p)
     QString Win=QString::number(p.get_win());
     QString Lose=QString::number(p.get_lose());
     QString Coin=QString::number(p.get_coin());
-    QString server;
-    if(p.get_server())server="true";else server="false";
-    QString score=QString::number(p.get_score());
-    QString turn;
-    if(p.get_turn())turn="true";else turn="false";
-    QString countOfTurn=QString ::number(p.get_countOfTurn());
-    QString geuss=QString::number(p.get_guess());
-    QString setWin=QString::number(p.get_setWin());
     out<<p.get_name()<<"\n"<<p.get_username()<<"\n"
-      <<p.get_password()<<"\n"<<p.get_address()<<
+        <<p.get_password()<<"\n"<<p.get_address()<<
         "\n"<<p.get_phoneNumber()<<"\n"<<Win<<
-        "\n"<<Lose<<"\n"<<Coin<<"\n"<<server<<"\n"<<score<<"\n"
-     <<turn<<"\n"<<countOfTurn<<"\n"<<geuss<<"\n"<<setWin<<"\n";
+        "\n"<<Lose<<"\n"<<Coin<<"\n";
     return out;
 }
 //*******************************************************
@@ -39,28 +30,27 @@ QTextStream& operator>>(QTextStream& in , Player& p){
     p.set_win(in.readLine().toInt());
     p.set_lose(in.readLine().toInt());
     p.set_coin(in.readLine().toInt());
-    if(in.readLine()=="true")p.set_server(true);else p.set_server(false);
-    p.set_score(in.readLine().toInt());
-    if(in.readLine()=="true")p.set_turn(true);else p.set_turn(false);
-    p.set_countOfTurn(in.readLine().toInt());
-    p.set_guess(in.readLine().toInt());
-    p.set_setWin(in.readLine().toInt());
+    p.set_server(false);
+    p.set_score(0);
+    p.set_turn(false);
+    p.set_countOfTurn(1);
+    p.set_guess(0);
+    p.set_setWin(0);
+    p.set_starterOfEachRound(false);
     return in;
 }
 //**********************************************************
 void readFromFile(QString filename)
 {
-   // QMessageBox Mb;
     QFile myfile(filename);
     if(!myfile.open(QFile::ReadOnly | QFile::Text)){
-        //Mb.critical(0,"File Situation","File didn't open!");
-        qDebug()<<"Not opened!";
-        return ;
+        QMessageBox MQ;
+        MQ.warning(0,"File Situation","can not open the File");
         return ;
     }
    QTextStream in(&myfile);
    Player p("","","","","",0,0,0);
-   for(int i=0 ; !in.atEnd();i++){
+   for(int i = 0 ; !in.atEnd();i++){
        in>>p;
        listOfPlayer.append(p);
    }
@@ -71,7 +61,6 @@ void writeToFile(QString filename)
 {
      QFile myfile(filename);
     if(!myfile.open(QFile::WriteOnly | QFile::Text)){
-        qDebug()<<"Not opened!";
         return ;
     }
    QTextStream out(&myfile);

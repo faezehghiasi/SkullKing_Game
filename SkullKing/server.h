@@ -50,6 +50,7 @@ public:
      QLabel*clientName;
      bool sendName = false;
      void endTheGame(QString res);
+     void clearDataOfGame();
 
     ~Server();
 signals:
@@ -77,6 +78,7 @@ public slots:
     void change_geometry();
     void on_resumeButton_clicked();
     void finishCards();
+    void on_returnButton();
 
 private slots:
 
@@ -103,6 +105,7 @@ private:
     QLabel *serverPic;
     QLabel *crown;
     QLabel *result;
+    QPushButton* returnButton;
 };
 extern Server* srv;
 #endif // SERVER_H

@@ -80,5 +80,5 @@ void menu::showText()
     myText+=currentPlayer.get_name();
     myText+=", welcome back...";
     SlowTyper *typer = new SlowTyper(ui->text, myText, 60); // Interval in milliseconds
-       typer->start();
+    typer->start();
 }

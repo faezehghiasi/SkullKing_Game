@@ -219,9 +219,9 @@ color: rgb(13, 13, 13);</string>
      <widget class="QLabel" name="gost">
       <property name="geometry">
        <rect>
-        <x>390</x>
-        <y>240</y>
-        <width>241</width>
+        <x>380</x>
+        <y>220</y>
+        <width>231</width>
         <height>321</height>
        </rect>
       </property>
@@ -236,7 +236,7 @@ color: rgb(13, 13, 13);</string>
       <property name="geometry">
        <rect>
         <x>400</x>
-        <y>70</y>
+        <y>60</y>
         <width>171</width>
         <height>181</height>
        </rect>
@@ -254,9 +254,9 @@ border-radius:85px;</string>
      <widget class="QLabel" name="gameStoped">
       <property name="geometry">
        <rect>
-        <x>367</x>
+        <x>385</x>
         <y>0</y>
-        <width>372</width>
+        <width>271</width>
         <height>81</height>
        </rect>
       </property>

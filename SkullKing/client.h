@@ -43,6 +43,7 @@ public:
     QLabel*clientName;
     void endTheGame(QString res);
     void disconnectFromServer();
+    void clearDataOfGame();
 signals:
     void existClient();
     void closePage();
@@ -68,6 +69,7 @@ public slots:
     void sendServerendOfGame();
     void on_resumeButton_clicked();
     void change_geometry();
+    void on_returnButton();
 
 private slots:
 
@@ -92,6 +94,7 @@ private:
     QLabel *serverPic;
     QLabel *crown;
     QLabel *result;
+    QPushButton* returnButton;
 };
 extern Client* cln;
 

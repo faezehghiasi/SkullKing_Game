@@ -35,12 +35,7 @@ void SignIn::on_ButtonLogIn_clicked()
         }
     }
     if(!flag){
-        ms.critical(0,"Login failed","The username or password is incorrect");
-        this->hide();
-        Skullking * main = new Skullking;
-        main->show();
-        Skullking::delay();
-        main->Show_TextBrows();
+        ms.critical(this,"Login failed","The username or password is incorrect");
         return;
     }
     menu* men ;
