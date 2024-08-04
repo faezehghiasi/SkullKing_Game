@@ -299,9 +299,8 @@ void Client::readyRead() {
             set_picture(server_card);
 
             ///calculateing the score
-            QTimer::singleShot(800, this, [&]() {
-                worksForCalculateScore();
-            });
+
+              worksForCalculateScore();
             /// end
         }
 
@@ -324,37 +323,36 @@ void Client::readyRead() {
         client_card.cards_button->setGeometry(140,230,181,251);
         set_picture(client_card);
         set_picture(server_card);
-        QTimer::singleShot(2000, this, [&]() {
-            move_twoCards();
-            QTimer::singleShot(1000, this, [&]() {
+        ClientOrServer::delay(2000);
+        move_twoCards();
+        ClientOrServer::delay(1000);
 
-                guessLabel=new QLineEdit(this);
-                guessLabel->setGeometry(300,310,500,51);
-                QFont font_line("Algerian");
-                guessLabel->setStyleSheet("font : 14pt;color: rgb(255,255,255);background:rgba(0,0,0,0);border:2px solid;border-color: rgb(255,255,255);");
-                guessLabel->setFont(font_line);
-                guessLabel->setPlaceholderText("Enter your guess");
-                for(auto& x:pushButtons)x.cards_button->setEnabled(false);
-                roundNumber->hide();
-                guessLabel->show();
-                connect(guessLabel, &QLineEdit::editingFinished, this, [&]() {
-                    bool ok;
-                    int guess = guessLabel->text().toInt(&ok);
+        guessLabel=new QLineEdit(this);
+        guessLabel->setGeometry(300,310,500,51);
+        QFont font_line("Algerian");
+        guessLabel->setStyleSheet("font : 14pt;color: rgb(255,255,255);background:rgba(0,0,0,0);border:2px solid;border-color: rgb(255,255,255);");
+        guessLabel->setFont(font_line);
+        guessLabel->setPlaceholderText("Enter your guess");
+        for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+        roundNumber->hide();
+        guessLabel->show();
+        connect(guessLabel, &QLineEdit::editingFinished, this, [&]() {
+            bool ok;
+            int guess = guessLabel->text().toInt(&ok);
 
-                    if (!ok || guess < 0 || guess > pushButtons.size()) {
-                        QMessageBox::warning(this, "Invalid Input", "Please enter a valid number.");
-                        guessLabel->clear();
-                        guessLabel->setFocus();
-                    } else {
-                        currentPlayer.set_guess(guess);
-                        guessLabel->hide();
-                        for (auto& x : pushButtons) x.cards_button->setEnabled(true);
-                        ui->stop->setEnabled(true);
-                        ui->exit->setEnabled(true);
-                    }
-                });
-            });
+            if (!ok || guess < 0 || guess > pushButtons.size()) {
+                QMessageBox::warning(this, "Invalid Input", "Please enter a valid number.");
+                guessLabel->clear();
+                guessLabel->setFocus();
+            } else {
+                currentPlayer.set_guess(guess);
+                guessLabel->hide();
+                for (auto& x : pushButtons) x.cards_button->setEnabled(true);
+                ui->stop->setEnabled(true);
+                ui->exit->setEnabled(true);
+            }
         });
+
 
 
 
@@ -664,10 +662,8 @@ void Client::on_Buttons0_clicked(){
     move_oneCards(pushButtons[0]);
     pushButtons[0].clear();
 
-    QTimer::singleShot(800, this, [&]() {
-
-        worksForCalculateScore();
-    });
+    ClientOrServer::delay(800);
+    worksForCalculateScore();
 
 
 }
@@ -712,10 +708,8 @@ void Client::on_Buttons1_clicked(){
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[1]);
     pushButtons[1].clear();
-    QTimer::singleShot(800, this, [&]() {
-
-        worksForCalculateScore();
-    });
+    ClientOrServer::delay(800);
+    worksForCalculateScore();
 
 
 }
@@ -762,11 +756,8 @@ void Client::on_Buttons2_clicked(){
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[2]);
     pushButtons[2].clear();
-    QTimer::singleShot(800, this, [&]() {
-
-        worksForCalculateScore();
-    });
-
+    ClientOrServer::delay(800);
+    worksForCalculateScore();
 
 
 }
@@ -811,11 +802,8 @@ void Client::on_Buttons3_clicked(){
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[3]);
     pushButtons[3].clear();
-    QTimer::singleShot(800, this, [&]() {
-
-        worksForCalculateScore();
-    });
-
+    ClientOrServer::delay(800);
+    worksForCalculateScore();
 
 
 }
@@ -860,10 +848,8 @@ void Client::on_Buttons4_clicked(){
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[4]);
     pushButtons[4].clear();
-    QTimer::singleShot(800, this, [&]() {
-
-        worksForCalculateScore();
-    });
+    ClientOrServer::delay(800);
+    worksForCalculateScore();
 
 
 }
@@ -907,11 +893,8 @@ void Client::on_Buttons5_clicked(){
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[5]);
     pushButtons[5].clear();
-    QTimer::singleShot(800, this, [&]() {
-
-        worksForCalculateScore();
-    });
-
+    ClientOrServer::delay(800);
+    worksForCalculateScore();
 
 
 }
@@ -956,11 +939,8 @@ void Client::on_Buttons6_clicked(){
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[6]);
     pushButtons[6].clear();
-    QTimer::singleShot(800, this, [&]() {
-
-        worksForCalculateScore();
-    });
-
+    ClientOrServer::delay(800);
+    worksForCalculateScore();
 
 
 }
@@ -1005,11 +985,8 @@ void Client::on_Buttons7_clicked(){
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[7]);
     pushButtons[7].clear();
-    QTimer::singleShot(800, this, [&]() {
-
-        worksForCalculateScore();
-    });
-
+    ClientOrServer::delay(800);
+    worksForCalculateScore();
 
 }
 //**************************************************************************************************
@@ -1053,11 +1030,8 @@ void Client::on_Buttons8_clicked(){
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[8]);
     pushButtons[8].clear();
-    QTimer::singleShot(800, this, [&]() {
-
-        worksForCalculateScore();
-    });
-
+    ClientOrServer::delay(800);
+    worksForCalculateScore();
 
 
 }
@@ -1102,11 +1076,8 @@ void Client::on_Buttons9_clicked(){
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[9]);
     pushButtons[9].clear();
-    QTimer::singleShot(800, this, [&]() {
-
-        worksForCalculateScore();
-    });
-
+    ClientOrServer::delay(800);
+    worksForCalculateScore();
 
 }
 //**************************************************************************************************
@@ -1150,10 +1121,8 @@ void Client::on_Buttons10_clicked(){
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[10]);
     pushButtons[10].clear();
-    QTimer::singleShot(800, this, [&]() {
-
-        worksForCalculateScore();
-    });
+    ClientOrServer::delay(800);
+    worksForCalculateScore();
 
 
 
@@ -1199,10 +1168,8 @@ void Client::on_Buttons11_clicked(){
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[11]);
     pushButtons[11].clear();
-    QTimer::singleShot(800, this, [&]() {
-
-        worksForCalculateScore();
-    });
+    ClientOrServer::delay(800);
+    worksForCalculateScore();
 
 }
 //**************************************************************************************************
@@ -1246,10 +1213,8 @@ void Client::on_Buttons12_clicked(){
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[12]);
     pushButtons[12].clear();
-    QTimer::singleShot(800, this, [&]() {
-
-        worksForCalculateScore();
-    });
+    ClientOrServer::delay(800);
+    worksForCalculateScore();
 
 
 }
@@ -1294,11 +1259,8 @@ void Client::on_Buttons13_clicked(){
     currentPlayer.set_turn(false);
     move_oneCards(pushButtons[13]);
     pushButtons[13].clear();
-
-    QTimer::singleShot(800, this, [&]() {
-
-        worksForCalculateScore();
-    });
+    ClientOrServer::delay(800);
+    worksForCalculateScore();
 
 }
 //**************************************************************************************************
@@ -1776,29 +1738,27 @@ void Client::worksForCalculateScore(){
 
     if(!client_card.empty()&& !server_card.empty()){
         currentPlayer.calculate(server_card.thisCard);
-        QTimer::singleShot(800, this, [&]() {
-            move_twoCards();
-            if(currentPlayer.playeCard.size()==0){
-                ///////////////////////////////////////
-                if(currentPlayer.get_countOfTurn() == 7){
-                    for(auto& x:pushButtons) delete x.cards_button;
-                    pushButtons.clear();
-                    ui->stop->setEnabled(false);
-                    ui->exit->setEnabled(false);
-                    ui->stop->hide();
-                    ui->exit->hide();
-                }
-                ////////////////////////////////////////////////////
-                else{
-                    for(auto& x:pushButtons)x.cards_button->setEnabled(false);
-                    for(auto& x:pushButtons) delete x.cards_button;
-                    pushButtons.clear();
-                }
-
+        ClientOrServer::delay(800);
+        move_twoCards();
+        if(currentPlayer.playeCard.size()==0){
+            ///////////////////////////////////////
+            if(currentPlayer.get_countOfTurn() == 7){
+                for(auto& x:pushButtons) delete x.cards_button;
+                pushButtons.clear();
+                ui->stop->setEnabled(false);
+                ui->exit->setEnabled(false);
+                ui->stop->hide();
+                ui->exit->hide();
             }
-            sendScore();
-        });
+            ////////////////////////////////////////////////////
+            else{
+                for(auto& x:pushButtons)x.cards_button->setEnabled(false);
+                for(auto& x:pushButtons) delete x.cards_button;
+                pushButtons.clear();
+            }
 
+        }
+        sendScore();
     }
 }
 //*******************************************************************************************************************

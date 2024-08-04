@@ -11,8 +11,7 @@ QLabel* ClientOrServer::server_label;
 int main(int argc, char *argv[])
 {
 
-   QString filename= "myfile.bin";
-   readFromFile(filename);
+
     QApplication a(argc, argv);
    a.setStyleSheet(
        "QMessageBox {"
@@ -35,6 +34,8 @@ int main(int argc, char *argv[])
        "   background-color: #f6b66b;" // Even darker green when pressed
        "}"
        );
+    QString filename= "myfile.bin";
+    readFromFile(filename);
     Skullking w;
     w.show();
     Skullking::delay();

@@ -43,18 +43,31 @@ QTextStream& operator>>(QTextStream& in , Player& p){
 void readFromFile(QString filename)
 {
     QFile myfile(filename);
-    if(!myfile.open(QFile::ReadOnly | QFile::Text)){
-        QMessageBox MQ;
-        MQ.warning(0,"File Situation","can not open the File");
-        return ;
+
+
+    if (!myfile.exists()) {
+
+        if (!myfile.open(QFile::WriteOnly | QFile::Text)) {
+            QMessageBox MQ;
+            MQ.warning(0, "File Situation", "can not create the File");
+            return;
+        }
+        myfile.close();
     }
-   QTextStream in(&myfile);
-   Player p("","","","","",0,0,0);
-   for(int i = 0 ; !in.atEnd();i++){
-       in>>p;
-       listOfPlayer.append(p);
-   }
-   myfile.close();
+
+    if (!myfile.open(QFile::ReadOnly | QFile::Text)) {
+        QMessageBox MQ;
+        MQ.warning(0, "File Situation", "can not open the File");
+        return;
+    }
+
+    QTextStream in(&myfile);
+    Player p("", "", "", "", "", 0, 0, 0);
+    for (int i = 0; !in.atEnd(); i++) {
+        in >> p;
+        listOfPlayer.append(p);
+    }
+    myfile.close();
 }
 //****************************************************
 void writeToFile(QString filename)
