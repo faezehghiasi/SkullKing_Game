@@ -17,10 +17,37 @@ The game is implemented using C++ and the Qt framework.
   - [Screenshots](#screenshots)
 
 ## Features
-+ Scoreboard: Keep track of scores across rounds and display the final winner.
-+ User Accounts: Register and login to keep track of your game history.
-+ Interactive UI: User-friendly interface for smooth gameplay experience.
+**Scoreboard:**
 
+- Keep track of scores across rounds and display the final winner.
+
+**Interactive UI:**
+
+- User-friendly interface for smooth gameplay experience.
+
+**User Login and Registration:**
+
+- Players can create new accounts or log into existing ones.
+
+**Server-Client Architecture:**
+
+- One player acts as the server, hosting the game, while others join as clients.
+- The server manages game state and player interactions.
+
+**Game Menu:**
+
+- The game menu includes options to start a new game, view player statistics, and change account settings.
+
+**Game Start:**
+
+- A random player is chosen to start the game each round.
+- The starting player rotates based on previous hand winners.
+
+**Stop & Resume, Exit Options:**
+
+- Players can pause the game
+- Players can exit the game, which affects their score and game state.
+  
 ## Installation
 
 ### From binary
