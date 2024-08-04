@@ -9,7 +9,7 @@ Skullking::Skullking(QWidget *parent)
 {
     ui->setupUi(this);
 
-   setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+   setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::WindowCloseButtonHint | Qt::WindowMinimizeButtonHint);
 }
 //***************************************************************************************
 Skullking::~Skullking()
@@ -51,9 +51,5 @@ void Skullking::on_SignUp_clicked()
     signUp=new SignUp(this);
     signUp->show();
 }
-//***************************************************************************************
-void Skullking::on_exit_clicked()
-{
-    this->close();
-}
+
 

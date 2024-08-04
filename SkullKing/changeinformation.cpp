@@ -17,7 +17,7 @@ changeInformation::changeInformation(QWidget *parent) :
 
     ui->setupUi(this);
 
-      setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+    setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::WindowCloseButtonHint | Qt::WindowMinimizeButtonHint);
     ui->nameLine->setPlaceholderText(it->get_name());
     ui->addressLine->setPlaceholderText(it->get_address());
     ui->passLine->setPlaceholderText(it->get_password());

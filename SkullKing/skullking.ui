@@ -270,52 +270,12 @@ font: 12pt &quot;Snap ITC&quot;;
       <string/>
      </property>
     </widget>
-    <widget class="QPushButton" name="exit">
-     <property name="enabled">
-      <bool>true</bool>
-     </property>
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>520</y>
-       <width>121</width>
-       <height>51</height>
-      </rect>
-     </property>
-     <property name="font">
-      <font>
-       <family>Showcard Gothic</family>
-       <pointsize>18</pointsize>
-       <italic>false</italic>
-       <bold>false</bold>
-      </font>
-     </property>
-     <property name="styleSheet">
-      <string notr="true">QPushButton#exit{ 
-font: 18pt &quot;Showcard Gothic&quot;;
-background-color: rgba(0,0,0,0);
-	color: rgb(0, 0, 0);
-}
-QPushButton#exit:hover{ 
-background-color: rgba(0,0,0,0);
-	color: rgb(255, 255, 255);
-}
-QPushButton#exit:pressed{ 
-background-color: rgba(0,0,0,0);
-	color: rgb(194, 210, 255);
-}</string>
-     </property>
-     <property name="text">
-      <string>EXIT</string>
-     </property>
-    </widget>
     <zorder>label_6</zorder>
     <zorder>signIn</zorder>
     <zorder>SignUp</zorder>
     <zorder>label_5</zorder>
     <zorder>textBrowser</zorder>
     <zorder>label_4</zorder>
-    <zorder>exit</zorder>
    </widget>
    <widget class="QTextBrowser" name="welcomBrowser">
     <property name="geometry">

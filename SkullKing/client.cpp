@@ -20,7 +20,7 @@ Client::Client(QWidget *parent) :
 {
     ui->setupUi(this);
 
-      setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+    setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::WindowCloseButtonHint | Qt::WindowMinimizeButtonHint);
     ui->gameStoped->hide();
     ui->stopGost->hide();
     connect(this,&Client::sendEndGame,this,&Client::sendServerendOfGame);

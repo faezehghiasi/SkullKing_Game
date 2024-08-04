@@ -18,7 +18,7 @@ menu::menu(QWidget *parent) :
 {
     ui->setupUi(this);
 
-      setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+   setWindowFlags(Qt::Window | Qt::WindowTitleHint | Qt::WindowCloseButtonHint | Qt::WindowMinimizeButtonHint);
     ui->coninsNum->append(QString::number(currentPlayer.get_coin()));
 }
 //*****************************************************************
