@@ -98,7 +98,7 @@ Client::Client(QWidget *parent) :
 
 
     resume = new QPushButton(this);
-    resume->setStyleSheet("border-image: url(:/Prefix/resource/Firefly_play_icon_is_circular_in_green_color_in_3D_35008-removebg-preview.png);background-color: rgba(0,0,0,0);border-radius:25px;");
+    resume->setStyleSheet("border-image: url(:/Prefix/resource/resum.png);background-color: rgba(0,0,0,0);border-radius:25px;");
     resume->setGeometry(920,270,71,71);
     resume->setEnabled(false);
     resume->hide();
@@ -106,12 +106,12 @@ Client::Client(QWidget *parent) :
 
 
     serverPic = new QLabel(this);
-    serverPic->setStyleSheet("border-image: url(:/Prefix/resource/Firefly_cute_skeleton_icon_for_game_in_3D_56539-removebg-preview.png);");
+    serverPic->setStyleSheet("border-image: url(:/Prefix/resource/otherPic.png);");
     serverPic->setGeometry(740,300,211,301);
     serverPic->hide();
 
     clientPic = new QLabel(this);
-    clientPic->setStyleSheet("border-image: url(:/Prefix/resource/Firefly_cute_skeleton_icon_for_game_in_3D_78259-removebg-preview.png);");
+    clientPic->setStyleSheet("border-image: url(:/Prefix/resource/userPic.png);");
     clientPic->setGeometry(80,320,211,261);
     clientPic->hide();
 

@@ -265,7 +265,7 @@ background-color: rgba(0,0,0,0);
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/Prefix/resource/Wooden wallpaper by Antarifox.jpg);</string>
+     <string notr="true">border-image: url(:/Prefix/resource/wood.jpg);</string>
     </property>
     <property name="text">
      <string/>
@@ -281,7 +281,7 @@ background-color: rgba(0,0,0,0);
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/Prefix/resource/Premium_Vector___Mariachi_skeleton-removebg-preview.png);</string>
+     <string notr="true">border-image: url(:/Prefix/resource/HSkellet.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -297,7 +297,7 @@ background-color: rgba(0,0,0,0);
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/Prefix/resource/Gold_Coin_Hd_Transparent__Gold_Coin_Skull__Gold__Coin__Skull_PNG_Image_For_Free_Download-removebg-preview.png);</string>
+     <string notr="true">border-image: url(:/Prefix/resource/coin.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -363,7 +363,7 @@ font: 15pt &quot;Snap ITC&quot;;
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/Prefix/resource/cute_ghost_face_emoji_cute_ghost_face_emoji_transparent_png-removebg-preview.png);</string>
+     <string notr="true">border-image: url(:/Prefix/resource/GG.png);</string>
     </property>
     <property name="text">
      <string/>

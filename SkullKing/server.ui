@@ -98,7 +98,7 @@ border-image: url(:/Prefix/resource/Firefly 20240720203910.png);
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton#stop{ 
-	border-image: url(:/Prefix/resource/Firefly_pause_icon_is_circular_in_green_color_in_3D_31063-removebg-preview.png);
+	border-image: url(:/Prefix/resource/stop.png);
 background-color: rgba(0,0,0,0);
 border-radius:25px;
 }
@@ -129,7 +129,7 @@ color:rgba(115 ,128,142,210);
        <string notr="true">QPushButton#exit{ 
 background-color: rgba(0,0,0,0);
 border-radius:25px;
-	border-image: url(:/Prefix/resource/Firefly_x_icon_is_circular_in_green_color_in_3D_31063-removebg-preview (1).png);
+	border-image: url(:/Prefix/resource/close.png);
 font: 600 10pt &quot;Sitka Small Semibold&quot;;
 }
 QPushButton#exit:hover{ 
@@ -155,7 +155,7 @@ color:rgba(115 ,128,142,210);
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">border-image: url(:/Prefix/resource/Firefly_cute_skeleton_icon_for_game_in_3D_78259-removebg-preview.png);</string>
+       <string notr="true">border-image: url(:/Prefix/resource/userPic.png);</string>
       </property>
       <property name="text">
        <string/>
@@ -171,7 +171,7 @@ color:rgba(115 ,128,142,210);
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">border-image: url(:/Prefix/resource/Firefly_cute_skeleton_icon_for_game_in_3D_56539-removebg-preview.png);</string>
+       <string notr="true">border-image: url(:/Prefix/resource/otherPic.png);</string>
       </property>
       <property name="text">
        <string/>
@@ -187,7 +187,7 @@ color:rgba(115 ,128,142,210);
        </rect>
       </property>
       <property name="styleSheet">
-       <string notr="true">border-image: url(:/Prefix/resource/Free_Halloween_T-Shirt_or_Sticker_Design-removebg-preview.png);</string>
+       <string notr="true">border-image: url(:/Prefix/resource/greenGost.png);</string>
       </property>
       <property name="text">
        <string/>
@@ -204,7 +204,8 @@ color:rgba(115 ,128,142,210);
       </property>
       <property name="styleSheet">
        <string notr="true">font: 20pt Broadway;  
-border-image: url(:/Prefix/resource/Gold_Coin_Hd_Transparent__Gold_Coin_Skull__Gold__Coin__Skull_PNG_Image_For_Free_Download-removebg-preview.png);
+
+border-image: url(:/Prefix/resource/coin.png);
 color: rgb(13, 13, 13);</string>
       </property>
       <property name="text">
@@ -222,7 +223,7 @@ color: rgb(13, 13, 13);</string>
       </property>
       <property name="styleSheet">
        <string notr="true">font: 20pt Broadway;  
-border-image: url(:/Prefix/resource/Gold_Coin_Hd_Transparent__Gold_Coin_Skull__Gold__Coin__Skull_PNG_Image_For_Free_Download-removebg-preview.png);
+border-image: url(:/Prefix/resource/coin.png);
 color: rgb(13, 13, 13);</string>
       </property>
       <property name="text">

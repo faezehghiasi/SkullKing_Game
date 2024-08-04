@@ -56,7 +56,7 @@ void ClientOrServer::on_clientButton_clicked()
 void ClientOrServer::on_serverButton_clicked()
 {
 
-    QMovie* movie = new QMovie(":/Prefix/resource/search.gif");
+    movie = new QMovie(":/Prefix/resource/search.gif");
 
     if (!movie->isValid()) {
         // Something went wrong :(
@@ -113,9 +113,10 @@ void ClientOrServer::connect_button_clicked(){
 
 //*******************************************************************************
 void ClientOrServer::chanePage(){
-
+    movie->stop();
+    delete movie;
     ui->label->hide();
-    QTimer::singleShot(2000, this, [&]() {
+    QTimer::singleShot(1000, this, [&]() {
         //order client  to start the game
         cards server_order;
         server_order.setOrder((currentPlayer.get_name()+"$"));

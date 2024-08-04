@@ -151,7 +151,7 @@ background-color:rgb(216,148,99);
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/Prefix/resource/Car_Sticker_Funny_Halloween_Ghost_Sticker_Weatherproof_Outdoor_Vinyl_Sticker_Customizable-removebg-preview.png);</string>
+     <string notr="true">border-image: url(:/Prefix/resource/RGost.png);</string>
     </property>
     <property name="text">
      <string/>
@@ -167,7 +167,7 @@ background-color:rgb(216,148,99);
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/Prefix/resource/cute_ghost_face_emoji_cute_ghost_face_emoji_transparent_png-removebg-preview.png);</string>
+     <string notr="true">border-image: url(:/Prefix/resource/GG.png);</string>
     </property>
     <property name="text">
      <string/>

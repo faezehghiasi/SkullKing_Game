@@ -8,6 +8,7 @@
 #include"client.h"
 #include"signin.h"
 #include"menu.h"
+#include<QMovie>
 namespace Ui {
 class ClientOrServer;
 }
@@ -34,6 +35,7 @@ private:
     QLineEdit* Ip_line;
     menu * menu;
     QLabel* client_label;
+    QMovie* movie;
 private slots:
      void on_serverButton_clicked();
      void on_clientButton_clicked();

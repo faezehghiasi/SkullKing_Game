@@ -107,7 +107,7 @@ Server::Server(QWidget *parent) :
 
 
     resume = new QPushButton(this);
-    resume->setStyleSheet("border-image: url(:/Prefix/resource/Firefly_play_icon_is_circular_in_green_color_in_3D_35008-removebg-preview.png);background-color: rgba(0,0,0,0);border-radius:25px;");
+    resume->setStyleSheet("border-image: url(:/Prefix/resource/resum.png);background-color: rgba(0,0,0,0);border-radius:25px;");
     resume->setGeometry(920,270,71,71);
     resume->setEnabled(false);
     resume->hide();
@@ -115,12 +115,12 @@ Server::Server(QWidget *parent) :
 
 
     clientPic = new QLabel(this);
-    clientPic->setStyleSheet("border-image: url(:/Prefix/resource/Firefly_cute_skeleton_icon_for_game_in_3D_56539-removebg-preview.png);");
+    clientPic->setStyleSheet("border-image:url(:/Prefix/resource/otherPic.png);");
     clientPic->setGeometry(740,300,211,301);
     clientPic->hide();
 
     serverPic = new QLabel(this);
-    serverPic->setStyleSheet("border-image: url(:/Prefix/resource/Firefly_cute_skeleton_icon_for_game_in_3D_78259-removebg-preview.png);");
+    serverPic->setStyleSheet("border-image: url(:/Prefix/resource/userPic.png);");
     serverPic->setGeometry(80,320,211,261);
     serverPic->hide();
 
@@ -177,6 +177,7 @@ void Server::newConnection() {
 //*****************************************************************
 void Server :: readyRead(){
 
+    //
     QThread::msleep(100);
 
     QByteArray file_content = socket->readAll();
@@ -214,11 +215,17 @@ void Server :: readyRead(){
         }
         //**********************************************
         else if(recivedCard[0].getOrder().endsWith('@')){  // This means that the client has sent basic information such as the name
+            QEventLoop loop;
+            QTimer::singleShot(0, &loop, SLOT(quit()));
+            loop.exec();
+            srv->update();
             srv->show();
+            QApplication::processEvents();
             QString name = recivedCard[0].getOrder();
             name.chop(1);
             clientName->setText(name);
             this->play();
+
         }
         //**********************************************
         else if(recivedCard[0].getOrder()=="SCORE"){       // This means that the end of the game has come and the server must announce the result of the game

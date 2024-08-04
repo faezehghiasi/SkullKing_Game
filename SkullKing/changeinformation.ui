@@ -190,7 +190,7 @@ font: 14pt &quot;Baskerville Old Face&quot;;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-image: url(:/Prefix/resource/DesignsByRockly_-_Etsy_Nederland__10_-removebg-preview.png);</string>
+      <string notr="true">border-image: url(:/Prefix/resource/BSK.png);</string>
      </property>
      <property name="text">
       <string/>
@@ -206,7 +206,7 @@ font: 14pt &quot;Baskerville Old Face&quot;;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-image: url(:/Prefix/resource/DesignsByRockly_-_Etsy_Nederland__6_-removebg-preview.png);</string>
+      <string notr="true">border-image: url(:/Prefix/resource/USK.png);</string>
      </property>
      <property name="text">
       <string/>
@@ -222,7 +222,7 @@ font: 14pt &quot;Baskerville Old Face&quot;;</string>
       </rect>
      </property>
      <property name="styleSheet">
-      <string notr="true">border-image: url(:/Prefix/resource/DesignsByRockly_-_Etsy_Nederland-removebg-preview.png);</string>
+      <string notr="true">border-image: url(:/Prefix/resource/hiS.png);</string>
      </property>
      <property name="text">
       <string/>
