@@ -91,6 +91,8 @@ SignUp::SignUp(QWidget *parent) :
 {
     ui->setupUi(this);
 
+      setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
+
 }
 //****************************************************
 SignUp::~SignUp()

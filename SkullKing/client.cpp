@@ -19,6 +19,8 @@ Client::Client(QWidget *parent) :
     ui(new Ui::Client)
 {
     ui->setupUi(this);
+
+      setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
     ui->gameStoped->hide();
     ui->stopGost->hide();
     connect(this,&Client::sendEndGame,this,&Client::sendServerendOfGame);

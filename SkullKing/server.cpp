@@ -26,6 +26,8 @@ Server::Server(QWidget *parent) :
     ui(new Ui::Server)
 {
     ui->setupUi(this);
+
+   setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
     ui->stopGost->hide();
     ui->gameStoped->hide();
 

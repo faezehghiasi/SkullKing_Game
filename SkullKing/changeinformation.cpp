@@ -16,6 +16,8 @@ changeInformation::changeInformation(QWidget *parent) :
     auto it=find_if(listOfPlayer.begin(),listOfPlayer.end(),[=](Player x){return x.get_username()==currentPlayer.get_username();});
 
     ui->setupUi(this);
+
+      setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
     ui->nameLine->setPlaceholderText(it->get_name());
     ui->addressLine->setPlaceholderText(it->get_address());
     ui->passLine->setPlaceholderText(it->get_password());

@@ -14,11 +14,11 @@ class changeInformation : public QMainWindow
 public:
     explicit changeInformation(QWidget *parent = nullptr);
     ~changeInformation();
-
 private slots:
     void on_change_clicked();
 
     void on_backBotton_clicked();
+
 
 private:
     Ui::changeInformation *ui;

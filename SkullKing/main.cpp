@@ -34,6 +34,7 @@ int main(int argc, char *argv[])
        "   background-color: #f6b66b;" // Even darker green when pressed
        "}"
        );
+
     QString filename= "myfile.bin";
     readFromFile(filename);
     Skullking w;

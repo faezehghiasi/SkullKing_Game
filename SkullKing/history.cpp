@@ -8,6 +8,7 @@ History::History(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::History)
 {
+       setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
     QString win = QString::number(currentPlayer.get_win());
     QString lose = QString::number(currentPlayer.get_lose());
     QString today = QDate::currentDate().toString();

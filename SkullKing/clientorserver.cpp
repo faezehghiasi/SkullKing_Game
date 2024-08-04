@@ -22,6 +22,7 @@ ClientOrServer::ClientOrServer(QWidget *parent) :
 
 
     ui->setupUi(this);
+   setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
     SlowTyper *typer = new SlowTyper(ui->textBrowser, "Choose your role in the game...", 40); // Interval in milliseconds
     typer->start();
 }

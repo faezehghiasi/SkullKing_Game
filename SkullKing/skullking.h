@@ -24,7 +24,9 @@ private slots:
 
    void on_SignUp_clicked();
 
-private:
+   void on_exit_clicked();
+
+   private:
     Ui::Skullking *ui;
     SignIn* signIn;
     SignUp* signUp;

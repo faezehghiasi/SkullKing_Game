@@ -10,6 +10,7 @@ forgetPassword::forgetPassword(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::forgetPassword)
 {
+   setWindowFlags(Qt::Window | Qt::FramelessWindowHint);
     ui->setupUi(this);
 }
 //******************************************************************************************
