@@ -7,7 +7,7 @@ The game is implemented using C++ and the Qt framework.
 
 ## Table of Contents
 
-- [HayDay](#hayday)
+- [SkullKing](#SkullKing)
   - [Table of Contents](#table-of-contents)
   - [Features](#features)
   - [Installation](#installation)
