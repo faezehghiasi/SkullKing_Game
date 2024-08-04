@@ -11,8 +11,7 @@ The game is implemented using C++ and the Qt framework.
   - [Table of Contents](#table-of-contents)
   - [Features](#features)
   - [Installation](#installation)
-    - [From binary](#from-binary)
-      - [Windows](#windows)
+    - [Windows](#windows)
     - [From source](#from-source)
   - [Screenshots](#screenshots)
 
@@ -32,5 +31,10 @@ The game is implemented using C++ and the Qt framework.
 
 
 ## Screenshots
-
+![skullKing ](https://s8.uupload.ir/files/screenshot_2024-08-04_152542_ie7j.png)
+![sign in](https://s8.uupload.ir/files/screenshot_2024-08-04_152600_k0bj.png)
+![menu](https://s8.uupload.ir/files/screenshot_2024-08-04_152651_hezf.png)
+![client or server](https://s8.uupload.ir/files/screenshot_2024-08-04_152709_a1xt.png)
+![game1](https://s8.uupload.ir/files/screenshot_2024-08-04_153014_emqr.png)
+![game 2](https://s8.uupload.ir/files/screenshot_2024-08-04_153144_rndl.png)
 
