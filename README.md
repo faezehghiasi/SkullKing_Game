@@ -54,7 +54,7 @@ The game is implemented using C++ and the Qt framework.
 ### From binary
 
 #### Windows
-You can download **SkullKing-release.rar** from [release page](https://github.com/ArashSameni/HayDay/releases/tag/0.1.0).
+You can download **SkullKing-release.rar** from [link](https://iutbox.iut.ac.ir/index.php/s/3LAZxESasngeC5w)).
 After downloading the rar file first extract it, then start `skullKing.exe` from Skullking folder and finally you can play .
 
 ### From source
