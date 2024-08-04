@@ -15,6 +15,7 @@ The game is implemented using C++ and the Qt framework.
       - [Windows](#windows)
     - [From source](#from-source)
   - [Screenshots](#screenshots)
+  - [Notes](#Notes)
 
 ## Features
 **Scoreboard:**
@@ -71,3 +72,5 @@ You should have [Qt Creator](https://www.qt.io/download) installed on your syste
 ![game1](https://s8.uupload.ir/files/screenshot_2024-08-04_153014_emqr.png)
 ![game 2](https://s8.uupload.ir/files/screenshot_2024-08-04_153144_rndl.png)
 
+## Notes
+- Ensure that the server and client are running on the same network or that the necessary ports are open if running on different networks.
