@@ -199,7 +199,7 @@ background-color:rgb(216,148,99);
      </rect>
     </property>
     <property name="styleSheet">
-     <string notr="true">border-image: url(:/Prefix/resource/Line_Art_Ghost_Halloween__Ghost_Drawing__Halloween_Drawing__Ghost_Sketch_PNG_Transparent_Clipart_Image_and_PSD_File_for_Free_Download-removebg-preview.png);</string>
+     <string notr="true">border-image: url(:/Prefix/resource/CGost.png);</string>
     </property>
     <property name="text">
      <string/>

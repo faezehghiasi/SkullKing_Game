@@ -28,7 +28,6 @@
         <file>resource/id-card_6785400.png</file>
         <file>resource/Iphone wallpaper.jfif</file>
         <file>resource/king.png</file>
-        <file>resource/Line_Art_Ghost_Halloween__Ghost_Drawing__Halloween_Drawing__Ghost_Sketch_PNG_Transparent_Clipart_Image_and_PSD_File_for_Free_Download-removebg-preview.png</file>
         <file>resource/logo.png</file>
         <file>resource/mapcard1.png</file>
         <file>resource/mapcard2.png</file>
@@ -79,5 +78,6 @@
         <file>resource/Purple Pirates.jpg</file>
         <file>resource/981.jpg</file>
         <file>resource/sGost.png</file>
+        <file>resource/CGost.png</file>
     </qresource>
 </RCC>
