@@ -11,15 +11,44 @@ The game is implemented using C++ and the Qt framework.
   - [Table of Contents](#table-of-contents)
   - [Features](#features)
   - [Installation](#installation)
-    - [Windows](#windows)
+    - [From binary](#from-binary)
+      - [Windows](#windows)
     - [From source](#from-source)
   - [Screenshots](#screenshots)
 
 ## Features
-+ Scoreboard: Keep track of scores across rounds and display the final winner.
-+ User Accounts: Register and login to keep track of your game history.
-+ Interactive UI: User-friendly interface for smooth gameplay experience.
+**Scoreboard:**
 
+- Keep track of scores across rounds and display the final winner.
+
+**Interactive UI:**
+
+- User-friendly interface for smooth gameplay experience.
+
+**User Login and Registration:**
+
+- Players can create new accounts or log into existing ones.
+
+**Server-Client Architecture:**
+
+- One player acts as the server, hosting the game, while others join as clients.
+- The server manages game state and player interactions.
+
+**Game Menu:**
+
+- The game menu includes options to start a new game, view player statistics, and change account settings.
+
+**Game Start:**
+
+- A random player is chosen to start the game each round.
+- The starting player rotates based on previous hand winners.
+
+**Stop & Resume, Exit Options:**
+
+- Players can pause the game.
+- When players press the pause button, the game stops for 60 seconds for both players. After 60 seconds, the game resumes automatically, or the player who pressed the pause button can resume the game for both players by pressing the resume button.
+- Players can exit the game, which affects their score and game state.
+  
 ## Installation
 
 ### From binary
@@ -27,13 +56,11 @@ The game is implemented using C++ and the Qt framework.
 #### Windows
 
 
-
+### From source
 
 
 ## Screenshots
 ![skullKing ](https://s8.uupload.ir/files/screenshot_2024-08-04_152542_ie7j.png)
-![sign in](https://s8.uupload.ir/files/screenshot_2024-08-04_152600_k0bj.png)
-![menu](https://s8.uupload.ir/files/screenshot_2024-08-04_152651_hezf.png)
 ![client or server](https://s8.uupload.ir/files/screenshot_2024-08-04_152709_a1xt.png)
 ![game1](https://s8.uupload.ir/files/screenshot_2024-08-04_153014_emqr.png)
 ![game 2](https://s8.uupload.ir/files/screenshot_2024-08-04_153144_rndl.png)
