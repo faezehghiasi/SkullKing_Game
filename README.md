@@ -8,6 +8,7 @@ The game is implemented using C++ and the Qt framework.
 ## Table of Contents
 
 - [SkullKing](#SkullKing)
+  - [Overview](#Overview)
   - [Table of Contents](#table-of-contents)
   - [Features](#features)
   - [Installation](#installation)
