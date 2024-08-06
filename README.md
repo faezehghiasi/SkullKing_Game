@@ -8,6 +8,7 @@ The game is implemented using C++ and the Qt framework.
 ## Table of Contents
 
 - [SkullKing](#SkullKing)
+  - [Overview](#Overview)
   - [Table of Contents](#table-of-contents)
   - [Features](#features)
   - [Installation](#installation)
@@ -46,8 +47,7 @@ The game is implemented using C++ and the Qt framework.
 
 **Stop & Resume, Exit Options:**
 
-- Players can pause the game.
-- When players press the pause button, the game stops for 60 seconds for both players. After 60 seconds, the game resumes automatically, or the player who pressed the pause button can resume the game for both players by pressing the resume button.
+- Players can pause the game, When players press the pause button, the game stops for 60 seconds for both players. After 60 seconds, the game resumes automatically, or the player who pressed the pause button can resume the game for both players by pressing the resume button.
 - Players can exit the game, which affects their score and game state.
   
 ## Installation
@@ -65,6 +65,8 @@ You should have [Qt Creator](https://www.qt.io/download) installed on your syste
 1- Open the project in Qt Creator.
 
 2- Build and run the project using the appropriate build settings for your platform.
+
+3- Enjoy the game.
 
 ## Screenshots
 ![menu](https://s8.uupload.ir/files/screenshot_2024-08-04_152651_hezf.png)
