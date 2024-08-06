@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>Dialog</string>
+   <string>Menu</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/Prefix/resource/CGost.png</normaloff>:/Prefix/resource/CGost.png</iconset>
   </property>
   <widget class="QWidget" name="widget" native="true">
    <property name="geometry">
@@ -101,22 +105,26 @@ background-color: rgba(0,0,0,0);
      <bool>true</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">
-QPushButton#change_info{ 
-background-color: rgba(0,0,0,0);
-	color: rgb(255, 255, 255);
-font: 20pt &quot;Snap ITC&quot;;
+     <string notr="true">QPushButton#change_info { 
+    font: 20pt &quot;Snap ITC&quot;; /* تنظیم فونت */
+    background-color: rgba(0, 0, 0, 0); /* شفافیت پس‌زمینه */
+    color: rgb(255, 255, 255); /* رنگ متن */
+    border: none; /* حذف حاشیه */
 }
-QPushButton#change_info:hover{ 
-color:rgba(177,168,182,220);
-background-color: rgba(0,0,0,0);
+
+QPushButton#change_info:hover { 
+    color: rgba(177, 168, 182, 220); /* تغییر رنگ متن در حالت hover */
+    background-color: rgba(0, 0, 0, 0); /* شفافیت پس‌زمینه در حالت hover */
 }
-QPushButton#change_info:pressed{ 
-padding-left:5px;
-padding-top:5px;
-color:rgba(115 ,128,142,255);
-background-color: rgba(0,0,0,0);
-}</string>
+
+QPushButton#change_info:pressed { 
+    padding-left: 5px;
+    padding-top: 5px;
+    color: rgba(115, 128, 142, 255); /* تغییر رنگ متن در حالت pressed */
+    background-color: rgba(0, 0, 0, 0); /* شفافیت پس‌زمینه در حالت pressed */
+    border: none; /* حذف حاشیه در حالت pressed */
+}
+</string>
     </property>
     <property name="text">
      <string>Change information</string>
@@ -143,21 +151,24 @@ background-color: rgba(0,0,0,0);
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">
-QPushButton#histoty{ 
-font: 18pt &quot;Snap ITC&quot;;
-background-color: rgba(0,0,0,0);
-color: rgb(255, 255, 255);
+     <string notr="true">QPushButton#histoty { 
+    font: 18pt &quot;Snap ITC&quot;; /* تنظیم فونت */
+    background-color: rgba(0, 0, 0, 0); /* شفافیت پس‌زمینه */
+    color: rgb(255, 255, 255); /* رنگ متن */
+    border: none; /* حذف حاشیه */
 }
-QPushButton#histoty:hover{ 
-color:rgba(177,168,182,220);
-background-color: rgba(0,0,0,0);
+
+QPushButton#histoty:hover { 
+    color: rgba(177, 168, 182, 220); /* تغییر رنگ متن در حالت hover */
+    background-color: rgba(0, 0, 0, 0); /* شفافیت پس‌زمینه در حالت hover */
 }
-QPushButton#histoty:pressed{ 
-padding-left:5px;
-padding-top:5px;
-color:rgba(115 ,128,142,255);
-background-color: rgba(0,0,0,0);
+
+QPushButton#histoty:pressed { 
+    padding-left: 5px;
+    padding-top: 5px;
+    color: rgba(115, 128, 142, 255); /* تغییر رنگ متن در حالت pressed */
+    background-color: rgba(0, 0, 0, 0); /* شفافیت پس‌زمینه در حالت pressed */
+    border: none; /* حذف حاشیه در حالت pressed */
 }
 </string>
     </property>
@@ -186,22 +197,26 @@ background-color: rgba(0,0,0,0);
      </font>
     </property>
     <property name="styleSheet">
-     <string notr="true">
-QPushButton#exit{ 
-background-color: rgba(0,0,0,0);
-	color: rgb(255, 255, 255);
-font: 20pt &quot;Snap ITC&quot;;
+     <string notr="true">QPushButton#exit { 
+    font: 20pt &quot;Snap ITC&quot;; /* تنظیم فونت */
+    background-color: rgba(0, 0, 0, 0); /* شفافیت پس‌زمینه */
+    color: rgb(255, 255, 255); /* رنگ متن */
+    border: none; /* حذف حاشیه */
 }
-QPushButton#exit:hover{ 
-color:rgba(177,168,182,220);
-background-color: rgba(0,0,0,0);
+
+QPushButton#exit:hover { 
+    color: rgba(177, 168, 182, 220); /* تغییر رنگ متن در حالت hover */
+    background-color: rgba(0, 0, 0, 0); /* شفافیت پس‌زمینه در حالت hover */
 }
-QPushButton#exit:pressed{ 
-padding-left:5px;
-padding-top:5px;
-color:rgba(115 ,128,142,255);
-background-color: rgba(0,0,0,0);
-}</string>
+
+QPushButton#exit:pressed { 
+    padding-left: 5px; /* فاصله داخلی چپ */
+    padding-top: 5px; /* فاصله داخلی بالا */
+    color: rgba(115, 128, 142, 255); /* تغییر رنگ متن در حالت pressed */
+    background-color: rgba(0, 0, 0, 0); /* شفافیت پس‌زمینه در حالت pressed */
+    border: none; /* حذف حاشیه در حالت pressed */
+}
+</string>
     </property>
     <property name="text">
      <string>Exit</string>
@@ -231,22 +246,26 @@ background-color: rgba(0,0,0,0);
      <bool>true</bool>
     </property>
     <property name="styleSheet">
-     <string notr="true">
-QPushButton#start{ 
-background-color: rgba(0,0,0,0);
-	font: 20pt &quot;Snap ITC&quot;;
-	color: rgb(255, 255, 255);
+     <string notr="true">QPushButton#start { 
+    font: 20pt &quot;Snap ITC&quot;; /* تنظیم فونت */
+    background-color: rgba(0, 0, 0, 0); /* شفافیت پس‌زمینه */
+    color: rgb(255, 255, 255); /* رنگ متن */
+    border: none; /* حذف حاشیه */
 }
-QPushButton#start:hover{ 
-color:rgba(177,168,182,220);
-background-color: rgba(0,0,0,0);
+
+QPushButton#start:hover { 
+    color: rgba(177, 168, 182, 220); /* تغییر رنگ متن در حالت hover */
+    background-color: rgba(0, 0, 0, 0); /* شفافیت پس‌زمینه در حالت hover */
 }
-QPushButton#start:pressed{ 
-padding-left:5px;
-padding-top:5px;
-color:rgba(115 ,128,142,255);
-background-color: rgba(0,0,0,0);
-}</string>
+
+QPushButton#start:pressed { 
+    padding-left: 5px;
+    padding-top: 5px;
+    color: rgba(115, 128, 142, 255); /* تغییر رنگ متن در حالت pressed */
+    background-color: rgba(0, 0, 0, 0); /* شفافیت پس‌زمینه در حالت pressed */
+    border: none; /* حذف حاشیه در حالت pressed */
+}
+</string>
     </property>
     <property name="text">
      <string>Start the game</string>
@@ -390,6 +409,8 @@ font: 15pt &quot;Snap ITC&quot;;
   <tabstop>histoty</tabstop>
   <tabstop>start</tabstop>
  </tabstops>
- <resources/>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
  <connections/>
 </ui>

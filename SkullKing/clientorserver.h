@@ -33,7 +33,6 @@ private:
     Ui::ClientOrServer *ui;
     QPushButton* connect_button;
     QLineEdit* Ip_line;
-    menu * menu;
     QLabel* client_label;
     QMovie* movie;
 private slots:

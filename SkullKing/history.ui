@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>History</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/Prefix/resource/CGost.png</normaloff>:/Prefix/resource/CGost.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QLabel" name="background">
@@ -302,6 +306,8 @@ color: rgb(0, 0, 0);</string>
    <zorder>today</zorder>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
  <connections/>
 </ui>

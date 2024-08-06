@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Sign Up</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/Prefix/resource/CGost.png</normaloff>:/Prefix/resource/CGost.png</iconset>
   </property>
   <widget class="QWidget" name="centralwidget">
    <widget class="QWidget" name="widget" native="true">
@@ -271,7 +275,7 @@ border-color: rgb(255, 255, 255);</string>
       <string/>
      </property>
      <property name="echoMode">
-      <enum>QLineEdit::Password</enum>
+      <enum>QLineEdit::EchoMode::Password</enum>
      </property>
      <property name="placeholderText">
       <string>Enter your Password</string>
@@ -395,6 +399,8 @@ background-color:rgb(78, 193, 255);
    </widget>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
  <connections/>
 </ui>

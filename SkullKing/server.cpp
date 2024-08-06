@@ -306,7 +306,7 @@ void Server::disconnected(){
 }
 //*******************************************************************
 bool Server::creation(){
-    // استفاده از اتصال جدید
+
     connect(server, &QTcpServer::newConnection, this, &Server::newConnection);
 
     QList<QHostAddress> list = QNetworkInterface::allAddresses();

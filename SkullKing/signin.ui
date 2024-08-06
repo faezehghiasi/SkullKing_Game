@@ -11,7 +11,11 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Sign In</string>
+  </property>
+  <property name="windowIcon">
+   <iconset resource="resource.qrc">
+    <normaloff>:/Prefix/resource/CGost.png</normaloff>:/Prefix/resource/CGost.png</iconset>
   </property>
   <property name="styleSheet">
    <string notr="true">color: rgb(170, 49, 1);</string>
@@ -125,7 +129,7 @@ color:rgba(255,255,255,230);
 padding-bottom:7px;</string>
      </property>
      <property name="echoMode">
-      <enum>QLineEdit::Password</enum>
+      <enum>QLineEdit::EchoMode::Password</enum>
      </property>
      <property name="placeholderText">
       <string>Password</string>
@@ -134,9 +138,9 @@ padding-bottom:7px;</string>
     <widget class="QWidget" name="layoutWidget">
      <property name="geometry">
       <rect>
-       <x>50</x>
+       <x>30</x>
        <y>300</y>
-       <width>321</width>
+       <width>390</width>
        <height>171</height>
       </rect>
      </property>
@@ -176,25 +180,30 @@ background-color:rgb(216,148,99);
           <property name="font">
            <font>
             <family>Segoe UI</family>
-            <pointsize>11</pointsize>
+            <pointsize>13</pointsize>
             <italic>false</italic>
             <bold>true</bold>
            </font>
           </property>
           <property name="styleSheet">
-           <string notr="true">font: 700 11pt &quot;Segoe UI&quot;;
-QPushButton#ButtonForgetPassword{ 
-background-color: rgba(0,0,0,0);
-color:rgba(85,98,112,255);
+           <string notr="true">QPushButton#ButtonForgetPassword { 
+    font: 700 13pt &quot;Segoe UI&quot;; /* تنظیم فونت */
+	color: rgb(255, 255, 255);
+    border: none; /* حذف حاشیه */
 }
-QPushButton#ButtonForgetPassword:hover{ 
-color:rgba(177,168,182,220)
+
+QPushButton#ButtonForgetPassword:hover { 
+    color: rgba(177, 168, 182, 220); /* تغییر رنگ متن در حالت hover */
 }
-QPushButton#ButtonForgetPassword:pressed{ 
-padding-left:5px;
-padding-top:5px;
-color:rgba(115 ,128,142,255);
-}</string>
+
+QPushButton#ButtonForgetPassword:pressed { 
+    padding-left: 5px;
+    padding-top: 5px;
+    color: rgba(115, 128, 142, 255); /* تغییر رنگ متن در حالت pressed */
+    background-color: rgba(0, 0, 0, 0); /* شفافیت پس‌زمینه در حالت pressed */
+    border: none; /* حذف حاشیه در حالت pressed */
+}
+</string>
           </property>
           <property name="text">
            <string>Foget your User name or Password?</string>
@@ -238,6 +247,8 @@ background-color:rgb(173,131,99);
    </widget>
   </widget>
  </widget>
- <resources/>
+ <resources>
+  <include location="resource.qrc"/>
+ </resources>
  <connections/>
 </ui>
