@@ -1525,7 +1525,9 @@ void Client::move_twoCards(){
 
         if (currentPlayer.playeCard.size() == 0) {
             if (currentPlayer.get_countOfTurn() > 7) {
-                emit sendEndGame();
+                QTimer::singleShot(800, this, [&]() {
+                  emit sendEndGame();
+                });
             }
         }
     });
