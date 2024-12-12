@@ -8,8 +8,8 @@
 
 This game is implemented using **C++** and the **Qt framework**, making it cross-platform and visually appealing.
 
-[![GitHub Stars](https://img.shields.io/github/stars/faezehghiasi/SkullKing_Game?style=social)](https://github.com/faezehghiasi/SkullKing_Game/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/faezehghiasi/SkullKing_Game?style=social)](https://github.com/faezehghiasi/SkullKing_Game/network/members)
+[![GitHub Stars]([https://img.shields.io/github/stars/faezehghiasi/SkullKing_Game?style=social)](https://github.com/faezehghiasi/SkullKing_Game/stargazers](https://github.com/faezehghiasi/SkullKing_Game/blob/main/images/Screenshot%202024-12-12%20224828.png))
+[![GitHub Forks]([https://img.shields.io/github/forks/faezehghiasi/SkullKing_Game?style=social)](https://github.com/faezehghiasi/SkullKing_Game/network/members](https://github.com/faezehghiasi/SkullKing_Game/blob/main/images/Screenshot%202024-12-12%20224828.png))
 
 ---
 
@@ -74,17 +74,29 @@ To build Skull King from source, ensure you have [Qt Creator](https://www.qt.io/
 
 ## Screenshots 📸
 
-![Main Menu](https://s8.uupload.ir/files/screenshot_2024-08-04_152651_hezf.png)
 
-![Change Info](https://s8.uupload.ir/files/screenshot_2024-08-04_190102_h0v3.png)
 
-![SkullKing Gameplay](https://s8.uupload.ir/files/screenshot_2024-08-04_152542_ie7j.png)
 
-![Client or Server](https://s8.uupload.ir/files/screenshot_2024-08-04_152709_a1xt.png)
 
-![Gameplay 1](https://s8.uupload.ir/files/screenshot_2024-08-04_153014_emqr.png)
+![Main Menu](https://github.com/faezehghiasi/SkullKing_Game/blob/main/images/Screenshot%202024-12-12%20225041.png?raw=true)
 
-![Gameplay 2](https://s8.uupload.ir/files/screenshot_2024-08-04_153144_rndl.png)
+
+![Change Info](https://github.com/faezehghiasi/SkullKing_Game/blob/main/images/Screenshot%202024-12-12%20225522.png?raw=true)
+
+
+![SkullKing Gameplay](https://github.com/faezehghiasi/SkullKing_Game/blob/main/images/Screenshot%202024-12-12%20224828.png?raw=true))
+
+
+![Client or Server](https://github.com/faezehghiasi/SkullKing_Game/blob/main/images/Screenshot%202024-12-12%20225100.png?raw=true)
+
+
+![Gameplay 1](https://github.com/faezehghiasi/SkullKing_Game/blob/main/images/Screenshot%202024-12-12%20225441.png?raw=true)
+
+
+![Gameplay 2](https://github.com/faezehghiasi/SkullKing_Game/blob/main/images/Screenshot%202024-12-12%20225454.png?raw=true)
+
+
+![Gameplay 3](https://github.com/faezehghiasi/SkullKing_Game/blob/main/images/Screenshot%202024-12-12%20225509.png?raw=true)
 
 ---
 
