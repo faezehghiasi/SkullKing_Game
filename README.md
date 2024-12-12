@@ -74,33 +74,37 @@ To build Skull King from source, ensure you have [Qt Creator](https://www.qt.io/
 1. Clone the repository:
    ```bash
    git clone https://github.com/faezehghiasi/SkullKing_Game.git
+2. Open the project in Qt Creator.
+3. Build and run the project using the appropriate build settings for your platform.
+4. Enjoy the game.
 
-#### Windows
-You can download **SkullKing-release.rar** from [release page](https://github.com/faezehghiasi/SkullKing_Game/releases/tag/v1.0.0).
+---
 
-After downloading the rar file first extract it, then start `skullKing.exe` from Skullking folder and finally you can play .
+## Screenshots 📸
 
-### From source
-You should have [Qt Creator](https://www.qt.io/download) installed on your system to build this project.
+![Main Menu](https://s8.uupload.ir/files/screenshot_2024-08-04_152651_hezf.png)
 
-1- Open the project in Qt Creator.
+![Change Info](https://s8.uupload.ir/files/screenshot_2024-08-04_190102_h0v3.png)
 
-2- Build and run the project using the appropriate build settings for your platform.
+![SkullKing Gameplay](https://s8.uupload.ir/files/screenshot_2024-08-04_152542_ie7j.png)
 
-3- Enjoy the game.
+![Client or Server](https://s8.uupload.ir/files/screenshot_2024-08-04_152709_a1xt.png)
 
-## Screenshots
-![menu](https://s8.uupload.ir/files/screenshot_2024-08-04_152651_hezf.png)
+![Gameplay 1](https://s8.uupload.ir/files/screenshot_2024-08-04_153014_emqr.png)
 
-![chenge info](https://s8.uupload.ir/files/screenshot_2024-08-04_190102_h0v3.png)
+![Gameplay 2](https://s8.uupload.ir/files/screenshot_2024-08-04_153144_rndl.png)
 
-![skullKing ](https://s8.uupload.ir/files/screenshot_2024-08-04_152542_ie7j.png)
+---
 
-![client or server](https://s8.uupload.ir/files/screenshot_2024-08-04_152709_a1xt.png)
+## Contributing 🤝
 
-![game1](https://s8.uupload.ir/files/screenshot_2024-08-04_153014_emqr.png)
+We welcome contributions! To get started:
 
-![game 2](https://s8.uupload.ir/files/screenshot_2024-08-04_153144_rndl.png)
+1. Fork the repository.
+2. Create a new branch:
+   ```bash
+   git checkout -b feature-name
+
 
 ## Notes
 - Ensure that the server and client are running on the same network or that the necessary ports are open if running on different networks.
