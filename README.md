@@ -1,15 +1,14 @@
 # SkullKing
 
-![SkullKing Logo](https://via.placeholder.com/800x200.png?text=Skull+King+Game)
+![SkullKing Logo](https://github.com/faezehghiasi/SkullKing_Game/blob/main/images/nameOfGame.png?raw=true)
 
 ## Overview
 
 🎮 **Skull King** is an exciting and strategic card game where players compete to win hands by playing the highest-ranking card in each round. Players must use their cards strategically to outwit their opponents and claim victory! 
 
 This game is implemented using **C++** and the **Qt framework**, making it cross-platform and visually appealing.
-
-[![GitHub Stars]([https://img.shields.io/github/stars/faezehghiasi/SkullKing_Game?style=social)](https://github.com/faezehghiasi/SkullKing_Game/stargazers](https://github.com/faezehghiasi/SkullKing_Game/blob/main/images/Screenshot%202024-12-12%20224828.png))
-[![GitHub Forks]([https://img.shields.io/github/forks/faezehghiasi/SkullKing_Game?style=social)](https://github.com/faezehghiasi/SkullKing_Game/network/members](https://github.com/faezehghiasi/SkullKing_Game/blob/main/images/Screenshot%202024-12-12%20224828.png))
+[![GitHub Stars](https://img.shields.io/github/stars/faezehghiasi/SkullKing_Game?style=social)](https://github.com/faezehghiasi/SkullKing_Game/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/faezehghiasi/SkullKing_Game?style=social)](https://github.com/faezehghiasi/SkullKing_Game/network/members)
 
 ---
 
