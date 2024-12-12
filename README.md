@@ -8,8 +8,8 @@
 
 This game is implemented using **C++** and the **Qt framework**, making it cross-platform and visually appealing.
 
-[![GitHub Stars](https://img.shields.io/github/stars/faezehghiasi/SkullKing_Game?style=social)](https://github.com/faezehghiasi/SkullKing_Game/stargazers)
-[![GitHub Forks](https://img.shields.io/github/forks/faezehghiasi/SkullKing_Game?style=social)](https://github.com/faezehghiasi/SkullKing_Game/network/members)
+[![GitHub Stars]([https://img.shields.io/github/stars/faezehghiasi/SkullKing_Game?style=social)](https://github.com/faezehghiasi/SkullKing_Game/stargazers](https://github.com/faezehghiasi/SkullKing_Game/blob/main/images/Screenshot%202024-12-12%20224828.png))
+[![GitHub Forks]([https://img.shields.io/github/forks/faezehghiasi/SkullKing_Game?style=social)](https://github.com/faezehghiasi/SkullKing_Game/network/members](https://github.com/faezehghiasi/SkullKing_Game/blob/main/images/Screenshot%202024-12-12%20224828.png))
 
 ---
 
