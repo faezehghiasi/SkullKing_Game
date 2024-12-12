@@ -13,16 +13,9 @@ This game is implemented using **C++** and the **Qt framework**, making it cross
 
 ---
 
-## Why Skull King? 🌟
-
-If you love strategy games with a competitive edge, **Skull King** is perfect for you! Whether you're hosting a game night or competing online, Skull King brings excitement to every round.
-
----
-
 ## Table of Contents
 
 - [Overview](#overview)
-- [Why Skull King? 🌟](#why-skull-king)
 - [Features](#features)
 - [Installation](#installation)
   - [From Binary](#from-binary)
@@ -30,7 +23,6 @@ If you love strategy games with a competitive edge, **Skull King** is perfect fo
 - [Screenshots 📸](#screenshots-)
 - [Contributing 🤝](#contributing-)
 - [Notes](#notes)
-- [License](#license)
 
 ---
 
@@ -118,11 +110,9 @@ We welcome contributions! To get started:
 
 - Ensure that the server and client are running on the same network or that the necessary ports are open if running on different networks.
 
----
 
-## License
 
-This project is licensed under the [MIT License](https://github.com/faezehghiasi/SkullKing_Game/blob/main/LICENSE).
+
 
 
 
