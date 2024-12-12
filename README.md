@@ -74,18 +74,19 @@ To build Skull King from source, ensure you have [Qt Creator](https://www.qt.io/
 
 ## Screenshots 📸
 
-![Main Menu](https://s8.uupload.ir/files/screenshot_2024-08-04_152651_hezf.png)
-
-![Change Info](https://s8.uupload.ir/files/screenshot_2024-08-04_190102_h0v3.png)
-
 ![SkullKing Gameplay](images/Screenshot 2024-12-12 224828.png)
+![Sign In](https://images/Screenshot 2024-12-12 224919.png)
 
-![Client or Server](https://s8.uupload.ir/files/screenshot_2024-08-04_152709_a1xt.png)
+![Main Menu](images/Screenshot 2024-12-12 225031.png)
 
-![Gameplay 1](https://s8.uupload.ir/files/screenshot_2024-08-04_153014_emqr.png)
+![Change Info](images/Screenshot 2024-12-12 225522.png)
+![Client or Server](images/Screenshot 2024-12-12 225100.png)
 
-![Gameplay 2](https://s8.uupload.ir/files/screenshot_2024-08-04_153144_rndl.png)
+![Gameplay 1](images/Screenshot 2024-12-12 225441.png)
 
+![Gameplay 2](images/Screenshot 2024-12-12 225454.png)
+
+![Gameplay 2](images/Screenshot 2024-12-12 225509.png)
 ---
 
 ## Contributing 🤝
