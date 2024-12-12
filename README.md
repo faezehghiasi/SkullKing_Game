@@ -74,19 +74,20 @@ To build Skull King from source, ensure you have [Qt Creator](https://www.qt.io/
 
 ## Screenshots 📸
 
-![SkullKing Gameplay](images/Screenshot 2024-12-12 224828.png)
-![Sign In](https://images/Screenshot 2024-12-12 224919.png)
+![SkullKing Gameplay]([images/Screenshot 2024-12-12 224828.png](https://github.com/faezehghiasi/SkullKing_Game/blob/main/images/Screenshot%202024-12-12%20224828.png?raw=true))
+![Sign In]([images/Screenshot 2024-12-12 224919.png](https://github.com/faezehghiasi/SkullKing_Game/blob/main/images/Screenshot%202024-12-12%20224919.png?raw=true))
 
-![Main Menu](images/Screenshot 2024-12-12 225031.png)
+![Main Menu]([images/Screenshot 2024-12-12 225031.png](https://github.com/faezehghiasi/SkullKing_Game/blob/main/images/Screenshot%202024-12-12%20225041.png?raw=true))
 
-![Change Info](images/Screenshot 2024-12-12 225522.png)
-![Client or Server](images/Screenshot 2024-12-12 225100.png)
+![Change Info]([images/Screenshot 2024-12-12 225522.png](https://github.com/faezehghiasi/SkullKing_Game/blob/main/images/Screenshot%202024-12-12%20225522.png?raw=true))
+![Client or Server]([images/Screenshot 2024-12-12 225100.png](https://github.com/faezehghiasi/SkullKing_Game/blob/main/images/Screenshot%202024-12-12%20225100.png?raw=true))
 
-![Gameplay 1](images/Screenshot 2024-12-12 225441.png)
+![Gameplay 1]([images/Screenshot 2024-12-12 225441.png](https://github.com/faezehghiasi/SkullKing_Game/blob/main/images/Screenshot%202024-12-12%20225441.png?raw=true))
 
-![Gameplay 2](images/Screenshot 2024-12-12 225454.png)
+![Gameplay 2]([https://raw.githubusercontent.com/faezehghiasi/SkullKing_Game/refs/heads/main/images/Screenshot%202024-12-12%20225454.png](https://github.com/faezehghiasi/SkullKing_Game/blob/main/images/Screenshot%202024-12-12%20225454.png?raw=true))
 
-![Gameplay 2](images/Screenshot 2024-12-12 225509.png)
+![Gameplay 3]([images/Screenshot 2024-12-12 225509.png](https://github.com/faezehghiasi/SkullKing_Game/blob/main/images/Screenshot%202024-12-12%20225509.png?raw=true))
+
 ---
 
 ## Contributing 🤝
