@@ -1,58 +1,79 @@
 # SkullKing
 
+![SkullKing Logo](https://via.placeholder.com/800x200.png?text=Skull+King+Game)
+
 ## Overview
 
-Skull King is a card game where players compete to win hands by playing the highest-ranking card in each round. each player receiving a set of cards that they use strategically to outplay their opponents.
-The game is implemented using C++ and the Qt framework.
+🎮 **Skull King** is an exciting and strategic card game where players compete to win hands by playing the highest-ranking card in each round. Players must use their cards strategically to outwit their opponents and claim victory! 
+
+This game is implemented using **C++** and the **Qt framework**, making it cross-platform and visually appealing.
+
+[![GitHub Stars](https://img.shields.io/github/stars/faezehghiasi/SkullKing_Game?style=social)](https://github.com/faezehghiasi/SkullKing_Game/stargazers)
+[![GitHub Forks](https://img.shields.io/github/forks/faezehghiasi/SkullKing_Game?style=social)](https://github.com/faezehghiasi/SkullKing_Game/network/members)
+
+---
+
+## Why Skull King? 🌟
+
+If you love strategy games with a competitive edge, **Skull King** is perfect for you! Whether you're hosting a game night or competing online, Skull King brings excitement to every round.
+
+---
 
 ## Table of Contents
 
-- [SkullKing](#SkullKing)
-  - [Overview](#Overview)
-  - [Table of Contents](#table-of-contents)
-  - [Features](#features)
-  - [Installation](#installation)
-    - [From binary](#from-binary)
-      - [Windows](#windows)
-    - [From source](#from-source)
-  - [Screenshots](#screenshots)
-  - [Notes](#Notes)
+- [Overview](#overview)
+- [Why Skull King? 🌟](#why-skull-king)
+- [Features](#features)
+- [Installation](#installation)
+  - [From Binary](#from-binary)
+  - [From Source](#from-source)
+- [Screenshots 📸](#screenshots-)
+- [Contributing 🤝](#contributing-)
+- [Notes](#notes)
+- [License](#license)
+
+---
 
 ## Features
-**Scoreboard:**
 
-- Keep track of scores across rounds and display the final winner.
+### 🎯 Strategic Gameplay
+- Compete with friends in a challenging and strategic card game.
 
-**Interactive UI:**
+### 📊 Scoreboard
+- Tracks scores across rounds and determines the final winner.
 
-- User-friendly interface for smooth gameplay experience.
+### 🖥️ Interactive UI
+- A user-friendly interface that ensures an engaging gameplay experience.
 
-**User Login and Registration:**
+### 🔑 User Login and Registration
+- Players can create accounts or log into existing ones.
 
-- Players can create new accounts or log into existing ones.
+### 🌐 Server-Client Architecture
+- Host games locally or join as a client. Perfect for online or LAN play.
 
-**Server-Client Architecture:**
+### 🕒 Pause, Resume, and Exit Options
+- Pause the game, resume manually or automatically, and exit while maintaining game state.
 
-- One player acts as the server, hosting the game, while others join as clients.
-- The server manages game state and player interactions.
+---
 
-**Game Menu:**
-
-- The game menu includes options to start a new game, view player statistics, and change account settings.
-
-**Game Start:**
-
-- A random player is chosen to start the game each round.
-- The starting player rotates based on previous hand winners.
-
-**Stop & Resume, Exit Options:**
-
-- Players can pause the game, When players press the pause button, the game stops for 60 seconds for both players. After 60 seconds, the game resumes automatically, or the player who pressed the pause button can resume the game for both players by pressing the resume button.
-- Players can exit the game, which affects their score and game state.
-  
 ## Installation
 
-### From binary
+### From Binary
+
+#### Windows
+1. Download the latest release from the [Release Page](https://github.com/faezehghiasi/SkullKing_Game/releases/tag/v1.0.0).
+2. Extract the downloaded `SkullKing-release.rar` file.
+3. Navigate to the extracted folder and double-click on `skullKing.exe` to start playing.
+
+---
+
+### From Source
+
+To build Skull King from source, ensure you have [Qt Creator](https://www.qt.io/download) installed.
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/faezehghiasi/SkullKing_Game.git
 
 #### Windows
 You can download **SkullKing-release.rar** from [release page](https://github.com/faezehghiasi/SkullKing_Game/releases/tag/v1.0.0).
