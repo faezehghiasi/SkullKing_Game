@@ -104,7 +104,26 @@ We welcome contributions! To get started:
 2. Create a new branch:
    ```bash
    git checkout -b feature-name
+3. Commit your changes:
+   ```bash
+   git commit -m 'Add some feature'
+4. Push to the branch:
+   ```bash
+   git push origin feature-name
+5. Open a pull request.
 
+---
 
 ## Notes
+
 - Ensure that the server and client are running on the same network or that the necessary ports are open if running on different networks.
+
+---
+
+## License
+
+This project is licensed under the [MIT License](https://github.com/faezehghiasi/SkullKing_Game/blob/main/LICENSE).
+
+
+
+
