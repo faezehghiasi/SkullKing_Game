@@ -1,0 +1,46 @@
+name: Publish Docker Image
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Check if relevant files changed
+        id: check_changes
+        run: |
+          CHANGED_FILES=$(git diff --name-only ${{ github.event.before }} ${{ github.sha }})
+          echo "Changed files:"
+          echo "$CHANGED_FILES"
+          
+          FILTERED_FILES=$(echo "$CHANGED_FILES" | grep -v -E 'README.md|docker-compose.yml' || true)
+
+          if [[ -z "$FILTERED_FILES" ]]; then
+            echo "NO_RELEVANT_CHANGES=true" >> $GITHUB_ENV
+          else
+            echo "NO_RELEVANT_CHANGES=false" >> $GITHUB_ENV
+          fi
+
+      - name: Stop workflow if no relevant changes
+        if: env.NO_RELEVANT_CHANGES == 'true'
+        run: echo "No relevant changes detected, skipping build." && exit 0
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Build and push Docker image
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          tags: ghcr.io/${{ github.repository_owner }}/skullking-game:latest
