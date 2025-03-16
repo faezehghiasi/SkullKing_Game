@@ -1,0 +1,18 @@
+services:
+  server:
+    build: .
+    container_name: SkullKing_server_app
+    network_mode: "host"
+    environment:
+      - DISPLAY=:1
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
+    
+  client:
+    build: .
+    container_name: SkullKing_client_app
+    network_mode: "host"
+    environment:
+      - DISPLAY=:1
+    volumes:
+      - /tmp/.X11-unix:/tmp/.X11-unix
