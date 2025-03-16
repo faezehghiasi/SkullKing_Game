@@ -13,7 +13,7 @@ RUN apt-get update && apt-get install -y software-properties-common && \
 
 WORKDIR /app
 
-COPY . /app
+COPY /SkullKing /app
 
 RUN qmake -project
 RUN sed -i '8 i QT += core gui widgets network' SkullKing.pro
