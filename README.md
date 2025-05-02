@@ -83,7 +83,7 @@ To build Skull King from source, ensure you have [Qt Creator](https://www.qt.io/
 ![Change Info](https://github.com/faezehghiasi/SkullKing_Game/blob/main/images/Screenshot%202024-12-12%20225522.png?raw=true)
 
 
-![SkullKing Gameplay](https://github.com/faezehghiasi/SkullKing_Game/blob/main/images/Screenshot%202024-12-12%20224828.png?raw=true))
+![SkullKing Gameplay](https://github.com/faezehghiasi/SkullKing_Game/blob/main/images/Screenshot%202024-12-12%20224828.png?raw=true)
 
 
 ![Client or Server](https://github.com/faezehghiasi/SkullKing_Game/blob/main/images/Screenshot%202024-12-12%20225100.png?raw=true)
